@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,7 +9,6 @@
   <style>
     :root {
       --blue:#0b1f52;
-      --light:#ffffff;
       --gray:#555;
     }
 
@@ -16,62 +16,47 @@
     body {
       font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       background:#ffffff;
-      color:#0b1f52;
+      color:var(--blue);
       line-height:1.8;
     }
 
-    /* ========================
-       HEADER
-       ======================== */
+    /* HEADER */
     header {
       text-align:center;
       padding:70px 20px 40px;
     }
-
     header img.logo {
-      height:120px;
-      margin-bottom:25px;
-      opacity:0.95;
+      height:110px;    /* スタイリッシュな最適バランス */
+      margin-bottom:22px;
+      opacity:0.96;
     }
-
     header h2 {
-      font-size:1.3rem;
+      font-size:1.2rem;
       font-weight:500;
       opacity:0.9;
     }
 
-    /* ========================
-       SECTIONS
-       ======================== */
+    /* SECTION 共通 */
     section {
       max-width:900px;
       margin:80px auto;
       padding:0 25px;
     }
-
     h2.section-title {
       font-size:1.9rem;
       margin-bottom:25px;
       font-weight:600;
       color:var(--blue);
     }
+    p { opacity:0.9; }
 
-    p {
-      font-size:1rem;
-      color:#333;
-      opacity:0.9;
-    }
-
-    /* ========================
-       BUSINESS CARDS
-       ======================== */
+    /* BUSINESS cards */
     .cards {
       margin-top:40px;
       display:grid;
       gap:22px;
       grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
     }
-
     .card {
       border:1px solid rgba(0,0,0,0.06);
       border-radius:14px;
@@ -89,9 +74,7 @@
       color:var(--blue);
     }
 
-    /* ========================
-       FOOTER
-       ======================== */
+    /* FOOTER */
     footer {
       text-align:center;
       padding:40px 20px;
@@ -107,7 +90,7 @@
 
   <!-- HEADER -->
   <header>
-    <img src="logo.png" alt="Stracto Logo" class="logo">
+    <img src="logo.png" class="logo" alt="Stracto Logo">
     <h2>Structure × Action × Optimization</h2>
   </header>
 
@@ -124,7 +107,7 @@
   <section>
     <h2 class="section-title">Mission</h2>
     <p>
-      私たちはテクノロジーによる「構造化」、金融知識による「最適化」を軸に、<br>
+      テクノロジーによる「構造化」と金融知識による「最適化」を軸に、<br>
       シンプルで再現性の高い経済エンジンの構築を目指します。
     </p>
   </section>
@@ -146,12 +129,56 @@
 
       <div class="card">
         <h3>ハイブリッド戦略</h3>
-        <p>IT × Finance によるビジネス戦略・PF構築支援</p>
+        <p>IT × Finance の事業戦略・経済エンジン構築支援</p>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
+  <!-- PROFILE（代表） -->
+  <section>
+    <h2 class="section-title">Profile（代表）</h2>
+
+    <p><strong>氏名：</strong> 磯野洋輝</p>
+
+    <h3>専門領域</h3>
+    <p>
+      ・ネットワーク / セキュリティ（Prisma Access, BGP, SASE）<br>
+      ・ITインフラ構築・運用<br>
+      ・長期投資ポートフォリオ設計 / 債券・株式戦略
+    </p>
+
+    <h3>メッセージ</h3>
+    <p>
+      エンジニアリングと金融を両軸に、構造化された経営と持続可能な経済エンジンを追求しています。
+    </p>
+
+    <h3>経歴（抜粋）</h3>
+    <p>
+      ・大手企業向けネットワーク設計・運用<br>
+      ・Prisma Access 設計・検証・構築<br>
+      ・セキュリティ領域の技術支援<br>
+      ・1,700万円規模の投資ポートフォリオ構築・運用
+    </p>
+  </section>
+
+  <!-- COMPANY -->
+  <section>
+    <h2 class="section-title">Company（会社概要）</h2>
+
+    <p><strong>会社名：</strong> Stracto株式会社</p>
+    <p><strong>所在地：</strong> 埼玉県（公開用住所が決まり次第反映）</p>
+
+    <h3>事業内容</h3>
+    <p>
+      ① ITエンジニアリング事業<br>
+      ② 資産運用・金融コンサルティング<br>
+      ③ IT × Finance ハイブリッド戦略支援
+    </p>
+
+    <p><strong>設立：</strong> 2026年（予定）</p>
+    <p><strong>代表：</strong> 磯野洋輝</p>
+  </section>
+
   <footer>
     © 2025 Stracto Inc.
   </footer>
