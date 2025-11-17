@@ -1,169 +1,181 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stracto株式会社</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stracto株式会社 | 公式サイト</title>
+  <style>
+    :root {
+      --blue:#0b1f52;
+      --blue-soft:#1b3f8f;
+      --light-bg:#f7f9fc;
+      --gray:#555;
+    }
+    * { box-sizing:border-box; }
+    body { font-family:"Helvetica Neue", Arial, sans-serif; margin:0; padding:0; background:var(--light-bg); color:#1e1e1e; }
+    header { background:var(--blue); color:#fff; text-align:center; padding:40px 20px 20px; }
+    img.logo { height:90px; margin-bottom:10px; }
+    h1 { margin:0; font-size:2.3rem; font-weight:700; }
+    p.subtitle { margin-top:6px; font-size:1.1rem; opacity:0.9; }
 
-    <style>
-        :root {
-            --blue: #0b1f52;
-            --blue-light: #1a3b8f;
-            --bg: #f5f7fa;
-            --text: #1a1a1a;
-            --card-bg: #ffffff;
-            --card-border: #e3e3e3;
-        }
+    /* Hero セクション */
+    .hero {
+      position:relative;
+      overflow:hidden;
+      background:radial-gradient(circle at 0% 0%, rgba(255,255,255,0.18) 0, transparent 55%),
+                 radial-gradient(circle at 100% 100%, rgba(255,255,255,0.12) 0, transparent 55%),
+                 linear-gradient(135deg, var(--blue) 0%, var(--blue-soft) 50%, var(--blue) 100%);
+      color:#fff;
+      padding:120px 20px;
+      text-align:center;
+    }
+    .hero::before {
+      content:"";
+      position:absolute;
+      inset:15%;
+      border-radius:32px;
+      border:1px solid rgba(255,255,255,0.18);
+      opacity:0.6;
+    }
+    .hero-inner { position:relative; max-width:900px; margin:0 auto; }
+    .hero h2 { font-size:2.6rem; margin-bottom:20px; font-weight:700; }
+    .hero p { font-size:1.1rem; line-height:1.9; max-width:780px; margin:0 auto; opacity:0.96; }
+    .hero-buttons { margin-top:40px; display:flex; justify-content:center; gap:16px; flex-wrap:wrap; }
+    .hero-buttons a { padding:14px 30px; border-radius:999px; text-decoration:none; font-size:0.98rem; }
+    .btn-main { background:#fff; color:var(--blue); font-weight:600; }
+    .btn-sub { border:1px solid #fff; color:#fff; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    section { padding:70px 20px; max-width:1000px; margin:auto; line-height:1.9; }
+    h2 { color:var(--blue); border-left:6px solid var(--blue); padding-left:14px; font-size:1.9rem; margin-bottom:40px; }
 
-        body {
-            font-family: "Helvetica Neue", Arial, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-        }
+    /* カードレイアウト */
+    .cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:30px; }
+    .card { background:#fff; border-radius:18px; padding:30px; box-shadow:0 10px 30px rgba(0,0,0,0.06); border:1px solid rgba(11,31,82,0.05); }
+    .card h3 { color:var(--blue); margin-bottom:12px; font-size:1.3rem; }
+    .card p { margin:0; font-size:0.98rem; color:#333; }
 
-        /* ===============================
-           HEADER（ロゴ中心配置）
-        =============================== */
-        .hero {
-            text-align: center;
-            padding: 120px 20px 80px;
-        }
+    footer { background:#e5e8ef; padding:40px 20px; text-align:center; color:var(--gray); font-size:0.9rem; margin-top:80px; border-top:1px solid #d5d8de; }
+    footer a { color:var(--blue); text-decoration:none; }
 
-        .logo {
-            width: 200px;
-            height: auto;
-            margin: 0 auto 20px;
-            display: block;
-        }
+    /* レスポンシブ */
+    @media (max-width:768px) {
+      img.logo { height:200px; }
+      h1 { font-size:1.8rem; }
+      .hero { padding:80px 18px; }
+      .hero h2 { font-size:1.9rem; }
+      .hero p { font-size:0.98rem; }
+      section { padding:50px 18px; }
+    }
 
-        h1 {
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: var(--blue);
-            letter-spacing: 2px;
-            margin-top: 20px;
-        }
-
-        /* ===============================
-           SECTION TITLE
-        =============================== */
-        .section-title {
-            text-align: center;
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--blue);
-            margin-top: 40px;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        /* ===============================
-           BUSINESS CARDS
-        =============================== */
-        .business-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .business-card {
-            background: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 16px;
-            padding: 30px 35px;
-            width: 480px;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-            transition: 0.3s ease;
-        }
-
-        .business-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 16px 28px rgba(0, 0, 0, 0.08);
-        }
-
-        .business-card h3 {
-            font-size: 1.3rem;
-            color: var(--blue);
-            margin-bottom: 15px;
-            border-left: 4px solid var(--blue);
-            padding-left: 10px;
-            font-weight: 700;
-        }
-
-        .business-card ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .business-card ul li {
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 0;
-            color: #666;
-            font-size: 0.85rem;
-        }
-    </style>
+    @media (max-width:480px) {
+      .hero { padding:70px 16px; }
+      .hero h2 { font-size:1.6rem; }
+      .hero p { font-size:0.95rem; }
+      h2 { font-size:1.5rem; }
+      .card { padding:22px; }
+    }
+  </style>
 </head>
-
 <body>
+  <header>
+    <img src="logo.png" class="logo" alt="Stracto Logo">
+    <h1>Stracto株式会社</h1>
+    <p class="subtitle">Structure × Action × Optimization</p>
+  </header>
 
-    <!-- ===============================
-          HERO（ロゴ表示エリア）
-    =============================== -->
-    <header class="hero">
-        <img src="logo.png" alt="Stracto Logo" class="logo" />
-        <h1>Stracto株式会社</h1>
-    </header>
+  <div class="hero">
+    <h2>構造化された経営 × 最適化された資産運用</h2>
+    <p>
+      Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、<br>
+      長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
+    </p>
+    <div class="hero-buttons">
+      <a href="#business" class="btn-main">事業内容を見る</a>
+      <a href="#about" class="btn-sub">Stractoについて</a>
+    </div>
+  </div>
 
-    <!-- ===============================
-         BUSINESS SECTION
-    =============================== -->
-    <h2 class="section-title">事業内容</h2>
+  <section id="about">
+    <h2>企業理念 / Mission</h2>
+    <p>
+      Stracto株式会社は、テクノロジーによる「構造化」と金融知識による「最適化」を軸に、<br>
+      時間とともに強くなる経済エンジンを設計・運用することを目指しています。<br><br>
+      現場を知るネットワーク/セキュリティエンジニアとしての実務経験と、<br>
+      長期投資家としての視点をあわせ持ち、定量的なデータとロジックに基づいて意思決定を行います。<br><br>
+      小さく・堅牢に立ち上げ、構造ごと育てていく——。<br>
+      そのプロセス自体を価値と捉え、クライアントやパートナーと共有していきます。
+    </p>
+  </section>
 
-    <section class="business-container">
+  <section id="business">
+    <h2>事業内容</h2>
 
-        <!-- ■ 資産運用事業カード -->
-        <div class="business-card">
-            <h3>■ 資産運用事業</h3>
-            <ul>
-                <li>有価証券（株式、債券、ETF等）及び現物不動産の取得、保有、売買および運用</li>
-                <li>投資に関するテンプレート・ツールの企画、開発、販売</li>
-                <li>金融コンテンツや情報の企画・制作・販売及び提供</li>
-                <li>上記に附帯または関連する一切の業務</li>
-            </ul>
-        </div>
+    <div class="cards">
+      <div class="card">
+        <h3>資産運用・金融設計</h3>
+        <p>
+          ・株式・ETF・債券等による長期ポートフォリオ運用<br>
+          ・投資戦略テンプレートおよび運用ルールの設計・提供<br>
+          ・金融リテラシー向上のためのコンテンツ企画・制作<br>
+          ・法人ポートフォリオ構築・資産配分の設計支援
+        </p>
+      </div>
 
-        <!-- ■ ITフリーランス（SES）事業カード -->
-        <div class="business-card">
-            <h3>■ ITフリーランス（SES）事業</h3>
-            <ul>
-                <li>コンピュータシステムの企画、設計、開発、運用、保守およびそれらに関するコンサルティング業務</li>
-                <li>ITエンジニアリング業務の業務委託、業務請負および関連マネジメント業務</li>
-                <li>Webサービス・アプリケーション・ソフトウェアの企画、開発、販売および運用</li>
-                <li>上記各号に附帯または関連する一切の業務</li>
-            </ul>
-        </div>
+      <div class="card">
+        <h3>ITエンジニアリング</h3>
+        <p>
+          ・ネットワーク/セキュリティ設計・構築（Prisma Access などSASE領域）<br>
+          ・クラウド/オンプレを跨ぐハイブリッドネットワークの設計支援<br>
+          ・Webサービス・SaaSの企画・設計・プロトタイピング<br>
+          ・PoC支援、技術検証、ドキュメント整備
+        </p>
+      </div>
 
-    </section>
+      <div class="card">
+        <h3>コンサルティング</h3>
+        <p>
+          ・個人事業から法人化へのステップ設計<br>
+          ・小規模法人向けの資産運用・キャッシュフロー設計支援<br>
+          ・エンジニア視点での業務プロセス整理・見える化<br>
+          ・経営と個人資産を分離した「構造づくり」のアドバイス
+        </p>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-        © 2025 Stracto Inc. All Rights Reserved.
-    </footer>
+  <section>
+    <h2>会社概要</h2>
+    <p>
+      会社名：Stracto株式会社<br>
+      所在地：東京都港区北青山1-3-1　アールキューブ青山3階<br>
+      設立：2026年（予定）<br>
+      資本金：10万円（増資予定）<br>
+      代表取締役：磯野 洋輝<br>
+    </p>
+  </section>
+
+  <section>
+    <h2>お問い合わせ</h2>
+    <p>メールでのお問い合わせはこちら（予定）</p>
+    <p><strong>info@stracto.co.jp</strong></p>
+  </section>
+
+  <section>
+    <h2>プライバシーポリシー</h2>
+    <p>
+      当社は、個人情報の保護に関する法令および関連ガイドラインを遵守し、<br>
+      お預かりした個人情報を適切に取り扱います。<br><br>
+      本サイトへのお問い合わせ等を通じて取得した情報は、<br>
+      ・お問い合わせへの回答<br>
+      ・必要なご連絡<br>
+      の目的に限定して利用し、法令に基づく場合を除き、第三者へ提供することはありません。<br><br>
+      また、取得した情報は適切な安全対策のもと管理し、漏洩・改ざん等の防止に努めます。
+    </p>
+  </section>
+
+  <footer>
+    © 2025 Stracto Inc. All Rights Reserved.
+  </footer>
 
 </body>
 </html>
