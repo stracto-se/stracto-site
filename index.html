@@ -6,29 +6,26 @@
 
   <title>Stracto株式会社 | ITエンジニアリング × 資産運用のハイブリッド企業</title>
 
-  <!-- ===========================
-        🔍 SEOメタタグ（強化）
-  ============================-->
+  <!-- ===============================
+        🔍 SEOメタタグ
+  =================================-->
   <meta name="description" content="Stracto株式会社は、ITエンジニアリングと資産運用を掛け合わせ、長期的に持続する経済エンジンを設計・構築するハイブリッド企業です。ネットワーク/セキュリティ（Prisma Access）と資産運用の二軸で価値提供します。">
   <meta name="keywords" content="資産運用 エンジニア, Prisma Access ネットワークエンジニア, Stracto, ストラクト, ITエンジニア, 資産運用法人, SES 企業, SASE, ネットワーク設計, 投資コンサルティング">
-
   <meta name="author" content="Stracto Inc.">
 
-  <!-- ===========================
+  <!-- ===============================
         🔗 OGP（SNS共有用）
-  ============================-->
+  =================================-->
   <meta property="og:title" content="Stracto株式会社 | 公式サイト">
   <meta property="og:description" content="ITエンジニアリング × 資産運用のハイブリッド企業。Prisma Access を中心としたネットワーク/セキュリティ支援と、資産運用エンジニアリングを提供します。">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://stracto-se.github.io/stracto-site/">
   <meta property="og:image" content="https://stracto-se.github.io/stracto-site/ogp.png">
-
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- ===========================
-        📘 構造化データ（Google用）
-  ============================-->
+  <!-- ===============================
+        📘 構造化データ
+  =================================-->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -45,25 +42,25 @@
   }
   </script>
 
-  <!-- ===========================
-        💎 デザインCSS（白基調）
-  ============================-->
+  <!-- ===============================
+        💎 デザインCSS
+  =================================-->
   <style>
     :root {
       --blue:#0b1f52;
-      --blue-soft:#1b3f8f;
       --light-bg:#ffffff;
       --gray:#666;
     }
     * { box-sizing:border-box; }
     body {
-      font-family:"Helvetica Neue", Arial, sans-serif;
       margin:0; padding:0;
-      background:var(--light-bg);
-      color:#1a1a1a;
+      font-family:"Helvetica Neue", Arial, sans-serif;
+      background:#fff;
+      color:#222;
       line-height:1.8;
     }
 
+    /* HEADER */
     header {
       text-align:center;
       padding:70px 20px 50px;
@@ -71,27 +68,28 @@
       border-bottom:1px solid #eee;
     }
     header h1 {
-      font-size:2.8rem;
-      font-weight:700;
+      font-size:3rem;
+      font-weight:800;
       margin:0;
       color:var(--blue);
-      letter-spacing:1.5px;
+      letter-spacing:2px;
     }
     header .en {
-      margin-top:8px;
-      font-size:0.95rem;
+      margin-top:10px;
+      font-size:1rem;
       color:var(--blue);
       opacity:0.75;
-      letter-spacing:1.5px;
+      letter-spacing:2px;
     }
 
+    /* HERO */
     .hero {
       text-align:center;
       padding:90px 20px 70px;
-      background:#fafcff;
+      background:#f4f7ff;
     }
     .hero h2 {
-      font-size:2.2rem;
+      font-size:2.3rem;
       margin-bottom:25px;
       color:var(--blue);
       font-weight:700;
@@ -109,22 +107,17 @@
       gap:18px;
       flex-wrap:wrap;
     }
-    .hero-buttons a {
+    .btn-main, .btn-sub {
       padding:12px 28px;
       border-radius:30px;
       text-decoration:none;
       font-size:0.95rem;
       font-weight:600;
     }
-    .btn-main {
-      background:var(--blue);
-      color:#fff;
-    }
-    .btn-sub {
-      border:1px solid var(--blue);
-      color:var(--blue);
-    }
+    .btn-main { background:var(--blue); color:#fff; }
+    .btn-sub { border:1px solid var(--blue); color:var(--blue); }
 
+    /* CONTENT SECTION */
     section {
       padding:70px 20px;
       max-width:1000px;
@@ -138,10 +131,11 @@
       margin-bottom:40px;
     }
 
+    /* CARDS */
     .cards {
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
-      gap:28px;
+      gap:30px;
     }
     .card {
       background:#fff;
@@ -154,34 +148,32 @@
       font-size:1.3rem;
       color:var(--blue);
       margin-bottom:14px;
-    }
-    .card p {
-      margin:0;
-      color:#333;
-      font-size:0.95rem;
+      font-weight:700;
     }
 
+    /* TABLE */
     table {
       width:100%;
       border-collapse:collapse;
-      font-size:1rem;
       background:#fff;
       border-radius:10px;
       overflow:hidden;
       border:1px solid #eee;
+      font-size:1rem;
     }
-    table th, table td {
+    th, td {
       padding:14px 18px;
       border-bottom:1px solid #eee;
       text-align:left;
     }
-    table th {
+    th {
       width:25%;
       background:#f6f8fc;
       color:var(--blue);
-      font-weight:600;
+      font-weight:700;
     }
 
+    /* FOOTER */
     footer {
       background:#f4f5f7;
       padding:30px 20px;
@@ -199,7 +191,7 @@
   <!-- HEADER -->
   <header>
     <h1>Stracto Inc.</h1>
-    <div class="en">STRUCTURE × ACTION × OPTIMIZATION</div>
+    <div class="en">Structure × Action × Optimization</div>
   </header>
 
   <!-- HERO -->
@@ -245,9 +237,9 @@
       <div class="card">
         <h3>IT（SES）事業</h3>
         <p>
-          ■コンピュータシステムの企画、設計、開発、運用、保守およびそれらに関するコンサルティング業務<br>
-          ■ITエンジニアリング業務の業務委託、業務請負および関連マネジメント業務<br>
-          ■Webサービス・アプリケーション・ソフトウェアの企画、開発、販売および運用<br>
+          ■コンピュータシステムの企画、設計、開発、運用、保守およびコンサルティング業務<br>
+          ■ITエンジニアリング業務の業務委託/業務請負および関連マネジメント業務<br>
+          ■Webサービス・アプリケーション/ソフトウェアの企画・開発・販売・運用<br>
           ■上記各号に附帯または関連する一切の業務
         </p>
       </div>
@@ -261,7 +253,7 @@
     <table>
       <tr><th>会社名</th><td>Stracto株式会社</td></tr>
       <tr><th>所在地</th><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-      <tr><th>設立</th><td>2026年6月予定</td></tr>
+      <tr><th>設立</th><td>2026年6月予定（準備中）</td></tr>
       <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
       <tr><th>資本金</th><td>100万円（予定）</td></tr>
     </table>
