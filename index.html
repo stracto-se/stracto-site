@@ -6,16 +6,12 @@
 
   <title>Stracto株式会社 | ITエンジニアリング × 資産運用のハイブリッド企業</title>
 
-  <!-- ===============================
-        🔍 SEOメタタグ
-  =================================-->
+  <!-- SEO -->
   <meta name="description" content="Stracto株式会社は、ITエンジニアリングと資産運用を掛け合わせ、長期的に持続する経済エンジンを設計・構築するハイブリッド企業です。ネットワーク/セキュリティ（Prisma Access）と資産運用の二軸で価値提供します。">
-  <meta name="keywords" content="資産運用 エンジニア, Prisma Access ネットワークエンジニア, Stracto, ストラクト, ITエンジニア, 資産運用法人, SES 企業, SASE, ネットワーク設計, 投資コンサルティング">
+  <meta name="keywords" content="資産運用 エンジニア, Prisma Access ネットワークエンジニア, Stracto, ストラクト, ITエンジニア, 資産運用法人, SES 企業, ネットワーク設計, 投資コンサルティング">
   <meta name="author" content="Stracto Inc.">
 
-  <!-- ===============================
-        🔗 OGP（SNS共有用）
-  =================================-->
+  <!-- OGP -->
   <meta property="og:title" content="Stracto株式会社 | 公式サイト">
   <meta property="og:description" content="ITエンジニアリング × 資産運用のハイブリッド企業。Prisma Access を中心としたネットワーク/セキュリティ支援と、資産運用エンジニアリングを提供します。">
   <meta property="og:type" content="website">
@@ -23,56 +19,48 @@
   <meta property="og:image" content="https://stracto-se.github.io/stracto-site/ogp.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- ===============================
-        📘 構造化データ
-  =================================-->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Stracto株式会社",
-    "url": "https://stracto-se.github.io/stracto-site/",
-    "logo": "https://stracto-se.github.io/stracto-site/logo.png",
-    "description": "ITエンジニアリング × 資産運用のハイブリッド企業。",
-    "founder": "磯野洋輝",
-    "foundingDate": "2026",
-    "sameAs": [
-      "https://stracto-se.github.io/stracto-site/"
-    ]
-  }
-  </script>
+  <!-- tsParticles (CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-engine"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-basic"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-interaction-particles-links"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-move-base"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-shape-circle"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim"></script>
 
-  <!-- ===============================
-        💎 デザインCSS
-  =================================-->
   <style>
     :root {
       --blue:#0b1f52;
-      --light-bg:#ffffff;
       --gray:#666;
     }
+
     * { box-sizing:border-box; }
     body {
       margin:0; padding:0;
       font-family:"Helvetica Neue", Arial, sans-serif;
-      background:#fff;
       color:#222;
-      line-height:1.8;
+      background:#ffffff;
+      position:relative;
+      overflow-x:hidden;
     }
 
-    /* HEADER */
+    /* particles background */
+    #tsparticles {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      top: 0;
+      left: 0;
+    }
+
     header {
       text-align:center;
       padding:70px 20px 50px;
-      background:#fff;
-      border-bottom:1px solid #eee;
     }
     header h1 {
-      font-size:3rem;
-      font-weight:800;
-      margin:0;
+      font-size:3rem; font-weight:800;
       color:var(--blue);
-      letter-spacing:2px;
+      margin:0; letter-spacing:2px;
     }
     header .en {
       margin-top:10px;
@@ -82,11 +70,9 @@
       letter-spacing:2px;
     }
 
-    /* HERO */
     .hero {
       text-align:center;
       padding:90px 20px 70px;
-      background:#f4f7ff;
     }
     .hero h2 {
       font-size:2.3rem;
@@ -100,24 +86,21 @@
       font-size:1.05rem;
       color:#333;
     }
+
     .hero-buttons {
       margin-top:40px;
-      display:flex;
-      justify-content:center;
-      gap:18px;
-      flex-wrap:wrap;
+      display:flex; justify-content:center;
+      gap:18px; flex-wrap:wrap;
     }
     .btn-main, .btn-sub {
       padding:12px 28px;
       border-radius:30px;
       text-decoration:none;
-      font-size:0.95rem;
-      font-weight:600;
+      font-size:0.95rem; font-weight:600;
     }
     .btn-main { background:var(--blue); color:#fff; }
     .btn-sub { border:1px solid var(--blue); color:var(--blue); }
 
-    /* CONTENT SECTION */
     section {
       padding:70px 20px;
       max-width:1000px;
@@ -131,17 +114,17 @@
       margin-bottom:40px;
     }
 
-    /* CARDS */
     .cards {
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
       gap:30px;
     }
     .card {
-      background:#fff;
+      background:#ffffffd8;
       padding:28px;
       border-radius:14px;
       border:1px solid #eee;
+      backdrop-filter: blur(4px);
     }
     .card h3 {
       margin-top:0;
@@ -151,20 +134,19 @@
       font-weight:700;
     }
 
-    /* TABLE */
     table {
       width:100%;
       border-collapse:collapse;
-      background:#fff;
+      background:#ffffffd8;
       border-radius:10px;
       overflow:hidden;
       border:1px solid #eee;
       font-size:1rem;
+      backdrop-filter: blur(4px);
     }
     th, td {
       padding:14px 18px;
       border-bottom:1px solid #eee;
-      text-align:left;
     }
     th {
       width:25%;
@@ -173,94 +155,120 @@
       font-weight:700;
     }
 
-    /* FOOTER */
     footer {
-      background:#f4f5f7;
+      background:#f4f5f7bb;
       padding:30px 20px;
       text-align:center;
       font-size:0.9rem;
       color:var(--gray);
       margin-top:60px;
       border-top:1px solid #e0e0e0;
+      backdrop-filter: blur(2px);
     }
   </style>
 </head>
 
 <body>
 
-  <!-- HEADER -->
-  <header>
-    <h1>Stracto Inc.</h1>
-    <div class="en">Structure × Action × Optimization</div>
-  </header>
+<!-- particles container -->
+<div id="tsparticles"></div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <h2>構造化された経営 × 最適化された資産運用</h2>
-    <p>
-      Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、<br>
-      長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
-    </p>
+<script>
+tsParticles.load("tsparticles", {
+  background: { color: "transparent" },
+  particles: {
+    number: { value: 70 },
+    color: { value: "#bfc7d9" },
+    shape: { type: "circle" },
+    opacity: { value: 0.6 },
+    size: { value: 2 },
+    links: {
+      enable: true,
+      color: "#c5ccdd",
+      distance: 120,
+      opacity: 0.15,
+      width: 1
+    },
+    move: {
+      enable: true,
+      speed: 0.6,
+      direction: "none",
+      outModes: "bounce"
+    }
+  },
+  interactivity: {
+    events: {
+      onHover: { enable: false },
+      onClick: { enable: false }
+    }
+  },
+  detectRetina: true
+});
+</script>
 
-    <div class="hero-buttons">
-      <a href="#business" class="btn-main">事業内容を見る</a>
-      <a href="#about" class="btn-sub">Stractoについて</a>
+<header>
+  <h1>Stracto Inc.</h1>
+  <div class="en">Structure × Action × Optimization</div>
+</header>
+
+<div class="hero">
+  <h2>構造化された経営 × 最適化された資産運用</h2>
+  <p>
+    Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、  
+    長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#business" class="btn-main">事業内容を見る</a>
+    <a href="#about" class="btn-sub">Stractoについて</a>
+  </div>
+</div>
+
+<section id="about">
+  <h2>企業理念 / Mission</h2>
+  <p>
+    Stracto株式会社は、テクノロジーによる「構造化」と金融知識による「最適化」を軸に、  
+    時間とともに強くなる経済エンジンを設計・運用することを目指しています。  
+    現場を知るネットワーク/セキュリティエンジニアとしての実務経験と、  
+    長期投資家としての視点を合わせ持ち、データとロジックに基づいて意思決定を行います。
+  </p>
+</section>
+
+<section id="business">
+  <h2>事業内容</h2>
+
+  <div class="cards">
+    <div class="card">
+      <h3>資産運用事業</h3>
+      ■株式・債券・ETF・不動産の取得/保有/運用<br>
+      ■投資テンプレート/ツールの企画・販売<br>
+      ■金融コンテンツ制作/提供<br>
+      ■付随するすべての業務
+    </div>
+
+    <div class="card">
+      <h3>ITエンジニアリング事業</h3>
+      ■ネットワーク/セキュリティの設計/構築/運用<br>
+      ■Prisma Access・SASE導入支援<br>
+      ■システム開発/運用/請負<br>
+      ■付随するすべての業務
     </div>
   </div>
+</section>
 
-  <!-- MISSION -->
-  <section id="about">
-    <h2>企業理念 / Mission</h2>
-    <p>
-      Stracto株式会社は、テクノロジーによる「構造化」と金融知識による「最適化」を軸に、<br>
-      時間とともに強くなる経済エンジンを設計・運用することを目指しています。<br><br>
-      現場を知るネットワーク/セキュリティエンジニアとしての実務経験と、<br>
-      長期投資家としての視点を合わせ持ち、データとロジックに基づいて意思決定を行います。
-    </p>
-  </section>
+<section>
+  <h2>会社概要</h2>
+  <table>
+    <tr><th>会社名</th><td>Stracto株式会社（予定）</td></tr>
+    <tr><th>所在地</th><td>東京都港区北青山1-3-1　アールキューブ青山3階
+</td></tr>
+    <tr><th>設立</th><td>2026年6月（準備中）</td></tr>
+    <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
+    <tr><th>資本金</th><td>1,000,000円</td></tr>
+  </table>
+</section>
 
-  <!-- BUSINESS -->
-  <section id="business">
-    <h2>事業内容</h2>
-
-    <div class="cards">
-      <div class="card">
-        <h3>資産運用事業</h3>
-        <p>
-          ■有価証券（株式、債券、ETF等）及び現物不動産の取得、保有、売買および運用<br>
-          ■投資に関するテンプレート・ツールの企画、開発、販売<br>
-          ■金融コンテンツや情報の企画・制作・販売及び提供<br>
-          ■上記に附帯または関連する一切の業務
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>ITエンジニアリング事業</h3>
-        <p>
-          ■コンピュータシステムの企画、設計、開発、運用、保守およびコンサルティング業務<br>
-          ■ITエンジニアリング業務の業務委託/業務請負および関連マネジメント業務<br>
-          ■Webサービス・アプリケーション/ソフトウェアの企画・開発・販売・運用<br>
-          ■上記各号に附帯または関連する一切の業務
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- COMPANY -->
-  <section>
-    <h2>会社概要</h2>
-
-    <table>
-      <tr><th>会社名</th><td>Stracto株式会社</td></tr>
-      <tr><th>所在地</th><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-      <tr><th>設立</th><td>2026年6月予定（準備中）</td></tr>
-      <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
-      <tr><th>資本金</th><td>1,000,000円（予定）</td></tr>
-    </table>
-  </section>
-
-  <footer>© 2025 Stracto Inc. All Rights Reserved.</footer>
+<footer>© 2025 Stracto Inc. All Rights Reserved.</footer>
 
 </body>
 </html>
-
