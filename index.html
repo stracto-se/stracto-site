@@ -34,11 +34,13 @@
     }
 
     * { box-sizing:border-box; }
+
     body {
-      margin:0; padding:0;
+      margin:0;
+      padding:0;
       font-family:"Helvetica Neue", Arial, sans-serif;
       color:#222;
-      background:#ffffff;
+      background:#f5f6fa; /* ← 白より少し暗くして線を視認しやすく */
       position:relative;
       overflow-x:hidden;
     }
@@ -58,9 +60,11 @@
       padding:70px 20px 50px;
     }
     header h1 {
-      font-size:3rem; font-weight:800;
+      font-size:3rem;
+      font-weight:800;
       color:var(--blue);
-      margin:0; letter-spacing:2px;
+      margin:0;
+      letter-spacing:2px;
     }
     header .en {
       margin-top:10px;
@@ -89,14 +93,17 @@
 
     .hero-buttons {
       margin-top:40px;
-      display:flex; justify-content:center;
-      gap:18px; flex-wrap:wrap;
+      display:flex;
+      justify-content:center;
+      gap:18px;
+      flex-wrap:wrap;
     }
     .btn-main, .btn-sub {
       padding:12px 28px;
       border-radius:30px;
       text-decoration:none;
-      font-size:0.95rem; font-weight:600;
+      font-size:0.95rem;
+      font-weight:600;
     }
     .btn-main { background:var(--blue); color:#fff; }
     .btn-sub { border:1px solid var(--blue); color:var(--blue); }
@@ -120,10 +127,10 @@
       gap:30px;
     }
     .card {
-      background:#ffffffd8;
+      background:#ffffffdd;
       padding:28px;
       border-radius:14px;
-      border:1px solid #eee;
+      border:1px solid #ddd;
       backdrop-filter: blur(4px);
     }
     .card h3 {
@@ -137,10 +144,10 @@
     table {
       width:100%;
       border-collapse:collapse;
-      background:#ffffffd8;
+      background:#ffffffdd;
       border-radius:10px;
       overflow:hidden;
-      border:1px solid #eee;
+      border:1px solid #ddd;
       font-size:1rem;
       backdrop-filter: blur(4px);
     }
@@ -150,19 +157,19 @@
     }
     th {
       width:25%;
-      background:#f6f8fc;
+      background:#f1f3f8;
       color:var(--blue);
       font-weight:700;
     }
 
     footer {
-      background:#f4f5f7bb;
+      background:#eef0f5;
       padding:30px 20px;
       text-align:center;
       font-size:0.9rem;
       color:var(--gray);
       margin-top:60px;
-      border-top:1px solid #e0e0e0;
+      border-top:1px solid #d9d9d9;
       backdrop-filter: blur(2px);
     }
   </style>
@@ -180,15 +187,17 @@ tsParticles.load("tsparticles", {
     number: { value: 70 },
     color: { value: "#bfc7d9" },
     shape: { type: "circle" },
-    opacity: { value: 0.6 },
+    opacity: { value: 0.55 },
     size: { value: 2 },
+
     links: {
       enable: true,
       color: "#c5ccdd",
       distance: 120,
-      opacity: 0.15,
+      opacity: 0.20,       /* ← 少し濃くして線を見えやすく */
       width: 1
     },
+
     move: {
       enable: true,
       speed: 0.6,
@@ -196,12 +205,14 @@ tsParticles.load("tsparticles", {
       outModes: "bounce"
     }
   },
+
   interactivity: {
     events: {
       onHover: { enable: false },
       onClick: { enable: false }
     }
   },
+
   detectRetina: true
 });
 </script>
@@ -260,8 +271,7 @@ tsParticles.load("tsparticles", {
   <h2>会社概要</h2>
   <table>
     <tr><th>会社名</th><td>Stracto株式会社（予定）</td></tr>
-    <tr><th>所在地</th><td>東京都港区北青山1-3-1　アールキューブ青山3階
-</td></tr>
+    <tr><th>所在地</th><td>東京都港区北青山1-3-1　アールキューブ青山3階</td></tr>
     <tr><th>設立</th><td>2026年6月（準備中）</td></tr>
     <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
     <tr><th>資本金</th><td>1,000,000円</td></tr>
