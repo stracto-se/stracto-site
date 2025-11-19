@@ -1,286 +1,641 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+  <meta charset="UTF-8">
   <title>Stracto株式会社 | ITエンジニアリング × 資産運用のハイブリッド企業</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- SEO -->
-  <meta name="description" content="Stracto株式会社は、ITエンジニアリングと資産運用を掛け合わせ、長期的に持続する経済エンジンを設計・構築するハイブリッド企業です。ネットワーク/セキュリティ（Prisma Access）と資産運用の二軸で価値提供します。">
-  <meta name="keywords" content="資産運用 エンジニア, Prisma Access ネットワークエンジニア, Stracto, ストラクト, ITエンジニア, 資産運用法人, SES 企業, ネットワーク設計, 投資コンサルティング">
-  <meta name="author" content="Stracto Inc.">
+  <meta name="description" content="Stracto株式会社は、ITエンジニアリングと資産運用を掛け合わせ、構造化された経営と最適化されたポートフォリオを設計・運用するハイブリッド企業です。Prisma Access ネットワークエンジニアとしての実務経験と長期投資家としての知見を活かし、長期的に持続する“経済エンジン”を構築します。">
+  <meta name="keywords" content="資産運用 エンジニア,Prisma Access ネットワークエンジニア,Stracto,ストラクト">
 
   <!-- OGP -->
-  <meta property="og:title" content="Stracto株式会社 | 公式サイト">
-  <meta property="og:description" content="ITエンジニアリング × 資産運用のハイブリッド企業。Prisma Access を中心としたネットワーク/セキュリティ支援と、資産運用エンジニアリングを提供します。">
+  <meta property="og:title" content="Stracto株式会社 | ITエンジニアリング × 資産運用のハイブリッド企業">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://stracto-se.github.io/stracto-site/">
   <meta property="og:image" content="https://stracto-se.github.io/stracto-site/ogp.png">
+  <meta property="og:site_name" content="Stracto株式会社">
+  <meta property="og:description" content="ITエンジニアリング × 資産運用のハイブリッド企業 Stracto株式会社の公式サイトです。構造化された経営と最適化された資産運用で、長期的に持続する“経済エンジン”を設計します。">
+
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- tsParticles (CDN) -->
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles-engine"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles-basic"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles-interaction-particles-links"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles-move-base"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles-shape-circle"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles-slim"></script>
+  <!-- Brand Font: Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --blue:#0b1f52;
-      --gray:#666;
+      --bg: #050816;            /* 濃紺に近いダーク背景 */
+      --bg-soft: #0b1020;       /* 少し明るいダーク */
+      --card-bg: rgba(15, 23, 42, 0.88);
+      --card-border: rgba(148, 163, 184, 0.35);
+
+      --primary: #1e4fd8;       /* ロイヤルブルー系アクセント */
+      --primary-soft: rgba(37, 99, 235, 0.15);
+
+      --text-main: #e5e7eb;     /* 明るいグレー */
+      --text-soft: #9ca3af;     /* ソフトなグレー */
+      --divider: rgba(55, 65, 81, 0.7);
+
+      --radius-lg: 16px;
+      --radius-md: 10px;
     }
 
-    * { box-sizing:border-box; }
+    * {
+      box-sizing: border-box;
+    }
 
     body {
-      margin:0;
-      padding:0;
-      font-family:"Helvetica Neue", Arial, sans-serif;
-      color:#222;
-      background:#f5f6fa; /* ← 白より少し暗くして線を視認しやすく */
-      position:relative;
-      overflow-x:hidden;
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+      line-height: 1.6;
+      color: var(--text-main);
+      background: radial-gradient(circle at top, #0b1220 0, #050816 50%, #020617 100%);
+      position: relative;
+      overflow-x: hidden;
     }
 
-    /* particles background */
-    #tsparticles {
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    /* 背景パーティクル */
+    #particles-js {
       position: fixed;
+      inset: 0;
       width: 100%;
       height: 100%;
       z-index: -1;
-      top: 0;
-      left: 0;
+      background: transparent;
     }
 
     header {
-      text-align:center;
-      padding:70px 20px 50px;
-    }
-    header h1 {
-      font-size:3rem;
-      font-weight:800;
-      color:var(--blue);
-      margin:0;
-      letter-spacing:2px;
-    }
-    header .en {
-      margin-top:10px;
-      font-size:1rem;
-      color:var(--blue);
-      opacity:0.75;
-      letter-spacing:2px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: linear-gradient(
+        to bottom,
+        rgba(15, 23, 42, 0.9),
+        rgba(15, 23, 42, 0.7),
+        transparent
+      );
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(31, 41, 55, 0.8);
     }
 
+    .nav-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .logo-block {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .logo {
+      font-family: 'Poppins', system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #f9fafb;
+    }
+
+    .tagline-small {
+      font-size: 11px;
+      color: var(--text-soft);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 13px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      position: relative;
+      padding: 4px 0;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #38bdf8, #6366f1, #22c55e);
+      transition: width 0.18s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: #e5e7eb;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    /* HERO */
     .hero {
-      text-align:center;
-      padding:90px 20px 70px;
+      position: relative;
+      margin-bottom: 32px;
+      padding: 26px 22px 24px;
+      border-radius: var(--radius-lg);
+      background:
+        radial-gradient(circle at top left, rgba(56, 189, 248, 0.22), transparent 55%),
+        radial-gradient(circle at top right, rgba(129, 140, 248, 0.2), transparent 55%),
+        var(--card-bg);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow:
+        0 18px 45px rgba(15, 23, 42, 0.9),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+      overflow: hidden;
     }
-    .hero h2 {
-      font-size:2.3rem;
-      margin-bottom:25px;
-      color:var(--blue);
-      font-weight:700;
+
+    .hero-gradient-orbit {
+      position: absolute;
+      right: -120px;
+      top: -120px;
+      width: 260px;
+      height: 260px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.6), transparent 60%);
+      opacity: 0.7;
+      filter: blur(4px);
+      pointer-events: none;
     }
-    .hero p {
-      max-width:800px;
-      margin:0 auto;
-      font-size:1.05rem;
-      color:#333;
+
+    .hero-title {
+      position: relative;
+      font-size: 26px;
+      margin: 0 0 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-sub {
+      position: relative;
+      margin: 0 0 12px;
+      font-size: 12px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--text-soft);
+    }
+
+    .hero-lead {
+      position: relative;
+      margin: 0 0 18px;
+      font-size: 14px;
+      color: #e5e7eb;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.7);
+      font-size: 11px;
+      color: var(--text-soft);
+      backdrop-filter: blur(10px);
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #4ade80, #16a34a);
+      box-shadow: 0 0 10px rgba(74, 222, 128, 0.7);
     }
 
     .hero-buttons {
-      margin-top:40px;
-      display:flex;
-      justify-content:center;
-      gap:18px;
-      flex-wrap:wrap;
+      position: relative;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 6px;
     }
-    .btn-main, .btn-sub {
-      padding:12px 28px;
-      border-radius:30px;
-      text-decoration:none;
-      font-size:0.95rem;
-      font-weight:600;
-    }
-    .btn-main { background:var(--blue); color:#fff; }
-    .btn-sub { border:1px solid var(--blue); color:var(--blue); }
 
-    section {
-      padding:70px 20px;
-      max-width:1000px;
-      margin:auto;
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
     }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #f9fafb;
+      box-shadow:
+        0 10px 25px rgba(37, 99, 235, 0.45),
+        0 0 0 1px rgba(15, 23, 42, 0.9);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #1d4ed8, #4338ca);
+      text-decoration: none;
+    }
+
+    .btn-outline {
+      background: rgba(15, 23, 42, 0.7);
+      border-color: rgba(148, 163, 184, 0.6);
+      color: var(--text-main);
+    }
+
+    .btn-outline:hover {
+      border-color: #60a5fa;
+      text-decoration: none;
+    }
+
+    .btn-icon {
+      font-size: 14px;
+      line-height: 1;
+    }
+
+    /* 共通セクション */
+    .section {
+      margin-bottom: 28px;
+      padding: 20px 18px 18px;
+      border-radius: var(--radius-md);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
+    }
+
     h2 {
-      font-size:1.9rem;
-      color:var(--blue);
-      border-left:5px solid var(--blue);
-      padding-left:14px;
-      margin-bottom:40px;
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
     }
 
-    .cards {
-      display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(300px,1fr));
-      gap:30px;
-    }
-    .card {
-      background:#ffffffdd;
-      padding:28px;
-      border-radius:14px;
-      border:1px solid #ddd;
-      backdrop-filter: blur(4px);
-    }
-    .card h3 {
-      margin-top:0;
-      font-size:1.3rem;
-      color:var(--blue);
-      margin-bottom:14px;
-      font-weight:700;
+    h2::before {
+      content: "";
+      width: 3px;
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #38bdf8, #6366f1, #22c55e);
     }
 
-    table {
-      width:100%;
-      border-collapse:collapse;
-      background:#ffffffdd;
-      border-radius:10px;
-      overflow:hidden;
-      border:1px solid #ddd;
-      font-size:1rem;
-      backdrop-filter: blur(4px);
+    h3 {
+      margin-top: 14px;
+      margin-bottom: 6px;
+      font-size: 15px;
+      color: #e5e7eb;
     }
-    th, td {
-      padding:14px 18px;
-      border-bottom:1px solid #eee;
+
+    .section p {
+      margin-top: 0;
+      margin-bottom: 6px;
+      font-size: 13px;
+      color: var(--text-soft);
     }
-    th {
-      width:25%;
-      background:#f1f3f8;
-      color:var(--blue);
-      font-weight:700;
+
+    .list-block {
+      margin: 6px 0 0;
+      padding-left: 18px;
+      font-size: 13px;
+      color: var(--text-soft);
+    }
+
+    .list-block li + li {
+      margin-top: 2px;
+    }
+
+    .company-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 4px;
+    }
+
+    .company-table th,
+    .company-table td {
+      padding: 6px 4px;
+      border-bottom: 1px solid rgba(55, 65, 81, 0.9);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .company-table th {
+      width: 96px;
+      color: var(--text-soft);
+      font-weight: 500;
+    }
+
+    .company-table td {
+      color: #e5e7eb;
+    }
+
+    .muted {
+      color: var(--text-soft);
+      font-size: 11px;
+    }
+
+    /* 更新履歴 */
+    .updates-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 6px 0 0;
+    }
+
+    .updates-item {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 10px;
+    }
+
+    .updates-item::before {
+      content: "";
+      position: absolute;
+      left: 4px;
+      top: 4px;
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: radial-gradient(circle, #38bdf8, #6366f1);
+      box-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+    }
+
+    .updates-item::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 11px;
+      width: 1px;
+      height: calc(100% - 11px);
+      background: rgba(55, 65, 81, 0.8);
+    }
+
+    .updates-item:last-child::after {
+      display: none;
+    }
+
+    .updates-date {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 2px;
+    }
+
+    .updates-text {
+      font-size: 13px;
+      color: #e5e7eb;
     }
 
     footer {
-      background:#eef0f5;
-      padding:30px 20px;
-      text-align:center;
-      font-size:0.9rem;
-      color:var(--gray);
-      margin-top:60px;
-      border-top:1px solid #d9d9d9;
-      backdrop-filter: blur(2px);
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 18px 16px 28px;
+      font-size: 11px;
+      color: var(--text-soft);
+      text-align: right;
+      border-top: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    @media (max-width: 640px) {
+      .nav-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-links {
+        font-size: 12px;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .hero {
+        padding: 20px 16px 18px;
+      }
+
+      .hero-title {
+        font-size: 22px;
+      }
+
+      .hero-buttons {
+        flex-direction: row;
+      }
     }
   </style>
 </head>
 
 <body>
+  <!-- 背景アニメーション -->
+  <div id="particles-js"></div>
 
-<!-- particles container -->
-<div id="tsparticles"></div>
+  <header>
+    <div class="nav-inner">
+      <div class="logo-block">
+        <div class="logo">Stracto Inc.</div>
+        <div class="tagline-small">Structure × Action × Optimization</div>
+      </div>
+      <nav class="nav-links">
+        <a href="#business">事業内容</a>
+        <a href="#about">Stractoについて</a>
+        <a href="#updates">更新履歴</a>
+      </nav>
+    </div>
+  </header>
 
-<script>
-tsParticles.load("tsparticles", {
-  background: { color: "transparent" },
-  particles: {
-    number: { value: 70 },
-    color: { value: "#bfc7d9" },
-    shape: { type: "circle" },
-    opacity: { value: 0.55 },
-    size: { value: 2 },
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-gradient-orbit"></div>
+      <p class="hero-sub">IT ENGINEERING × ASSET MANAGEMENT × LONG-TERM STRATEGY</p>
+      <h1 class="hero-title">構造化された経営 × 最適化された資産運用</h1>
+      <p class="hero-lead">
+        Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、
+        長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
+      </p>
 
-    links: {
-      enable: true,
-      color: "#c5ccdd",
-      distance: 120,
-      opacity: 0.20,       /* ← 少し濃くして線を見えやすく */
-      width: 1
-    },
+      <div class="hero-badges">
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Prisma Access / ネットワーク &amp; セキュリティエンジニア</span>
+        </div>
+        <div class="badge">
+          <span>長期投資 × 構造化ポートフォリオ運用</span>
+        </div>
+      </div>
 
-    move: {
-      enable: true,
-      speed: 0.6,
-      direction: "none",
-      outModes: "bounce"
-    }
-  },
+      <div class="hero-buttons">
+        <a href="#business" class="btn btn-primary">
+          事業内容を見る
+          <span class="btn-icon">↗</span>
+        </a>
+        <a href="#about" class="btn btn-outline">
+          Stractoについて
+        </a>
+      </div>
+    </section>
 
-  interactivity: {
-    events: {
-      onHover: { enable: false },
-      onClick: { enable: false }
-    }
-  },
+    <!-- Mission -->
+    <section id="about" class="section">
+      <h2>企業理念 / Mission</h2>
+      <p>
+        Stracto株式会社は、テクノロジーによる「構造化」と金融知識による「最適化」を軸に、
+        時間とともに強くなる経済エンジンを設計・運用することを目指しています。
+      </p>
+      <p>
+        現場を知るネットワーク / セキュリティエンジニアとしての実務経験と、
+        長期投資家としての視点を合わせ持ち、データとロジックに基づいた意思決定を行います。
+      </p>
+    </section>
 
-  detectRetina: true
-});
-</script>
+    <!-- Business -->
+    <section id="business" class="section">
+      <h2>事業内容</h2>
 
-<header>
-  <h1>Stracto Inc.</h1>
-  <div class="en">Structure × Action × Optimization</div>
-</header>
-
-<div class="hero">
-  <h2>構造化された経営 × 最適化された資産運用</h2>
-  <p>
-    Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、  
-    長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
-  </p>
-
-  <div class="hero-buttons">
-    <a href="#business" class="btn-main">事業内容を見る</a>
-    <a href="#about" class="btn-sub">Stractoについて</a>
-  </div>
-</div>
-
-<section id="about">
-  <h2>企業理念 / Mission</h2>
-  <p>
-    Stracto株式会社は、テクノロジーによる「構造化」と金融知識による「最適化」を軸に、  
-    時間とともに強くなる経済エンジンを設計・運用することを目指しています。  
-    現場を知るネットワーク/セキュリティエンジニアとしての実務経験と、  
-    長期投資家としての視点を合わせ持ち、データとロジックに基づいて意思決定を行います。
-  </p>
-</section>
-
-<section id="business">
-  <h2>事業内容</h2>
-
-  <div class="cards">
-    <div class="card">
       <h3>資産運用事業</h3>
-      ■有価証券（株式、債券、ETF等）及び現物不動産の取得、保有、売買および運用<br>
-      ■投資に関するテンプレート・ツールの企画、開発、販売<br>
-      ■金融コンテンツや情報の企画・制作・販売及び提供<br>
-      ■上記に附帯または関連する一切の業務
-    </div>
+      <ul class="list-block">
+        <li>有価証券（株式、債券、ETF等）および現物不動産の取得、保有、売買および運用</li>
+        <li>投資に関するテンプレート・ツールの企画、開発、販売</li>
+        <li>金融コンテンツや情報の企画・制作・販売および提供</li>
+        <li>上記に附帯または関連する一切の業務</li>
+      </ul>
 
-    <div class="card">
       <h3>ITエンジニアリング事業</h3>
-      ■コンピュータシステムの企画、設計、開発、運用、保守およびそれらに関するコンサルティング業務<br>
-      ■ITエンジニアリング業務の業務委託、業務請負および関連マネジメント業務<br>
-      ■Webサービス・アプリケーション・ソフトウェアの企画、開発、販売および運用<br>
-      ■上記各号に附帯または関連する一切の業務
-    </div>
-  </div>
-</section>
+      <ul class="list-block">
+        <li>コンピュータシステムの企画、設計、開発、運用、保守およびそれらに関するコンサルティング業務</li>
+        <li>ITエンジニアリング業務の業務委託、業務請負および関連マネジメント業務</li>
+        <li>Webサービス・アプリケーション・ソフトウェアの企画、開発、販売および運用</li>
+        <li>上記各号に附帯または関連する一切の業務</li>
+      </ul>
+    </section>
 
-<section>
-  <h2>会社概要</h2>
-  <table>
-    <tr><th>会社名</th><td>Stracto株式会社</td></tr>
-    <tr><th>所在地</th><td>東京都港区北青山1-3-1　アールキューブ青山3階</td></tr>
-    <tr><th>設立</th><td>2026年6月（準備中）</td></tr>
-    <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
-    <tr><th>資本金</th><td>1,000,000円</td></tr>
-  </table>
-</section>
+    <!-- Company -->
+    <section class="section">
+      <h2>会社概要</h2>
+      <table class="company-table">
+        <tr>
+          <th>会社名</th>
+          <td>Stracto株式会社</td>
+        </tr>
+        <tr>
+          <th>所在地</th>
+          <td>東京都港区北青山1-3-1 アールキューブ青山3階</td>
+        </tr>
+        <tr>
+          <th>設立</th>
+          <td>2026年6月（準備中）</td>
+        </tr>
+        <tr>
+          <th>代表取締役</th>
+          <td>磯野 洋輝</td>
+        </tr>
+        <tr>
+          <th>資本金</th>
+          <td>1,000,000円</td>
+        </tr>
+      </table>
+    </section>
 
-<footer>© 2026 Stracto Inc. All Rights Reserved.</footer>
+    <!-- Updates -->
+    <section id="updates" class="section">
+      <h2>更新履歴 / Updates</h2>
+      <ul class="updates-list">
+        <li class="updates-item">
+          <div class="updates-date">2025-11-19</div>
+          <div class="updates-text">
+            自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。
+          </div>
+        </li>
+        <li class="updates-item">
+          <div class="updates-date">2025-11-17</div>
+          <div class="updates-text">
+            Stracto株式会社 公式サイトを公開しました。
+          </div>
+        </li>
+      </ul>
+    </section>
+  </main>
 
+  <footer>
+    © 2026 Stracto Inc. All Rights Reserved.
+  </footer>
+
+  <!-- particles.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": {
+          "value": 60,
+          "density": { "enable": true, "value_area": 900 }
+        },
+        "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.45, "random": false },
+        "size": { "value": 2.6, "random": true },
+        "line_linked": {
+          "enable": true,
+          "distance": 130,
+          "color": "#60a5fa",
+          "opacity": 0.35,
+          "width": 1
+        },
+        "move": {
+          "enable": true,
+          "speed": 0.9,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "attract": { "enable": false }
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": false },
+          "onclick": { "enable": false },
+          "resize": true
+        }
+      },
+      "retina_detect": true
+    });
+  </script>
 </body>
 </html>
-
-
