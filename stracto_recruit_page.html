@@ -4,42 +4,97 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>採用情報 | Stracto株式会社</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --bg: #050816;
+      --bg-soft: #0b1220;
       --card-bg: rgba(15, 23, 42, 0.88);
       --card-border: rgba(148, 163, 184, 0.35);
       --primary: #2563eb;
       --text-main: #e5e7eb;
       --text-soft: #9ca3af;
       --radius-lg: 16px;
-      --radius-md: 10px;
     }
-    * { box-sizing: border-box; }
+
     body {
       margin: 0;
       background: radial-gradient(circle at top, #0b1220 0, #050816 50%, #020617 100%);
       font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
       color: var(--text-main);
       line-height: 1.6;
+      overflow-x: hidden;
     }
+
     a { color: var(--primary); text-decoration: none; }
+
+    /* particles background */
+    #particles-js {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+    }
+
+    /* header */
     header {
-      position: sticky; top: 0; z-index: 10;
-      background: rgba(15, 23, 42, 0.9);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(15, 23, 42, 0.95);
       backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
     }
+
     .nav-inner {
-      max-width: 960px; margin: 0 auto;
-      padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
-    .logo { font-family: 'Poppins'; font-size: 20px; font-weight: 700; }
-    .nav-links { display: flex; gap: 18px; font-size: 14px; }
-    .nav-links a { color: var(--text-soft); position: relative; }
+
+    .logo-block {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+    }
+
+    .logo {
+      font-family: 'Poppins';
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .logo-sub {
+      font-size: 11px;
+      color: var(--text-soft);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 18px;
+      font-size: 14px;
+    }
+
+    .nav-links a {
+      color: var(--text-soft);
+    }
+
     .nav-links a:hover { color: #fff; }
-    main { max-width: 960px; margin: 0 auto; padding: 32px 16px 40px; }
+
+    /* content */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 40px 16px 60px;
+    }
+
     .section {
       background: var(--card-bg);
       border: 1px solid var(--card-border);
@@ -48,22 +103,38 @@
       margin-bottom: 28px;
       box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
     }
-    h1 { margin: 0 0 20px; font-size: 26px; }
-    h2 { font-size: 20px; margin-bottom: 12px; }
-    ul { margin: 8px 0 0 20px; color: var(--text-soft); }
+
+    h1 { font-size: 26px; margin-top: 0; }
+    h2 { font-size: 20px; }
+    ul { margin-left: 20px; color: var(--text-soft); }
+
     .apply-btn {
-      display: inline-block; margin-top: 18px;
+      display: inline-block;
+      margin-top: 18px;
       background: linear-gradient(135deg, #2563eb, #4f46e5);
-      padding: 10px 20px; color: white;
+      padding: 10px 20px;
+      color: white;
       border-radius: 999px;
     }
-    footer { text-align: center; font-size: 11px; padding: 20px; color: var(--text-soft); }
+
+    footer {
+      text-align: center;
+      font-size: 11px;
+      padding: 20px;
+      color: var(--text-soft);
+    }
   </style>
 </head>
+
 <body>
+  <div id="particles-js"></div>
+
   <header>
     <div class="nav-inner">
-      <div class="logo">Stracto Inc.</div>
+      <div class="logo-block">
+        <div class="logo">STRACTO INC.</div>
+        <div class="logo-sub">STRUCTURE × ACTION × OPTIMIZATION</div>
+      </div>
       <nav class="nav-links">
         <a href="index.html#business">事業内容</a>
         <a href="index.html#about">Stractoについて</a>
@@ -76,44 +147,58 @@
   <main>
     <section class="section">
       <h1>採用情報</h1>
-      <p>私たちStracto株式会社は、技術者中心の組織として、<br>高単価・高還元率・透明性を重視したSESモデルを採用します。</p>
+      <p>Stracto株式会社では、技術者が最大の価値を発揮できる環境を提供するため、  
+      高還元・透明性を重視したSESモデルを採用しています。</p>
     </section>
 
     <section class="section">
-      <h2>募集職種：ネットワークエンジニア（SASE / Prisma Access）</h2>
-      <h3>■ 雇用形態</h3>
-      <p>正社員 / 業務委託（フリーランス）</p>
+      <h2>募集職種：ネットワークエンジニア（Prisma Access / SASE）</h2>
 
-      <h3>■ 業務内容</h3>
+      <h3>■ 業務内容（簡易）</h3>
       <ul>
         <li>Prisma Access / GlobalProtect の設計・構築・運用</li>
-        <li>UTM・セキュリティ試験（AV、URL、FB など）</li>
-        <li>ルーティング・VPN・FW ポリシー設計</li>
-        <li>試験対応、ドキュメント作成</li>
+        <li>UTM（AV/URL/FB）などの試験対応</li>
+        <li>VPN / FW / BGP などネットワーク全般</li>
       </ul>
 
-      <h3>■ 必須スキル</h3>
+      <h3>■ 必須スキル（簡易）</h3>
       <ul>
-        <li>ネットワーク基礎（CCNA レベル以上）</li>
-        <li>Palo Alto / Prisma の運用経験（3年以上）</li>
-        <li>基本的なコミュニケーションスキル</li>
+        <li>ネットワーク基礎（CCNA レベル）</li>
+        <li>Palo Alto または Prisma の経験</li>
       </ul>
 
       <h3>■ 歓迎スキル</h3>
       <ul>
-        <li>PCNSE / PCNSA 保有者</li>
-        <li>クラウド（Azure / AWS）基礎知識</li>
+        <li>PCNSE / PCNSA</li>
+        <li>Azure / AWS の基礎知識</li>
       </ul>
 
       <h3>■ 報酬</h3>
-      <p><strong>月給 50万円以上（検討中）</strong><br>経験・スキルに応じて優遇（単価・還元率の透明化を徹底）</p>
+      <p><strong>月給 50万円以上（検討中）</strong><br>スキル・経験に応じて優遇。</p>
 
       <a href="mailto:contact@stracto.co.jp" class="apply-btn">応募する</a>
     </section>
   </main>
 
-  <footer>
-    © 2026 Stracto Inc. All Rights Reserved.
-  </footer>
+  <footer>© 2026 Stracto Inc. All Rights Reserved.</footer>
+
+  <!-- particles.js -->
+  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+  <script>
+    particlesJS("particles-js", {
+      "particles": {
+        "number": { "value": 120 },
+        "size": { "value": 3 },
+        "color": { "value": "#ffffff" },
+        "line_linked": {
+          "enable": true,
+          "color": "#ffffff",
+          "opacity": 0.25
+        },
+        "move": { "speed": 1.0 }
+      }
+    });
+  </script>
+
 </body>
 </html>
