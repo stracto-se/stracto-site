@@ -28,16 +28,12 @@
       overflow-x: hidden;
     }
 
-    a { color: var(--primary); text-decoration: none; }
-
-    /* particles background */
     #particles-js {
       position: fixed;
       inset: 0;
       z-index: -1;
     }
 
-    /* header */
     header {
       position: sticky;
       top: 0;
@@ -56,19 +52,13 @@
       align-items: center;
     }
 
-    .logo-block {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.15;
-    }
-
+    .logo-block { display: flex; flex-direction: column; line-height: 1.15; }
     .logo {
       font-family: 'Poppins';
       font-size: 20px;
       font-weight: 700;
       color: #fff;
     }
-
     .logo-sub {
       font-size: 11px;
       color: var(--text-soft);
@@ -76,19 +66,10 @@
       text-transform: uppercase;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 18px;
-      font-size: 14px;
-    }
-
-    .nav-links a {
-      color: var(--text-soft);
-    }
-
+    .nav-links { display: flex; gap: 18px; font-size: 14px; }
+    .nav-links a { color: var(--text-soft); text-decoration: none; }
     .nav-links a:hover { color: #fff; }
 
-    /* content */
     main {
       max-width: 960px;
       margin: 0 auto;
@@ -104,18 +85,12 @@
       box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
     }
 
-    h1 { font-size: 26px; margin-top: 0; }
-    h2 { font-size: 20px; }
-    ul { margin-left: 20px; color: var(--text-soft); }
+    h1 { font-size: 28px; margin-top: 0; }
+    h2 { font-size: 20px; margin-bottom: 14px; }
+    h3 { font-size: 16px; margin: 22px 0 8px; }
 
-    .apply-btn {
-      display: inline-block;
-      margin-top: 18px;
-      background: linear-gradient(135deg, #2563eb, #4f46e5);
-      padding: 10px 20px;
-      color: white;
-      border-radius: 999px;
-    }
+    ul { margin-left: 20px; color: var(--text-soft); }
+    p { color: var(--text-main); }
 
     footer {
       text-align: center;
@@ -145,44 +120,59 @@
   </header>
 
   <main>
+
+    <!-- シンプルな採用情報 -->
     <section class="section">
       <h1>採用情報</h1>
-      <p>Stracto株式会社では、技術者が最大の価値を発揮できる環境を提供するため、  
-      高還元・透明性を重視したSESモデルを採用しています。</p>
+      <p>Stracto株式会社では、技術者中心の透明性ある環境で共に成長するメンバーを募集しています。</p>
     </section>
 
+    <!-- 企業ページ風の募集要項 -->
     <section class="section">
-      <h2>募集職種：ネットワークエンジニア（Prisma Access / SASE）</h2>
+      <h2>募集要項</h2>
 
-      <h3>■ 業務内容（簡易）</h3>
+      <h3>■ 募集職種</h3>
       <ul>
-        <li>Prisma Access / GlobalProtect の設計・構築・運用</li>
-        <li>UTM（AV/URL/FB）などの試験対応</li>
-        <li>VPN / FW / BGP などネットワーク全般</li>
+        <li>ネットワークエンジニア（Prisma Access / SASE）</li>
       </ul>
 
-      <h3>■ 必須スキル（簡易）</h3>
+      <h3>■ 業務内容</h3>
       <ul>
-        <li>ネットワーク基礎（CCNA レベル）</li>
+        <li>Prisma Access / GlobalProtect の設計・構築・運用</li>
+        <li>UTM（AV/URL/FB）などセキュリティ試験</li>
+        <li>VPN / FW / BGP などネットワーク設計・運用</li>
+      </ul>
+
+      <h3>■ 応募資格</h3>
+
+      <p><strong>必須</strong></p>
+      <ul>
+        <li>ネットワーク基礎（CCNAレベル）</li>
         <li>Palo Alto または Prisma の経験</li>
       </ul>
 
-      <h3>■ 歓迎スキル</h3>
+      <p><strong>歓迎</strong></p>
       <ul>
         <li>PCNSE / PCNSA</li>
         <li>Azure / AWS の基礎知識</li>
       </ul>
 
-      <h3>■ 報酬</h3>
-      <p><strong>月給 50万円以上（検討中）</strong><br>スキル・経験に応じて優遇。</p>
+      <h3>■ 勤務形態</h3>
+      <ul>
+        <li>正社員 / 業務委託（フリーランス）</li>
+      </ul>
 
-      <a href="mailto:contact@stracto.co.jp" class="apply-btn">応募する</a>
+      <h3>■ 報酬</h3>
+      <ul>
+        <li>月給50万円以上（検討中）</strong><br>スキル・経験に応じて優遇します。</li>
+      </ul>
+
     </section>
+
   </main>
 
   <footer>© 2026 Stracto Inc. All Rights Reserved.</footer>
 
-  <!-- particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <script>
     particlesJS("particles-js", {
