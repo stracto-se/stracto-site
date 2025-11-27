@@ -173,20 +173,43 @@
 
   <footer>© 2026 Stracto Inc. All Rights Reserved.</footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <script>
     particlesJS("particles-js", {
       "particles": {
-        "number": { "value": 120 },
-        "size": { "value": 3 },
+        "number": {
+          "value": 60,
+          "density": { "enable": true, "value_area": 900 }
+        },
         "color": { "value": "#ffffff" },
+        "shape": { "type": "circle" },
+        "opacity": { "value": 0.45, "random": false },
+        "size": { "value": 2.6, "random": true },
         "line_linked": {
           "enable": true,
-          "color": "#ffffff",
-          "opacity": 0.25
+          "distance": 130,
+          "color": "#60a5fa",
+          "opacity": 0.35,
+          "width": 1
         },
-        "move": { "speed": 1.0 }
-      }
+        "move": {
+          "enable": true,
+          "speed": 0.9,
+          "direction": "none",
+          "random": false,
+          "straight": false,
+          "out_mode": "out",
+          "attract": { "enable": false }
+        }
+      },
+      "interactivity": {
+        "events": {
+          "onhover": { "enable": false },
+          "onclick": { "enable": false },
+          "resize": true
+        }
+      },
+      "retina_detect": true
     });
   </script>
 
