@@ -8,194 +8,168 @@
 
   <style>
     :root {
-      --soft: #6b7280;
-      --main: #111827;
-      --brandBlue: #38bdf8;
-      --brandBlueGlow: #4f9cff;
+      --soft: #9ca3af;
+      --main: #e5e7eb;
+      --brand: #4f9cff;
+      --brand2: #38bdf8;
+      --brand3: #6366f1;
     }
 
     body {
       margin: 0;
       font-family: system-ui, Poppins, sans-serif;
-      background: #ffffff;
+      background: #050816;
       color: var(--main);
       line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* ===============================
-       KeyVisual HERO
-    =============================== */
-    .hero-visual {
-      background: url('keyvisual.png') center/cover no-repeat;
-      height: 100vh;
-      min-height: 620px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+    /* ==== KeyVisual: 全デバイスで見切れない設定 ==== */
+    .keyvisual-bg {
+      position: fixed;
+      inset: 0;
+      background: url('keyvisual.png') center center / contain no-repeat;
+      background-color: #050816;
+      z-index: -2;
     }
 
-    /* ===============================
-       HEADER – transparent → white on scroll
-    =============================== */
+    .soft-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 8, 22, 0.30);
+      z-index: -1;
+    }
+
+    /* ==== Header（透明→スクロールで白） ==== */
     header {
       position: fixed;
       top: 0;
       width: 100%;
-      height: 70px;
+      padding: 6px 20px;
       background: transparent;
-      backdrop-filter: blur(4px);
-      border-bottom: 1px solid rgba(255,255,255,0.12);
-      z-index: 30;
-      transition: 0.3s ease;
+      transition: background 0.3s ease, backdrop-filter 0.3s ease;
+      z-index: 100;
     }
-
-    /* scroll 時に白背景化 */
     header.scrolled {
-      background: rgba(255,255,255,0.96);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px);
       border-bottom: 1px solid rgba(0,0,0,0.08);
-      backdrop-filter: blur(2px);
     }
 
-    .nav-inner {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 22px 24px;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
-    }
-
-    /* ===============================
-       Hamburger Menu
-    =============================== */
+    /* ==== ハンバーガーメニュー ==== */
     .hamburger {
       position: fixed;
-      top: 22px;
-      right: 26px;
+      top: 18px;
+      right: 20px;
       width: 32px;
       height: 24px;
       cursor: pointer;
-      z-index: 50;
+      z-index: 200;
     }
-
     .hamburger span {
       position: absolute;
       left: 0;
       width: 100%;
-      height: 3.6px;
-      background: var(--brandBlue);
+      height: 4px;
+      background: #4f9cff;
       border-radius: 4px;
       transition: 0.3s;
-      box-shadow: 0 0 6px var(--brandBlueGlow);
     }
-
     .hamburger span:nth-child(1){ top:0; }
     .hamburger span:nth-child(2){ top:10px; }
     .hamburger span:nth-child(3){ top:20px; }
 
-    .hamburger:hover span {
-      background: var(--brandBlueGlow);
-      box-shadow: 0 0 10px var(--brandBlueGlow);
-    }
-
-    /* ===============================
-       Mobile Slide Menu
-    =============================== */
+    /* ==== モバイルメニュー ==== */
     #mobileMenu {
       position: fixed;
       top: 0;
-      right: -240px;
-      width: 220px;
+      right: -220px;
+      width: 200px;
       height: 100vh;
-      background: rgba(0,0,0,0.85);
+      background: rgba(0,0,0,0.75);
       backdrop-filter: blur(6px);
-      padding: 100px 20px;
       display: flex;
       flex-direction: column;
-      gap: 24px;
+      padding: 80px 20px;
+      gap: 20px;
       transition: 0.35s ease;
-      z-index: 45;
+      z-index: 300;
     }
-
+    #mobileMenu.show {
+      right: 0;
+    }
     #mobileMenu a {
       color: white;
-      font-size: 16px;
       text-decoration: none;
-      letter-spacing: 0.03em;
+      font-size: 18px;
+      letter-spacing: 0.04em;
     }
 
-    #mobileMenu.show { right: 0; }
-
-    /* ===============================
-       White Sections (appear on scroll)
-    =============================== */
-    section {
-      max-width: 960px;
+    /* ==== Main Content ==== */
+    main {
+      max-width: 980px;
       margin: 0 auto;
-      padding: 140px 20px;
-      background: #ffffff;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      padding: 160px 24px 120px;
     }
 
-    section.show {
-      opacity: 1;
-      transform: translateY(0);
+    .panel {
+      background: transparent;
+      padding: 46px 0;
+      border-radius: 18px;
+      margin-bottom: 60px;
+      backdrop-filter: none;
+      transition: 0.4s ease;
     }
 
     h2 {
-      font-size: 28px;
+      border-left: 4px solid var(--brand2);
+      padding-left: 12px;
+      margin-bottom: 22px;
+      font-size: 22px;
       font-weight: 600;
-      margin-bottom: 40px;
     }
 
-    .news-item {
-      padding: 18px 0;
-      border-bottom: 1px solid #e5e7eb;
-      display: flex;
-      gap: 24px;
-      font-size: 16px;
-    }
-
-    .news-date {
-      width: 140px;
-      font-weight: 500;
-      color: #6b7280;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 10px;
-    }
-    th, td {
-      border-bottom: 1px solid #e5e7eb;
-      padding: 14px 6px;
-      text-align: left;
-      font-size: 15px;
+    .news-item + .news-item {
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 14px;
+      padding-top: 14px;
     }
 
     footer {
-      padding: 60px 20px;
-      background: #f9fafb;
-      color: #6b7280;
-      text-align: center;
+      text-align: right;
+      padding: 40px 22px 60px;
+      color: var(--soft);
+      font-size: 11px;
+      opacity: 0.8;
     }
   </style>
+
+  <script>
+    /* ハンバーガー開閉 */
+    function toggleMenu(){
+      document.getElementById('mobileMenu').classList.toggle('show');
+    }
+
+    /* スクロールで白背景化 */
+    window.addEventListener('scroll', () => {
+      const header = document.querySelector('header');
+      if (window.scrollY > 50) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    });
+  </script>
 </head>
+
 
 <body>
 
-  <!-- HERO -->
-  <div class="hero-visual"></div>
+  <div class="keyvisual-bg"></div>
+  <div class="soft-overlay"></div>
 
-  <!-- HEADER -->
-  <header>
-    <div class="nav-inner"></div>
-  </header>
+  <!-- Header（透明） -->
+  <header></header>
 
   <!-- Hamburger -->
   <div class="hamburger" onclick="toggleMenu()">
@@ -210,83 +184,52 @@
     <a href="stracto_recruit_page.html">採用情報</a>
   </div>
 
-  <!-- Sections -->
-  <section id="news">
-    <h2>News</h2>
-    <div class="news-item">
-      <div class="news-date">2025-11-19</div>
-      <div>知財化に向け、特許出願に向けた初期検討を開始しました。</div>
-    </div>
-    <div class="news-item">
-      <div class="news-date">2025-11-17</div>
-      <div>Stracto株式会社 公式サイトを公開しました。</div>
-    </div>
-  </section>
+  <!-- Main Content -->
+  <main>
 
-  <section id="about">
-    <h2>企業理念 / Mission</h2>
-    <p>Stractoは単価の透明性と高単価を前提に、技術者に正当に還元する企業を目指します。</p>
-  </section>
+    <section id="news" class="panel">
+      <h2>NEWS</h2>
+      <div class="news-item">
+        <div class="news-date">2025-11-19</div>
+        <div class="news-text">知財化に向け、特許出願に向けた初期検討を開始しました。</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">2025-11-17</div>
+        <div class="news-text">Stracto株式会社 公式サイトを公開しました。</div>
+      </div>
+    </section>
 
-  <section id="business">
-    <h2>事業内容</h2>
+    <section id="about" class="panel">
+      <h2>企業理念 / Mission</h2>
+      <p>
+        Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。社員を中心に据え、
+        実力に見合う収入と働きやすい環境を提供します。
+      </p>
+    </section>
 
-    <h3>資産運用事業</h3>
-    <ul>
-      <li>株式・債券・ETF・現物不動産の長期運用</li>
-      <li>投資テンプレート・ツールの開発・販売</li>
-      <li>金融コンテンツの企画・提供</li>
-    </ul>
+    <section id="business" class="panel">
+      <h2>事業内容</h2>
 
-    <h3 style="margin-top:40px;">ITエンジニアリング事業</h3>
-    <ul>
-      <li>システム設計・構築・運用・保守</li>
-      <li>ネットワーク・セキュリティSES/業務委託</li>
-      <li>Webアプリケーション開発</li>
-    </ul>
-  </section>
+      <h3>資産運用事業</h3>
+      <ul>
+        <li>株式・債券・ETF・現物不動産の保有および長期運用</li>
+        <li>投資テンプレート・ツールの企画・開発・販売</li>
+        <li>金融情報・投資教育コンテンツの提供</li>
+      </ul>
 
-  <section>
-    <h2>会社概要</h2>
-    <table>
-      <tr><th>会社名</th><td>Stracto株式会社</td></tr>
-      <tr><th>所在地</th><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-      <tr><th>設立</th><td>2026年6月（準備中）</td></tr>
-      <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
-      <tr><th>資本金</th><td>1,000,000円</td></tr>
-    </table>
-  </section>
+      <h3>SES事業</h3>
+      <ul>
+        <li>ITインフラ／セキュリティエンジニアリング支援</li>
+        <li>ゼロトラスト・SASE設計構築（Prisma Access など）</li>
+        <li>クラウド基盤構築・ネットワーク設計</li>
+      </ul>
+    </section>
+
+  </main>
 
   <footer>
-    © 2026 Stracto Inc. All Rights Reserved.
+    © 2025 Stracto Inc. All Rights Reserved.
   </footer>
-
-  <!-- ===============================
-       SCRIPT: scroll / menu / fade
-  =============================== -->
-  <script>
-    /* メニュー開閉 */
-    function toggleMenu() {
-      document.getElementById('mobileMenu').classList.toggle('show');
-    }
-
-    /* スクロールで header 白化 */
-    window.addEventListener("scroll", () => {
-      const header = document.querySelector("header");
-      if (window.scrollY > 40) header.classList.add("scrolled");
-      else header.classList.remove("scrolled");
-    });
-
-    /* 白背景セクションのフェードイン */
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("show");
-      });
-    }, { threshold: 0.2 });
-
-    sections.forEach(sec => observer.observe(sec));
-  </script>
 
 </body>
 </html>
