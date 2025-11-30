@@ -14,7 +14,7 @@
       --brand2: #38bdf8;
       --border-soft: rgba(255,255,255,0.13);
       --glass-bg: rgba(255,255,255,0.06);
-      --glass-border: rgba(255,255,255,0.12);
+      --glass-border: rgba(255,255,255,0.16);
     }
 
     body {
@@ -31,7 +31,7 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      opacity: 0.5;
+      opacity: 0.85; /* ← 発光度UP */
     }
 
     /* ハンバーガー */
@@ -45,7 +45,6 @@
       z-index: 9999;
       transition: transform 0.3s ease;
     }
-
     .hamburger.active { transform: scale(1.15); }
 
     .hamburger span {
@@ -57,7 +56,6 @@
       border-radius: 4px;
       transition: all 0.35s cubic-bezier(.4,.0,.2,1);
     }
-
     .hamburger span:nth-child(1){ top: 0; }
     .hamburger span:nth-child(2){ top: 10px; }
     .hamburger span:nth-child(3){ top: 20px; }
@@ -102,7 +100,7 @@
       transform: translateX(0);
     }
 
-    /* KeyVisual (フェードアニメ追加) */
+    /* KeyVisual */
     .hero-visual {
       width: 100vw;
       height: 100vh;
@@ -112,7 +110,6 @@
       opacity: 0;
       margin-bottom: 50px;
     }
-
     @keyframes heroFade {
       0% { opacity: 0; transform: scale(1.02); }
       100% { opacity: 1; transform: scale(1); }
@@ -123,27 +120,16 @@
       margin: 0 auto;
       padding: 0 22px 120px;
     }
-
-    section {
-      margin-bottom: 100px;
-      padding-top: 10px;
-    }
+    section { margin-bottom: 100px; }
 
     h2 {
       border-left: 4px solid var(--brand2);
       padding-left: 14px;
       margin-bottom: 26px;
       font-size: 24px;
-      letter-spacing: 0.03em;
     }
 
-    h3 {
-      color: var(--brand2);
-      font-size: 19px;
-      margin-bottom: 12px;
-    }
-
-    /* NEWS カード */
+    /* NEWS */
     .news-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -158,19 +144,26 @@
       color: var(--brand2);
     }
 
-    /* BUSINESS カード */
+    /* MISSION */
+    .mission-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(10px);
+      border-radius: 14px;
+      padding: 26px 26px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+      line-height: 1.85;
+    }
+
+    /* BUSINESS */
     .business-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 28px;
     }
-
     @media (max-width: 720px) {
-      .business-grid {
-        grid-template-columns: 1fr;
-      }
+      .business-grid { grid-template-columns: 1fr; }
     }
-
     .business-card {
       background: var(--glass-bg);
       border: 1px solid var(--glass-border);
@@ -178,52 +171,55 @@
       backdrop-filter: blur(10px);
       padding: 26px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.2);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      transition: 0.35s ease;
     }
-
     .business-card:hover {
       transform: translateY(-4px);
       box-shadow: 0 6px 22px rgba(0,0,0,0.35);
     }
-
     .business-icon {
       font-size: 34px;
       margin-bottom: 12px;
       color: var(--brand2);
     }
 
-    /* COMPANY カード */
-    .company-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 18px;
-    }
-
-    .company-card {
-      padding: 18px 22px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
+    /* COMPANY：表＋ガラスカード */
+    .company-card-wrapper {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
       backdrop-filter: blur(12px);
+      border-radius: 14px;
+      padding: 28px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-      display: flex;
-      justify-content: space-between;
     }
 
-    .company-card .label {
-      color: var(--brand2);
+    .company-table {
+      width: 100%;
+      border-collapse: collapse;
+      line-height: 1.8;
+    }
+    .company-table tr + tr {
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    .company-table td {
+      padding: 14px 6px;
+    }
+    .company-table td:first-child {
+      width: 160px;
       font-weight: 600;
-      width: 150px;
+      color: var(--brand2);
     }
-
     @media (max-width: 600px) {
-      .company-card {
-        flex-direction: column;
-        gap: 8px;
+      .company-table td {
+        display: block;
+      }
+      .company-table td:first-child {
+        margin-bottom: 4px;
+        width: auto;
       }
     }
 
-    /* Footer 2行構成 */
+    /* Footer */
     footer {
       padding: 60px 24px;
       text-align: center;
@@ -231,26 +227,22 @@
       font-size: 14px;
       border-top: 1px solid rgba(255,255,255,0.08);
     }
-
     .footer-links {
       margin-bottom: 14px;
       display: flex;
       gap: 18px;
       justify-content: center;
     }
-
     .footer-links a {
       color: var(--text-soft);
       text-decoration: none;
       transition: 0.2s;
     }
-    .footer-links a:hover {
-      color: white;
-    }
+    .footer-links a:hover { color: white; }
+
   </style>
 
   <script>
-    /* ハンバーガー */
     function toggleMenu(){
       const menu = document.getElementById('mobileMenu');
       const hb = document.querySelector('.hamburger');
@@ -258,7 +250,7 @@
       hb.classList.toggle('active');
     }
 
-    /* パーティクル背景 */
+    /* パーティクル背景（発光度UP & 線描画UP） */
     document.addEventListener("DOMContentLoaded", () => {
       const canvas = document.getElementById("particles");
       const ctx = canvas.getContext("2d");
@@ -274,17 +266,23 @@
       const particles = Array.from({length: 60}).map(() => ({
         x: Math.random() * w,
         y: Math.random() * h,
-        r: Math.random() * 2 + 0.7,
+        r: Math.random() * 2 + 1.2,  // 半径少しUP
         vx: (Math.random() - 0.5) * 0.25,
         vy: (Math.random() - 0.5) * 0.25,
       }));
 
       function draw() {
         ctx.clearRect(0, 0, w, h);
-        ctx.fillStyle = "rgba(255,255,255,0.45)";
+
+        /* ★ 粒の発光度UP（白＋ブラー感） */
         particles.forEach(p => {
+          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.5);
+          gradient.addColorStop(0, "rgba(255,255,255,0.9)");
+          gradient.addColorStop(1, "rgba(255,255,255,0.0)");
+
+          ctx.fillStyle = gradient;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, p.r * 1.8, 0, Math.PI * 2);
           ctx.fill();
 
           p.x += p.vx;
@@ -292,6 +290,31 @@
           if (p.x < 0 || p.x > w) p.vx *= -1;
           if (p.y < 0 || p.y > h) p.vy *= -1;
         });
+
+        /* ★ 点同士を結ぶ線（はっきり見える&高級感） */
+        for (let i = 0; i < particles.length; i++) {
+          for (let j = i + 1; j < particles.length; j++) {
+            const p1 = particles[i];
+            const p2 = particles[j];
+
+            const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+            if (dist < 180) {
+              const alpha = 1 - (dist / 180);
+
+              const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+              grad.addColorStop(0, `rgba(255,255,255,${0.75 * alpha})`);
+              grad.addColorStop(1, `rgba(100,160,255,${0.55 * alpha})`);
+
+              ctx.strokeStyle = grad;
+              ctx.lineWidth = 1.0;
+              ctx.beginPath();
+              ctx.moveTo(p1.x, p1.y);
+              ctx.lineTo(p2.x, p2.y);
+              ctx.stroke();
+            }
+          }
+        }
+
         requestAnimationFrame(draw);
       }
       draw();
@@ -336,10 +359,10 @@
 <!-- MISSION -->
 <section id="mission">
   <h2>MISSION</h2>
-  <p>
+  <div class="mission-card">
     Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。<br>
     社員を中心に据え、実力に見合う収入と働きやすい環境を保障します。
-  </p>
+  </div>
 </section>
 
 <!-- BUSINESS -->
@@ -374,33 +397,15 @@
 <!-- COMPANY -->
 <section id="company">
   <h2>COMPANY</h2>
-  <div class="company-cards">
 
-    <div class="company-card">
-      <div class="label">会社名</div>
-      <div class="value">Stracto株式会社</div>
-    </div>
-
-    <div class="company-card">
-      <div class="label">所在地</div>
-      <div class="value">東京都港区北青山1-3-1 アールキューブ青山3階</div>
-    </div>
-
-    <div class="company-card">
-      <div class="label">設立</div>
-      <div class="value">2026年6月（準備中）</div>
-    </div>
-
-    <div class="company-card">
-      <div class="label">代表者</div>
-      <div class="value">磯野 洋輝</div>
-    </div>
-
-    <div class="company-card">
-      <div class="label">資本金</div>
-      <div class="value">1,000,000円</div>
-    </div>
-
+  <div class="company-card-wrapper">
+    <table class="company-table">
+      <tr><td>会社名</td><td>Stracto株式会社</td></tr>
+      <tr><td>所在地</td><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
+      <tr><td>設立</td><td>2026年6月（準備中）</td></tr>
+      <tr><td>代表者</td><td>磯野 洋輝</td></tr>
+      <tr><td>資本金</td><td>1,000,000円</td></tr>
+    </table>
   </div>
 </section>
 
