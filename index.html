@@ -10,7 +10,7 @@
 ============================= -->
 <meta name="description" content="Stracto株式会社は、ITエンジニアリング事業と資産運用事業を中心に、技術者への還元と透明性を重視した企業です。高単価・高品質なサービスを提供し、技術者が最大限に活躍できる環境を整えています。">
 
-<meta name="keywords" content="Stracto, ストラクト, ITエンジニアリング, 資産運用, SES, エンジニア還元, クラウド, ネットワーク, セキュリティ">
+<meta name="keywords" content="Stracto, ストラクト, ITエンジニアリング, 資産運用, SES, クラウド, ネットワーク">
 
 <link rel="canonical" href="https://stracto.jp/">
 
@@ -21,19 +21,17 @@
 <meta property="og:image" content="keyvisual.png">
 <meta property="og:site_name" content="Stracto Inc.">
 <meta property="og:locale" content="ja_JP">
-<meta property="og:description" content="ITエンジニアリングと資産運用を両軸に展開し、技術者への還元と透明性を重視したエンジニアファースト企業。">
+<meta property="og:description" content="ITエンジニアリングと資産運用事業を両軸に、透明性と技術者中心の価値提供を行う企業です。">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Stracto Inc.">
-<meta name="twitter:description" content="ITエンジニアリングと資産運用を展開するエンジニアファースト企業。">
+<meta name="twitter:description" content="ITエンジニアリング × 資産運用の技術者ファースト企業。">
 <meta name="twitter:image" content="keyvisual.png">
 
 <link rel="icon" href="favicon.ico">
 
-<!-- =============================
-        STRUCTURED DATA
-============================= -->
+<!-- Structured Data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -58,245 +56,227 @@
 </script>
 
 <!-- =============================
-          GLOBAL STYLE
+          STYLE
 ============================= -->
 <style>
 :root {
   --bg-dark: #050816;
   --text-main: #e5e7eb;
   --text-soft: #9ca3af;
-  --brand-blue: #4f9cff;
-  --brand2: #38bdf8;
+  --accent: #38bdf8;
   --glass-bg: rgba(255,255,255,0.06);
   --glass-border: rgba(255,255,255,0.16);
 }
 
 body {
-  margin: 0;
-  background: var(--bg-dark);
-  color: var(--text-main);
-  font-family: system-ui, sans-serif;
-  overflow-x: hidden;
-  line-height: 1.75;
+  margin:0;
+  background:var(--bg-dark);
+  color:var(--text-main);
+  font-family:system-ui, sans-serif;
+  overflow-x:hidden;
+  line-height:1.75;
 }
 
 #particles {
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  opacity: 0.9;
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:0.9;
 }
 
-/* HAMBURGER */
+/* Hamburger */
 .hamburger {
-  position: fixed;
-  top: 22px;
-  right: 24px;
-  width: 34px;
-  height: 24px;
-  cursor: pointer;
-  z-index: 9999;
-  transition: 0.3s;
+  position:fixed;
+  top:22px; right:24px;
+  width:34px; height:24px;
+  z-index:9999; cursor:pointer;
 }
-.hamburger.active { transform: scale(1.15); }
 .hamburger span {
-  position: absolute; left: 0;
-  width: 100%; height: 4px;
-  background: var(--brand-blue);
-  border-radius: 6px;
-  transition: 0.35s;
+  position:absolute; left:0;
+  width:100%; height:4px;
+  background:var(--accent);
+  border-radius:6px;
+  transition:0.35s;
 }
-.hamburger span:nth-child(1){ top: 0; }
-.hamburger span:nth-child(2){ top: 10px; }
-.hamburger span:nth-child(3){ top: 20px; }
-.hamburger.active span:nth-child(1){ transform: translateY(10px) rotate(45deg); }
-.hamburger.active span:nth-child(2){ opacity: 0; }
-.hamburger.active span:nth-child(3){ transform: translateY(-10px) rotate(-45deg); }
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:10px; }
+.hamburger span:nth-child(3){ top:20px; }
+.hamburger.active span:nth-child(1){ transform:translateY(10px) rotate(45deg);}
+.hamburger.active span:nth-child(2){ opacity:0;}
+.hamburger.active span:nth-child(3){ transform:translateY(-10px) rotate(-45deg);}
 
-/* MOBILE MENU */
 #mobileMenu {
-  position: fixed;
-  right: -260px; top: 0;
-  width: 240px; height: 100vh;
-  background: rgba(0,0,0,0.6);
-  backdrop-filter: blur(16px);
-  padding: 80px 24px;
-  display: flex; flex-direction: column;
-  gap: 25px;
-  transition: 0.45s;
-  z-index: 1000;
+  position:fixed;
+  right:-260px; top:0;
+  width:240px; height:100vh;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(16px);
+  padding:80px 24px;
+  display:flex; flex-direction:column; gap:25px;
+  transition:0.4s; z-index:1000;
 }
-#mobileMenu.show { right: 0; }
+#mobileMenu.show{ right:0; }
 #mobileMenu a {
-  color: white; font-size: 18px;
-  text-decoration: none;
-  opacity: 0; transform: translateX(10px);
-  transition: 0.4s;
+  color:white; font-size:18px;
+  text-decoration:none;
 }
-#mobileMenu.show a { opacity: 1; transform: none; }
 
-/* KEY VISUAL */
+/* HERO */
 .hero-visual {
-  width: 100vw; height: 100vh;
-  background: url('keyvisual.png') center/contain no-repeat;
-  background-color: #020617;
-  animation: heroFade 1.6s ease-out forwards;
-  opacity: 0;
-  margin-bottom: 50px;
+  width:100vw; height:100vh;
+  background:url('keyvisual.png') center/contain no-repeat;
+  animation:fadeIn 1.6s ease-out forwards;
+  opacity:0;
+  margin-bottom:50px;
 }
-@keyframes heroFade {
-  0% { opacity:0; transform:scale(1.02); }
-  100% { opacity:1; transform:scale(1); }
+@keyframes fadeIn {
+  0%{opacity:0; transform:scale(1.02);}
+  100%{opacity:1; transform:scale(1);}
 }
 
 /* MAIN */
 main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 0 22px 120px;
+  max-width:960px;
+  margin:0 auto;
+  padding:0 22px 120px;
 }
-section { margin-bottom: 100px; }
-
+section{ margin-bottom:100px; }
 h2 {
-  border-left: 4px solid var(--brand2);
-  padding-left: 14px;
-  margin-bottom: 26px;
-  font-size: 24px;
+  border-left:4px solid var(--accent);
+  padding-left:14px;
+  margin-bottom:26px;
+  font-size:24px;
+}
+
+/* Glass Cards */
+.glass {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  backdrop-filter:blur(10px);
+  border-radius:14px;
+  padding:26px;
 }
 
 /* NEWS */
-.news-wrapper {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 14px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-}
-
+.news-wrapper { border-radius:14px; }
 .news-year {
-  padding: 16px 22px;
-  cursor: pointer;
-  font-size: 20px;
-  display: flex; align-items: center; gap: 12px;
+  padding:16px 22px;
+  cursor:pointer;
+  font-size:20px;
+  display:flex; align-items:center; gap:12px;
 }
 .news-year::after {
   content:"＋"; margin-left:auto;
-  font-size:20px; transition:0.3s;
+  transition:0.3s;
 }
 .news-year.active::after { content:"－"; }
-
-.news-content { display:none; padding: 0 22px 14px; }
+.news-content { display:none; padding:0 22px 14px; }
 .news-content.show { display:block; }
 
 .news-row {
-  padding: 16px 6px;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  line-height: 1.85;
+  padding:16px 6px;
+  border-top:1px solid rgba(255,255,255,0.1);
 }
-
 .new-badge {
   background:#ff5b5b; color:white;
   padding:2px 6px; font-size:10px;
-  border-radius:4px; margin-left:6px;
+  border-radius:4px;
+  margin-left:6px;
 }
 
-/* MISSION */
-.mission-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  border-radius: 14px;
-  padding: 26px;
-  backdrop-filter: blur(10px);
-}
-
-/* BUSINESS */
-.business-grid {
-  display:grid; grid-template-columns:1fr 1fr;
+/* Business */
+.business-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
   gap:28px;
 }
-@media(max-width:720px){ .business-grid{ grid-template-columns:1fr; } }
-.business-card {
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  padding:26px;
-  border-radius:14px;
-  backdrop-filter: blur(10px);
+@media(max-width:720px){
+  .business-grid{ grid-template-columns:1fr; }
 }
-.business-icon { font-size:34px; color:var(--brand2); margin-bottom:12px; }
+.business-card h3{ margin-top:0; margin-bottom:12px; color:var(--accent); }
 
-/* COMPANY */
-.company-card-wrapper {
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  padding:28px;
-  border-radius:14px;
-  backdrop-filter:blur(12px);
-}
-.company-table { width:100%; border-collapse:collapse; }
-.company-table tr+tr { border-top:1px solid rgba(255,255,255,0.08); }
-.company-table td { padding:14px 6px; }
-.company-table td:first-child {
-  width:160px; color:var(--brand2); font-weight:600;
-}
+/* Company */
+.company-table{ width:100%; border-collapse:collapse;}
+.company-table td{ padding:12px 6px; }
+.company-table tr+tr{ border-top:1px solid rgba(255,255,255,0.08);}
+.company-table td:first-child{ width:160px; color:var(--accent); font-weight:600; }
 
-/* FOOTER */
-footer {
-  padding:60px 24px; text-align:center;
-  color:var(--text-soft); font-size:14px;
+/* Footer */
+footer{
+  padding:60px 24px;
+  text-align:center;
+  color:var(--text-soft);
   border-top:1px solid rgba(255,255,255,0.08);
 }
-.footer-links { display:flex; justify-content:center; gap:18px; margin-bottom:14px; }
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:14px;
+}
+.footer-links a{ color:var(--text-soft); text-decoration:none; }
+
 </style>
 
 <!-- =============================
-  PARTICLES + NEWS SCRIPT
+      SCRIPT (Particles + NEWS)
 ============================= -->
 <script>
+/* --------------------------
+      PARTICLES（弱め）
+--------------------------- */
 document.addEventListener("DOMContentLoaded", () => {
-
-  /* ========== PARTICLES (発光UP) ========== */
   const canvas = document.getElementById("particles");
   const ctx = canvas.getContext("2d");
-  let w, h;
-  function resize(){ w = canvas.width = window.innerWidth; h = canvas.height = window.innerHeight;}
-  resize(); window.addEventListener("resize", resize);
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const w = canvas.width;
+  const h = canvas.height;
 
   const particles = Array.from({length:60}).map(()=>({
     x:Math.random()*w, y:Math.random()*h,
-    r:Math.random()*2+1.2,
-    vx:(Math.random()-0.5)*0.25,
-    vy:(Math.random()-0.5)*0.25
+    r:Math.random()*1.8+1.0,
+    vx:(Math.random()-0.5)*0.22,
+    vy:(Math.random()-0.5)*0.22
   }));
 
   function draw(){
-    ctx.clearRect(0,0,w,h);
+    ctx.clearRect(0,0,canvas.width,canvas.height);
 
     particles.forEach(p=>{
-      const grad = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
-      grad.addColorStop(0,"rgba(255,255,255,0.95)");
-      grad.addColorStop(1,"rgba(255,255,255,0)");
-      ctx.fillStyle=grad;
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,0.50)");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle=g;
 
       ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r*2,0,Math.PI*2);
+      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
       ctx.fill();
 
       p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>w)p.vx*=-1;
-      if(p.y<0||p.y>h)p.vy*=-1;
+      if(p.x<0||p.x>canvas.width) p.vx*=-1;
+      if(p.y<0||p.y>canvas.height) p.vy*=-1;
     });
 
+    const lineDist=140;
     for(let i=0;i<particles.length;i++){
       for(let j=i+1;j<particles.length;j++){
         const p1=particles[i], p2=particles[j];
         const dist=Math.hypot(p1.x-p2.x,p1.y-p2.y);
-        if(dist<180){
-          const alpha=1-dist/180;
-          const grad = ctx.createLinearGradient(p1.x,p1.y,p2.x,p2.y);
-          grad.addColorStop(0,`rgba(255,255,255,${0.75*alpha})`);
-          grad.addColorStop(1,`rgba(100,160,255,${0.55*alpha})`);
-          ctx.strokeStyle=grad; ctx.lineWidth=1;
-          ctx.beginPath(); ctx.moveTo(p1.x,p1.y); ctx.lineTo(p2.x,p2.y); ctx.stroke();
+        if(dist<lineDist){
+          const alpha=(1-dist/lineDist)*0.55;
+          ctx.strokeStyle=`rgba(150,180,255,${alpha})`;
+          ctx.lineWidth=0.8;
+          ctx.beginPath();
+          ctx.moveTo(p1.x,p1.y);
+          ctx.lineTo(p2.x,p2.y);
+          ctx.stroke();
         }
       }
     }
@@ -304,13 +284,24 @@ document.addEventListener("DOMContentLoaded", () => {
     requestAnimationFrame(draw);
   }
   draw();
+});
 
+/* --------------------------
+    MENU
+--------------------------- */
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+  document.querySelector(".hamburger").classList.toggle("active");
+}
 
-  /* ========== NEWS 年度ブロック自動生成 ========== */
-  const wrapper = document.getElementById("newsWrapper");
-  const dataRows = [...wrapper.querySelectorAll(".news-data .news-row")];
+/* --------------------------
+    NEWS 自動生成
+--------------------------- */
+document.addEventListener("DOMContentLoaded", () => {
+  const wrapper=document.getElementById("newsWrapper");
+  const dataRows=[...wrapper.querySelectorAll(".news-data .news-row")];
+  const yearMap={};
 
-  const yearMap = {};
   dataRows.forEach(row=>{
     const date=row.getAttribute("data-date");
     if(!date) return;
@@ -319,25 +310,24 @@ document.addEventListener("DOMContentLoaded", () => {
     yearMap[year].push(row);
   });
 
-  wrapper.innerHTML=""; // リセット
-  const sortedYears = Object.keys(yearMap).sort((a,b)=>b-a);
+  wrapper.innerHTML="";
+  const sortedYears=Object.keys(yearMap).sort((a,b)=>b-a);
 
   sortedYears.forEach(year=>{
     const header=document.createElement("div");
     header.className="news-year";
-    header.innerHTML=`${year} <span class="news-year-icon">🗂️</span>`;
+    header.innerHTML=`${year} 🗂️`;
 
     const content=document.createElement("div");
     content.className="news-content";
 
-    yearMap[year].sort((a,b)=> new Date(b.getAttribute("data-date")) - new Date(a.getAttribute("data-date")));
+    yearMap[year].sort((a,b)=>new Date(b.getAttribute("data-date"))-new Date(a.getAttribute("data-date")));
     yearMap[year].forEach(row=>content.appendChild(row));
 
     wrapper.appendChild(header);
     wrapper.appendChild(content);
   });
 
-  /* アコーディオン */
   document.querySelectorAll(".news-year").forEach(y=>{
     y.addEventListener("click",()=>{
       y.classList.toggle("active");
@@ -345,24 +335,14 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  /* NEW バッジ自動付与（14日以内） */
   const today=new Date();
   document.querySelectorAll("[data-date]").forEach(row=>{
-    const d=row.getAttribute("data-date");
-    const diff=(today - new Date(d))/(1000*60*60*24);
+    const diff=(today - new Date(row.getAttribute("data-date")))/(1000*60*60*24);
     if(diff<=14){
       row.querySelector(".date").innerHTML += ' <span class="new-badge">NEW</span>';
     }
   });
 });
-
-/* MENU */
-function toggleMenu(){
-  const m=document.getElementById("mobileMenu");
-  const h=document.querySelector(".hamburger");
-  m.classList.toggle("show");
-  h.classList.toggle("active");
-}
 </script>
 
 </head>
@@ -380,25 +360,20 @@ function toggleMenu(){
   <a href="#mission">MISSION</a>
   <a href="#business">BUSINESS</a>
   <a href="#company">COMPANY</a>
-  <a herf="stracto_recruit_page.html">RECRUIT</a>
+  <a href="recruit.html">RECRUIT</a>
 </div>
 
 <div class="hero-visual"></div>
 
 <main>
 
-
-<!-- =============================
-            NEWS
-============================= -->
+<!-- ========== NEWS ========== -->
 <section id="news">
   <h2>NEWS 📰</h2>
 
   <div id="newsWrapper" class="news-wrapper">
 
-    <!-- ▼ NEWSデータ（年度ブロックはスクリプトで自動生成） -->
     <div class="news-data">
-
       <!-- 2026 -->
       <div class="news-row" data-date="2026-01-05">
         <strong class="date">2026-01-05</strong><br>
@@ -415,50 +390,43 @@ function toggleMenu(){
         <strong class="date">2025-11-17</strong><br>
         Stracto株式会社 公式サイトを公開しました。
       </div>
-
     </div>
 
   </div>
 </section>
 
 
-<!-- =============================
-            MISSION
-============================= -->
+<!-- ========== MISSION ========== -->
 <section id="mission">
   <h2>MISSION</h2>
-  <div class="mission-card">
-    Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。<br>
+  <div class="glass">
+    Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。<br><br>
     社員を中心に据え、実力に見合う収入と働きやすい環境を保障します。
   </div>
 </section>
 
 
-<!-- =============================
-            BUSINESS
-============================= -->
+<!-- ========== BUSINESS ========== -->
 <section id="business">
   <h2>BUSINESS</h2>
 
   <div class="business-grid">
 
-    <div class="business-card">
-      <div class="business-icon">💹</div>
+    <div class="glass business-card">
       <h3>資産運用事業</h3>
       <ul>
-        <li>有価証券（株式、債券、ETF等）および現物不動産の取得・保有・運用</li>
-        <li>投資テンプレート・ツールの企画・開発・販売</li>
-        <li>金融コンテンツ・情報の制作および提供</li>
+        <li>株式・債券・ETF・不動産の運用</li>
+        <li>投資テンプレート・ツールの開発 / 販売</li>
+        <li>金融コンテンツ制作</li>
       </ul>
     </div>
 
-    <div class="business-card">
-      <div class="business-icon">💻</div>
+    <div class="glass business-card">
       <h3>ITエンジニアリング事業</h3>
       <ul>
-        <li>コンピュータシステムの企画・設計・開発・運用・保守・コンサル</li>
-        <li>ITエンジニアリング業務の委託・請負・マネジメント</li>
-        <li>Webサービス・アプリケーション等の企画・開発・運用</li>
+        <li>システム設計 / 開発 / 運用 / コンサル</li>
+        <li>ITエンジニアリング業務の委託・請負</li>
+        <li>Web / アプリケーションの開発</li>
       </ul>
     </div>
 
@@ -466,17 +434,15 @@ function toggleMenu(){
 </section>
 
 
-<!-- =============================
-            COMPANY
-============================= -->
+<!-- ========== COMPANY ========== -->
 <section id="company">
   <h2>COMPANY</h2>
 
-  <div class="company-card-wrapper">
+  <div class="glass">
     <table class="company-table">
       <tr><td>会社名</td><td>Stracto株式会社</td></tr>
       <tr><td>所在地</td><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-      <tr><td>設立</td><td>2026年6月（準備中）</td></tr>
+      <tr><td>設立</td><td>2026年6月（予定）</td></tr>
       <tr><td>代表者</td><td>磯野 洋輝</td></tr>
       <tr><td>資本金</td><td>1,000,000円</td></tr>
     </table>
@@ -485,17 +451,17 @@ function toggleMenu(){
 
 </main>
 
+<!-- ========== FOOTER ========== -->
 <footer>
   <div class="footer-links">
     <a href="#news">News</a>
     <a href="#mission">Mission</a>
     <a href="#business">Business</a>
     <a href="#company">Company</a>
-　　<a herf="stracto_recruit_page.html">RECRUIT</a>
+    <a href="recruit.html">Recruit</a>
   </div>
   © 2026 Stracto Inc. All Rights Reserved.
 </footer>
 
 </body>
 </html>
-
