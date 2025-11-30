@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://stracto-se.github.io/stracto-site/">
 
 <!-- OGP -->
-<meta property="og:title" content="Stracto Inc.">
+<meta property="og:title" content="Stractto Inc.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stracto-se.github.io/stracto-site/">
 <meta property="og:image" content="ogp.png">
@@ -109,7 +109,7 @@ body {
 .kv {
   width:100%;
   height:100%;
-  object-fit:contain;
+  object-fit:cover; /* ←★追加：見切れ防止しつつ全画面に広げる */
   display:block;
 }
 
@@ -148,16 +148,24 @@ h2 {
   margin-bottom:40px;
 }
 
-/* BUSINESS GRID（←今回追加：横2並び） */
+/* BUSINESS GRID（横2並び） */
 .business-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
+  align-items: stretch; /* ←★追加：高さ揃え */
 }
 @media (min-width: 900px) {
   .business-grid {
     grid-template-columns: 1fr 1fr;
   }
+}
+
+/* BUSINESS内部ガラス：高さ揃え */
+.business-grid .glass {
+  display:flex;                   /* ←★追加 */
+  flex-direction:column;          /* ←★追加 */
+  justify-content:space-between;  /* ←★追加 */
 }
 
 /* NEWS */
@@ -280,7 +288,7 @@ footer {
   </div>
 </section>
 
-<!-- BUSINESS（横並び対応） -->
+<!-- BUSINESS -->
 <section id="business">
   <h2>BUSINESS</h2>
 
@@ -309,7 +317,7 @@ footer {
   </div>
 </section>
 
-<!-- COMPANY（元の内容から一切変更しない） -->
+<!-- COMPANY -->
 <section id="company">
   <h2>COMPANY</h2>
 
@@ -320,7 +328,6 @@ footer {
       <tr><td>所在地</td><td>東京都港区北青山1-3-1　アールキューブ青山3階</td></tr>
       <tr><td>資本金</td><td>1,000,000円</td></tr>
       <tr><td>設立</td><td>2026年6月予定（準備中）</td></tr>
-    </table>
     </table>
   </div>
 
