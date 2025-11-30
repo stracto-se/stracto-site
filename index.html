@@ -10,7 +10,7 @@
 <link rel="canonical" href="https://stracto-se.github.io/stracto-site/">
 
 <!-- OGP -->
-<meta property="og:title" content="Stracto Inc.">
+<meta property="og:title" content="Stractto Inc.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stracto-se.github.io/stracto-site/">
 <meta property="og:image" content="ogp.png">
@@ -63,10 +63,13 @@ body {
 .hamburger span:nth-child(1){ top:0; }
 .hamburger span:nth-child(2){ top:10px; }
 .hamburger span:nth-child(3){ top:20px; }
+
 .hamburger.active span:nth-child(1){
   transform:translateY(10px) rotate(45deg);
 }
-.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
 .hamburger.active span:nth-child(3){
   transform:translateY(-10px) rotate(-45deg);
 }
@@ -88,6 +91,7 @@ body {
   z-index:10000;
 }
 #mobileMenu.show { right:0; }
+
 #mobileMenu a {
   color:white;
   font-size:18px;
@@ -105,8 +109,13 @@ body {
 .kv {
   width:100%;
   height:100%;
-  object-fit:contain;
+  object-fit:cover; /* ←★追加：見切れ防止しつつ全画面に広げる */
   display:block;
+}
+
+@keyframes fadeIn {
+  0% { opacity:0; transform:scale(1.02); }
+  100% { opacity:1; transform:scale(1); }
 }
 
 /* ============ MAIN ============ */
@@ -115,7 +124,13 @@ main {
   margin:0 auto;
   padding:0 24px 100px;
 }
-section { margin-top:90px; }
+
+/* SECTION SPACING */
+section {
+  margin-top:90px;
+}
+
+/* TITLE */
 h2 {
   border-left:4px solid var(--accent);
   padding-left:14px;
@@ -133,17 +148,57 @@ h2 {
   margin-bottom:40px;
 }
 
-/* BUSINESS GRID */
+/* BUSINESS GRID（横2並び） */
 .business-grid {
   display: grid;
   grid-template-columns: 1fr;
   gap: 30px;
+  align-items: stretch; /* ←★追加：高さ揃え */
 }
 @media (min-width: 900px) {
-  .business-grid { grid-template-columns: 1fr 1fr; }
+  .business-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-/* COMPANY TABLE */
+/* BUSINESS内部ガラス：高さ揃え */
+.business-grid .glass {
+  display:flex;                   /* ←★追加 */
+  flex-direction:column;          /* ←★追加 */
+  justify-content:space-between;  /* ←★追加 */
+}
+
+/* NEWS */
+.news-year {
+  font-size:22px;
+  margin-top:34px;
+  margin-bottom:14px;
+  cursor:pointer;
+  color:var(--accent);
+}
+.news-content {
+  display:none;
+  margin-bottom:20px;
+}
+.news-row {
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+}
+.news-row .date {
+  font-weight:bold;
+  margin-right:8px;
+}
+.new-badge {
+  display:inline-block;
+  padding:2px 6px;
+  font-size:11px;
+  background:#ef4444;
+  color:white;
+  border-radius:4px;
+  margin-left:4px;
+}
+
+/* COMPANY TABLE（元のまま触らない） */
 .company-table {
   width:100%;
   border-collapse:collapse;
@@ -175,145 +230,13 @@ footer {
   color:var(--text-soft);
   text-decoration:none;
 }
-
-/* ======================================================================================
-   AI CHAT (ここから)
-======================================================================================*/
-
-/* ボタン */
-#ai-chat-btn {
-  position: fixed;
-  bottom: 28px;
-  right: 28px;
-  background:#38bdf8;
-  color:white;
-  padding:14px 20px;
-  border-radius:50px;
-  font-weight:bold;
-  cursor:pointer;
-  box-shadow:0 4px 18px rgba(0,0,0,0.3);
-  z-index:9999;
-}
-
-/* ウィンドウ */
-#ai-chat-window {
-  position: fixed;
-  bottom: 90px;
-  right: 28px;
-  width: 330px;
-  height: 420px;
-  background: rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.18);
-  backdrop-filter: blur(16px);
-  border-radius:16px;
-  display:none;
-  flex-direction:column;
-  overflow:hidden;
-  z-index:9999;
-}
-
-/* ヘッダー */
-.chat-header {
-  padding:14px;
-  background:rgba(0,0,0,0.4);
-  border-bottom:1px solid rgba(255,255,255,0.1);
-  color:white;
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-}
-
-/* ボディ */
-.chat-body {
-  flex:1;
-  padding:14px;
-  overflow-y:auto;
-  font-size:14px;
-  color:white;
-}
-
-/* メッセージ */
-.msg-ai, .msg-user {
-  padding:10px 14px;
-  margin:8px 0;
-  max-width:80%;
-  border-radius:12px;
-  word-break:break-word;
-}
-.msg-ai { background:rgba(255,255,255,0.12); }
-.msg-user {
-  background:#38bdf8;
-  margin-left:auto;
-}
-
-/* ===== 選択肢ボタン ===== */
-.ai-options {
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  margin-top:10px;
-}
-.ai-option-btn {
-  padding:10px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.2);
-  background:rgba(255,255,255,0.1);
-  color:white;
-  cursor:pointer;
-  text-align:center;
-  transition:0.2s;
-}
-.ai-option-btn:hover {
-  background:rgba(255,255,255,0.18);
-}
-
-/* ===== ローディング ===== */
-.loading {
-  display:inline-block;
-  font-size:20px;
-  letter-spacing:3px;
-  animation: dots 1.2s infinite;
-}
-@keyframes dots {
-  0% { opacity:0.2; }
-  50% { opacity:1; }
-  100% { opacity:0.2; }
-}
-
-/* 入力欄 */
-.chat-input-area {
-  display:flex;
-  padding:10px;
-  background:rgba(0,0,0,0.4);
-}
-#chat-input {
-  flex:1;
-  padding:8px;
-  border-radius:8px;
-  border:none;
-  outline:none;
-  background:rgba(255,255,255,0.15);
-  color:white;
-}
-#chat-send {
-  margin-left:8px;
-  padding:8px 12px;
-  background:#38bdf8;
-  border:none;
-  border-radius:8px;
-  cursor:pointer;
-  color:white;
-  font-weight:bold;
-}
-
 </style>
-</head>
 
+</head>
 <body>
 
 <canvas id="particles"></canvas>
 
-<!-- HAMBURGER -->
 <div class="hamburger" onclick="toggleMenu()">
   <span></span><span></span><span></span>
 </div>
@@ -331,10 +254,12 @@ footer {
 </div>
 
 <main>
+
 <!-- NEWS -->
 <section id="news">
   <h2>NEWS 📰</h2>
   <div id="newsArea">
+
     <div class="news-year">2026</div>
     <div class="news-content">
       <div class="news-row">2026年のニュースは準備中です。</div>
@@ -351,6 +276,7 @@ footer {
         Stracto株式会社 公式サイトを公開しました。
       </div>
     </div>
+
   </div>
 </section>
 
@@ -367,6 +293,7 @@ footer {
   <h2>BUSINESS</h2>
 
   <div class="business-grid">
+
     <div class="glass">
       <h3>資産運用事業</h3>
       <p>
@@ -393,6 +320,7 @@ footer {
 <!-- COMPANY -->
 <section id="company">
   <h2>COMPANY</h2>
+
   <div class="glass">
     <table class="company-table">
       <tr><td>会社名</td><td>Stracto株式会社</td></tr>
@@ -402,6 +330,7 @@ footer {
       <tr><td>設立</td><td>2026年6月予定（準備中）</td></tr>
     </table>
   </div>
+
 </section>
 
 </main>
@@ -417,28 +346,7 @@ footer {
   © 2026 Stracto Inc. All Rights Reserved.
 </footer>
 
-<!-- ======================================================================================
-   AI CHAT
-======================================================================================-->
-
-<div id="ai-chat-btn">AI相談</div>
-
-<div id="ai-chat-window">
-  <div class="chat-header">
-    <span>Stracto AI Assistant</span>
-    <button id="chat-close">×</button>
-  </div>
-
-  <div class="chat-body" id="chat-body"></div>
-
-  <div class="chat-input-area">
-    <input id="chat-input" type="text" placeholder="お問い合わせ内容を入力…" />
-    <button id="chat-send">▶</button>
-  </div>
-</div>
-
 <script>
-/* MENU */
 function toggleMenu(){
   document.getElementById("mobileMenu").classList.toggle("show");
   document.querySelector(".hamburger").classList.toggle("active");
@@ -525,113 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   draw();
 });
-
-/* =====================================================================
-   AI CHAT SCRIPT
-====================================================================== */
-
-/* DOM */
-const btnChat = document.getElementById("ai-chat-btn");
-const winChat = document.getElementById("ai-chat-window");
-const closeBtn = document.getElementById("chat-close");
-const sendBtn = document.getElementById("chat-send");
-const inputChat = document.getElementById("chat-input");
-const bodyChat = document.getElementById("chat-body");
-
-/* 開閉 */
-btnChat.onclick = () => {
-  winChat.style.display = "flex";
-  btnChat.style.display = "none";
-
-  if (!window.__chatOpenedOnce) {
-    showInitialMessage();
-    window.__chatOpenedOnce = true;
-  }
-};
-closeBtn.onclick = () => {
-  winChat.style.display = "none";
-  btnChat.style.display = "block";
-};
-
-/* メッセージ追加 */
-function addMessage(content, type) {
-  const div = document.createElement("div");
-  div.className = type === "user" ? "msg-user" : "msg-ai";
-  div.innerHTML = content;
-  bodyChat.appendChild(div);
-  bodyChat.scrollTop = bodyChat.scrollHeight;
-}
-
-/* ローディング */
-function showLoading() {
-  const div = document.createElement("div");
-  div.className = "msg-ai";
-  div.id = "loading-msg";
-  div.innerHTML = `<span class="loading">...</span>`;
-  bodyChat.appendChild(div);
-  bodyChat.scrollTop = bodyChat.scrollHeight;
-}
-function removeLoading() {
-  const el = document.getElementById("loading-msg");
-  if (el) el.remove();
-}
-
-/* 初期メッセージ */
-function showInitialMessage() {
-  addMessage("こんにちは。Stracto公式AIアシスタントです。<br>以下から選択できます。", "ai");
-
-  const options = document.createElement("div");
-  options.className = "ai-options";
-
-  const items = [
-    { label:"SESについて", value:"SESについて教えて" },
-    { label:"資産運用事業について", value:"資産運用事業について教えて" },
-    { label:"会社情報について", value:"会社情報について教えて" }
-  ];
-
-  items.forEach(item => {
-    const b = document.createElement("div");
-    b.className = "ai-option-btn";
-    b.textContent = item.label;
-    b.onclick = () => {
-      inputChat.value = item.value;
-      sendMessage();
-    };
-    options.appendChild(b);
-  });
-
-  bodyChat.appendChild(options);
-}
-
-/* 送信 */
-async function sendMessage() {
-  const text = inputChat.value.trim();
-  if (!text) return;
-
-  addMessage(text, "user");
-  inputChat.value = "";
-
-  showLoading();
-
-  const res = await fetch("https://stracto-ai.vercel.app/api/chat", {
-    method: "POST",
-    headers: { "Content-Type":"application/json" },
-    body: JSON.stringify({ message: text })
-  });
-
-  const data = await res.json();
-
-  removeLoading();
-  addMessage(data.reply, "ai");
-}
-
-sendBtn.onclick = sendMessage;
-inputChat.addEventListener("keydown", e => {
-  if (e.key === "Enter") sendMessage();
-});
-
 </script>
 
 </body>
 </html>
-
