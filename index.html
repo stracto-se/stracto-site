@@ -1,177 +1,126 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <title>Stracto株式会社 | Structure × Action × Optimization</title>
+  <meta charset="UTF-8">
+  <title>Stracto Inc. | IT Engineering × Asset Management</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <meta name="description" content="Stracto株式会社は、ITエンジニアリングと資産運用を掛け合わせたハイブリッド企業です。">
+  <meta name="keywords" content="Stracto,資産運用,ネットワークエンジニア,Prisma Access">
 
   <style>
     :root {
-      --soft: #9ca3af;
-      --main: #f3f4f6;
-      --brand: #4f9cff;
-      --brand2: #38bdf8;
-      --brand3: #6366f1;
       --bg-dark: #050816;
+      --text-main: #e5e7eb;
+      --text-soft: #9ca3af;
+      --brand-blue: #4f9cff;
+      --brand2: #38bdf8;
+      --border-soft: rgba(255,255,255,0.1);
     }
 
     body {
       margin: 0;
-      font-family: system-ui, Poppins, sans-serif;
       background: var(--bg-dark);
-      color: var(--main);
+      color: var(--text-main);
+      font-family: system-ui, sans-serif;
       overflow-x: hidden;
-      line-height: 1.7;
     }
 
-    /* ===== Hero KeyVisual ===== */
-    .hero-visual {
-      width: 100%;
-      height: 88vh;
-      background: url('keyvisual.png') center/contain no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      position: relative;
-      padding-top: 80px;
-      animation: fadeUp 1.4s ease;
-    }
-
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ===== Header（透明→白に変化） ===== */
-    header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      padding: 6px 20px;
-      background: transparent;
-      transition: background 0.3s ease, backdrop-filter 0.3s ease;
-      z-index: 100;
-    }
-    header.scrolled {
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-
-    /* ===== Hamburger ===== */
+    /* ハンバーガー */
     .hamburger {
       position: fixed;
-      top: 18px;
-      right: 20px;
+      top: 20px;
+      right: 22px;
       width: 32px;
       height: 24px;
       cursor: pointer;
-      z-index: 200;
+      z-index: 9999;
     }
     .hamburger span {
       position: absolute;
       left: 0;
       width: 100%;
       height: 4px;
-      background: #4f9cff;
+      background: var(--brand-blue);
       border-radius: 4px;
-      transition: 0.3s;
     }
     .hamburger span:nth-child(1){ top:0; }
     .hamburger span:nth-child(2){ top:10px; }
     .hamburger span:nth-child(3){ top:20px; }
 
-    /* ===== Mobile Menu ===== */
+    /* モバイルメニュー */
     #mobileMenu {
       position: fixed;
       top: 0;
-      right: -220px;
-      width: 200px;
+      right: -240px;
+      width: 220px;
       height: 100vh;
+      padding: 80px 20px;
       background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(6px);
+      backdrop-filter: blur(8px);
       display: flex;
       flex-direction: column;
-      padding: 80px 20px;
-      gap: 20px;
+      gap: 22px;
       transition: 0.35s ease;
-      z-index: 300;
+      z-index: 1000;
     }
     #mobileMenu.show { right:0; }
     #mobileMenu a {
       color: white;
-      text-decoration: none;
       font-size: 18px;
-      letter-spacing: 0.04em;
+      text-decoration: none;
     }
 
-    /* ===== Main Sections ===== */
+    /* KeyVisual */
+    .hero-visual {
+      width: 100vw;
+      height: 100vh;
+      background: url('keyvisual.png') center/contain no-repeat;
+      background-color: #020617;
+    }
+
+    /* セクション */
     main {
       max-width: 900px;
       margin: 0 auto;
-      padding: 60px 20px 120px;
+      padding: 60px 20px 100px;
     }
-
     section {
       margin-bottom: 70px;
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
     }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     h2 {
       border-left: 4px solid var(--brand2);
       padding-left: 12px;
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       font-size: 22px;
+    }
+    h3 {
+      margin-top: 26px;
+      margin-bottom: 12px;
+      color: var(--brand2);
+      font-size: 18px;
+    }
+
+    /* Company table（日本語ラベルに戻す） */
+    table.company-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    table.company-table td {
+      padding: 10px 6px;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    table.company-table td:first-child {
+      width: 150px;
+      color: var(--brand2);
       font-weight: 600;
     }
-
-    /* ===== NEWS カードデザイン ===== */
-    .news-card {
-      background: rgba(255,255,255,0.03);
-      padding: 20px 22px;
-      border-radius: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 18px;
-      transition: 0.25s ease;
-    }
-    .news-card:hover {
-      background: rgba(255,255,255,0.06);
-      transform: translateY(-4px);
-    }
-    .news-date {
-      font-size: 13px;
-      color: var(--brand2);
-      margin-bottom: 6px;
-    }
-    .news-title {
-      font-size: 16px;
-      line-height: 1.6;
-    }
-
-    /* ===== Business / About ===== */
-    ul { padding-left: 20px; }
 
     footer {
       text-align: right;
       padding: 40px 22px 60px;
-      color: var(--soft);
-      font-size: 11px;
-      opacity: 0.8;
-    }
-
-    /* ===== スマホ最適化 ===== */
-    @media (max-width: 600px) {
-      .hero-visual { height: 70vh; background-size: cover; }
-      h2 { font-size: 20px; }
-      .news-card { padding: 18px; }
+      color: var(--text-soft);
     }
   </style>
 
@@ -179,48 +128,25 @@
     function toggleMenu(){
       document.getElementById('mobileMenu').classList.toggle('show');
     }
-
-    window.addEventListener('scroll', () => {
-      const header = document.querySelector('header');
-      if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
-    });
-
-    /* ===== フェードイン（Intersection Observer） ===== */
-    document.addEventListener('DOMContentLoaded', () => {
-      const sections = document.querySelectorAll('section');
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.2 });
-
-      sections.forEach(sec => observer.observe(sec));
-    });
   </script>
 </head>
 
 <body>
 
-  <header></header>
-
+  <!-- ハンバーガー -->
   <div class="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
   </div>
 
+  <!-- モバイルメニュー -->
   <div id="mobileMenu">
     <a href="#news">NEWS</a>
-    <a href="#about">企業理念</a>
-    <a href="#business">事業内容</a>
-    <a href="stracto_recruit_page.html">採用情報</a>
+    <a href="#mission">MISSION</a>
+    <a href="#business">BUSINESS</a>
+    <a href="#company">COMPANY</a>
   </div>
 
-  <!-- ===== Hero Section ===== -->
+  <!-- KeyVisual -->
   <div class="hero-visual"></div>
 
   <main>
@@ -229,49 +155,58 @@
     <section id="news">
       <h2>NEWS</h2>
 
-      <div class="news-card">
-        <div class="news-date">2025-11-19</div>
-        <div class="news-title">知財化に向け、特許出願に向けた初期検討を開始しました。</div>
-      </div>
+      <p><strong>2025-11-19</strong><br>
+      自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。</p>
 
-      <div class="news-card">
-        <div class="news-date">2025-11-17</div>
-        <div class="news-title">Stracto株式会社 公式サイトを公開しました。</div>
-      </div>
+      <p><strong>2025-11-17</strong><br>
+      Stracto株式会社 公式サイトを公開しました。</p>
     </section>
 
     <!-- Mission -->
-    <section id="about">
-      <h2>企業理念 / Mission</h2>
+    <section id="mission">
+      <h2>MISSION</h2>
       <p>
-        Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。
-        社員を中心に据え、実力に見合う収入と働きやすい環境を提供します。
+        Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。<br>
+        社員を中心に据え、実力に見合う収入と働きやすい環境を保障します。
       </p>
     </section>
 
-    <!-- Business -->
+    <!-- Business（小見出し：日本語のまま） -->
     <section id="business">
-      <h2>事業内容</h2>
+      <h2>BUSINESS</h2>
 
       <h3>資産運用事業</h3>
       <ul>
-        <li>株式・債券・ETF・不動産の長期運用</li>
-        <li>投資テンプレート・ツールの開発販売</li>
-        <li>投資教育コンテンツの提供</li>
+        <li>有価証券（株式、債券、ETF等）および現物不動産の取得、保有、売買および運用</li>
+        <li>投資テンプレート・ツールの企画、開発、販売</li>
+        <li>金融コンテンツや情報の制作および提供</li>
       </ul>
 
-      <h3>SES事業</h3>
+      <h3>ITエンジニアリング事業</h3>
       <ul>
-        <li>ITインフラ／セキュリティエンジニアリング支援</li>
-        <li>ゼロトラスト設計・構築（Prisma Access）</li>
-        <li>クラウド/ネットワーク設計構築</li>
+        <li>コンピュータシステムの企画、設計、開発、運用、保守およびコンサルティング業務</li>
+        <li>ITエンジニアリング業務の委託・請負・マネジメント</li>
+        <li>Webサービス・アプリケーション・ソフトウェアの企画・開発・運用</li>
       </ul>
+    </section>
+
+    <!-- Company（日本語ラベルに修正） -->
+    <section id="company">
+      <h2>COMPANY</h2>
+
+      <table class="company-table">
+        <tr><td>会社名</td><td>Stracto株式会社</td></tr>
+        <tr><td>所在地</td><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
+        <tr><td>設立</td><td>2026年6月（準備中）</td></tr>
+        <tr><td>代表者</td><td>磯野 洋輝</td></tr>
+        <tr><td>資本金</td><td>1,000,000円</td></tr>
+      </table>
     </section>
 
   </main>
 
   <footer>
-    © 2025 Stracto Inc. All Rights Reserved.
+    © 2026 Stracto Inc. All Rights Reserved.
   </footer>
 
 </body>
