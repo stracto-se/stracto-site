@@ -4,17 +4,15 @@
   <meta charset="UTF-8" />
   <title>Stracto株式会社 | Structure × Action × Optimization</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
-      --glass: rgba(255, 255, 255, 0.05);
       --soft: #9ca3af;
       --main: #e5e7eb;
       --brand: #4f9cff;
-      --blur: blur(14px);
+      --brand2: #38bdf8;
+      --brand3: #6366f1;
     }
 
     body {
@@ -26,41 +24,34 @@
       overflow-x: hidden;
     }
 
-    /* Background KeyVisual */
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      background-image: url("keyvisual.png");
-      background-size: cover;
-      background-position: center 20%;
-      background-repeat: no-repeat;
+    /* ==== KeyVisual Background (no glass UI) ==== */
+    .keyvisual-bg {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: url('keyvisual.png') center/cover no-repeat;
       z-index: -2;
-      animation: bgPulse 9s ease-in-out infinite alternate;
-      opacity: 0.92;
+      opacity: 0.95;
+      filter: brightness(1.05);
     }
 
-    @keyframes bgPulse {
-      0% { filter: brightness(0.85) blur(0px); }
-      100% { filter: brightness(1.03) blur(1px); }
-    }
-
-    /* Hero Overlay */
-    .hero-overlay {
-      position: absolute;
+    /* ==== Soft dark overlay instead of glass ==== */
+    .soft-overlay {
+      position: fixed;
       inset: 0;
-      background: linear-gradient(to bottom, rgba(5,8,22,0.75), rgba(5,8,22,0.85));
+      background: rgba(5, 8, 22, 0.55);
       z-index: -1;
     }
 
+
+    /* ==== Header ==== */
     header {
       position: sticky;
       top: 0;
-      backdrop-filter: var(--blur);
-      background: rgba(10, 10, 20, 0.45);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      background: rgba(0, 0, 0, 0.45);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(6px);
       z-index: 20;
     }
-
     .nav-inner {
       max-width: 980px;
       margin: 0 auto;
@@ -70,14 +61,12 @@
       align-items: center;
     }
 
-    /* Logo area */
     .logo-wrap {
       display: flex;
       align-items: center;
       gap: 10px;
-      animation: float 5s ease-in-out infinite;
+      animation: float 6s ease-in-out infinite;
     }
-
     @keyframes float {
       0% { transform: translateY(0px); }
       50% { transform: translateY(-3px); }
@@ -88,16 +77,8 @@
       width: 42px;
       height: 42px;
       filter: drop-shadow(0 0 6px rgba(79,156,255,0.7));
-      animation: logoGlow 6s ease-in-out infinite alternate;
     }
-
-    @keyframes logoGlow {
-      0% { filter: drop-shadow(0 0 4px rgba(79,156,255,0.4)); }
-      100% { filter: drop-shadow(0 0 10px rgba(79,156,255,0.9)); }
-    }
-
     .logo-title {
-      font-family: Poppins;
       font-size: 20px;
       font-weight: 600;
       letter-spacing: 0.03em;
@@ -110,23 +91,14 @@
       margin-top: 2px;
     }
 
-    .nav-links {
-      display: flex;
-      gap: 22px;
-      font-size: 13px;
-    }
-
     .nav-links a {
       color: var(--soft);
       text-decoration: none;
+      margin-left: 20px;
+      font-size: 13px;
       position: relative;
       padding-bottom: 4px;
     }
-
-    .nav-links a:hover {
-      color: var(--main);
-    }
-
     .nav-links a::after {
       content: "";
       position: absolute;
@@ -134,36 +106,48 @@
       bottom: -1px;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, #38bdf8, #6366f1);
-      transition: width .2s ease-out;
+      background: linear-gradient(90deg, var(--brand2), var(--brand3));
+      transition: width .2s;
       border-radius: 999px;
     }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a:hover { color: var(--main); }
 
-    .nav-links a:hover::after {
-      width: 100%;
-    }
 
+    /* ==== Content Layout (カードの代わりに"soft panels") ==== */
     main {
       max-width: 980px;
       margin: 0 auto;
-      padding: 40px 24px 70px;
-      position: relative;
-      z-index: 3;
+      padding: 50px 24px 70px;
     }
 
-    /* HERO section */
-    .hero {
-      backdrop-filter: var(--blur);
-      background: var(--glass);
-      padding: 80px 48px;
-      border-radius: 22px;
-      margin-top: 40px;
+    .panel {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 46px;
+      border-radius: 18px;
       margin-bottom: 60px;
+      backdrop-filter: blur(2px);
+      transition: 0.4s ease;
+    }
+    .panel:hover {
+      background: rgba(0, 0, 0, 0.45);
+      border-color: rgba(255,255,255,0.14);
+    }
+
+    /* Hero */
+    .hero {
+      padding: 90px 50px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 20px;
+      backdrop-filter: blur(2px);
+      margin-bottom: 70px;
       animation: fadeUp 1.8s ease;
     }
 
     @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(30px); }
+      0% { opacity: 0; transform: translateY(40px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
@@ -173,49 +157,17 @@
       color: var(--soft);
       text-transform: uppercase;
     }
-
     .hero-title {
       margin: 14px 0 20px;
       font-size: 34px;
       font-weight: 600;
-      letter-spacing: 0.02em;
     }
-
     .hero-lead {
       font-size: 16px;
       max-width: 720px;
     }
 
-    /* Generic Section */
-    .section {
-      background: var(--glass);
-      backdrop-filter: var(--blur);
-      padding: 46px;
-      border-radius: 20px;
-      margin-bottom: 60px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: 0.8s ease;
-    }
-
-    .section.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    h2 {
-      margin: 0 0 22px;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.02em;
-    }
-
-    h3 {
-      margin-top: 28px;
-      font-size: 17px;
-      margin-bottom: 10px;
-    }
-
+    /* News */
     .news-item + .news-item {
       border-top: 1px solid rgba(255,255,255,0.08);
     }
@@ -225,11 +177,9 @@
       border-collapse: collapse;
       font-size: 14px;
     }
-
-    table th, table td {
-      padding: 12px 6px;
+    th, td {
       border-bottom: 1px solid rgba(255,255,255,0.07);
-      text-align: left;
+      padding: 10px 6px;
     }
 
     footer {
@@ -237,32 +187,25 @@
       padding: 40px 22px 60px;
       color: var(--soft);
       font-size: 11px;
-    }
-
-    #particles-js {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
+      opacity: 0.8;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="hero-bg"></div>
-  <div class="hero-overlay"></div>
-  <div id="particles-js"></div>
+  <div class="keyvisual-bg"></div>
+  <div class="soft-overlay"></div>
 
   <header>
     <div class="nav-inner">
       <div>
         <div class="logo-wrap">
-          <img src="logo2.gif" class="logo-img">
+          <img src="logo2.gif" class="logo-img" />
           <div class="logo-title">Stracto</div>
         </div>
         <div class="tagline-small">Structure × Action × Optimization</div>
       </div>
-
       <nav class="nav-links">
         <a href="#news">NEWS</a>
         <a href="#business">事業内容</a>
@@ -273,19 +216,15 @@
   </header>
 
   <main>
-
-    <!-- HERO -->
     <section class="hero">
       <p class="hero-sub">IT ENGINEERING × ASSET MANAGEMENT × LONG-TERM STRATEGY</p>
       <h1 class="hero-title">構造化された経営 × 最適化された資産運用</h1>
       <p class="hero-lead">
-        Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、  
-        長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
+        Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
       </p>
     </section>
 
-    <!-- NEWS -->
-    <section id="news" class="section">
+    <section id="news" class="panel">
       <h2>NEWS</h2>
       <div class="news-item">
         <div class="news-date">2025-11-19</div>
@@ -297,86 +236,17 @@
       </div>
     </section>
 
-    <!-- Mission -->
-    <section id="about" class="section">
+    <section id="about" class="panel">
       <h2>企業理念 / Mission</h2>
       <p>
-        Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。
-        社員を中心に据え、実力に見合う収入と働きやすい環境を提供します。
+        Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。社員を中心に据え、実力に見合う収入と働きやすい環境を提供します。
       </p>
     </section>
 
-    <!-- Business -->
-    <section id="business" class="section">
+    <section id="business" class="panel">
       <h2>事業内容</h2>
 
       <h3>資産運用事業</h3>
       <ul>
         <li>株式・債券・ETF・現物不動産の保有および長期運用</li>
-        <li>投資テンプレート・ツールの開発および販売</li>
-        <li>金融コンテンツの企画・制作・提供</li>
-      </ul>
-
-      <h3>ITエンジニアリング事業</h3>
-      <ul>
-        <li>システムの設計・構築・運用・保守・コンサルティング</li>
-        <li>ネットワーク・セキュリティ領域のSES/業務委託</li>
-        <li>Webアプリケーション開発・運用</li>
-      </ul>
-    </section>
-
-    <!-- Company -->
-    <section class="section">
-      <h2>会社概要</h2>
-      <table>
-        <tr><th>会社名</th><td>Stracto株式会社</td></tr>
-        <tr><th>所在地</th><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-        <tr><th>設立</th><td>2026年6月（準備中）</td></tr>
-        <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
-        <tr><th>資本金</th><td>1,000,000円</td></tr>
-      </table>
-    </section>
-
-  </main>
-
-  <footer>
-    © 2026 Stracto Inc. All Rights Reserved.
-  </footer>
-
-  <!-- Particles -->
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <script>
-    particlesJS("particles-js", {
-      particles: {
-        number: { value: 55, density: { enable: true, value_area: 850 }},
-        color: { value: "#ffffff" },
-        shape: { type: "circle" },
-        opacity: { value: 0.4 },
-        size: { value: 2.4, random: true },
-        line_linked: {
-          enable: true,
-          distance: 130,
-          color: "#60a5fa",
-          opacity: 0.3,
-          width: 1
-        },
-        move: { enable: true, speed: 0.8 }
-      },
-      retina_detect: true
-    });
-
-    /* Section Fade */
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('show');
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(sec => observer.observe(sec));
-  </script>
-
-</body>
-</html>
-
-
+        <li>投資テンプレート・ツールの開
