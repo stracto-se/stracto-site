@@ -31,15 +31,45 @@ body {
   opacity:0.9;
 }
 
-/* HEADER (戻るボタン or メニュー追加も可) */
-.header {
-  padding:20px 24px;
-  text-align:left;
-  font-size:18px;
-  color:var(--accent);
+/* HAMBURGER */
+.hamburger {
+  position:fixed;
+  top:22px; right:24px;
+  width:34px; height:24px;
+  cursor:pointer;
+  z-index:9999;
+}
+.hamburger span {
+  position:absolute; left:0;
+  width:100%; height:4px;
+  background:var(--accent);
+  border-radius:6px;
+  transition:0.35s;
+}
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:10px; }
+.hamburger span:nth-child(3){ top:20px; }
+.hamburger.active span:nth-child(1){ transform:translateY(10px) rotate(45deg); }
+.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(3){ transform:translateY(-10px) rotate(-45deg); }
+
+/* MOBILE MENU */
+#mobileMenu {
+  position:fixed;
+  right:-260px; top:0;
+  width:240px; height:100vh;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(16px);
+  padding:80px 24px;
+  display:flex; flex-direction:column; gap:25px;
+  transition:0.4s; z-index:1000;
+}
+#mobileMenu.show { right:0; }
+#mobileMenu a {
+  color:white; font-size:18px; text-decoration:none;
 }
 
-/* PAGE TITLE */
+/* TITLE */
 h2 {
   border-left:4px solid var(--accent);
   padding-left:14px;
@@ -64,14 +94,13 @@ main {
   margin-bottom:40px;
 }
 
-/* Job Card */
+/* JOB CARD */
 .job-card h3 {
   margin-top:0;
   margin-bottom:18px;
   color:var(--accent);
   font-size:22px;
 }
-
 .job-section-title {
   font-size:18px;
   margin-top:26px;
@@ -85,11 +114,20 @@ li { margin-bottom:6px; }
 
 /* FOOTER */
 footer {
-  padding:50px 24px;
+  padding:60px 24px;
   text-align:center;
   color:var(--text-soft);
-  font-size:14px;
   border-top:1px solid rgba(255,255,255,0.08);
+}
+.footer-links{
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:14px;
+}
+.footer-links a{
+  color:var(--text-soft);
+  text-decoration:none;
 }
 </style>
 
@@ -97,6 +135,20 @@ footer {
 <body>
 
 <canvas id="particles"></canvas>
+
+<!-- HAMBURGER -->
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</div>
+
+<!-- MOBILE MENU -->
+<div id="mobileMenu">
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="recruit.html">RECRUIT</a>
+</div>
 
 <main>
 
@@ -122,13 +174,13 @@ footer {
 
   <div class="job-section-title">報酬</div>
   <ul>
-    <li>月給50万以上（スキルに応じる）</li>
+    <li>月給50万円以上（スキルに応じる）</li>
     <li>単価開示・還元率高め</li>
   </ul>
 
   <div class="job-section-title">必須スキル</div>
   <ul>
-    <li>ネットワーク / セキュリティの知識、5年以上の経験</li>
+    <li>ネットワーク / セキュリティの実務経験 5年以上</li>
     <li>クラウド（AWS / GCP / Azure いずれか）</li>
     <li>コミュニケーション能力</li>
   </ul>
@@ -148,7 +200,15 @@ footer {
 
 </main>
 
+<!-- FOOTER -->
 <footer>
+  <div class="footer-links">
+    <a href="index.html#news">News</a>
+    <a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a>
+    <a href="index.html#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+  </div>
   © 2026 Stracto Inc. All Rights Reserved.
 </footer>
 
@@ -222,6 +282,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   draw();
 });
+
+/* MENU */
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+  document.querySelector(".hamburger").classList.toggle("active");
+}
 </script>
 
 </body>
