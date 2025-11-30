@@ -5,9 +5,6 @@
   <title>Stracto Inc. | IT Engineering × Asset Management</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <meta name="description" content="Stracto株式会社は、ITエンジニアリングと資産運用を掛け合わせたハイブリッド企業です。">
-  <meta name="keywords" content="Stracto,資産運用,ネットワークエンジニア,Prisma Access">
-
   <style>
     :root {
       --bg-dark: #050816;
@@ -15,7 +12,9 @@
       --text-soft: #9ca3af;
       --brand-blue: #4f9cff;
       --brand2: #38bdf8;
-      --border-soft: rgba(255,255,255,0.1);
+      --border-soft: rgba(255,255,255,0.13);
+      --glass-bg: rgba(255,255,255,0.06);
+      --glass-border: rgba(255,255,255,0.12);
     }
 
     body {
@@ -24,18 +23,31 @@
       color: var(--text-main);
       font-family: system-ui, sans-serif;
       overflow-x: hidden;
+      line-height: 1.75;
+    }
+
+    /* パーティクル背景 */
+    #particles {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      opacity: 0.5;
     }
 
     /* ハンバーガー */
     .hamburger {
       position: fixed;
-      top: 20px;
-      right: 22px;
-      width: 32px;
+      top: 22px;
+      right: 24px;
+      width: 34px;
       height: 24px;
       cursor: pointer;
       z-index: 9999;
+      transition: transform 0.3s ease;
     }
+
+    .hamburger.active { transform: scale(1.15); }
+
     .hamburger span {
       position: absolute;
       left: 0;
@@ -43,171 +55,366 @@
       height: 4px;
       background: var(--brand-blue);
       border-radius: 4px;
+      transition: all 0.35s cubic-bezier(.4,.0,.2,1);
     }
-    .hamburger span:nth-child(1){ top:0; }
-    .hamburger span:nth-child(2){ top:10px; }
-    .hamburger span:nth-child(3){ top:20px; }
+
+    .hamburger span:nth-child(1){ top: 0; }
+    .hamburger span:nth-child(2){ top: 10px; }
+    .hamburger span:nth-child(3){ top: 20px; }
+
+    .hamburger.active span:nth-child(1){
+      transform: translateY(10px) rotate(45deg);
+    }
+    .hamburger.active span:nth-child(2){ opacity: 0; }
+    .hamburger.active span:nth-child(3){
+      transform: translateY(-10px) rotate(-45deg);
+    }
 
     /* モバイルメニュー */
     #mobileMenu {
       position: fixed;
       top: 0;
-      right: -240px;
-      width: 220px;
+      right: -260px;
+      width: 240px;
       height: 100vh;
-      padding: 80px 20px;
-      background: rgba(0,0,0,0.75);
-      backdrop-filter: blur(8px);
+      padding: 80px 24px;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(16px);
+      box-shadow: -4px 0 20px rgba(0,0,0,0.2);
       display: flex;
       flex-direction: column;
-      gap: 22px;
-      transition: 0.35s ease;
+      gap: 25px;
+      transition: right 0.45s cubic-bezier(.25,.8,.25,1);
       z-index: 1000;
     }
-    #mobileMenu.show { right:0; }
+    #mobileMenu.show { right: 0; }
+
     #mobileMenu a {
+      opacity: 0;
+      transform: translateX(12px);
       color: white;
       font-size: 18px;
       text-decoration: none;
+      transition: all 0.45s ease;
+    }
+    #mobileMenu.show a {
+      opacity: 1;
+      transform: translateX(0);
     }
 
-    /* KeyVisual */
+    /* KeyVisual (フェードアニメ追加) */
     .hero-visual {
       width: 100vw;
       height: 100vh;
       background: url('keyvisual.png') center/contain no-repeat;
       background-color: #020617;
+      animation: heroFade 1.6s ease-out forwards;
+      opacity: 0;
+      margin-bottom: 50px;
     }
 
-    /* セクション */
+    @keyframes heroFade {
+      0% { opacity: 0; transform: scale(1.02); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
     main {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 60px 20px 100px;
+      padding: 0 22px 120px;
     }
+
     section {
-      margin-bottom: 70px;
+      margin-bottom: 100px;
+      padding-top: 10px;
     }
+
     h2 {
       border-left: 4px solid var(--brand2);
-      padding-left: 12px;
-      margin-bottom: 20px;
-      font-size: 22px;
+      padding-left: 14px;
+      margin-bottom: 26px;
+      font-size: 24px;
+      letter-spacing: 0.03em;
     }
+
     h3 {
-      margin-top: 26px;
+      color: var(--brand2);
+      font-size: 19px;
+      margin-bottom: 12px;
+    }
+
+    /* NEWS カード */
+    .news-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      backdrop-filter: blur(8px);
+      border-radius: 12px;
+      padding: 20px 22px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+    }
+    .news-card strong {
+      font-size: 14px;
+      color: var(--brand2);
+    }
+
+    /* BUSINESS カード */
+    .business-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    @media (max-width: 720px) {
+      .business-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .business-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--glass-border);
+      border-radius: 14px;
+      backdrop-filter: blur(10px);
+      padding: 26px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .business-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+    }
+
+    .business-icon {
+      font-size: 34px;
       margin-bottom: 12px;
       color: var(--brand2);
-      font-size: 18px;
     }
 
-    /* Company table（日本語ラベルに戻す） */
-    table.company-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 14px;
+    /* COMPANY カード */
+    .company-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
     }
-    table.company-table td {
-      padding: 10px 6px;
-      border-bottom: 1px solid var(--border-soft);
+
+    .company-card {
+      padding: 18px 22px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+      display: flex;
+      justify-content: space-between;
     }
-    table.company-table td:first-child {
-      width: 150px;
+
+    .company-card .label {
       color: var(--brand2);
       font-weight: 600;
+      width: 150px;
     }
 
+    @media (max-width: 600px) {
+      .company-card {
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+
+    /* Footer 2行構成 */
     footer {
-      text-align: right;
-      padding: 40px 22px 60px;
+      padding: 60px 24px;
+      text-align: center;
       color: var(--text-soft);
+      font-size: 14px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-links {
+      margin-bottom: 14px;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      color: var(--text-soft);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .footer-links a:hover {
+      color: white;
     }
   </style>
 
   <script>
+    /* ハンバーガー */
     function toggleMenu(){
-      document.getElementById('mobileMenu').classList.toggle('show');
+      const menu = document.getElementById('mobileMenu');
+      const hb = document.querySelector('.hamburger');
+      menu.classList.toggle('show');
+      hb.classList.toggle('active');
     }
+
+    /* パーティクル背景 */
+    document.addEventListener("DOMContentLoaded", () => {
+      const canvas = document.getElementById("particles");
+      const ctx = canvas.getContext("2d");
+
+      let w, h;
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener("resize", resize);
+
+      const particles = Array.from({length: 60}).map(() => ({
+        x: Math.random() * w,
+        y: Math.random() * h,
+        r: Math.random() * 2 + 0.7,
+        vx: (Math.random() - 0.5) * 0.25,
+        vy: (Math.random() - 0.5) * 0.25,
+      }));
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+        ctx.fillStyle = "rgba(255,255,255,0.45)";
+        particles.forEach(p => {
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fill();
+
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > w) p.vx *= -1;
+          if (p.y < 0 || p.y > h) p.vy *= -1;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    });
   </script>
 </head>
 
 <body>
 
-  <!-- ハンバーガー -->
-  <div class="hamburger" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
+<canvas id="particles"></canvas>
+
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</div>
+
+<div id="mobileMenu">
+  <a href="#news">NEWS</a>
+  <a href="#mission">MISSION</a>
+  <a href="#business">BUSINESS</a>
+  <a href="#company">COMPANY</a>
+</div>
+
+<div class="hero-visual"></div>
+
+<main>
+
+<!-- NEWS -->
+<section id="news">
+  <h2>NEWS</h2>
+
+  <div class="news-card">
+    <strong>2025-11-19</strong><br>
+    自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。
   </div>
 
-  <!-- モバイルメニュー -->
-  <div id="mobileMenu">
-    <a href="#news">NEWS</a>
-    <a href="#mission">MISSION</a>
-    <a href="#business">BUSINESS</a>
-    <a href="#company">COMPANY</a>
+  <div class="news-card">
+    <strong>2025-11-17</strong><br>
+    Stracto株式会社 公式サイトを公開しました。
   </div>
+</section>
 
-  <!-- KeyVisual -->
-  <div class="hero-visual"></div>
+<!-- MISSION -->
+<section id="mission">
+  <h2>MISSION</h2>
+  <p>
+    Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。<br>
+    社員を中心に据え、実力に見合う収入と働きやすい環境を保障します。
+  </p>
+</section>
 
-  <main>
+<!-- BUSINESS -->
+<section id="business">
+  <h2>BUSINESS</h2>
 
-    <!-- NEWS -->
-    <section id="news">
-      <h2>NEWS</h2>
+  <div class="business-grid">
 
-      <p><strong>2025-11-19</strong><br>
-      自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。</p>
-
-      <p><strong>2025-11-17</strong><br>
-      Stracto株式会社 公式サイトを公開しました。</p>
-    </section>
-
-    <!-- Mission -->
-    <section id="mission">
-      <h2>MISSION</h2>
-      <p>
-        Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。<br>
-        社員を中心に据え、実力に見合う収入と働きやすい環境を保障します。
-      </p>
-    </section>
-
-    <!-- Business（小見出し：日本語のまま） -->
-    <section id="business">
-      <h2>BUSINESS</h2>
-
+    <div class="business-card">
+      <div class="business-icon">💹</div>
       <h3>資産運用事業</h3>
       <ul>
-        <li>有価証券（株式、債券、ETF等）および現物不動産の取得、保有、売買および運用</li>
-        <li>投資テンプレート・ツールの企画、開発、販売</li>
-        <li>金融コンテンツや情報の制作および提供</li>
+        <li>有価証券（株式、債券、ETF等）および現物不動産の取得・保有・運用</li>
+        <li>投資テンプレート・ツールの企画・開発・販売</li>
+        <li>金融コンテンツ・情報の制作および提供</li>
       </ul>
+    </div>
 
+    <div class="business-card">
+      <div class="business-icon">💻</div>
       <h3>ITエンジニアリング事業</h3>
       <ul>
-        <li>コンピュータシステムの企画、設計、開発、運用、保守およびコンサルティング業務</li>
+        <li>コンピュータシステムの企画・設計・開発・運用・保守・コンサル</li>
         <li>ITエンジニアリング業務の委託・請負・マネジメント</li>
-        <li>Webサービス・アプリケーション・ソフトウェアの企画・開発・運用</li>
+        <li>Webサービス・アプリケーション等の企画・開発・運用</li>
       </ul>
-    </section>
+    </div>
 
-    <!-- Company（日本語ラベルに修正） -->
-    <section id="company">
-      <h2>COMPANY</h2>
+  </div>
+</section>
 
-      <table class="company-table">
-        <tr><td>会社名</td><td>Stracto株式会社</td></tr>
-        <tr><td>所在地</td><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-        <tr><td>設立</td><td>2026年6月（準備中）</td></tr>
-        <tr><td>代表者</td><td>磯野 洋輝</td></tr>
-        <tr><td>資本金</td><td>1,000,000円</td></tr>
-      </table>
-    </section>
+<!-- COMPANY -->
+<section id="company">
+  <h2>COMPANY</h2>
+  <div class="company-cards">
 
-  </main>
+    <div class="company-card">
+      <div class="label">会社名</div>
+      <div class="value">Stracto株式会社</div>
+    </div>
 
-  <footer>
-    © 2026 Stracto Inc. All Rights Reserved.
-  </footer>
+    <div class="company-card">
+      <div class="label">所在地</div>
+      <div class="value">東京都港区北青山1-3-1 アールキューブ青山3階</div>
+    </div>
+
+    <div class="company-card">
+      <div class="label">設立</div>
+      <div class="value">2026年6月（準備中）</div>
+    </div>
+
+    <div class="company-card">
+      <div class="label">代表者</div>
+      <div class="value">磯野 洋輝</div>
+    </div>
+
+    <div class="company-card">
+      <div class="label">資本金</div>
+      <div class="value">1,000,000円</div>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="#news">News</a>
+    <a href="#mission">Mission</a>
+    <a href="#business">Business</a>
+    <a href="#company">Company</a>
+  </div>
+  © 2026 Stracto Inc. All Rights Reserved.
+</footer>
 
 </body>
 </html>
