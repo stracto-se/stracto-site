@@ -179,13 +179,12 @@ footer {
 }
 
 /* ============================================================
-   AI CHAT（完全隔離・衝突ゼロ版）
+   AI CHAT
 ============================================================ */
 .ai-chat-scope * {
   box-sizing:border-box;
 }
 
-/* チャットボタン */
 #ai-chat-btn {
   position:fixed;
   bottom:26px;
@@ -200,7 +199,6 @@ footer {
   z-index:99999;
 }
 
-/* ウィンドウ */
 #ai-chat-window {
   position:fixed;
   bottom:90px;
@@ -217,7 +215,6 @@ footer {
   z-index:99999;
 }
 
-/* ヘッダー */
 .chat-header {
   padding:12px 16px;
   background:rgba(0,0,0,0.4);
@@ -227,7 +224,6 @@ footer {
   justify-content:space-between;
 }
 
-/* 本文 */
 .chat-body {
   flex:1;
   padding:14px;
@@ -235,7 +231,6 @@ footer {
   font-size:14px;
 }
 
-/* メッセージ */
 .msg-ai, .msg-user {
   padding:10px 14px;
   margin:6px 0;
@@ -249,7 +244,6 @@ footer {
   color:white;
 }
 
-/* 初期選択肢 */
 .ai-options {
   display:flex;
   flex-direction:column;
@@ -269,7 +263,6 @@ footer {
   background:rgba(255,255,255,0.16);
 }
 
-/* ローディング */
 .loading {
   display:inline-block;
   font-size:20px;
@@ -282,7 +275,6 @@ footer {
   100% {opacity:.2}
 }
 
-/* 入力 */
 .chat-input-area {
   padding:10px;
   background:rgba(0,0,0,0.4);
@@ -307,7 +299,6 @@ footer {
   font-weight:bold;
   cursor:pointer;
 }
-
 </style>
 </head>
 
@@ -331,6 +322,7 @@ footer {
 <div class="hero">
   <img src="keyvisual.png" class="kv">
 </div>
+
 <main>
 
 <!-- NEWS -->
@@ -424,7 +416,7 @@ footer {
   © 2026 Stracto Inc. All Rights Reserved.
 </footer>
 
-<!-- ここから既存の JS（そのまま） -->
+<!-- EXISTING JS -->
 <script>
 function toggleMenu(){
   document.getElementById("mobileMenu").classList.toggle("show");
@@ -513,9 +505,8 @@ document.addEventListener("DOMContentLoaded", () => {
   draw();
 });
 </script>
-<!-- ============================
-     AI CHAT SCRIPT（完全隔離）
-=============================== -->
+
+<!-- AI CHAT SCRIPT -->
 <script>
 (() => {
 
@@ -526,7 +517,6 @@ const sendBtn = document.getElementById("chat-send");
 const inputChat = document.getElementById("chat-input");
 const bodyChat = document.getElementById("chat-body");
 
-/* 初回オープン */
 btnChat.onclick = () => {
   winChat.style.display = "flex";
   btnChat.style.display = "none";
@@ -537,13 +527,11 @@ btnChat.onclick = () => {
   }
 };
 
-/* 閉じる */
 closeBtn.onclick = () => {
   winChat.style.display = "none";
   btnChat.style.display = "block";
 };
 
-/* メッセージ追加 */
 function addMessage(content, type) {
   const div = document.createElement("div");
   div.className = type === "user" ? "msg-user" : "msg-ai";
@@ -552,7 +540,6 @@ function addMessage(content, type) {
   bodyChat.scrollTop = bodyChat.scrollHeight;
 }
 
-/* ローディング */
 function showLoading() {
   const d = document.createElement("div");
   d.className = "msg-ai";
@@ -566,7 +553,6 @@ function removeLoading() {
   if (e) e.remove();
 }
 
-/* 初期メッセージ */
 function showInitialMessage() {
   addMessage("こんにちは。Stracto公式AIアシスタントです。<br>以下から選択できます。", "ai");
 
@@ -593,7 +579,6 @@ function showInitialMessage() {
   bodyChat.appendChild(options);
 }
 
-/* 送信 */
 async function sendMessage() {
   const text = inputChat.value.trim();
   if (!text) return;
@@ -628,9 +613,7 @@ inputChat.addEventListener("keydown", e => {
 })();
 </script>
 
-<!-- ============================
-     AI CHAT HTML（配置要素）
-=============================== -->
+<!-- AI CHAT DOM -->
 <div id="ai-chat-btn" class="ai-chat-scope">AI相談</div>
 
 <div id="ai-chat-window" class="ai-chat-scope">
