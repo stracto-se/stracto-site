@@ -1,327 +1,389 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <title>Stracto Inc. | IT Engineering × Asset Management</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<title>Stracto Inc. | IT Engineering × Asset Management</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <style>
-    :root {
-      --bg-dark: #050816;
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --brand-blue: #4f9cff;
-      --brand2: #38bdf8;
-      --border-soft: rgba(255,255,255,0.13);
-      --glass-bg: rgba(255,255,255,0.06);
-      --glass-border: rgba(255,255,255,0.16);
-    }
+<!-- =============================
+          GLOBAL STYLE
+============================= -->
+<style>
+:root {
+  --bg-dark: #050816;
+  --text-main: #e5e7eb;
+  --text-soft: #9ca3af;
+  --brand-blue: #4f9cff;
+  --brand2: #38bdf8;
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.16);
+}
 
-    body {
-      margin: 0;
-      background: var(--bg-dark);
-      color: var(--text-main);
-      font-family: system-ui, sans-serif;
-      overflow-x: hidden;
-      line-height: 1.75;
-    }
+/* RESET */
+body {
+  margin: 0;
+  background: var(--bg-dark);
+  color: var(--text-main);
+  font-family: system-ui, sans-serif;
+  overflow-x: hidden;
+  line-height: 1.75;
+}
 
-    /* パーティクル背景 */
-    #particles {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      opacity: 0.85; /* ← 発光度UP */
-    }
+/* PARTICLES */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0.9;
+}
 
-    /* ハンバーガー */
-    .hamburger {
-      position: fixed;
-      top: 22px;
-      right: 24px;
-      width: 34px;
-      height: 24px;
-      cursor: pointer;
-      z-index: 9999;
-      transition: transform 0.3s ease;
-    }
-    .hamburger.active { transform: scale(1.15); }
+/* HAMBURGER MENU */
+.hamburger {
+  position: fixed;
+  top: 22px;
+  right: 24px;
+  width: 34px;
+  height: 24px;
+  cursor: pointer;
+  z-index: 9999;
+  transition: 0.3s;
+}
+.hamburger.active { transform: scale(1.15); }
+.hamburger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--brand-blue);
+  border-radius: 6px;
+  transition: 0.35s;
+}
+.hamburger span:nth-child(1){ top: 0; }
+.hamburger span:nth-child(2){ top: 10px; }
+.hamburger span:nth-child(3){ top: 20px; }
+.hamburger.active span:nth-child(1){ transform: translateY(10px) rotate(45deg); }
+.hamburger.active span:nth-child(2){ opacity: 0; }
+.hamburger.active span:nth-child(3){ transform: translateY(-10px) rotate(-45deg); }
 
-    .hamburger span {
-      position: absolute;
-      left: 0;
-      width: 100%;
-      height: 4px;
-      background: var(--brand-blue);
-      border-radius: 4px;
-      transition: all 0.35s cubic-bezier(.4,.0,.2,1);
-    }
-    .hamburger span:nth-child(1){ top: 0; }
-    .hamburger span:nth-child(2){ top: 10px; }
-    .hamburger span:nth-child(3){ top: 20px; }
+/* MOBILE MENU */
+#mobileMenu {
+  position: fixed;
+  right: -260px;
+  top: 0;
+  width: 240px;
+  height: 100vh;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(16px);
+  padding: 80px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  transition: right 0.45s;
+  z-index: 1000;
+}
+#mobileMenu.show { right: 0; }
+#mobileMenu a {
+  color: white;
+  font-size: 18px;
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: 0.4s;
+}
+#mobileMenu.show a {
+  opacity: 1;
+  transform: translateX(0);
+}
 
-    .hamburger.active span:nth-child(1){
-      transform: translateY(10px) rotate(45deg);
-    }
-    .hamburger.active span:nth-child(2){ opacity: 0; }
-    .hamburger.active span:nth-child(3){
-      transform: translateY(-10px) rotate(-45deg);
-    }
+/* KEY VISUAL */
+.hero-visual {
+  width: 100vw;
+  height: 100vh;
+  background: url('keyvisual.png') center/contain no-repeat;
+  background-color: #020617;
+  animation: heroFade 1.6s ease-out forwards;
+  opacity: 0;
+  margin-bottom: 50px;
+}
+@keyframes heroFade {
+  0% { opacity: 0; transform: scale(1.02); }
+  100% { opacity: 1; transform: scale(1); }
+}
 
-    /* モバイルメニュー */
-    #mobileMenu {
-      position: fixed;
-      top: 0;
-      right: -260px;
-      width: 240px;
-      height: 100vh;
-      padding: 80px 24px;
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(16px);
-      box-shadow: -4px 0 20px rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      transition: right 0.45s cubic-bezier(.25,.8,.25,1);
-      z-index: 1000;
-    }
-    #mobileMenu.show { right: 0; }
+/* MAIN */
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 22px 120px;
+}
+section { margin-bottom: 100px; }
 
-    #mobileMenu a {
-      opacity: 0;
-      transform: translateX(12px);
-      color: white;
-      font-size: 18px;
-      text-decoration: none;
-      transition: all 0.45s ease;
-    }
-    #mobileMenu.show a {
-      opacity: 1;
-      transform: translateX(0);
-    }
+/* TITLE */
+h2 {
+  border-left: 4px solid var(--brand2);
+  padding-left: 14px;
+  margin-bottom: 26px;
+  font-size: 24px;
+}
 
-    /* KeyVisual */
-    .hero-visual {
-      width: 100vw;
-      height: 100vh;
-      background: url('keyvisual.png') center/contain no-repeat;
-      background-color: #020617;
-      animation: heroFade 1.6s ease-out forwards;
-      opacity: 0;
-      margin-bottom: 50px;
-    }
-    @keyframes heroFade {
-      0% { opacity: 0; transform: scale(1.02); }
-      100% { opacity: 1; transform: scale(1); }
-    }
+/* =============================
+            NEWS
+============================= */
+.news-wrapper {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 0;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
 
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 0 22px 120px;
-    }
-    section { margin-bottom: 100px; }
+/* 年度アコーディオン */
+.news-year {
+  padding: 16px 22px;
+  cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: 0.25s;
+}
+.news-year:hover { background: rgba(255,255,255,0.08); }
+.news-year-icon {
+  font-size: 24px;
+}
+.news-year::after {
+  content: "＋";
+  margin-left: auto;
+  font-size: 20px;
+  transition: 0.3s;
+}
+.news-year.active::after { content: "－"; }
 
-    h2 {
-      border-left: 4px solid var(--brand2);
-      padding-left: 14px;
-      margin-bottom: 26px;
-      font-size: 24px;
-    }
+/* 年度内部 */
+.news-content {
+  display: none;
+  padding: 0 22px 14px;
+}
+.news-content.show { display: block; }
 
-    /* NEWS */
-    .news-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(8px);
-      border-radius: 12px;
-      padding: 20px 22px;
-      margin-bottom: 20px;
-      box-shadow: 0 4px 14px rgba(0,0,0,0.25);
-    }
-    .news-card strong {
-      font-size: 14px;
-      color: var(--brand2);
-    }
+/* 各ニュース行 */
+.news-row {
+  padding: 16px 6px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  line-height: 1.8;
+}
 
-    /* MISSION */
-    .mission-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(10px);
-      border-radius: 14px;
-      padding: 26px 26px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-      line-height: 1.85;
-    }
+/* NEWSバッジ */
+.new-badge {
+  display: inline-block;
+  background: #ff5b5b;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  margin-left: 6px;
+  color: white;
+}
 
-    /* BUSINESS */
-    .business-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-    @media (max-width: 720px) {
-      .business-grid { grid-template-columns: 1fr; }
-    }
-    .business-card {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      border-radius: 14px;
-      backdrop-filter: blur(10px);
-      padding: 26px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.2);
-      transition: 0.35s ease;
-    }
-    .business-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 22px rgba(0,0,0,0.35);
-    }
-    .business-icon {
-      font-size: 34px;
-      margin-bottom: 12px;
-      color: var(--brand2);
-    }
+/* =============================
+            MISSION
+============================= */
+.mission-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 26px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
 
-    /* COMPANY：表＋ガラスカード */
-    .company-card-wrapper {
-      background: var(--glass-bg);
-      border: 1px solid var(--glass-border);
-      backdrop-filter: blur(12px);
-      border-radius: 14px;
-      padding: 28px;
-      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
-    }
+/* =============================
+            BUSINESS
+============================= */
+.business-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+@media (max-width: 720px) {
+  .business-grid { grid-template-columns: 1fr; }
+}
+.business-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+  backdrop-filter: blur(10px);
+  padding: 26px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.2);
+  transition: 0.35s;
+}
+.business-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+}
+.business-icon {
+  font-size: 34px;
+  margin-bottom: 12px;
+  color: var(--brand2);
+}
 
-    .company-table {
-      width: 100%;
-      border-collapse: collapse;
-      line-height: 1.8;
-    }
-    .company-table tr + tr {
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .company-table td {
-      padding: 14px 6px;
-    }
-    .company-table td:first-child {
-      width: 160px;
-      font-weight: 600;
-      color: var(--brand2);
-    }
-    @media (max-width: 600px) {
-      .company-table td {
-        display: block;
-      }
-      .company-table td:first-child {
-        margin-bottom: 4px;
-        width: auto;
-      }
-    }
+/* =============================
+            COMPANY
+============================= */
+.company-card-wrapper {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(12px);
+  border-radius: 14px;
+  padding: 28px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+}
+.company-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.company-table tr + tr {
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.company-table td {
+  padding: 14px 6px;
+}
+.company-table td:first-child {
+  width: 160px;
+  color: var(--brand2);
+  font-weight: 600;
+}
+@media (max-width: 600px) {
+  .company-table td { display: block; }
+  .company-table td:first-child { margin-bottom: 4px; }
+}
 
-    /* Footer */
-    footer {
-      padding: 60px 24px;
-      text-align: center;
-      color: var(--text-soft);
-      font-size: 14px;
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-    .footer-links {
-      margin-bottom: 14px;
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-    }
-    .footer-links a {
-      color: var(--text-soft);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-    .footer-links a:hover { color: white; }
+/* =============================
+            FOOTER
+============================= */
+footer {
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--text-soft);
+  font-size: 14px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+.footer-links {
+  margin-bottom: 14px;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+}
+.footer-links a {
+  color: var(--text-soft);
+  text-decoration: none;
+}
+</style>
 
-  </style>
+<!-- =============================
+       PARTICLE JS
+============================= -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
 
-  <script>
-    function toggleMenu(){
-      const menu = document.getElementById('mobileMenu');
-      const hb = document.querySelector('.hamburger');
-      menu.classList.toggle('show');
-      hb.classList.toggle('active');
-    }
+  let w, h;
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
 
-    /* パーティクル背景（発光度UP & 線描画UP） */
-    document.addEventListener("DOMContentLoaded", () => {
-      const canvas = document.getElementById("particles");
-      const ctx = canvas.getContext("2d");
+  const particles = Array.from({length: 60}).map(() => ({
+    x: Math.random() * w,
+    y: Math.random() * h,
+    r: Math.random() * 2 + 1.2,
+    vx: (Math.random() - 0.5) * 0.25,
+    vy: (Math.random() - 0.5) * 0.25,
+  }));
 
-      let w, h;
-      function resize() {
-        w = canvas.width = window.innerWidth;
-        h = canvas.height = window.innerHeight;
-      }
-      resize();
-      window.addEventListener("resize", resize);
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
 
-      const particles = Array.from({length: 60}).map(() => ({
-        x: Math.random() * w,
-        y: Math.random() * h,
-        r: Math.random() * 2 + 1.2,  // 半径少しUP
-        vx: (Math.random() - 0.5) * 0.25,
-        vy: (Math.random() - 0.5) * 0.25,
-      }));
+    particles.forEach(p => {
+      const grad = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 3);
+      grad.addColorStop(0, "rgba(255,255,255,0.95)");
+      grad.addColorStop(1, "rgba(255,255,255,0)");
+      ctx.fillStyle = grad;
 
-      function draw() {
-        ctx.clearRect(0, 0, w, h);
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r * 2, 0, Math.PI * 2);
+      ctx.fill();
 
-        /* ★ 粒の発光度UP（白＋ブラー感） */
-        particles.forEach(p => {
-          const gradient = ctx.createRadialGradient(p.x, p.y, 0, p.x, p.y, p.r * 2.5);
-          gradient.addColorStop(0, "rgba(255,255,255,0.9)");
-          gradient.addColorStop(1, "rgba(255,255,255,0.0)");
-
-          ctx.fillStyle = gradient;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, p.r * 1.8, 0, Math.PI * 2);
-          ctx.fill();
-
-          p.x += p.vx;
-          p.y += p.vy;
-          if (p.x < 0 || p.x > w) p.vx *= -1;
-          if (p.y < 0 || p.y > h) p.vy *= -1;
-        });
-
-        /* ★ 点同士を結ぶ線（はっきり見える&高級感） */
-        for (let i = 0; i < particles.length; i++) {
-          for (let j = i + 1; j < particles.length; j++) {
-            const p1 = particles[i];
-            const p2 = particles[j];
-
-            const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
-            if (dist < 180) {
-              const alpha = 1 - (dist / 180);
-
-              const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
-              grad.addColorStop(0, `rgba(255,255,255,${0.75 * alpha})`);
-              grad.addColorStop(1, `rgba(100,160,255,${0.55 * alpha})`);
-
-              ctx.strokeStyle = grad;
-              ctx.lineWidth = 1.0;
-              ctx.beginPath();
-              ctx.moveTo(p1.x, p1.y);
-              ctx.lineTo(p2.x, p2.y);
-              ctx.stroke();
-            }
-          }
-        }
-
-        requestAnimationFrame(draw);
-      }
-      draw();
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < 0 || p.x > w) p.vx *= -1;
+      if (p.y < 0 || p.y > h) p.vy *= -1;
     });
-  </script>
-</head>
 
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const p1 = particles[i];
+        const p2 = particles[j];
+
+        const dist = Math.hypot(p1.x - p2.x, p1.y - p2.y);
+        if (dist < 180) {
+          const alpha = 1 - dist / 180;
+
+          const grad = ctx.createLinearGradient(p1.x, p1.y, p2.x, p2.y);
+          grad.addColorStop(0, `rgba(255,255,255,${0.75 * alpha})`);
+          grad.addColorStop(1, `rgba(100,160,255,${0.55 * alpha})`);
+
+          ctx.strokeStyle = grad;
+          ctx.lineWidth = 1.0;
+          ctx.beginPath();
+          ctx.moveTo(p1.x, p1.y);
+          ctx.lineTo(p2.x, p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
+
+/* MENU */
+function toggleMenu(){
+  const menu = document.getElementById('mobileMenu');
+  const hb = document.querySelector('.hamburger');
+  menu.classList.toggle('show');
+  hb.classList.toggle('active');
+}
+
+/* NEWS アコーディオン & NEWバッジ */
+document.addEventListener("DOMContentLoaded", () => {
+  document.querySelectorAll(".news-year").forEach(year => {
+    year.addEventListener("click", () => {
+      year.classList.toggle("active");
+      year.nextElementSibling.classList.toggle("show");
+    });
+  });
+
+  // NEW バッジ付与（14日以内）
+  const today = new Date();
+  document.querySelectorAll("[data-date]").forEach(row => {
+    const dateStr = row.getAttribute("data-date");
+    const newsDate = new Date(dateStr);
+
+    const diff = (today - newsDate) / (1000 * 60 * 60 * 24);
+    if (diff <= 14) {
+      row.querySelector(".date").innerHTML +=
+        ' <span class="new-badge">NEW</span>';
+    }
+  });
+});
+</script>
+
+</head>
 <body>
 
 <canvas id="particles"></canvas>
@@ -341,22 +403,45 @@
 
 <main>
 
-<!-- NEWS -->
+<!-- =============================
+            NEWS
+============================= -->
 <section id="news">
-  <h2>NEWS</h2>
+  <h2>NEWS 📰</h2>
 
-  <div class="news-card">
-    <strong>2025-11-19</strong><br>
-    自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。
-  </div>
+  <div class="news-wrapper">
 
-  <div class="news-card">
-    <strong>2025-11-17</strong><br>
-    Stracto株式会社 公式サイトを公開しました。
+    <!-- ▼ 2025 年 -->
+    <div class="news-year">2025 <span class="news-year-icon">🗂️</span></div>
+    <div class="news-content">
+
+      <div class="news-row" data-date="2025-11-19">
+        <strong class="date">2025-11-19</strong><br>
+        自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。
+      </div>
+
+      <div class="news-row" data-date="2025-11-17">
+        <strong class="date">2025-11-17</strong><br>
+        Stracto株式会社 公式サイトを公開しました。
+      </div>
+
+    </div>
+
+    <!-- ▼ 将来追加する年度（ページング対応） -->
+    <div class="news-year">2024</div>
+    <div class="news-content">
+      <div class="news-row">
+        過年度ニュースが入ります。
+      </div>
+    </div>
+
   </div>
 </section>
 
-<!-- MISSION -->
+
+<!-- =============================
+            MISSION
+============================= -->
 <section id="mission">
   <h2>MISSION</h2>
   <div class="mission-card">
@@ -365,7 +450,10 @@
   </div>
 </section>
 
-<!-- BUSINESS -->
+
+<!-- =============================
+            BUSINESS
+============================= -->
 <section id="business">
   <h2>BUSINESS</h2>
 
@@ -394,7 +482,10 @@
   </div>
 </section>
 
-<!-- COMPANY -->
+
+<!-- =============================
+            COMPANY
+============================= -->
 <section id="company">
   <h2>COMPANY</h2>
 
