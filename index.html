@@ -8,8 +8,8 @@
 
   <style>
     :root {
-      --soft: #9ca3af;
-      --main: #e5e7eb;
+      --soft: #6b7280;
+      --main: #111827;
       --brand: #4f9cff;
       --brand2: #38bdf8;
       --brand3: #6366f1;
@@ -18,260 +18,177 @@
     body {
       margin: 0;
       font-family: system-ui, Poppins, sans-serif;
-      background: #050816;
+      background: #ffffff;
       color: var(--main);
       line-height: 1.7;
       overflow-x: hidden;
     }
 
-    /* ==== KeyVisual Background (no glass UI) ==== */
-    .keyvisual-bg {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
+    /* ===============================
+       HERO KeyVisual
+    =============================== */
+    .hero-visual {
       background: url('keyvisual.png') center/cover no-repeat;
-      z-index: -2;
-      opacity: 0.95;
-      filter: brightness(1.05);
-    }
-
-    /* ==== Soft dark overlay instead of glass ==== */
-    .soft-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(5, 8, 22, 0.55);
-      z-index: -1;
-    }
-
-    /* ==== Header ==== */
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(0, 0, 0, 0.45);
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      backdrop-filter: blur(6px);
-      z-index: 20;
-    }
-    .nav-inner {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 16px 24px;
+      height: 78vh;
+      min-height: 600px;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      justify-content: center;
       align-items: center;
+      text-align: center;
+      color: #ffffff;
     }
 
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      animation: float 6s ease-in-out infinite;
-    }
-    @keyframes float {
-      0% { transform: translateY(0px); }
-      50% { transform: translateY(-3px); }
-      100% { transform: translateY(0px); }
+    .hero-logo {
+      width: 160px;
+      margin-bottom: 20px;
+      filter: drop-shadow(0 0 14px rgba(79,156,255,0.9));
+      animation: heroPulse 6s ease-in-out infinite;
     }
 
-    .logo-img {
-      width: 42px;
-      height: 42px;
-      filter: drop-shadow(0 0 6px rgba(79,156,255,0.7));
-    }
-    .logo-title {
-      font-size: 20px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
+    @keyframes heroPulse {
+      0% { filter: drop-shadow(0 0 6px rgba(79,156,255,0.5)); }
+      100% { filter: drop-shadow(0 0 18px rgba(79,156,255,1)); }
     }
 
-    .tagline-small {
-      font-size: 10px;
-      color: var(--soft);
-      letter-spacing: 0.14em;
-      margin-top: 2px;
-    }
-
-    .nav-links a {
-      color: var(--soft);
-      text-decoration: none;
-      margin-left: 20px;
-      font-size: 13px;
-      position: relative;
-      padding-bottom: 4px;
-    }
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -1px;
-      width: 0;
-      height: 2px;
-      background: linear-gradient(90deg, var(--brand2), var(--brand3));
-      transition: width .2s;
-      border-radius: 999px;
-    }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a:hover { color: var(--main); }
-
-    /* ==== Content Layout (Soft Panels) ==== */
-    main {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 50px 24px 70px;
-    }
-
-    .panel {
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 46px;
-      border-radius: 18px;
-      margin-bottom: 60px;
-      backdrop-filter: blur(2px);
-      transition: 0.4s ease;
-    }
-    .panel:hover {
-      background: rgba(0, 0, 0, 0.45);
-      border-color: rgba(255,255,255,0.14);
-    }
-
-    /* Hero */
-    .hero {
-      padding: 90px 50px;
-      background: rgba(0, 0, 0, 0.35);
-      border: 1px solid rgba(255,255,255,0.06);
-      border-radius: 20px;
-      backdrop-filter: blur(2px);
-      margin-bottom: 70px;
-      animation: fadeUp 1.8s ease;
-    }
-
-    @keyframes fadeUp {
-      0% { opacity: 0; transform: translateY(40px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
-
-    .hero-sub {
-      font-size: 11px;
-      letter-spacing: 0.18em;
-      color: var(--soft);
-      text-transform: uppercase;
-    }
     .hero-title {
-      margin: 14px 0 20px;
-      font-size: 34px;
+      font-size: 48px;
       font-weight: 600;
     }
-    .hero-lead {
-      font-size: 16px;
-      max-width: 720px;
+
+    .hero-tagline {
+      margin-top: 10px;
+      font-size: 14px;
+      letter-spacing: 0.20em;
+      opacity: 0.92;
     }
 
-    /* News */
-    .news-item + .news-item {
-      border-top: 1px solid rgba(255,255,255,0.08);
+    /* ===============================
+       WHITE SECTIONS
+    =============================== */
+    section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 120px 20px;
+      background: #ffffff;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 40px;
+    }
+
+    .news-item {
+      padding: 18px 0;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      gap: 24px;
+      font-size: 16px;
+    }
+
+    .news-date {
+      width: 140px;
+      font-weight: 500;
+      color: #6b7280;
     }
 
     table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 14px;
+      margin-top: 10px;
     }
     th, td {
-      border-bottom: 1px solid rgba(255,255,255,0.07);
-      padding: 10px 6px;
+      border-bottom: 1px solid #e5e7eb;
+      padding: 14px 6px;
+      text-align: left;
+      font-size: 15px;
     }
 
     footer {
-      text-align: right;
-      padding: 40px 22px 60px;
-      color: var(--soft);
-      font-size: 11px;
-      opacity: 0.8;
+      padding: 60px 20px;
+      text-align: center;
+      background: #f9fafb;
+      color: #6b7280;
+      font-size: 13px;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="keyvisual-bg"></div>
-  <div class="soft-overlay"></div>
+  <!-- =========================== -->
+  <!-- HERO KeyVisual              -->
+  <!-- =========================== -->
+  <div class="hero-visual">
+    <img src="logo2.gif" class="hero-logo" />
+    <div class="hero-title">Stracto</div>
+    <div class="hero-tagline">Structure × Action × Optimization</div>
+  </div>
 
-  <header>
-    <div class="nav-inner">
-      <div>
-        <div class="logo-wrap">
-          <img src="logo2.gif" class="logo-img" />
-          <div class="logo-title">Stracto</div>
-        </div>
-        <div class="tagline-small">Structure × Action × Optimization</div>
-      </div>
-      <nav class="nav-links">
-        <a href="#news">NEWS</a>
-        <a href="#business">事業内容</a>
-        <a href="#about">Stractoについて</a>
-        <a href="stracto_recruit_page.html">採用情報</a>
-      </nav>
+  <!-- =========================== -->
+  <!-- NEWS                        -->
+  <!-- =========================== -->
+  <section id="news">
+    <h2>News</h2>
+
+    <div class="news-item">
+      <div class="news-date">2025-11-19</div>
+      <div>知財化に向け、特許出願に向けた初期検討を開始しました。</div>
     </div>
-  </header>
 
-  <main>
-    <section class="hero">
-      <p class="hero-sub">IT ENGINEERING × ASSET MANAGEMENT × LONG-TERM STRATEGY</p>
-      <h1 class="hero-title">構造化された経営 × 最適化された資産運用</h1>
-      <p class="hero-lead">
-        Stracto株式会社は、ITエンジニアリングと金融戦略を掛け合わせ、長期的に持続する“経済エンジン”を設計・構築するハイブリッド企業です。
-      </p>
-    </section>
+    <div class="news-item">
+      <div class="news-date">2025-11-17</div>
+      <div>Stracto株式会社 公式サイトを公開しました。</div>
+    </div>
+  </section>
 
-    <section id="news" class="panel">
-      <h2>NEWS</h2>
-      <div class="news-item">
-        <div class="news-date">2025-11-19</div>
-        <div class="news-text">知財化に向け、特許出願に向けた初期検討を開始しました。</div>
-      </div>
-      <div class="news-item">
-        <div class="news-date">2025-11-17</div>
-        <div class="news-text">Stracto株式会社 公式サイトを公開しました。</div>
-      </div>
-    </section>
+  <!-- =========================== -->
+  <!-- Mission                     -->
+  <!-- =========================== -->
+  <section id="about">
+    <h2>企業理念 / Mission</h2>
+    <p>
+      Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。
+      社員を中心に据え、実力に見合う収入と働きやすい環境を提供します。
+    </p>
+  </section>
 
-    <section id="about" class="panel">
-      <h2>企業理念 / Mission</h2>
-      <p>
-        Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。
-        社員を中心に据え、実力に見合う収入と働きやすい環境を提供します。
-      </p>
-    </section>
+  <!-- =========================== -->
+  <!-- Business                    -->
+  <!-- =========================== -->
+  <section id="business">
+    <h2>事業内容</h2>
 
-    <section id="business" class="panel">
-      <h2>事業内容</h2>
+    <h3>資産運用事業</h3>
+    <ul>
+      <li>株式・債券・ETF・現物不動産の保有および長期運用</li>
+      <li>投資テンプレート・ツールの開発および販売</li>
+      <li>金融コンテンツの企画・制作・提供</li>
+    </ul>
 
-      <h3>資産運用事業</h3>
-      <ul>
-        <li>株式・債券・ETF・現物不動産の保有および長期運用</li>
-        <li>投資テンプレート・ツールの開発および販売</li>
-        <li>金融コンテンツの企画・制作・提供</li>
-      </ul>
+    <h3 style="margin-top:40px;">ITエンジニアリング事業</h3>
+    <ul>
+      <li>システムの設計・構築・運用・保守・コンサルティング</li>
+      <li>ネットワーク・セキュリティ領域のSES/業務委託</li>
+      <li>Webアプリケーション開発・運用</li>
+    </ul>
+  </section>
 
-      <h3>ITエンジニアリング事業</h3>
-      <ul>
-        <li>システムの設計・構築・運用・保守・コンサルティング</li>
-        <li>ネットワーク・セキュリティ領域のSES/業務委託</li>
-        <li>Webアプリケーション開発・運用</li>
-      </ul>
-    </section>
+  <!-- =========================== -->
+  <!-- Company                     -->
+  <!-- =========================== -->
+  <section>
+    <h2>会社概要</h2>
 
-    <section class="panel">
-      <h2>会社概要</h2>
-      <table>
-        <tr><th>会社名</th><td>Stracto株式会社</td></tr>
-        <tr><th>所在地</th><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-        <tr><th>設立</th><td>2026年6月（準備中）</td></tr>
-        <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
-        <tr><th>資本金</th><td>1,000,000円</td></tr>
-      </table>
-    </section>
-
-  </main>
+    <table>
+      <tr><th>会社名</th><td>Stracto株式会社</td></tr>
+      <tr><th>所在地</th><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
+      <tr><th>設立</th><td>2026年6月（準備中）</td></tr>
+      <tr><th>代表取締役</th><td>磯野 洋輝</td></tr>
+      <tr><th>資本金</th><td>1,000,000円</td></tr>
+    </table>
+  </section>
 
   <footer>
     © 2026 Stracto Inc. All Rights Reserved.
