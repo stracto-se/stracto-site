@@ -1,217 +1,147 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>採用情報 | Stracto株式会社</title>
+<meta charset="UTF-8">
+<title>Recruit | Stracto Inc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css"> <!-- 既存CSSを共通化している前提 -->
 
-  <style>
-    :root {
-      --bg: #050816;
-      --bg-soft: #0b1220;
-      --card-bg: rgba(15, 23, 42, 0.88);
-      --card-border: rgba(148, 163, 184, 0.35);
-      --primary: #2563eb;
-      --text-main: #e5e7eb;
-      --text-soft: #9ca3af;
-      --radius-lg: 16px;
-    }
+<style>
+body {
+  margin:0;
+  background:#050816;
+  color:#e5e7eb;
+  font-family:system-ui, sans-serif;
+}
 
-    body {
-      margin: 0;
-      background: radial-gradient(circle at top, #0b1220 0, #050816 50%, #020617 100%);
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      color: var(--text-main);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:0.9;
+}
 
-    #particles-js {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-    }
+/* 共通タイトル */
+h2 {
+  border-left:4px solid #38bdf8;
+  padding-left:14px;
+  margin-bottom:24px;
+  font-size:24px;
+}
 
-    header {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-      background: rgba(15, 23, 42, 0.95);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.25);
-    }
+/* コンテナ */
+main {
+  max-width:960px;
+  margin:0 auto;
+  padding:0 22px 100px;
+}
 
-    .nav-inner {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 14px 16px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+/* MISSION */
+.mission-card {
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:16px;
+  padding:30px;
+  backdrop-filter:blur(10px);
+  margin-bottom:80px;
+}
 
-    .logo-block { display: flex; flex-direction: column; line-height: 1.15; }
-    .logo {
-      font-family: 'Poppins';
-      font-size: 20px;
-      font-weight: 700;
-      color: #fff;
-    }
-    .logo-sub {
-      font-size: 11px;
-      color: var(--text-soft);
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-    }
+/* 募集カード */
+.job-card {
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.16);
+  border-radius:16px;
+  padding:30px;
+  backdrop-filter:blur(10px);
+  margin-bottom:40px;
+}
 
-    .nav-links { display: flex; gap: 18px; font-size: 14px; }
-    .nav-links a { color: var(--text-soft); text-decoration: none; }
-    .nav-links a:hover { color: #fff; }
+.job-card h3 {
+  margin-top:0;
+  font-size:22px;
+  margin-bottom:18px;
+  color:#38bdf8;
+}
 
-    main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 40px 16px 60px;
-    }
+.job-section-title {
+  font-size:18px;
+  margin-top:26px;
+  margin-bottom:10px;
+  color:#93c5fd;
+}
 
-    .section {
-      background: var(--card-bg);
-      border: 1px solid var(--card-border);
-      border-radius: var(--radius-lg);
-      padding: 26px 22px;
-      margin-bottom: 28px;
-      box-shadow: 0 14px 32px rgba(15, 23, 42, 0.9);
-    }
+ul { margin:8px 0 22px 20px; }
+li { margin-bottom:6px; }
 
-    h1 { font-size: 28px; margin-top: 0; }
-    h2 { font-size: 20px; margin-bottom: 14px; }
-    h3 { font-size: 16px; margin: 22px 0 8px; }
-
-    ul { margin-left: 20px; color: var(--text-soft); }
-    p { color: var(--text-main); }
-
-    footer {
-      text-align: center;
-      font-size: 11px;
-      padding: 20px;
-      color: var(--text-soft);
-    }
-  </style>
+/* FOOTER */
+footer {
+  padding:50px 24px; text-align:center;
+  color:#9ca3af; font-size:14px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+</style>
 </head>
 
 <body>
-  <div id="particles-js"></div>
 
-  <header>
-    <div class="nav-inner">
-      <div class="logo-block">
-        <div class="logo">STRACTO INC.</div>
-        <div class="logo-sub">STRUCTURE × ACTION × OPTIMIZATION</div>
-      </div>
-      <nav class="nav-links">
-        <a href="index.html#business">事業内容</a>
-        <a href="index.html#about">Stractoについて</a>
-        <a href="index.html#updates">更新履歴</a>
-        <a href="stracto_recruit_page.html">採用情報</a>
-      </nav>
-    </div>
-  </header>
+<canvas id="particles"></canvas>
 
-  <main>
+<main>
 
-    <!-- シンプルな採用情報 -->
-    <section class="section">
-      <h1>採用情報</h1>
-      <p>Stracto株式会社では、技術者中心の透明性ある環境で共に成長するメンバーを募集しています。</p>
-    </section>
+<h2>RECRUIT</h2>
 
-    <!-- 企業ページ風の募集要項 -->
-    <section class="section">
-      <h2>募集要項</h2>
+<div class="mission-card">
+  <strong>Stractoは、技術者を中心に据えた会社です。</strong><br><br>
+  高い単価、透明性、自由な働き方を前提とし、  
+  技術者が最大限のパフォーマンスを発揮できる環境を提供します。  
+</div>
 
-      <h3>■ 募集職種</h3>
-      <ul>
-        <li>ネットワークエンジニア（Prisma Access / SASE）</li>
-      </ul>
+<!-- 募集要項 -->
+<div class="job-card">
+  <h3>ネットワークエンジニア（正社員/業務委託）</h3>
 
-      <h3>■ 業務内容</h3>
-      <ul>
-        <li>Prisma Access / GlobalProtect の設計・構築・運用</li>
-        <li>UTM（AV/URL/FB）などセキュリティ試験</li>
-        <li>VPN / FW / BGP などネットワーク設計・運用</li>
-      </ul>
+  <div class="job-section-title">雇用形態</div>
+  <ul>
+    <li>正社員</li>
+    <li>フルリモート案件あり</li>
+  </ul>
 
-      <h3>■ 応募資格</h3>
+  <div class="job-section-title">報酬</div>
+  <ul>
+    <li>月給50万以上（スキルに応じる）</li>
+    <li>単価開示・還元率高め</li>
+  </ul>
 
-      <p><strong>必須</strong></p>
-      <ul>
-        <li>ネットワーク基礎（CCNAレベル）</li>
-        <li>Palo Alto または Prisma の経験</li>
-      </ul>
+  <div class="job-section-title">必須スキル</div>
+  <ul>
+    <li>ネットワーク / セキュリティの知識、5年以上の経験</li>
+    <li>クラウド（AWS / GCP / Azure いずれか）</li>
+    <li>コミュニケーション能力</li>
+  </ul>
 
-      <p><strong>歓迎</strong></p>
-      <ul>
-        <li>PCNSE / PCNSA</li>
-        <li>Azure / AWS の基礎知識</li>
-      </ul>
+  <div class="job-section-title">歓迎スキル</div>
+  <ul>
+    <li>Palo Alto / Prisma Access 設計、構築、運用のいずれかの経験（3年以上）</li>
+    <li>ゼロトラスト / SASEの知識</li>
+  </ul>
 
-      <h3>■ 勤務形態</h3>
-      <ul>
-        <li>正社員 / 業務委託（フリーランス）</li>
-      </ul>
+  <div class="job-section-title">備考</div>
+  <ul>
+    <li>応募方法は現在準備中です。</li>
+  </ul>
+</div>
 
-      <h3>■ 報酬</h3>
-      <ul>
-        <li>月給50万円以上（検討中）</strong><br>スキル・経験に応じて優遇します。</li>
-      </ul>
+</main>
 
-    </section>
+<footer>
+  © 2026 Stracto Inc. All Rights Reserved.
+</footer>
 
-  </main>
-
-  <footer>© 2026 Stracto Inc. All Rights Reserved.</footer>
-
- <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <script>
-    particlesJS("particles-js", {
-      "particles": {
-        "number": {
-          "value": 60,
-          "density": { "enable": true, "value_area": 900 }
-        },
-        "color": { "value": "#ffffff" },
-        "shape": { "type": "circle" },
-        "opacity": { "value": 0.45, "random": false },
-        "size": { "value": 2.6, "random": true },
-        "line_linked": {
-          "enable": true,
-          "distance": 130,
-          "color": "#60a5fa",
-          "opacity": 0.35,
-          "width": 1
-        },
-        "move": {
-          "enable": true,
-          "speed": 0.9,
-          "direction": "none",
-          "random": false,
-          "straight": false,
-          "out_mode": "out",
-          "attract": { "enable": false }
-        }
-      },
-      "interactivity": {
-        "events": {
-          "onhover": { "enable": false },
-          "onclick": { "enable": false },
-          "resize": true
-        }
-      },
-      "retina_detect": true
-    });
-  </script>
+<!-- パーティクル（本体と同じ弱め） -->
+<script>
+/* 先ほどの弱めパーティクルと同じものをここに貼る */
+</script>
 
 </body>
 </html>
