@@ -2,63 +2,23 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Stracto Inc. | IT Engineering × Asset Management</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stracto Inc. | Official Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<!-- =============================
-          SEO META TAGS
-============================= -->
-<meta name="description" content="Stracto株式会社は、ITエンジニアリング事業と資産運用事業を中心に、技術者への還元と透明性を重視した企業です。高単価・高品質なサービスを提供し、技術者が最大限に活躍できる環境を整えています。">
-
-<meta name="keywords" content="Stracto, ストラクト, ITエンジニアリング, 資産運用, SES, クラウド, ネットワーク">
-
-<link rel="canonical" href="https://stracto.jp/">
+<!-- SEO -->
+<meta name="description" content="Stracto Inc. - ネットワーク・セキュリティ技術を中心に、高品質なエンジニアリングサービスと革新的なITソリューションを提供します。">
+<link rel="canonical" href="https://stracto-se.github.io/stracto-site/">
 
 <!-- OGP -->
-<meta property="og:title" content="Stracto Inc. | IT Engineering × Asset Management">
+<meta property="og:title" content="Stracto Inc.">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://stracto.jp/">
-<meta property="og:image" content="keyvisual.png">
-<meta property="og:site_name" content="Stracto Inc.">
-<meta property="og:locale" content="ja_JP">
-<meta property="og:description" content="ITエンジニアリングと資産運用事業を両軸に、透明性と技術者中心の価値提供を行う企業です。">
-
-<!-- Twitter -->
+<meta property="og:url" content="https://stracto-se.github.io/stracto-site/">
+<meta property="og:image" content="ogp.png">
+<meta property="og:description" content="ネットワーク・セキュリティ技術を中心としたエンジニアリング企業 Stracto Inc.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Stracto Inc.">
-<meta name="twitter:description" content="ITエンジニアリング × 資産運用の技術者ファースト企業。">
-<meta name="twitter:image" content="keyvisual.png">
 
-<link rel="icon" href="favicon.ico">
-
-<!-- Structured Data -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Stracto株式会社",
-  "url": "https://stracto.jp/",
-  "logo": "keyvisual.png",
-  "description": "ITエンジニアリングと資産運用を中心に展開するエンジニアファースト企業。",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "JP",
-    "addressRegion": "Tokyo",
-    "addressLocality": "港区北青山1-3-1",
-    "streetAddress": "アールキューブ青山3階"
-  },
-  "foundingDate": "2026-06",
-  "founder": {
-    "@type": "Person",
-    "name": "磯野 洋輝"
-  }
-}
-</script>
-
-<!-- =============================
-          STYLE
-============================= -->
 <style>
+/* ============ ROOT ============ */
 :root {
   --bg-dark: #050816;
   --text-main: #e5e7eb;
@@ -68,79 +28,98 @@
   --glass-border: rgba(255,255,255,0.16);
 }
 
+/* ============ BASE ============ */
 body {
   margin:0;
+  font-family:system-ui, sans-serif;
   background:var(--bg-dark);
   color:var(--text-main);
-  font-family:system-ui, sans-serif;
   overflow-x:hidden;
-  line-height:1.75;
 }
 
+/* ============ PARTICLES ============ */
 #particles {
   position:fixed;
   inset:0;
   z-index:-1;
-  opacity:0.9;
+  opacity:0.88;
 }
 
-/* Hamburger */
+/* ============ HAMBURGER ============ */
 .hamburger {
   position:fixed;
-  top:22px; right:24px;
+  top:24px; right:26px;
   width:34px; height:24px;
-  z-index:9999; cursor:pointer;
+  cursor:pointer;
+  z-index:10000;
 }
 .hamburger span {
   position:absolute; left:0;
   width:100%; height:4px;
   background:var(--accent);
   border-radius:6px;
-  transition:0.35s;
+  transition:.36s;
 }
 .hamburger span:nth-child(1){ top:0; }
 .hamburger span:nth-child(2){ top:10px; }
 .hamburger span:nth-child(3){ top:20px; }
-.hamburger.active span:nth-child(1){ transform:translateY(10px) rotate(45deg);}
-.hamburger.active span:nth-child(2){ opacity:0;}
-.hamburger.active span:nth-child(3){ transform:translateY(-10px) rotate(-45deg);}
 
+.hamburger.active span:nth-child(1){
+  transform:translateY(10px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+.hamburger.active span:nth-child(3){
+  transform:translateY(-10px) rotate(-45deg);
+}
+
+/* ============ MOBILE MENU ============ */
 #mobileMenu {
   position:fixed;
-  right:-260px; top:0;
-  width:240px; height:100vh;
-  background:rgba(0,0,0,0.6);
+  right:-260px;
+  top:0;
+  width:240px;
+  height:100vh;
+  padding:90px 28px;
+  background:rgba(0,0,0,0.65);
   backdrop-filter:blur(16px);
-  padding:80px 24px;
-  display:flex; flex-direction:column; gap:25px;
-  transition:0.4s; z-index:1000;
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+  transition:.4s;
+  z-index:9999;
 }
-#mobileMenu.show{ right:0; }
+#mobileMenu.show { right:0; }
+
 #mobileMenu a {
-  color:white; font-size:18px;
+  color:white;
+  font-size:18px;
   text-decoration:none;
 }
 
-/* HERO */
-.hero-visual {
-  width:100vw; height:100vh;
+/* ============ HERO ============ */
+.hero {
+  width:100%;
+  height:100vh;
   background:url('keyvisual.png') center/contain no-repeat;
   animation:fadeIn 1.6s ease-out forwards;
   opacity:0;
-  margin-bottom:50px;
+  margin-bottom:60px;
 }
 @keyframes fadeIn {
-  0%{opacity:0; transform:scale(1.02);}
-  100%{opacity:1; transform:scale(1);}
+  0% { opacity:0; transform:scale(1.02); }
+  100% { opacity:1; transform:scale(1); }
 }
 
-/* MAIN */
+/* ============ MAIN ============ */
 main {
   max-width:960px;
   margin:0 auto;
-  padding:0 22px 120px;
+  padding:0 24px 100px;
 }
-section{ margin-bottom:100px; }
+
+/* TITLE */
 h2 {
   border-left:4px solid var(--accent);
   padding-left:14px;
@@ -148,205 +127,104 @@ h2 {
   font-size:24px;
 }
 
-/* Glass Cards */
+/* GLASS CARD */
 .glass {
   background:var(--glass-bg);
   border:1px solid var(--glass-border);
-  backdrop-filter:blur(10px);
   border-radius:14px;
-  padding:26px;
+  padding:30px;
+  backdrop-filter:blur(10px);
+  margin-bottom:40px;
 }
 
-/* NEWS */
-.news-wrapper { border-radius:14px; }
+/* ============ NEWS ============ */
 .news-year {
-  padding:16px 22px;
+  font-size:22px;
+  margin-top:34px;
+  margin-bottom:14px;
   cursor:pointer;
-  font-size:20px;
-  display:flex; align-items:center; gap:12px;
+  color:var(--accent);
 }
-.news-year::after {
-  content:"＋"; margin-left:auto;
-  transition:0.3s;
+
+.news-content {
+  display:none;
+  margin-bottom:20px;
 }
-.news-year.active::after { content:"－"; }
-.news-content { display:none; padding:0 22px 14px; }
-.news-content.show { display:block; }
 
 .news-row {
-  padding:16px 6px;
-  border-top:1px solid rgba(255,255,255,0.1);
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,0.12);
 }
+
+.news-row .date {
+  font-weight:bold;
+  margin-right:8px;
+}
+
 .new-badge {
-  background:#ff5b5b; color:white;
-  padding:2px 6px; font-size:10px;
+  display:inline-block;
+  padding:2px 6px;
+  font-size:11px;
+  background:#ef4444;
+  color:white;
   border-radius:4px;
-  margin-left:6px;
+  margin-left:4px;
 }
 
-/* Business */
-.business-grid{
+/* ============ BUSINESS / MISSION / COMPANY ============ */
+.card-grid {
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:28px;
+  gap:30px;
 }
-@media(max-width:720px){
-  .business-grid{ grid-template-columns:1fr; }
+@media(min-width:760px){
+  .card-grid {
+    grid-template-columns:repeat(3,1fr);
+  }
 }
-.business-card h3{ margin-top:0; margin-bottom:12px; color:var(--accent); }
 
-/* Company */
-.company-table{ width:100%; border-collapse:collapse;}
-.company-table td{ padding:12px 6px; }
-.company-table tr+tr{ border-top:1px solid rgba(255,255,255,0.08);}
-.company-table td:first-child{ width:160px; color:var(--accent); font-weight:600; }
+.business-card,
+.mission-card {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  padding:30px;
+  border-radius:14px;
+  backdrop-filter:blur(10px);
+}
 
-/* Footer */
-footer{
+.company-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:16px;
+}
+.company-table td {
+  padding:14px 10px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.company-table td:first-child {
+  color:var(--accent);
+  width:150px;
+}
+
+/* ============ FOOTER ============ */
+footer {
   padding:60px 24px;
   text-align:center;
   color:var(--text-soft);
   border-top:1px solid rgba(255,255,255,0.08);
 }
-.footer-links{
+.footer-links {
   display:flex;
   justify-content:center;
   gap:18px;
-  margin-bottom:14px;
+  margin-bottom:16px;
 }
-.footer-links a{ color:var(--text-soft); text-decoration:none; }
-
+.footer-links a {
+  color:var(--text-soft);
+  text-decoration:none;
+}
 </style>
 
-<!-- =============================
-      SCRIPT (Particles + NEWS)
-============================= -->
-<script>
-/* --------------------------
-      PARTICLES（弱め）
---------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
-  const canvas = document.getElementById("particles");
-  const ctx = canvas.getContext("2d");
-
-  function resize(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  resize();
-  window.addEventListener("resize", resize);
-
-  const w = canvas.width;
-  const h = canvas.height;
-
-  const particles = Array.from({length:60}).map(()=>({
-    x:Math.random()*w, y:Math.random()*h,
-    r:Math.random()*1.8+1.0,
-    vx:(Math.random()-0.5)*0.22,
-    vy:(Math.random()-0.5)*0.22
-  }));
-
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    particles.forEach(p=>{
-      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
-      g.addColorStop(0,"rgba(255,255,255,0.50)");
-      g.addColorStop(1,"rgba(255,255,255,0)");
-      ctx.fillStyle=g;
-
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
-      ctx.fill();
-
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width) p.vx*=-1;
-      if(p.y<0||p.y>canvas.height) p.vy*=-1;
-    });
-
-    const lineDist=140;
-    for(let i=0;i<particles.length;i++){
-      for(let j=i+1;j<particles.length;j++){
-        const p1=particles[i], p2=particles[j];
-        const dist=Math.hypot(p1.x-p2.x,p1.y-p2.y);
-        if(dist<lineDist){
-          const alpha=(1-dist/lineDist)*0.55;
-          ctx.strokeStyle=`rgba(150,180,255,${alpha})`;
-          ctx.lineWidth=0.8;
-          ctx.beginPath();
-          ctx.moveTo(p1.x,p1.y);
-          ctx.lineTo(p2.x,p2.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    requestAnimationFrame(draw);
-  }
-  draw();
-});
-
-/* --------------------------
-    MENU
---------------------------- */
-function toggleMenu(){
-  document.getElementById("mobileMenu").classList.toggle("show");
-  document.querySelector(".hamburger").classList.toggle("active");
-}
-
-/* --------------------------
-    NEWS 自動生成
---------------------------- */
-document.addEventListener("DOMContentLoaded", () => {
-  const wrapper=document.getElementById("newsWrapper");
-  const dataRows=[...wrapper.querySelectorAll(".news-data .news-row")];
-  const yearMap={};
-
-  dataRows.forEach(row=>{
-    const date=row.getAttribute("data-date");
-    if(!date) return;
-    const year=date.split("-")[0];
-    if(!yearMap[year]) yearMap[year]=[];
-    yearMap[year].push(row);
-  });
-
-  wrapper.innerHTML="";
-  const sortedYears=Object.keys(yearMap).sort((a,b)=>b-a);
-
-  sortedYears.forEach(year=>{
-    const header=document.createElement("div");
-    header.className="news-year";
-    header.innerHTML=`${year} 🗂️`;
-
-    const content=document.createElement("div");
-    content.className="news-content";
-
-    yearMap[year].sort((a,b)=>new Date(b.getAttribute("data-date"))-new Date(a.getAttribute("data-date")));
-    yearMap[year].forEach(row=>content.appendChild(row));
-
-    wrapper.appendChild(header);
-    wrapper.appendChild(content);
-  });
-
-  document.querySelectorAll(".news-year").forEach(y=>{
-    y.addEventListener("click",()=>{
-      y.classList.toggle("active");
-      y.nextElementSibling.classList.toggle("show");
-    });
-  });
-
-  const today=new Date();
-  document.querySelectorAll("[data-date]").forEach(row=>{
-    const diff=(today - new Date(row.getAttribute("data-date")))/(1000*60*60*24);
-    if(diff<=14){
-      row.querySelector(".date").innerHTML += ' <span class="new-badge">NEW</span>';
-    }
-  });
-});
-</script>
-
 </head>
-
 <body>
 
 <canvas id="particles"></canvas>
@@ -360,34 +238,34 @@ document.addEventListener("DOMContentLoaded", () => {
   <a href="#mission">MISSION</a>
   <a href="#business">BUSINESS</a>
   <a href="#company">COMPANY</a>
-  <a href="recruit.html">RECRUIT</a>
+  <a href="recruit/">RECRUIT</a>
 </div>
 
-<div class="hero-visual"></div>
+<div class="hero"></div>
 
 <main>
 
-<!-- ========== NEWS ========== -->
+<!-- NEWS -->
 <section id="news">
   <h2>NEWS 📰</h2>
 
-  <div id="newsWrapper" class="news-wrapper">
+  <div id="newsArea">
 
-    <div class="news-data">
-      <!-- 2026 -->
-      <div class="news-row" data-date="2026-01-05">
-        <strong class="date">2026-01-05</strong><br>
-        2026年のニュースは準備中です。
-      </div>
+    <!-- 2026 -->
+    <div class="news-year">2026</div>
+    <div class="news-content">
+      <div class="news-row">2026年のニュースは準備中です。</div>
+    </div>
 
-      <!-- 2025 -->
+    <!-- 2025 -->
+    <div class="news-year">2025</div>
+    <div class="news-content">
       <div class="news-row" data-date="2025-11-19">
-        <strong class="date">2025-11-19</strong><br>
+        <span class="date">2025-11-19</span>
         自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。
       </div>
-
       <div class="news-row" data-date="2025-11-17">
-        <strong class="date">2025-11-17</strong><br>
+        <span class="date">2025-11-17</span>
         Stracto株式会社 公式サイトを公開しました。
       </div>
     </div>
@@ -395,75 +273,155 @@ document.addEventListener("DOMContentLoaded", () => {
   </div>
 </section>
 
-
-<!-- ========== MISSION ========== -->
+<!-- MISSION -->
 <section id="mission">
   <h2>MISSION</h2>
   <div class="glass">
-    Stractoは、単価の透明性と高単価を前提に、技術者に正当に還元する会社を目指します。<br><br>
-    社員を中心に据え、実力に見合う収入と働きやすい環境を保障します。
+    技術者を中心に据え、高品質なサービス提供と、持続的な技術成長の実現を目指します。
   </div>
 </section>
 
-
-<!-- ========== BUSINESS ========== -->
+<!-- BUSINESS -->
 <section id="business">
   <h2>BUSINESS</h2>
+  <div class="card-grid">
 
-  <div class="business-grid">
-
-    <div class="glass business-card">
-      <h3>資産運用事業</h3>
-      <ul>
-        <li>株式・債券・ETF・不動産の運用</li>
-        <li>投資テンプレート・ツールの開発 / 販売</li>
-        <li>金融コンテンツ制作</li>
-      </ul>
+    <div class="business-card">
+      <h3>SES / IT ENGINEERING</h3>
+      高品質なネットワーク・クラウド・セキュリティ領域のエンジニアリングサービスを提供します。
     </div>
 
-    <div class="glass business-card">
-      <h3>ITエンジニアリング事業</h3>
-      <ul>
-        <li>システム設計 / 開発 / 運用 / コンサル</li>
-        <li>ITエンジニアリング業務の委託・請負</li>
-        <li>Web / アプリケーションの開発</li>
-      </ul>
+    <div class="business-card">
+      <h3>CONSULTING</h3>
+      技術課題の可視化と最適化、ゼロトラスト・SASE の導入支援を行います。
+    </div>
+
+    <div class="business-card">
+      <h3>SYSTEM DEVELOPMENT</h3>
+      Webサービス / ノーコード / 自動化ツールの企画・開発を行います。
     </div>
 
   </div>
 </section>
 
-
-<!-- ========== COMPANY ========== -->
+<!-- COMPANY -->
 <section id="company">
   <h2>COMPANY</h2>
 
   <div class="glass">
     <table class="company-table">
       <tr><td>会社名</td><td>Stracto株式会社</td></tr>
-      <tr><td>所在地</td><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-      <tr><td>設立</td><td>2026年6月（予定）</td></tr>
-      <tr><td>代表者</td><td>磯野 洋輝</td></tr>
-      <tr><td>資本金</td><td>1,000,000円</td></tr>
+      <tr><td>代表者</td><td>磯野洋輝</td></tr>
+      <tr><td>所在地</td><td>東京都（バーチャルオフィス予定）</td></tr>
+      <tr><td>事業内容</td><td>ITエンジニアリング・SES / コンサルティング / Web開発 / 投資関連業務</td></tr>
+      <tr><td>設立</td><td>2025年</td></tr>
     </table>
   </div>
+
 </section>
 
 </main>
 
-<!-- ========== FOOTER ========== -->
 <footer>
   <div class="footer-links">
     <a href="#news">News</a>
     <a href="#mission">Mission</a>
     <a href="#business">Business</a>
     <a href="#company">Company</a>
-    <a href="recruit.html">Recruit</a>
+    <a href="recruit/">Recruit</a>
   </div>
   © 2026 Stracto Inc. All Rights Reserved.
 </footer>
 
+<script>
+/* HAMBURGER */
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+  document.querySelector(".hamburger").classList.toggle("active");
+}
+
+/* NEWS ACCORDION + NEW BADGE */
+document.querySelectorAll(".news-year").forEach((year, idx)=>{
+  year.addEventListener("click",()=>{
+    document.querySelectorAll(".news-content")[idx].classList.toggle("open");
+    const el = document.querySelectorAll(".news-content")[idx];
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+  });
+});
+
+const today = new Date();
+document.querySelectorAll(".news-row").forEach(row=>{
+  const date = row.getAttribute("data-date");
+  if(!date) return;
+  const diff = (today - new Date(date)) / (1000*60*60*24);
+  if(diff <= 30){
+    row.querySelector(".date").insertAdjacentHTML("afterend",
+      `<span class="new-badge">NEW</span>`
+    );
+  }
+});
+
+/* PARTICLES */
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const particles = Array.from({ length: 60 }).map(() => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.8 + 1.0,
+    vx: (Math.random() - 0.5) * 0.22,
+    vy: (Math.random() - 0.5) * 0.22
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,0.50)");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle = g;
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x<0||p.x>canvas.width) p.vx*=-1;
+      if(p.y<0||p.y>canvas.height) p.vy*=-1;
+    });
+
+    const lineDist = 140;
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const p1 = particles[i], p2 = particles[j];
+        const dist = Math.hypot(p1.x-p2.x, p1.y-p2.y);
+        if(dist < lineDist){
+          const alpha = (1 - dist/lineDist) * 0.55;
+          ctx.strokeStyle = `rgba(150,180,255,${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(p1.x,p1.y);
+          ctx.lineTo(p2.x,p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
+</script>
+
 </body>
 </html>
-
-
