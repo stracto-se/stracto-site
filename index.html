@@ -51,7 +51,7 @@ body {
   top:24px; right:26px;
   width:34px; height:24px;
   cursor:pointer;
-  z-index:10000;
+  z-index:10001; /* ← 強化（クリック可能に） */
 }
 .hamburger span {
   position:absolute; left:0;
@@ -77,7 +77,7 @@ body {
 /* ============ MOBILE MENU ============ */
 #mobileMenu {
   position:fixed;
-  right:-300px; /* ← 260→300px に変更済み（チラ見え防止） */
+  right:-300px; /* ← チラ見え対策 */
   top:0;
   width:240px;
   height:100vh;
@@ -88,7 +88,7 @@ body {
   flex-direction:column;
   gap:26px;
   transition:.4s;
-  z-index:9999;
+  z-index:10000; /* ← メニューが最前面へ */
 }
 #mobileMenu.show { right:0; }
 
@@ -102,11 +102,18 @@ body {
 .hero {
   width:100%;
   height:100vh;
-  background:url('keyvisual.png') center/contain no-repeat;
-  animation:fadeIn 1.6s ease-out forwards;
-  opacity:0;
+  background:transparent; /* ← パーティクルを隠さない */
+  position:relative;
   margin-bottom:80px; /* ← あなた指定済み */
 }
+
+.kv {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  display:block;
+}
+
 @keyframes fadeIn {
   0% { opacity:0; transform:scale(1.02); }
   100% { opacity:1; transform:scale(1); }
@@ -119,9 +126,9 @@ main {
   padding:0 24px 100px;
 }
 
-/* ★★★ SECTION 余白追加（あなたの指定） ★★★ */
+/* SECTION SPACING */
 section {
-  margin-top: 90px;  /* ← 各項目の詰まり解消 */
+  margin-top: 90px; /* ← あなた指定の余白追加 */
 }
 
 /* TITLE */
@@ -246,7 +253,9 @@ footer {
   <a href="recruit.html">RECRUIT</a>
 </div>
 
-<div class="hero"></div>
+<div class="hero">
+  <img src="keyvisual.png" class="kv">
+</div>
 
 <main>
 
@@ -256,13 +265,11 @@ footer {
 
   <div id="newsArea">
 
-    <!-- 2026 -->
     <div class="news-year">2026</div>
     <div class="news-content">
       <div class="news-row">2026年のニュースは準備中です。</div>
     </div>
 
-    <!-- 2025 -->
     <div class="news-year">2025</div>
     <div class="news-content">
       <div class="news-row" data-date="2025-11-19">
@@ -316,7 +323,7 @@ footer {
   <div class="glass">
     <table class="company-table">
       <tr><td>会社名</td><td>Stracto株式会社</td></tr>
-      <tr><td>代表者</td><td>磯野洋輝</td></tr>
+      <tr><td>代表取締役</td><td>磯野洋輝</td></tr>
       <tr><td>所在地</td><td>東京都港区北青山1-3-1　アールキューブ青山3階</td></tr>
       <tr><td>資本金</td><td>1,000,000円</td></tr>
       <tr><td>設立</td><td>2026年6月予定（準備中）</td></tr>
@@ -407,7 +414,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const lineDist = 140;
     for(let i=0;i<particles.length;i++){
-      for(let j<i+1;j++){
+      for(let j=i+1;j<particles.length;j++){
         const p1 = particles[i], p2 = particles[j];
         const dist = Math.hypot(p1.x-p2.x, p1.y-p2.y);
         if(dist < lineDist){
