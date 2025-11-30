@@ -2,261 +2,199 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Stracto Inc. | Technology × Asset Management</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<!-- ================= SEO ================= -->
-<meta name="description" content="Stracto株式会社｜ITエンジニアリング（SES）事業と資産運用事業を行う企業。透明性と技術力を軸に高品質サービスを提供。">
-<link rel="canonical" href="https://stracto-se.github.io/stracto-site/">
-
-<!-- OGP -->
-<meta property="og:title" content="Stracto Inc.">
-<meta property="og:type" content="website">
-<meta property="og:image" content="ogp.png">
-<meta property="og:url" content="https://stracto-se.github.io/stracto-site/">
-<meta property="og:description" content="Technology × Asset Management">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stracto</title>
 
 <style>
-/* ======================================= ROOT ======================================= */
-:root {
-  --bg-dark:#050816;
-  --text-main:#e5e7eb;
-  --text-soft:#9ca3af;
-  --accent:#38bdf8;
-  --glass-bg:rgba(255,255,255,0.06);
-  --glass-border:rgba(255,255,255,0.16);
-}
-
+/* 全体設定 */
 body {
   margin:0;
-  font-family:system-ui, sans-serif;
-  background:var(--bg-dark);
-  color:var(--text-main);
-  overflow-x:hidden;
+  padding:0;
+  background:#050814;
+  color:white;
+  font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* PARTICLES */
-#particles {
+/* ハンバーガー */
+.hamburger{
   position:fixed;
-  inset:0;
-  z-index:-1;
-  opacity:.78;
-}
-
-/* ======================================= HEADER / MENU ======================================= */
-.hamburger {
-  position:fixed;
-  top:22px; right:24px;
-  width:36px; height:26px;
+  top:22px;
+  right:24px;
+  width:36px;
+  height:26px;
   cursor:pointer;
   z-index:100001;
   background:none;
 }
 .hamburger span {
-  position:absolute; left:0;
-  width:100%; height:4px;
-  background:var(--accent);
-  border-radius:6px;
-  transition:.36s;
-  box-shadow:none !important;
+  display:block;
+  width:100%;
+  height:3px;
+  background:#2e9bff;
+  margin:6px 0;
+  transition:0.4s;
 }
-.hamburger span:nth-child(1){ top:0; }
-.hamburger span:nth-child(2){ top:11px; }
-.hamburger span:nth-child(3){ top:22px; }
-.hamburger.active span:nth-child(1){ transform:translateY(11px) rotate(45deg); }
-.hamburger.active span:nth-child(2){ opacity:0; }
-.hamburger.active span:nth-child(3){ transform:translateY(-11px) rotate(-45deg); }
 
-#mobileMenu {
+/* スマホメニュー */
+#mobileMenu{
   position:fixed;
-  right:-100%;
   top:0;
-  width:240px;
+  right:-100%;
+  width:260px;
   height:100vh;
-  padding:90px 28px;
   background:rgba(0,0,0,0.65);
-  backdrop-filter:blur(16px);
+  backdrop-filter:blur(14px);
+  padding:90px 24px;
   display:flex;
   flex-direction:column;
-  gap:28px;
-  transition:right .45s ease;
-  z-index:9999;
-  box-shadow:none !important;
-  border:none !important;
+  gap:22px;
+  transition:0.45s ease;
+  z-index:100000;
 }
-#mobileMenu.show { right:0; }
-#mobileMenu a {
+#mobileMenu a{
   color:white;
-  font-size:18px;
   text-decoration:none;
+  font-size:18px;
+}
+#mobileMenu.show{ right:0; }
+
+/* パーティクル背景 */
+#particles-js {
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  z-index:-1;
 }
 
-/* ======================================= HERO ======================================= */
-.hero-visual {
+/* HERO(KeyVisual) */
+.hero {
   width:100%;
-  height:100vh;
-  background:url('keyvisual.png') center/contain no-repeat;
-  animation:fadeKV 1.8s ease-out forwards;
+  height:85vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:url("keyvisual.png") center/contain no-repeat;
+  animation:fadeIn 1.3s ease-out forwards;
   opacity:0;
-  margin-bottom:60px;
+  margin-bottom:80px;
 }
-@keyframes fadeKV {
-  0%{ opacity:0; transform:scale(1.02);}
-  100%{ opacity:1; transform:scale(1);}
-}
-
-@media(max-width:780px){
-  .hero-visual { height:78vh; }
-}
-@media(max-width:480px){
-  .hero-visual { height:72vh; }
+@keyframes fadeIn{
+  0%{opacity:0; transform:scale(1.03);}
+  100%{opacity:1; transform:scale(1);}
 }
 
-/* ======================================= MAIN WRAPPER ======================================= */
-main{
-  max-width:960px;
+/* セクション */
+section{
+  max-width:980px;
   margin:0 auto;
-  padding:0 24px 120px;
+  padding:0 20px;
+  margin-bottom:80px;
 }
 h2{
-  border-left:4px solid var(--accent);
-  padding-left:14px;
-  margin-bottom:35px;
   font-size:26px;
+  font-weight:600;
+  margin-bottom:22px;
 }
 
-/* ======================================= NEWS ======================================= */
-.news-wrapper{
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
+/* ガラスカード */
+.glass{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
+  backdrop-filter:blur(12px);
   padding:28px;
   border-radius:14px;
-  margin-bottom:80px;
-  backdrop-filter:blur(12px);
 }
 
-.accordion{
-  border-top:1px solid rgba(255,255,255,0.1);
+/* BUSINESS カード */
+.business-wrap{
+  display:grid;
+  gap:28px;
 }
-.accordion button{
-  width:100%;
-  background:none;
-  border:none;
-  padding:20px 0;
-  text-align:left;
-  font-size:20px;
-  color:white;
-  cursor:pointer;
-}
-.accordion-content{
-  display:none;
-  padding:0 0 16px 0;
-  line-height:1.8;
-}
-.new-badge{
-  display:inline-block;
-  margin-left:8px;
-  padding:2px 6px;
-  font-size:11px;
-  background:var(--accent);
-  border-radius:4px;
-  color:black;
-}
-
-/* ======================================= MISSION ======================================= */
-.mission-card{
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  border-radius:14px;
-  padding:32px;
-  line-height:1.8;
-  margin-bottom:80px;
-  backdrop-filter:blur(12px);
-}
-
-/* ======================================= BUSINESS ======================================= */
 .business-card{
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  padding:32px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.12);
   border-radius:14px;
-  margin-bottom:30px;
-  backdrop-filter:blur(12px);
+  padding:26px;
 }
 .business-card h3{
   display:flex;
   align-items:center;
-  gap:12px;
-  color:var(--accent);
-  margin:0 0 16px 0;
+  gap:10px;
   font-size:20px;
-}
-.business-card p{
-  line-height:1.7;
-  margin:0;
+  margin-bottom:14px;
 }
 
-/* ======================================= COMPANY ======================================= */
-.glass{
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  padding:32px;
-  border-radius:14px;
-  margin-bottom:80px;
-  backdrop-filter:blur(12px);
+/* BUSINESS 詳細リスト */
+.business-list{
+  margin-top:10px;
+  padding-left:20px;
+  line-height:1.6;
 }
+.business-list li{
+  margin-bottom:6px;
+}
+
+/* NEWS */
+.news-year{
+  background:rgba(255,255,255,0.06);
+  padding:20px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,0.1);
+  margin-bottom:14px;
+  cursor:pointer;
+}
+.news-content{
+  display:none;
+  padding:10px 4px 0 4px;
+}
+.new-badge{
+  background:#2e9bff;
+  color:white;
+  font-size:11px;
+  padding:2px 7px;
+  border-radius:999px;
+  margin-left:8px;
+}
+
+/* COMPANY 表 */
 .company-table{
   width:100%;
   border-collapse:collapse;
-  line-height:1.8;
 }
-.company-table td:first-child{
-  width:32%;
-  color:var(--accent);
-  font-weight:bold;
-  padding:10px 0;
-}
-.company-table td:last-child{
-  padding:10px 0;
+.company-table td{
+  border-bottom:1px solid rgba(255,255,255,0.1);
+  padding:12px 8px;
+  font-size:15px;
 }
 
-/* ======================================= FOOTER ======================================= */
+/* FOOTER */
 footer{
-  padding:60px 24px;
   text-align:center;
-  color:var(--text-soft);
-  border-top:1px solid rgba(255,255,255,0.08);
-}
-footer .footer-links{
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  margin-bottom:16px;
-}
-footer .footer-links a{
-  color:var(--text-soft);
-  text-decoration:none;
-}
-.footer-bottom{
-  margin-top:14px;
-  font-size:13px;
-  opacity:.7;
+  padding:40px 0;
+  color:#98a0b3;
+  font-size:14px;
 }
 
+/* ===== スマホ最適化 ===== */
+@media (max-width:768px){
+  .hero{ height:74vh; }
+  h2{ font-size:23px; }
+  .business-card h3{ font-size:18px; }
+}
 </style>
-</head>
 
+</head>
 <body>
 
-<canvas id="particles"></canvas>
+<!-- パーティクル -->
+<div id="particles-js"></div>
 
-<!-- HAMBURGER -->
+<!-- ハンバーガー -->
 <div class="hamburger" onclick="toggleMenu()">
   <span></span><span></span><span></span>
 </div>
 
-<!-- MOBILE MENU -->
+<!-- モバイルメニュー -->
 <div id="mobileMenu">
   <a href="#news">NEWS</a>
   <a href="#mission">MISSION</a>
@@ -265,84 +203,88 @@ footer .footer-links a{
   <a href="recruit.html">RECRUIT</a>
 </div>
 
-<!-- HERO -->
-<div class="hero-visual"></div>
+<!-- KeyVisual -->
+<div class="hero"></div>
 
-<main>
-
-<!-- ======================================= NEWS ======================================= -->
+<!-- NEWS -->
 <section id="news">
   <h2>NEWS</h2>
 
-  <div class="news-wrapper">
-
-    <!-- 2026 -->
-    <div class="accordion">
-      <button onclick="toggleAcc(this)">2026年 <span class="new-badge">NEW</span></button>
-      <div class="accordion-content">
-        <p>・Stracto株式会社 設立準備を開始しました。</p>
-      </div>
-    </div>
-
-    <!-- 2025 -->
-    <div class="accordion">
-      <button onclick="toggleAcc(this)">2025年</button>
-      <div class="accordion-content">
-        <p>・Webサイトを公開しました。</p>
-      </div>
-    </div>
-
+  <!-- ▼ 2026 -->
+  <div class="news-year" onclick="toggleNews(this)">
+    2026 <span class="new-badge">NEW</span>
   </div>
+  <div class="news-content">
+    <p>・2026年のニュースは現在準備中です。</p>
+  </div>
+
+  <!-- ▼ 2025 -->
+  <div class="news-year" onclick="toggleNews(this)">
+    2025 <span class="new-badge">NEW</span>
+  </div>
+  <div class="news-content">
+    <p>・Stractoサイトの公開準備を開始しました。</p>
+  </div>
+
 </section>
 
-<!-- ======================================= MISSION ======================================= -->
+<!-- MISSION -->
 <section id="mission">
   <h2>MISSION</h2>
-
-  <div class="mission-card">
-    Stractoは、「技術者中心の会社」であり続けることを目指します。  
-    高単価・透明性・適正な評価を軸に、  
-    技術者が最大限の成果を発揮できる環境を提供します。
+  <div class="glass">
+    <p><strong>社員とエンジニアを中心とした組織づくり。</strong></p>
+    <p>Stractoは高単価・透明性・技術者の自由度を重視し、  
+      最大限のパフォーマンスを発揮できる環境を構築します。</p>
   </div>
 </section>
 
-<!-- ======================================= BUSINESS ======================================= -->
+<!-- BUSINESS -->
 <section id="business">
   <h2>BUSINESS</h2>
 
-  <!-- 資産運用事業 -->
-  <div class="business-card">
-    <h3>
-      <svg width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"><path d="M4 20 L4 10 L10 10 L10 20 Z"/><path d="M14 20 L14 6 L20 6 L20 20 Z"/><path d="M4 20 H22"/></svg>
-      資産運用事業
-    </h3>
-    <p>
-      ・有価証券（株式、債券、ETF等）及び現物不動産の取得、保有、売買および運用<br>
-      ・投資に関するテンプレート・ツールの企画、開発、販売<br>
-      ・金融コンテンツや情報の企画・制作・販売及び提供<br>
-      ・上記に附帯または関連する一切の業務
-    </p>
-  </div>
+  <div class="business-wrap">
 
-  <!-- SES事業 -->
-  <div class="business-card">
-    <h3>
-      <svg width="28" height="28" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 6 H23 V12 H5 Z"/><path d="M8 16 H20"/><path d="M8 20 H16"/><circle cx="12" cy="9" r="1.5"/></svg>
-      ITフリーランス（SES）事業
-    </h3>
-    <p>
-      ・コンピュータシステムの企画、設計、開発、運用、保守およびそれらに関するコンサルティング業務<br>
-      ・ITエンジニアリング業務の業務委託、業務請負および関連マネジメント業務<br>
-      ・Webサービス・アプリケーション・ソフトウェアの企画、開発、販売および運用<br>
-      ・上記各号に附帯または関連する一切の業務
-    </p>
-  </div>
+    <!-- ▼ 資産運用事業 -->
+    <div class="business-card">
+      <h3>
+        <svg width="24" height="24" stroke="#2e9bff" fill="none" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="12" cy="12" r="9"/>
+        </svg>
+        資産運用事業
+      </h3>
 
+      <ul class="business-list">
+        <li>有価証券（株式、債券、ETF等）及び不動産の取得、保有・売買および運用</li>
+        <li>投資に関するテンプレート・ツールの企画、開発、販売</li>
+        <li>金融コンテンツや情報の企画・制作・販売及び提供</li>
+        <li>上記に附帯または関連する一切の業務</li>
+      </ul>
+    </div>
+
+    <!-- ▼ ITフリーランス（SES）事業 -->
+    <div class="business-card">
+      <h3>
+        <svg width="24" height="24" stroke="#2e9bff" fill="none" stroke-width="1.8" stroke-linecap="round">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+        ITフリーランス（SES）事業
+      </h3>
+
+      <ul class="business-list">
+        <li>コンピュータシステムの企画、設計、開発、運用、保守およびそれらに関するコンサルティング業務</li>
+        <li>ITエンジニアリング業務の業務委託、業務請負および関連マネジメント業務</li>
+        <li>Webサービス・アプリケーション・ソフトウェアの企画、開発、販売および運用</li>
+        <li>上記各号に附帯または関連する一切の業務</li>
+      </ul>
+    </div>
+
+  </div>
 </section>
 
-<!-- ======================================= COMPANY ======================================= -->
+<!-- COMPANY -->
 <section id="company">
   <h2>COMPANY</h2>
+
   <div class="glass">
     <table class="company-table">
       <tr><td>会社名</td><td>Stracto株式会社</td></tr>
@@ -352,92 +294,33 @@ footer .footer-links a{
       <tr><td>設立</td><td>2026年6月（準備中）</td></tr>
     </table>
   </div>
+
 </section>
 
-</main>
-
-<!-- ======================================= FOOTER ======================================= -->
+<!-- FOOTER -->
 <footer>
-  <div class="footer-links">
-    <a href="#news">News</a>
-    <a href="#mission">Mission</a>
-    <a href="#business">Business</a>
-    <a href="#company">Company</a>
-    <a href="recruit.html">Recruit</a>
-  </div>
-  <div class="footer-bottom">
-    © 2026 Stracto Inc. All Rights Reserved.
-  </div>
+  © 2025 Stracto Inc. All Rights Reserved.
 </footer>
 
-<!-- ======================================= SCRIPT ======================================= -->
+<!-- JS -->
 <script>
 function toggleMenu(){
-  document.getElementById("mobileMenu").classList.toggle("show");
-  document.querySelector(".hamburger").classList.toggle("active");
+  document.getElementById('mobileMenu').classList.toggle('show');
 }
 
-/* News accordion */
-function toggleAcc(btn){
-  const content = btn.nextElementSibling;
-  content.style.display = (content.style.display === "block") ? "none" : "block";
+function toggleNews(el){
+  let next = el.nextElementSibling;
+  next.style.display = (next.style.display === "block") ? "none" : "block";
 }
 
-/* PARTICLES */
-document.addEventListener("DOMContentLoaded",()=>{
-  const canvas=document.getElementById("particles");
-  const ctx=canvas.getContext("2d");
-
-  function resize(){
-    canvas.width=innerWidth;
-    canvas.height=innerHeight;
+/* パーティクル */
+particlesJS("particles-js", {
+  particles:{
+    number:{ value:40 },
+    size:{ value:3 },
+    opacity:{ value:0.25 },
+    line_linked:{ enable:true, distance:120, opacity:0.25 }
   }
-  resize();
-  addEventListener("resize",resize);
-
-  const ps=Array.from({length:40}).map(()=>({
-    x:Math.random()*innerWidth,
-    y:Math.random()*innerHeight,
-    r:Math.random()*1.8+1,
-    vx:(Math.random()-0.5)*0.22,
-    vy:(Math.random()-0.5)*0.22
-  }));
-
-  function draw(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    ps.forEach(p=>{
-      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
-      g.addColorStop(0,"rgba(255,255,255,0.38)");
-      g.addColorStop(1,"rgba(255,255,255,0)");
-      ctx.fillStyle=g;
-      ctx.beginPath();
-      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
-      ctx.fill();
-      p.x+=p.vx; p.y+=p.vy;
-      if(p.x<0||p.x>canvas.width)p.vx*=-1;
-      if(p.y<0||p.y>canvas.height)p.vy*=-1;
-    });
-
-    const dlim = 120;
-    for(let i=0;i<ps.length;i++){
-      for(let j=i+1;j<ps.length;j++){
-        const a=ps[i],b=ps[j];
-        const d=Math.hypot(a.x-b.x,a.y-b.y);
-        if(d<dlim){
-          ctx.strokeStyle=`rgba(150,180,255,${(1-d/dlim)*0.45})`;
-          ctx.lineWidth=0.7;
-          ctx.beginPath();
-          ctx.moveTo(a.x,a.y);
-          ctx.lineTo(b.x,b.y);
-          ctx.stroke();
-        }
-      }
-    }
-
-    requestAnimationFrame(draw);
-  }
-  draw();
 });
 </script>
 
