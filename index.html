@@ -613,7 +613,7 @@ async function sendMessage() {
 
   showLoading();
 
-  const res = await fetch("https://YOUR-VERCEL-DOMAIN.vercel.app/api/chat", {
+  const res = await fetch("https://stracto-ai.vercel.app/api/chat", {
     method: "POST",
     headers: { "Content-Type":"application/json" },
     body: JSON.stringify({ message: text })
@@ -634,3 +634,4 @@ inputChat.addEventListener("keydown", e => {
 
 </body>
 </html>
+
