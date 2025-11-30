@@ -77,7 +77,7 @@ body {
 /* ============ MOBILE MENU ============ */
 #mobileMenu {
   position:fixed;
-  right:-260px;
+  right:-300px; /* ← チラ見え防止のため260px → 300px に変更 */
   top:0;
   width:240px;
   height:100vh;
@@ -105,7 +105,7 @@ body {
   background:url('keyvisual.png') center/contain no-repeat;
   animation:fadeIn 1.6s ease-out forwards;
   opacity:0;
-  margin-bottom:80px; /* ← 唯一の修正点 */
+  margin-bottom:80px; /* ← あなた指定の 60 → 80px 変更 */
 }
 @keyframes fadeIn {
   0% { opacity:0; transform:scale(1.02); }
