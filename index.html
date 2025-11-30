@@ -5,17 +5,58 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Stracto</title>
 
+<!-- ==============================
+     SEO：Meta / OGP / Canonical
+================================= -->
+
+<!-- 正規URL -->
+<link rel="canonical" href="https://stracto-se.github.io/">
+
+<!-- Description -->
+<meta name="description" content="Stracto株式会社｜ITフリーランス（SES）事業・資産運用事業を行う企業です。">
+
+<!-- Keywords（任意だが企業サイトでは有効） -->
+<meta name="keywords" content="Stracto, ストラクト, SES, フリーランスエンジニア, ITフリーランス, ITエンジニア, 資産運用, 投資, エンジニアリングサービス">
+
 <!-- OGP -->
 <meta property="og:title" content="Stracto Inc.">
 <meta property="og:type" content="website">
-<meta property="og:image" content="keyvisual.png">
+<meta property="og:url" content="https://stracto-se.github.io/">
+<meta property="og:image" content="https://stracto-se.github.io/keyvisual.png">
 <meta property="og:description" content="Stracto株式会社 公式サイト">
-<meta name="description" content="Stracto株式会社｜ITフリーランス（SES）事業・資産運用事業を行う企業です。">
+<meta property="og:site_name" content="Stracto Inc.">
 
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+
+<!-- ==============================
+     JSON-LD（構造化データ：企業情報）
+================================= -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Corporation",
+  "name": "Stracto株式会社",
+  "url": "https://stracto-se.github.io/",
+  "logo": "https://stracto-se.github.io/keyvisual.png",
+  "founder": "磯野洋輝",
+  "foundingDate": "2026-06",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "北青山1-3-1 アールキューブ青山3階",
+    "addressLocality": "港区",
+    "addressRegion": "東京都",
+    "postalCode": "107-0061",
+    "addressCountry": "JP"
+  }
+}
+</script>
+
+
+<!-- ==============================
+     STYLE（全部あなたの現行維持）
+================================= -->
 <style>
-/* ==========================
-   Base
-=========================== */
 body{
   margin:0;
   padding:0;
@@ -24,9 +65,7 @@ body{
   font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
-/* ==========================
-   Hamburger
-=========================== */
+/* Hamburger */
 .hamburger{
   position:fixed;
   top:22px;
@@ -46,9 +85,7 @@ body{
   transition:0.4s;
 }
 
-/* ==========================
-   Mobile Menu
-=========================== */
+/* Mobile Menu */
 #mobileMenu{
   position:fixed;
   top:0;
@@ -73,9 +110,7 @@ body{
   right:0;
 }
 
-/* ==========================
-   Particles
-=========================== */
+/* Particles */
 #particles-js{
   position:fixed;
   top:0; left:0;
@@ -84,9 +119,7 @@ body{
   z-index:-1;
 }
 
-/* ==========================
-   KeyVisual
-=========================== */
+/* KeyVisual */
 .hero{
   width:100%;
   height:85vh;
@@ -103,9 +136,7 @@ body{
   100%{opacity:1; transform:scale(1);}
 }
 
-/* ==========================
-   Section Base
-=========================== */
+/* Section */
 section{
   max-width:980px;
   margin:0 auto;
@@ -118,9 +149,7 @@ h2{
   margin-bottom:22px;
 }
 
-/* ==========================
-   Glass Card
-=========================== */
+/* Glass */
 .glass{
   background:rgba(255,255,255,0.06);
   border:1px solid rgba(255,255,255,0.12);
@@ -129,9 +158,7 @@ h2{
   border-radius:14px;
 }
 
-/* ==========================
-   BUSINESS
-=========================== */
+/* BUSINESS */
 .business-wrap{
   display:grid;
   gap:28px;
@@ -158,9 +185,7 @@ h2{
   margin-bottom:6px;
 }
 
-/* ==========================
-   NEWS（あなたのスクショ仕様）
-=========================== */
+/* NEWS（年だけ → クリックで本文展開） */
 .news-year{
   color:#2e9bff;
   font-size:22px;
@@ -179,9 +204,7 @@ h2{
   font-size:15px;
 }
 
-/* ==========================
-   COMPANY
-=========================== */
+/* COMPANY */
 .company-table{
   width:100%;
   border-collapse:collapse;
@@ -192,9 +215,7 @@ h2{
   font-size:15px;
 }
 
-/* ==========================
-   Footer
-=========================== */
+/* Footer */
 footer{
   text-align:center;
   padding:40px 0;
@@ -202,9 +223,7 @@ footer{
   font-size:14px;
 }
 
-/* ==========================
-   Mobile
-=========================== */
+/* Mobile */
 @media (max-width:768px){
   .hero{ height:74vh; }
   h2{ font-size:23px; }
@@ -213,17 +232,18 @@ footer{
 </style>
 
 </head>
+
 <body>
 
-<!-- パーティクル -->
+<!-- Particles -->
 <div id="particles-js"></div>
 
-<!-- ハンバーガー -->
+<!-- Hamburger -->
 <div class="hamburger" onclick="toggleMenu()">
   <span></span><span></span><span></span>
 </div>
 
-<!-- メニュー -->
+<!-- Mobile Menu -->
 <div id="mobileMenu">
   <a href="#news">NEWS</a>
   <a href="#mission">MISSION</a>
@@ -235,19 +255,18 @@ footer{
 <!-- KeyVisual -->
 <div class="hero"></div>
 
-<!-- ==========================
-     NEWS（スクショの形に完全一致）
-=========================== -->
+
+<!-- =====================================
+     NEWS（あなたのスクショ通り）
+===================================== -->
 <section id="news">
   <h2>NEWS</h2>
 
-  <!-- 2026 -->
   <div class="news-year" onclick="toggleNews(this)">2026</div>
   <div class="news-content">
     ・2026年のニュースは現在準備中です。
   </div>
 
-  <!-- 2025 -->
   <div class="news-year" onclick="toggleNews(this)">2025</div>
   <div class="news-content">
     ・Stractoサイトの公開準備を開始しました。
@@ -255,21 +274,21 @@ footer{
 
 </section>
 
-<!-- ==========================
+<!-- =====================================
      MISSION
-=========================== -->
+===================================== -->
 <section id="mission">
   <h2>MISSION</h2>
   <div class="glass">
-    <p><strong>社員とエンジニアを中心とした組織づくり。</strong></p>
+    <p>社員とエンジニアを中心とした組織づくり。</p>
     <p>Stractoは高単価・透明性・技術者の自由度を重視し、  
       最大限のパフォーマンスを発揮できる環境を構築します。</p>
   </div>
 </section>
 
-<!-- ==========================
-     BUSINESS（詳細版・あなた指定）
-=========================== -->
+<!-- =====================================
+     BUSINESS（あなたの文章そのまま）
+===================================== -->
 <section id="business">
   <h2>BUSINESS</h2>
 
@@ -292,7 +311,7 @@ footer{
       </ul>
     </div>
 
-    <!-- ITフリーランス（SES）事業 -->
+    <!-- ITフリーランス（SES） -->
     <div class="business-card">
       <h3>
         <svg width="24" height="24" stroke="#2e9bff" fill="none" stroke-width="1.8" stroke-linecap="round">
@@ -312,9 +331,9 @@ footer{
   </div>
 </section>
 
-<!-- ==========================
-     COMPANY
-=========================== -->
+<!-- =====================================
+     COMPANY（あなたの内容そのまま）
+===================================== -->
 <section id="company">
   <h2>COMPANY</h2>
 
@@ -330,16 +349,16 @@ footer{
 
 </section>
 
-<!-- ==========================
-     FOOTER
-=========================== -->
+<!-- =====================================
+     Footer
+===================================== -->
 <footer>
-  © 2025 Stracto Inc. All Rights Reserved.
+  © 2026 Stracto Inc. All Rights Reserved.
 </footer>
 
-<!-- ==========================
+<!-- =====================================
      JS
-=========================== -->
+===================================== -->
 <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
 <script>
@@ -352,7 +371,7 @@ function toggleNews(el){
   next.style.display = (next.style.display === "block") ? "none" : "block";
 }
 
-/* パーティクル（以前の強さと同じ） */
+/* パーティクル（あなたが指定した弱め・密度40） */
 particlesJS("particles-js", {
   particles:{
     number:{ value:40 },
