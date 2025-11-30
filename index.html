@@ -1,242 +1,271 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Stracto Inc.</title>
+<meta charset="UTF-8">
+<title>Stracto Inc. | Official Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="description" content="Stracto株式会社 | ITフリーランス（SES）事業と資産運用事業を展開するテクノロジー企業。高単価・透明性・技術者中心を軸にした働き方を実現します。">
+<!-- SEO -->
+<meta name="description" content="Stracto Inc. - ネットワーク・セキュリティ技術を中心に、高品質なエンジニアリングサービスと革新的なITソリューションを提供します。">
+<link rel="canonical" href="https://stracto-se.github.io/stracto-site/">
+
+<!-- OGP -->
 <meta property="og:title" content="Stracto Inc.">
-<meta property="og:description" content="ITフリーランス（SES）事業 × 資産運用事業 | 技術者中心のテック企業">
 <meta property="og:type" content="website">
-<meta property="og:image" content="keyvisual.png">
-<meta property="og:url" content="https://stracto.co.jp/">
+<meta property="og:url" content="https://stracto-se.github.io/stracto-site/">
+<meta property="og:image" content="ogp.png">
+<meta property="og:description" content="ネットワーク・セキュリティ技術を中心としたエンジニアリング企業 Stracto Inc.">
+<meta name="twitter:card" content="summary_large_image">
 
 <style>
-html, body {
-  margin:0; padding:0;
-  font-family: "Helvetica","Arial","Hiragino Sans","Noto Sans JP", sans-serif;
-  background:#0a0a0a; color:#fff;
+/* ============ ROOT ============ */
+:root {
+  --bg-dark: #050816;
+  --text-main: #e5e7eb;
+  --text-soft: #9ca3af;
+  --accent: #38bdf8;
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.16);
+}
+
+/* ============ BASE ============ */
+body {
+  margin:0;
+  font-family:system-ui, sans-serif;
+  background:var(--bg-dark);
+  color:var(--text-main);
   overflow-x:hidden;
 }
 
-section {
-  padding:100px 18px;
-  max-width:980px; margin:0 auto;
-}
-
-.hero {
-  height:74vh;
-  display:flex; align-items:center; justify-content:center;
-  position:relative;
-  overflow:hidden;
-}
-.hero img {
-  width:100%; height:100%;
-  object-fit:cover;
-  filter:brightness(0.86);
-}
-.hero-title {
-  position:absolute;
-  font-size:40px; font-weight:700;
-  animation:fadeIn 1.2s forwards;
-}
-
-#particles-js {
-  position:fixed; inset:0;
-  width:100%; height:100%;
+/* ============ PARTICLES ============ */
+#particles {
+  position:fixed;
+  inset:0;
   z-index:-1;
-  opacity:0.35;
+  opacity:0.88;
 }
 
+/* ============ HAMBURGER ============ */
+.hamburger {
+  position:fixed;
+  top:24px; right:26px;
+  width:34px; height:24px;
+  cursor:pointer;
+  z-index:10000;
+}
+.hamburger span {
+  position:absolute; left:0;
+  width:100%; height:4px;
+  background:var(--accent);
+  border-radius:6px;
+  transition:.36s;
+}
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:10px; }
+.hamburger span:nth-child(3){ top:20px; }
+
+.hamburger.active span:nth-child(1){
+  transform:translateY(10px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+.hamburger.active span:nth-child(3){
+  transform:translateY(-10px) rotate(-45deg);
+}
+
+/* ============ MOBILE MENU ============ */
+#mobileMenu {
+  position:fixed;
+  right:-260px;
+  top:0;
+  width:240px;
+  height:100vh;
+  padding:90px 28px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+  transition:.4s;
+  z-index:9999;
+}
+#mobileMenu.show { right:0; }
+
+#mobileMenu a {
+  color:white;
+  font-size:18px;
+  text-decoration:none;
+}
+
+/* ============ HERO ============ */
+.hero {
+  width:100%;
+  height:100vh;
+  background:url('keyvisual.png') center/contain no-repeat;
+  animation:fadeIn 1.6s ease-out forwards;
+  opacity:0;
+  margin-bottom:60px;
+}
+@keyframes fadeIn {
+  0% { opacity:0; transform:scale(1.02); }
+  100% { opacity:1; transform:scale(1); }
+}
+
+/* ============ MAIN ============ */
+main {
+  max-width:960px;
+  margin:0 auto;
+  padding:0 24px 100px;
+}
+
+/* TITLE */
+h2 {
+  border-left:4px solid var(--accent);
+  padding-left:14px;
+  margin-bottom:26px;
+  font-size:24px;
+}
+
+/* GLASS CARD */
 .glass {
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.12);
-  backdrop-filter:blur(12px);
-  padding:28px 24px;
-  border-radius:18px;
-  margin-top:22px;
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  padding:30px;
+  backdrop-filter:blur(10px);
+  margin-bottom:40px;
 }
 
-.section-title {
-  display:flex; align-items:center; gap:10px;
-  font-size:26px; font-weight:600;
-  margin-bottom:28px;
-  opacity:0; animation:fadeUp 0.9s forwards;
-}
-.section-title::before {
-  content:""; width:4px; height:22px;
-  background:#2e9bff; border-radius:2px;
+/* ============ NEWS ============ */
+.news-year {
+  font-size:22px;
+  margin-top:34px;
+  margin-bottom:14px;
+  cursor:pointer;
+  color:var(--accent);
 }
 
-@keyframes fadeUp {
-  0% {opacity:0; transform:translateY(14px);}
-  100% {opacity:1; transform:translateY(0);}
+.news-content {
+  display:none;
+  margin-bottom:20px;
 }
 
-.business-wrapper {
+.news-row {
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+}
+
+.news-row .date {
+  font-weight:bold;
+  margin-right:8px;
+}
+
+.new-badge {
+  display:inline-block;
+  padding:2px 6px;
+  font-size:11px;
+  background:#ef4444;
+  color:white;
+  border-radius:4px;
+  margin-left:4px;
+}
+
+/* ============ BUSINESS / MISSION / COMPANY ============ */
+.card-grid {
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-  gap:22px; margin-top:28px;
+  gap:30px;
 }
-.business-card {
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.12);
-  backdrop-filter:blur(12px);
-  padding:22px; border-radius:16px;
-  min-height:230px;
+@media(min-width:760px){
+  .card-grid {
+    grid-template-columns:repeat(3,1fr);
+  }
 }
-.business-card h3 {
-  font-size:20px; margin-bottom:8px;
+
+.business-card,
+.mission-card {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  padding:30px;
+  border-radius:14px;
+  backdrop-filter:blur(10px);
 }
 
 .company-table {
-  width:100%; border-collapse:collapse;
+  width:100%;
+  border-collapse:collapse;
   font-size:16px;
 }
-.company-table tr {
-  border-bottom:1px solid rgba(255,255,255,0.18);
-}
 .company-table td {
-  padding:12px 6px;
+  padding:14px 10px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
 }
 .company-table td:first-child {
-  width:140px; font-weight:600; opacity:0.9;
+  color:var(--accent);
+  width:150px;
 }
 
-@media (max-width:768px){
-  .hero-title {font-size:28px;}
-  .section-title {font-size:22px;}
-  .business-card {min-height:190px;}
+/* ============ FOOTER ============ */
+footer {
+  padding:60px 24px;
+  text-align:center;
+  color:var(--text-soft);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.footer-links {
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:16px;
+}
+.footer-links a {
+  color:var(--text-soft);
+  text-decoration:none;
 }
 </style>
-</head>
 
+</head>
 <body>
 
-<div id="particles-js"></div>
+<canvas id="particles"></canvas>
 
-<header style="position:fixed; top:20px; right:20px; z-index:999;">
-  <div onclick="toggleMenu()" style="width:34px; height:26px; cursor:pointer; display:flex; flex-direction:column; justify-content:space-between;">
-    <span style="height:4px; background:white; border-radius:2px;"></span>
-    <span style="height:4px; background:white; border-radius:2px;"></span>
-    <span style="height:4px; background:white; border-radius:2px;"></span>
-  </div>
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</div>
 
-  <nav id="nav-menu" style="
-    position:fixed; top:0; right:-260px;
-    width:240px; height:100vh;
-    background:rgba(0,0,0,0.88); backdrop-filter:blur(10px);
-    padding:80px 24px; transition:0.32s;">
-    <a href="#mission" class="menu-link">MISSION</a><br><br>
-    <a href="#business" class="menu-link">BUSINESS</a><br><br>
-    <a href="#company" class="menu-link">COMPANY</a><br><br>
-    <a href="recruit.html" class="menu-link">RECRUIT</a><br><br>
-  </nav>
-</header>
+<div id="mobileMenu">
+  <a href="#news">NEWS</a>
+  <a href="#mission">MISSION</a>
+  <a href="#business">BUSINESS</a>
+  <a href="#company">COMPANY</a>
+  <a href="recruit.html">RECRUIT</a>
+</div>
 
-<section class="hero">
-  <img src="keyvisual.png">
-  <div class="hero-title">Stracto Inc.</div>
-</section>
+<div class="hero"></div>
 
-<section id="mission">
-  <div class="section-title">MISSION</div>
-  <div class="glass">
-    <p>
-      Stractoは、技術者を中心に据えた企業です。<br>
-      高い透明性と高単価なSESを提供し、エンジニアが最大限のパフォーマンスを発揮できる環境を構築します。
-    </p>
-  </div>
-</section>
+<main>
 
-<section id="business">
-  <div class="section-title">BUSINESS</div>
-
-  <div class="business-wrapper">
-
-    <!-- 資産運用事業（原文そのまま） -->
-    <div class="business-card">
-      <h3>■ 資産運用事業</h3>
-      <p>
-        ・有価証券（株式、債券、ETF等）及び不動産の取得、保有・売買および運用<br>
-        ・投資に関するテンプレート・ツールの企画、開発、販売<br>
-        ・金融コンテンツや情報の企画・制作・販売及び提供<br>
-        ・上記に附帯または関連する一切の業務
-      </p>
-    </div>
-
-    <!-- ITフリーランス（SES）事業（原文そのまま） -->
-    <div class="business-card">
-      <h3>■ ITフリーランス（SES）事業</h3>
-      <p>
-        ・コンピュータシステムの企画、設計、開発、運用、保守およびそれらに関するコンサルティング業務<br>
-        ・ITエンジニアリング業務の業務委託、業務請負および関連マネジメント業務<br>
-        ・Webサービス・アプリケーション・ソフトウェアの企画、開発、販売および運用<br>
-        ・上記各号に附帯または関連する一切の業務
-      </p>
-    </div>
-
-  </div>
-</section>
-
-<section id="company">
-  <div class="section-title">COMPANY</div>
-
-  <div class="glass">
-    <table class="company-table">
-      <tr><td>会社名</td><td>Stracto株式会社</td></tr>
-      <tr><td>代表取締役</td><td>磯野洋輝</td></tr>
-      <tr><td>所在地</td><td>東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-      <tr><td>資本金</td><td>1,000,000円</td></tr>
-      <tr><td>設立</td><td>2026年6月（準備中）</td></tr>
-    </table>
-  </div>
-</section>
-
-<!-- ========= NEWS（スクショ準拠の新デザイン） ========= -->
+<!-- NEWS -->
 <section id="news">
-  <div class="section-title">NEWS</div>
+  <h2>NEWS 📰</h2>
 
-  <div class="glass" style="padding:28px 24px; border-radius:18px;">
+  <div id="newsArea">
 
     <!-- 2026 -->
-    <div style="font-size:22px; font-weight:600; margin-bottom:8px;">2026</div>
-    <div style="height:1px; background:rgba(255,255,255,0.22); margin:14px 0 22px;"></div>
-
-    <div style="margin-bottom:32px;">
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-        <span style="font-size:14px; opacity:0.85;">2026-01-01</span>
-      </div>
-      <div>ニュース準備中</div>
+    <div class="news-year">2026</div>
+    <div class="news-content">
+      <div class="news-row">2026年のニュースは準備中です。</div>
     </div>
 
     <!-- 2025 -->
-    <div style="font-size:22px; font-weight:600; margin-bottom:8px;">2025</div>
-    <div style="height:1px; background:rgba(255,255,255,0.22); margin:14px 0 22px;"></div>
-
-    <!-- ニュース項目 01 -->
-    <div style="margin-bottom:28px;">
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-        <span style="font-size:14px; opacity:0.85;">2025-11-19</span>
-        <span style="
-          padding:2px 8px; font-size:11px; background:#2e9bff;
-          border-radius:10px; color:white;">NEW</span>
-      </div>
-      <div>
+    <div class="news-year">2025</div>
+    <div class="news-content">
+      <div class="news-row" data-date="2025-11-19">
+        <span class="date">2025-11-19</span>
         自社技術の知財化に向け、特許出願に向けた初期検討をスタートしました。
       </div>
-    </div>
-
-    <!-- ニュース項目 02 -->
-    <div style="margin-bottom:6px;">
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
-        <span style="font-size:14px; opacity:0.85;">2025-11-17</span>
-        <span style="
-          padding:2px 8px; font-size:11px; background:#2e9bff;
-          border-radius:10px; color:white;">NEW</span>
-      </div>
-      <div>
+      <div class="news-row" data-date="2025-11-17">
+        <span class="date">2025-11-17</span>
         Stracto株式会社 公式サイトを公開しました。
       </div>
     </div>
@@ -244,26 +273,156 @@ section {
   </div>
 </section>
 
+<!-- MISSION -->
+<section id="mission">
+  <h2>MISSION</h2>
+  <div class="glass">
+    技術者を中心に据え、高品質なサービス提供と、持続的な技術成長の実現を目指します。
+  </div>
+</section>
 
-<!-- ========= フッター ========= -->
-<footer style="
-  margin-top:80px; padding:22px 0; text-align:center;
-  font-size:13px; opacity:0.72;">
+<!-- BUSINESS -->
+<section id="business">
+  <h2>BUSINESS</h2>
+  <div class="card-grid">
+
+    <div class="business-card">
+      <h3>SES / IT ENGINEERING</h3>
+      高品質なネットワーク・クラウド・セキュリティ領域のエンジニアリングサービスを提供します。
+    </div>
+
+    <div class="business-card">
+      <h3>CONSULTING</h3>
+      技術課題の可視化と最適化、ゼロトラスト・SASE の導入支援を行います。
+    </div>
+
+    <div class="business-card">
+      <h3>SYSTEM DEVELOPMENT</h3>
+      Webサービス / ノーコード / 自動化ツールの企画・開発を行います。
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section id="company">
+  <h2>COMPANY</h2>
+
+  <div class="glass">
+    <table class="company-table">
+      <tr><td>会社名</td><td>Stracto株式会社</td></tr>
+      <tr><td>代表者</td><td>磯野洋輝</td></tr>
+      <tr><td>所在地</td><td>東京都（バーチャルオフィス予定）</td></tr>
+      <tr><td>事業内容</td><td>ITエンジニアリング・SES / コンサルティング / Web開発 / 投資関連業務</td></tr>
+      <tr><td>設立</td><td>2025年</td></tr>
+    </table>
+  </div>
+
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="#news">News</a>
+    <a href="#mission">Mission</a>
+    <a href="#business">Business</a>
+    <a href="#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+  </div>
   © 2026 Stracto Inc. All Rights Reserved.
 </footer>
 
-<!-- ========= JS ========= -->
-<script src="particles.min.js"></script>
 <script>
-particlesJS.load("particles-js","particles.json");
-</script>
-
-<script>
+/* HAMBURGER */
 function toggleMenu(){
-  const m = document.getElementById("nav-menu");
-  m.style.right = (m.style.right === "0px") ? "-260px" : "0px";
+  document.getElementById("mobileMenu").classList.toggle("show");
+  document.querySelector(".hamburger").classList.toggle("active");
 }
+
+/* NEWS ACCORDION + NEW BADGE */
+document.querySelectorAll(".news-year").forEach((year, idx)=>{
+  year.addEventListener("click",()=>{
+    document.querySelectorAll(".news-content")[idx].classList.toggle("open");
+    const el = document.querySelectorAll(".news-content")[idx];
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+  });
+});
+
+const today = new Date();
+document.querySelectorAll(".news-row").forEach(row=>{
+  const date = row.getAttribute("data-date");
+  if(!date) return;
+  const diff = (today - new Date(date)) / (1000*60*60*24);
+  if(diff <= 30){
+    row.querySelector(".date").insertAdjacentHTML("afterend",
+      `<span class="new-badge">NEW</span>`
+    );
+  }
+});
+
+/* PARTICLES */
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const particles = Array.from({ length: 60 }).map(() => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.8 + 1.0,
+    vx: (Math.random() - 0.5) * 0.22,
+    vy: (Math.random() - 0.5) * 0.22
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,0.50)");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle = g;
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x<0||p.x>canvas.width) p.vx*=-1;
+      if(p.y<0||p.y>canvas.height) p.vy*=-1;
+    });
+
+    const lineDist = 140;
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const p1 = particles[i], p2 = particles[j];
+        const dist = Math.hypot(p1.x-p2.x, p1.y-p2.y);
+        if(dist < lineDist){
+          const alpha = (1 - dist/lineDist) * 0.55;
+          ctx.strokeStyle = `rgba(150,180,255,${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(p1.x,p1.y);
+          ctx.lineTo(p2.x,p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
 </script>
 
 </body>
 </html>
+
