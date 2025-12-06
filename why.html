@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Why Stracto? | Stracto Inc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="description" content="Stracto Inc. が存在する理由。技術 × 資本 × 生成AI による独自の企業構造を解説。">
+<link rel="canonical" href="https://stracto-se.github.io/stracto-site/why.html">
+
+<!-- OGP -->
+<meta property="og:title" content="Why Stracto?">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stracto-se.github.io/stracto-site/why.html">
+<meta property="og:image" content="ogp.png">
+<meta property="og:description" content="Stracto Inc. の理念と構造を紹介します。">
+
+<style>
+:root {
+  --bg-dark:#050816;
+  --text-main:#e5e7eb;
+  --text-soft:#9ca3af;
+  --accent:#38bdf8;
+  --glass-bg:rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.16);
+}
+
+/* BASE */
+body {
+  margin:0;
+  background:var(--bg-dark);
+  color:var(--text-main);
+  font-family:system-ui, sans-serif;
+  overflow-x:hidden;
+}
+a { color:inherit; }
+
+/* PARTICLES CANVAS */
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-2;
+}
+
+/* BACKGROUND GRADIENT */
+.bg-gradient {
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(56,189,248,0.16), transparent 55%),
+    radial-gradient(circle at 100% 0%, rgba(129,140,248,0.18), transparent 55%),
+    radial-gradient(circle at 50% 100%, rgba(56,189,248,0.22), transparent 60%);
+  opacity:0.85;
+  z-index:-3;
+}
+
+/* HEADER */
+header {
+  position:fixed;
+  top:0; left:0; right:0;
+  padding:18px 24px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  backdrop-filter:blur(18px);
+  background:rgba(5,8,22,0.75);
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  z-index:9999;
+}
+.logo {
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:600;
+}
+.logo-mark {
+  width:28px; height:28px;
+  border-radius:10px;
+  background:
+    radial-gradient(circle at 0% 0%, #38bdf8, transparent 65%),
+    radial-gradient(circle at 100% 100%, #6366f1, transparent 60%);
+  display:flex; justify-content:center; align-items:center;
+  font-weight:700;
+}
+nav {
+  display:flex; gap:18px;
+  font-size:14px;
+}
+nav a {
+  color:var(--text-soft);
+  padding:6px 10px;
+  border-radius:999px;
+  text-decoration:none;
+  transition:0.2s;
+}
+nav a:hover {
+  color:#fff;
+  background:rgba(255,255,255,0.1);
+}
+
+/* HAMBURGER */
+.hamburger {
+  display:none;
+  position:fixed;
+  top:22px; right:24px;
+  width:36px; height:26px;
+  cursor:pointer;
+  z-index:10000;
+}
+.hamburger span {
+  position:absolute;
+  left:0; right:0;
+  height:3px;
+  background:#e5e7eb;
+  border-radius:999px;
+  transition:0.2s;
+}
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:11px; }
+.hamburger span:nth-child(3){ top:22px; }
+.hamburger.active span:nth-child(1){
+  transform:translateY(11px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(3){
+  transform:translateY(-11px) rotate(-45deg);
+}
+
+/* MOBILE MENU */
+#mobileMenu {
+  position:fixed;
+  inset:0;
+  background:rgba(5,8,22,0.96);
+  display:none;
+  z-index:9999;
+}
+#mobileMenu.active { display:flex; justify-content:center; align-items:center; }
+.mobile-menu-inner a {
+  display:block;
+  color:#fff;
+  text-decoration:none;
+  font-size:20px;
+  margin:14px 0;
+}
+
+/* MAIN */
+main {
+  max-width:900px;
+  margin:0 auto;
+  padding:140px 24px 120px;
+}
+h1 {
+  font-size:2.4rem;
+  font-weight:700;
+  border-left:4px solid var(--accent);
+  padding-left:14px;
+  margin-bottom:40px;
+}
+
+.glass-card {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  padding:32px;
+  border-radius:14px;
+  backdrop-filter:blur(12px);
+  line-height:1.8;
+  margin-bottom:40px;
+}
+.glass-card h2 {
+  font-size:1.5rem;
+  margin-bottom:14px;
+}
+
+@media(max-width:768px){
+  nav { display:none; }
+  .hamburger { display:block; }
+}
+@media(max-width:600px){
+  main { padding:120px 18px; }
+  .glass-card { padding:24px; }
+  h1 { font-size:2rem; }
+}
+
+/* FOOTER */
+footer {
+  padding:60px 24px;
+  text-align:center;
+  color:var(--text-soft);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.footer-links {
+  display:flex; justify-content:center; gap:18px;
+  margin-bottom:16px;
+}
+.footer-links a {
+  text-decoration:none;
+  font-size:14px;
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+<div class="bg-gradient"></div>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">S</div>
+    <div>
+      <div>Stracto Inc.</div>
+      <div style="font-size:11px; color:var(--text-soft);">
+        Structure × Action × Optimization
+      </div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="why.html">Why</a>
+    <a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a>
+    <a href="index.html#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+  </nav>
+</header>
+
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</div>
+
+<div id="mobileMenu">
+  <div class="mobile-menu-inner">
+    <a href="index.html" onclick="toggleMenu()">Home</a>
+    <a href="why.html" onclick="toggleMenu()">Why</a>
+    <a href="index.html#mission" onclick="toggleMenu()">Mission</a>
+    <a href="index.html#business" onclick="toggleMenu()">Business</a>
+    <a href="index.html#company" onclick="toggleMenu()">Company</a>
+    <a href="recruit.html" onclick="toggleMenu()">Recruit</a>
+  </div>
+</div>
+
+<main>
+<h1>Why Stracto?</h1>
+
+<div class="glass-card">
+  <h2>Structure × Action × Optimization — すべての価値は構造から生まれる</h2>
+  <p>
+    Stractoは、<b>技術 × 資本 × 生成AI</b> を掛け合わせ、
+    価値が再現され続ける「構造」を設計する会社です。
+    単なる受託でもSESでもなく、技術者と企業が長期的に成長できる
+    “仕組みづくり” を企業活動の中心に据えています。
+  </p>
+</div>
+
+<div class="glass-card">
+  <h2>01. 技術を最大化する「構造」</h2>
+  <p>
+    個人の能力だけに依存せず、プロセス、ナレッジ、AI活用、標準化を通じて
+    技術が正しく価値につながる土台を整えます。
+    これは、技術者のストレス軽減・品質向上・再現性の確保を実現します。
+  </p>
+</div>
+
+<div class="glass-card">
+  <h2>02. 資本を活かした安定性と成長</h2>
+  <p>
+    内部留保と投資運用によって、景気や案件状況に左右されにくい経営基盤を構築します。
+    企業としての安定性は顧客への品質維持につながり、
+    技術者には安心して働ける環境を提供します。
+  </p>
+</div>
+
+<div class="glass-card">
+  <h2>03. 生成AI × 自動化による高品質な実行</h2>
+  <p>
+    ドキュメント生成、構成レビュー、ナレッジ最適化など、
+    AIを前提とした業務フローを採用。
+    これにより<b>品質・速度・再現性</b>を高いレベルで維持します。
+  </p>
+</div>
+
+<div class="glass-card">
+  <h2>04. Structure × Action × Optimization の循環</h2>
+  <p>
+    構造をつくり、実行を支え、最適化を繰り返す。
+    Stractoという名前には、この成長サイクルを組織全体で回し続けるという
+    明確な意志が込められています。
+  </p>
+</div>
+
+<div class="glass-card">
+  <h2>私たちの目的</h2>
+  <p>
+    Stractoは、<b>技術者と企業が安心して価値を生み続けられる世界</b>
+    を実現するために存在します。
+    価値を持続させる“構造”こそ、私たちのWhyです。
+  </p>
+</div>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a>
+    <a href="why.html">Why</a>
+    <a href="index.html#business">Business</a>
+    <a href="index.html#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+  </div>
+  <div>© 2026 Stracto Inc.</div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.querySelector('.hamburger').classList.toggle('active');
+  document.getElementById('mobileMenu').classList.toggle('active');
+}
+
+/* PARTICLE BACKGROUND */
+document.addEventListener("DOMContentLoaded", function(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w, h;
+  let particles = [];
+
+  function resize() {
+    w = canvas.width = window.innerWidth;
+    h = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  for(let i = 0; i < 80; i++){
+    particles.push({
+      x:Math.random()*w,
+      y:Math.random()*h,
+      vx:(Math.random()-0.5)*0.4,
+      vy:(Math.random()-0.5)*0.4,
+      r:Math.random()*2+0.5
+    });
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    ctx.fillStyle="rgba(148, 163, 184, 0.65)";
+    for(const p of particles){
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if(p.x<0||p.x>w) p.vx*=-1;
+      if(p.y<0||p.y>h) p.vy*=-1;
+    }
+
+    ctx.strokeStyle="rgba(94, 234, 212, 0.28)";
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const a=particles[i], b=particles[j];
+        const dx=a.x-b.x, dy=a.y-b.y;
+        const dist=Math.sqrt(dx*dx+dy*dy);
+        if(dist<120){
+          ctx.lineWidth = 0.4*(1 - dist/120);
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
+</script>
+
+</body>
+</html>
