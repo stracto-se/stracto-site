@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Assets | Stracto Inc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ======================= SEO ======================= -->
+<meta name="description" content="Stracto Inc. の保有資産一覧。銘柄、時価総額、評価損益、平均取得単価を掲載。">
+<link rel="canonical" href="https://stracto-se.github.io/stracto-site/assets.html">
+
+<!-- OGP -->
+<meta property="og:title" content="Stracto Inc. - Assets">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stracto-se.github.io/stracto-site/assets.html">
+<meta property="og:image" content="ogp.png">
+<meta property="og:description" content="Stracto Inc. の保有資産一覧。">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+:root {
+  --bg-dark:#050816;
+  --text-main:#e5e7eb;
+  --text-soft:#9ca3af;
+  --accent:#38bdf8;
+  --glass-bg:rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.16);
+  --plus:#86efac;
+  --minus:#fca5a5;
+}
+
+/* ============ BASE ============ */
+body {
+  margin:0;
+  font-family:system-ui, sans-serif;
+  background:var(--bg-dark);
+  color:var(--text-main);
+  overflow-x:hidden;
+}
+
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:0.78;
+}
+
+/* ============ HAMBURGER ============ */
+.hamburger {
+  position:fixed;
+  top:22px;
+  right:24px;
+  width:36px;
+  height:26px;
+  cursor:pointer;
+  z-index:99999;
+  background:none;
+}
+.hamburger span {
+  position:absolute;
+  left:0;
+  width:100%;
+  height:4px;
+  background:var(--accent);
+  border-radius:6px;
+  transition:.36s;
+  box-shadow:none;
+}
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:11px; }
+.hamburger span:nth-child(3){ top:22px; }
+.hamburger.active span:nth-child(1){
+  transform:translateY(11px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(3){
+  transform:translateY(-11px) rotate(-45deg);
+}
+
+/* ============ MOBILE MENU ============ */
+#mobileMenu {
+  position:fixed;
+  right:-100%;
+  top:0;
+  width:240px;
+  height:100vh;
+  padding:90px 28px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+  transition:right .45s ease;
+  z-index:9999;
+  box-shadow:none;
+  border:none;
+}
+#mobileMenu.show { right:0; }
+
+#mobileMenu a {
+  color:white;
+  font-size:18px;
+  text-decoration:none;
+}
+
+/* ============ MAIN ============ */
+main {
+  max-width:960px;
+  margin:0 auto;
+  padding:140px 24px 120px;
+}
+
+h2 {
+  border-left:4px solid var(--accent);
+  padding-left:14px;
+  margin-bottom:38px;
+  font-size:26px;
+}
+
+/* ============ CARDS ============ */
+.glass-card {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  backdrop-filter:blur(12px);
+}
+
+.summary-card {
+  padding:32px;
+  line-height:1.8;
+  margin-bottom:50px;
+  font-size:16px;
+}
+
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:18px;
+  margin-top:24px;
+}
+
+.summary-item {
+  padding:18px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.045);
+  border:1px solid rgba(255,255,255,0.10);
+}
+
+.summary-label {
+  color:var(--text-soft);
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.summary-value {
+  font-size:20px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.asset-card {
+  padding:28px;
+  margin-bottom:50px;
+  overflow-x:auto;
+}
+
+.asset-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:15px;
+}
+
+.asset-table th,
+.asset-table td {
+  padding:14px 12px;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+  text-align:right;
+  white-space:nowrap;
+}
+
+.asset-table th:first-child,
+.asset-table td:first-child {
+  text-align:left;
+}
+
+.asset-table th {
+  color:var(--accent);
+  font-weight:bold;
+}
+
+.asset-table tr:last-child td {
+  border-bottom:none;
+}
+
+.asset-table tbody tr {
+  transition:background .25s ease;
+}
+
+.asset-table tbody tr:hover {
+  background:rgba(255,255,255,0.045);
+}
+
+.plus { color:var(--plus); }
+.minus { color:var(--minus); }
+
+.note {
+  color:var(--text-soft);
+  font-size:13px;
+  line-height:1.7;
+  margin-top:18px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  padding:60px 24px;
+  text-align:center;
+  color:var(--text-soft);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.footer-links {
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+.footer-links a {
+  color:var(--text-soft);
+  text-decoration:none;
+}
+.footer-bottom {
+  margin-top:20px;
+  font-size:13px;
+  opacity:0.8;
+}
+
+@media(max-width:760px){
+  .summary-grid {
+    grid-template-columns:repeat(2, 1fr);
+  }
+}
+
+@media(max-width:600px){
+  main {
+    padding:120px 18px 90px;
+  }
+
+  .summary-card,
+  .asset-card {
+    padding:24px;
+  }
+
+  .summary-grid {
+    grid-template-columns:1fr;
+  }
+
+  .asset-table {
+    font-size:13px;
+  }
+
+  .asset-table th,
+  .asset-table td {
+    padding:12px 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</div>
+
+<div id="mobileMenu">
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="recruit.html">RECRUIT</a>
+  <a href="assets.html">ASSETS</a>
+</div>
+
+<main>
+  <h2>ASSETS</h2>
+
+  <section class="summary-card glass-card">
+    <p>
+      Stracto Inc. の保有資産一覧です。<br>
+      銘柄ごとの時価総額、評価損益、平均取得単価を管理します。
+    </p>
+
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-label">合計時価総額</div>
+        <div class="summary-value" id="totalMarketValue">-</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">合計評価損益</div>
+        <div class="summary-value" id="totalProfitLoss">-</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">保有銘柄数</div>
+        <div class="summary-value" id="totalStocks">-</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">最終更新日</div>
+        <div class="summary-value" id="lastUpdated">-</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="asset-card glass-card">
+    <table class="asset-table">
+      <thead>
+        <tr>
+          <th>銘柄</th>
+          <th>時価総額</th>
+          <th>評価損益</th>
+          <th>平均取得単価</th>
+        </tr>
+      </thead>
+      <tbody id="assetTableBody">
+        <!-- JavaScriptで表示 -->
+      </tbody>
+    </table>
+
+    <div class="note">
+      ※ 金額は管理用の表示です。実際の証券口座残高とは差異が出る場合があります。<br>
+      ※ 銘柄データはHTML下部の assets 配列を書き換えることで更新できます。
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html#news">News</a>
+    <a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a>
+    <a href="index.html#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+    <a href="assets.html">Assets</a>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Stracto Inc. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+  document.querySelector(".hamburger").classList.toggle("active");
+}
+
+/* ============ ASSET DATA ============ */
+const assets = [
+  {
+    name: "三菱重工",
+    marketValue: 1200000,
+    profitLoss: 250000,
+    averagePrice: 1850
+  },
+  {
+    name: "鹿島",
+    marketValue: 950000,
+    profitLoss: 180000,
+    averagePrice: 2600
+  },
+  {
+    name: "三菱地所",
+    marketValue: 820000,
+    profitLoss: 90000,
+    averagePrice: 2100
+  },
+  {
+    name: "任天堂",
+    marketValue: 900000,
+    profitLoss: -30000,
+    averagePrice: 8200
+  },
+  {
+    name: "FANUC",
+    marketValue: 430000,
+    profitLoss: 15000,
+    averagePrice: 4150
+  }
+];
+
+const lastUpdatedText = "2026/07/07";
+
+function formatYen(value){
+  return value.toLocaleString("ja-JP") + "円";
+}
+
+function formatProfitLoss(value){
+  const sign = value > 0 ? "+" : "";
+  return sign + value.toLocaleString("ja-JP") + "円";
+}
+
+function renderAssets(){
+  const tbody = document.getElementById("assetTableBody");
+  tbody.innerHTML = "";
+
+  let totalMarketValue = 0;
+  let totalProfitLoss = 0;
+
+  assets.forEach(asset => {
+    totalMarketValue += asset.marketValue;
+    totalProfitLoss += asset.profitLoss;
+
+    const tr = document.createElement("tr");
+    const profitClass = asset.profitLoss >= 0 ? "plus" : "minus";
+
+    tr.innerHTML = `
+      <td>${asset.name}</td>
+      <td>${formatYen(asset.marketValue)}</td>
+      <td class="${profitClass}">${formatProfitLoss(asset.profitLoss)}</td>
+      <td>${formatYen(asset.averagePrice)}</td>
+    `;
+
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById("totalMarketValue").textContent = formatYen(totalMarketValue);
+  document.getElementById("totalProfitLoss").textContent = formatProfitLoss(totalProfitLoss);
+  document.getElementById("totalProfitLoss").className = "summary-value " + (totalProfitLoss >= 0 ? "plus" : "minus");
+  document.getElementById("totalStocks").textContent = assets.length + "銘柄";
+  document.getElementById("lastUpdated").textContent = lastUpdatedText;
+}
+
+renderAssets();
+
+/* ============ PARTICLES ============ */
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+
+  function resize(){
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+  }
+  resize();
+  addEventListener("resize",resize);
+
+  const ps=Array.from({length:40}).map(()=>({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    r:Math.random()*1.8+1,
+    vx:(Math.random()-0.5)*0.22,
+    vy:(Math.random()-0.5)*0.22
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ps.forEach(p=>{
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,0.42)");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle=g;
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
+      ctx.fill();
+
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>canvas.width)p.vx*=-1;
+      if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+
+    const dlim=120;
+    for(let i=0;i<ps.length;i++){
+      for(let j=i+1;j<ps.length;j++){
+        const a=ps[i],b=ps[j];
+        const d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<dlim){
+          ctx.strokeStyle=`rgba(150,180,255,${(1-d/dlim)*0.48})`;
+          ctx.lineWidth=0.7;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
+</script>
+
+</body>
+</html>
