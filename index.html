@@ -372,7 +372,7 @@ document.querySelectorAll(".news-row").forEach(row=>{
   const date = row.getAttribute("data-date");
   if(!date) return;
   const diff = (today - new Date(date)) / (1000*60*60*24);
-  if(diff <= 30){
+  if(diff <= 15){
     row.querySelector(".date").insertAdjacentHTML("afterend",
       `<span class="new-badge">NEW</span>`
     );
