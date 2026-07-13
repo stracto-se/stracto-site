@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Contact | Stracto Inc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ======================= SEO ======================= -->
+<meta name="description" content="Stracto Inc. へのお問い合わせページです。業務のご相談、取材、採用、その他のお問い合わせを受け付けています。">
+<link rel="canonical" href="https://stracto.co.jp/contact.html">
+
+<!-- OGP -->
+<meta property="og:title" content="Stracto Inc. - Contact">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stracto.co.jp/contact.html">
+<meta property="og:image" content="ogp.png">
+<meta property="og:description" content="Stracto Inc. へのお問い合わせはこちらから。">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+:root {
+  --bg-dark:#050816;
+  --text-main:#e5e7eb;
+  --text-soft:#9ca3af;
+  --accent:#38bdf8;
+  --glass-bg:rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.16);
+  --input-bg:rgba(255,255,255,0.055);
+  --input-border:rgba(255,255,255,0.16);
+  --danger:#fca5a5;
+  --success:#86efac;
+}
+
+/* ============ BASE ============ */
+* {
+  box-sizing:border-box;
+}
+
+html {
+  scroll-behavior:smooth;
+}
+
+body {
+  margin:0;
+  font-family:system-ui, sans-serif;
+  background:var(--bg-dark);
+  color:var(--text-main);
+  overflow-x:hidden;
+}
+
+button,
+input,
+select,
+textarea {
+  font:inherit;
+}
+
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:0.78;
+}
+
+/* ============ HAMBURGER ============ */
+.hamburger {
+  position:fixed;
+  top:22px;
+  right:24px;
+  width:36px;
+  height:26px;
+  cursor:pointer;
+  z-index:99999;
+  background:none;
+  border:0;
+  padding:0;
+}
+.hamburger span {
+  position:absolute;
+  left:0;
+  width:100%;
+  height:4px;
+  background:var(--accent);
+  border-radius:6px;
+  transition:.36s;
+}
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:11px; }
+.hamburger span:nth-child(3){ top:22px; }
+.hamburger.active span:nth-child(1){
+  transform:translateY(11px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(3){
+  transform:translateY(-11px) rotate(-45deg);
+}
+
+/* ============ MOBILE MENU ============ */
+#mobileMenu {
+  position:fixed;
+  right:-100%;
+  top:0;
+  width:240px;
+  height:100vh;
+  padding:90px 28px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+  transition:right .45s ease;
+  z-index:9999;
+}
+#mobileMenu.show { right:0; }
+
+#mobileMenu a {
+  color:white;
+  font-size:18px;
+  text-decoration:none;
+}
+
+/* ============ MAIN ============ */
+main {
+  max-width:960px;
+  margin:0 auto;
+  padding:140px 24px 120px;
+}
+
+h2 {
+  border-left:4px solid var(--accent);
+  padding-left:14px;
+  margin:0 0 38px;
+  font-size:26px;
+}
+
+.glass-card {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  backdrop-filter:blur(12px);
+}
+
+.intro-card {
+  padding:32px;
+  line-height:1.9;
+  margin-bottom:36px;
+}
+
+.intro-card p {
+  margin:0;
+}
+
+.contact-meta {
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:18px;
+  margin-top:26px;
+}
+
+.contact-meta-item {
+  padding:18px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.045);
+  border:1px solid rgba(255,255,255,0.10);
+}
+
+.contact-meta-label {
+  color:var(--text-soft);
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.contact-meta-value {
+  color:var(--text-main);
+  font-size:16px;
+  font-weight:600;
+  word-break:break-word;
+}
+
+.contact-meta-value a {
+  color:var(--accent);
+  text-decoration:none;
+}
+
+.contact-card {
+  padding:32px;
+}
+
+.form-grid {
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0, 1fr));
+  gap:22px;
+}
+
+.form-group {
+  display:flex;
+  flex-direction:column;
+  gap:9px;
+}
+
+.form-group.full {
+  grid-column:1 / -1;
+}
+
+label {
+  font-size:14px;
+  font-weight:600;
+}
+
+.required {
+  color:var(--accent);
+  margin-left:6px;
+  font-size:12px;
+}
+
+.optional {
+  color:var(--text-soft);
+  margin-left:6px;
+  font-size:12px;
+  font-weight:400;
+}
+
+input,
+select,
+textarea {
+  width:100%;
+  color:var(--text-main);
+  background:var(--input-bg);
+  border:1px solid var(--input-border);
+  border-radius:10px;
+  outline:none;
+  padding:13px 14px;
+  transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color:#6b7280;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color:var(--accent);
+  background:rgba(255,255,255,0.075);
+  box-shadow:0 0 0 3px rgba(56,189,248,0.12);
+}
+
+select {
+  appearance:none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--accent) 50%),
+    linear-gradient(135deg, var(--accent) 50%, transparent 50%);
+  background-position:
+    calc(100% - 18px) 54%,
+    calc(100% - 12px) 54%;
+  background-size:6px 6px, 6px 6px;
+  background-repeat:no-repeat;
+}
+
+select option {
+  color:#111827;
+}
+
+textarea {
+  min-height:190px;
+  resize:vertical;
+  line-height:1.7;
+}
+
+.helper-text {
+  color:var(--text-soft);
+  font-size:12px;
+  line-height:1.6;
+}
+
+.consent {
+  display:flex;
+  align-items:flex-start;
+  gap:10px;
+  padding:18px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.035);
+  border:1px solid rgba(255,255,255,0.09);
+}
+
+.consent input {
+  width:18px;
+  height:18px;
+  margin:2px 0 0;
+  accent-color:var(--accent);
+  flex:0 0 auto;
+}
+
+.consent label {
+  color:var(--text-soft);
+  font-weight:400;
+  line-height:1.7;
+}
+
+.consent a {
+  color:var(--accent);
+  text-decoration:none;
+}
+
+.submit-row {
+  display:flex;
+  justify-content:center;
+  margin-top:30px;
+}
+
+.submit-button {
+  min-width:220px;
+  border:1px solid var(--accent);
+  border-radius:10px;
+  padding:14px 28px;
+  color:#06111c;
+  background:var(--accent);
+  font-weight:700;
+  cursor:pointer;
+  transition:transform .2s ease, opacity .2s ease, box-shadow .2s ease;
+}
+
+.submit-button:hover {
+  transform:translateY(-1px);
+  box-shadow:0 10px 28px rgba(56,189,248,0.20);
+}
+
+.submit-button:disabled {
+  cursor:not-allowed;
+  opacity:.55;
+  transform:none;
+  box-shadow:none;
+}
+
+.form-message {
+  display:none;
+  margin-top:22px;
+  padding:14px 16px;
+  border-radius:10px;
+  line-height:1.7;
+  font-size:14px;
+}
+
+.form-message.show {
+  display:block;
+}
+
+.form-message.error {
+  color:var(--danger);
+  border:1px solid rgba(252,165,165,0.28);
+  background:rgba(252,165,165,0.07);
+}
+
+.form-message.success {
+  color:var(--success);
+  border:1px solid rgba(134,239,172,0.28);
+  background:rgba(134,239,172,0.07);
+}
+
+.note {
+  color:var(--text-soft);
+  font-size:13px;
+  line-height:1.8;
+  margin-top:26px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  padding:60px 24px;
+  text-align:center;
+  color:var(--text-soft);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.footer-links {
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+.footer-links a {
+  color:var(--text-soft);
+  text-decoration:none;
+}
+.footer-bottom {
+  margin-top:20px;
+  font-size:13px;
+  opacity:0.8;
+}
+
+@media(max-width:760px){
+  .form-grid,
+  .contact-meta {
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:600px){
+  main {
+    padding:120px 18px 90px;
+  }
+
+  .intro-card,
+  .contact-card {
+    padding:24px;
+  }
+
+  .submit-button {
+    width:100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<button class="hamburger" type="button" aria-label="メニューを開閉" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</button>
+
+<nav id="mobileMenu" aria-label="サイトメニュー">
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="recruit.html">RECRUIT</a>
+  <a href="assets.html">ASSETS</a>
+  <a href="contact.html" aria-current="page">CONTACT</a>
+</nav>
+
+<main>
+  <h2>CONTACT</h2>
+
+  <section class="intro-card glass-card">
+    <p>
+      Stractoへのお問い合わせは、以下のフォームよりご連絡ください。<br>
+      業務のご相談、取材、採用、その他のお問い合わせを受け付けています。<br>
+      内容を確認のうえ、通常3営業日以内を目安にご返信いたします。
+    </p>
+
+    <div class="contact-meta">
+      <div class="contact-meta-item">
+        <div class="contact-meta-label">お問い合わせ窓口</div>
+        <div class="contact-meta-value">
+          <a href="mailto:contact@stracto.co.jp">contact@stracto.co.jp</a>
+        </div>
+      </div>
+      <div class="contact-meta-item">
+        <div class="contact-meta-label">返信目安</div>
+        <div class="contact-meta-value">通常3営業日以内</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact-card glass-card">
+    <!--
+      現在はフロント側の入力チェックのみです。
+      Formspree / Cloudflare Workers / Microsoft Forms などを利用する場合は、
+      form の action と method、または JavaScript の送信処理を差し替えてください。
+    -->
+    <form id="contactForm" novalidate>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="company">会社名・団体名<span class="optional">任意</span></label>
+          <input id="company" name="company" type="text" autocomplete="organization" placeholder="例：Stracto株式会社">
+        </div>
+
+        <div class="form-group">
+          <label for="name">氏名<span class="required">必須</span></label>
+          <input id="name" name="name" type="text" autocomplete="name" placeholder="例：山田 太郎" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">メールアドレス<span class="required">必須</span></label>
+          <input id="email" name="email" type="email" autocomplete="email" placeholder="example@example.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="category">お問い合わせ種別<span class="required">必須</span></label>
+          <select id="category" name="category" required>
+            <option value="">選択してください</option>
+            <option value="business">業務・サービスに関するご相談</option>
+            <option value="media">取材・掲載に関するお問い合わせ</option>
+            <option value="recruit">採用に関するお問い合わせ</option>
+            <option value="other">その他</option>
+          </select>
+        </div>
+
+        <div class="form-group full">
+          <label for="subject">件名<span class="required">必須</span></label>
+          <input id="subject" name="subject" type="text" placeholder="お問い合わせの件名をご入力ください" required>
+        </div>
+
+        <div class="form-group full">
+          <label for="message">お問い合わせ内容<span class="required">必須</span></label>
+          <textarea id="message" name="message" placeholder="お問い合わせ内容をご入力ください" required></textarea>
+          <div class="helper-text">営業・勧誘のみを目的としたお問い合わせには、返信いたしかねる場合があります。</div>
+        </div>
+
+        <div class="form-group full">
+          <div class="consent">
+            <input id="privacy" name="privacy" type="checkbox" required>
+            <label for="privacy">
+              <a href="privacy.html" target="_blank" rel="noopener">プライバシーポリシー</a>に同意します。
+              <span class="required">必須</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="submit-row">
+        <button class="submit-button" type="submit">入力内容を確認する</button>
+      </div>
+
+      <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
+    </form>
+
+    <div class="note">
+      ※ 現在のフォームは画面上の入力確認まで実装しています。実際にメールを送信するには、別途フォーム送信サービスまたはサーバー側の処理が必要です。<br>
+      ※ お急ぎの場合は、contact@stracto.co.jp まで直接ご連絡ください。
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html#news">News</a>
+    <a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a>
+    <a href="index.html#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+    <a href="assets.html">Assets</a>
+    <a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Stracto Inc. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  const menu = document.getElementById("mobileMenu");
+  const button = document.querySelector(".hamburger");
+  const isOpen = menu.classList.toggle("show");
+
+  button.classList.toggle("active", isOpen);
+  button.setAttribute("aria-expanded", String(isOpen));
+}
+
+document.addEventListener("click", (event) => {
+  const menu = document.getElementById("mobileMenu");
+  const button = document.querySelector(".hamburger");
+
+  if (
+    menu.classList.contains("show") &&
+    !menu.contains(event.target) &&
+    !button.contains(event.target)
+  ) {
+    menu.classList.remove("show");
+    button.classList.remove("active");
+    button.setAttribute("aria-expanded", "false");
+  }
+});
+
+/* ============ FORM VALIDATION ============ */
+const contactForm = document.getElementById("contactForm");
+const formMessage = document.getElementById("formMessage");
+
+function showFormMessage(type, message){
+  formMessage.className = "form-message show " + type;
+  formMessage.textContent = message;
+}
+
+contactForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  if (!contactForm.checkValidity()) {
+    contactForm.reportValidity();
+    showFormMessage("error", "未入力または入力形式に誤りがある項目をご確認ください。");
+    return;
+  }
+
+  showFormMessage(
+    "success",
+    "入力内容を確認しました。現在は送信処理を接続していないため、フォーム送信サービスの設定後に送信可能になります。"
+  );
+});
+
+/* ============ PARTICLES ============ */
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+
+  function resize(){
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+  }
+  resize();
+  addEventListener("resize",resize);
+
+  const ps=Array.from({length:40}).map(()=>({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    r:Math.random()*1.8+1,
+    vx:(Math.random()-0.5)*0.22,
+    vy:(Math.random()-0.5)*0.22
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ps.forEach(p=>{
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,0.42)");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle=g;
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
+      ctx.fill();
+
+      p.x+=p.vx;
+      p.y+=p.vy;
+
+      if(p.x<0||p.x>canvas.width)p.vx*=-1;
+      if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+
+    const dlim=120;
+    for(let i=0;i<ps.length;i++){
+      for(let j=i+1;j<ps.length;j++){
+        const a=ps[i],b=ps[j];
+        const d=Math.hypot(a.x-b.x,a.y-b.y);
+
+        if(d<dlim){
+          ctx.strokeStyle=`rgba(150,180,255,${(1-d/dlim)*0.48})`;
+          ctx.lineWidth=0.7;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+});
+</script>
+
+</body>
+</html>
