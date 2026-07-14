@@ -503,6 +503,10 @@ footer {
         </div>
 
         <div class="form-group full">
+          <div class="cf-turnstile" 
+          data-sitekey="0x4AAAAAAD1dpflmR9gaTNjp">
+        </div>
+       </div>
           <div class="consent">
             <input id="privacy" name="privacy" type="checkbox" required>
             <label for="privacy">
@@ -540,6 +544,8 @@ footer {
     © 2026 Stracto Inc. All Rights Reserved.
   </div>
 </footer>
+
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <script>
 function toggleMenu(){
@@ -598,6 +604,7 @@ contactForm.addEventListener("submit", async (event) => {
     subject: formData.get("subject"),
     message: formData.get("message"),
     privacy: formData.get("privacy") === "on"
+    turnstileToken: formData.get("cf-turnstile-response")
   };
 
   try {
