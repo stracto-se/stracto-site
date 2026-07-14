@@ -514,7 +514,7 @@ footer {
       </div>
 
       <div class="submit-row">
-        <button class="submit-button" type="submit">入力内容を確認する</button>
+        <button class="submit-button" type="submit">送信する</button>
       </div>
 
       <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
@@ -567,28 +567,63 @@ document.addEventListener("click", (event) => {
   }
 });
 
-/* ============ FORM VALIDATION ============ */
+/* ============ CONTACT FORM ============ */
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
+const submitButton = contactForm.querySelector('button[type="submit"]');
 
 function showFormMessage(type, message){
   formMessage.className = "form-message show " + type;
   formMessage.textContent = message;
 }
 
-contactForm.addEventListener("submit", (event) => {
+contactForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   if (!contactForm.checkValidity()) {
     contactForm.reportValidity();
-    showFormMessage("error", "未入力または入力形式に誤りがある項目をご確認ください。");
+    showFormMessage("error","未入力または入力形式に誤りがある項目をご確認ください。");
     return;
   }
 
-  showFormMessage(
-    "success",
-    "入力内容を確認しました。現在は送信処理を接続していないため、フォーム送信サービスの設定後に送信可能になります。"
-  );
+  submitButton.disabled = true;
+  submitButton.textContent = "送信中...";
+
+  const formData = new FormData(contactForm);
+
+  const payload = {
+    company: formData.get("company"),
+    name: formData.get("name"),
+    email: formData.get("email"),
+    category: formData.get("category"),
+    subject: formData.get("subject"),
+    message: formData.get("message"),
+    privacy: formData.get("privacy") === "on"
+  };
+
+  try {
+    const response = await fetch("https://stracto-contact-api.isono0331.workers.dev/",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify(payload)
+    });
+
+    const result = await response.json();
+
+    if(!response.ok || !result.success){
+      throw new Error(result.message || "送信に失敗しました。");
+    }
+
+    showFormMessage("success","お問い合わせを受け付けました。内容を確認のうえご返信いたします。");
+    contactForm.reset();
+
+  } catch(error){
+    console.error(error);
+    showFormMessage("error", error.message || "送信に失敗しました。");
+  } finally{
+    submitButton.disabled = false;
+    submitButton.textContent = "送信する";
+  }
 });
 
 /* ============ PARTICLES ============ */
