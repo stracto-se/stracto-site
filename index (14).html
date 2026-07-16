@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Stracto株式会社 | Official Website</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO -->
+<meta name="description" content="Stracto株式会社 - ネットワーク・セキュリティ技術を中心に、高品質なエンジニアリングサービスと革新的なITソリューションを提供します。">
+<link rel="canonical" href="https://stracto.co.jp/">
+
+  <!--  追加：タブアイコン（favicon） -->
+<link rel="icon" type="image/png" href="favicon.png">
+
+<!-- OGP -->
+<meta property="og:title" content="Stracto株式会社">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stracto.co.jp/">
+<meta property="og:image" content="ogp.png">
+<meta property="og:description" content="ネットワーク・セキュリティ技術を中心としたエンジニアリング企業">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+/* ============ ROOT ============ */
+:root {
+  --bg-dark: #050816;
+  --text-main: #e5e7eb;
+  --text-soft: #9ca3af;
+  --accent: #38bdf8;
+  --glass-bg: rgba(255,255,255,0.06);
+  --glass-border: rgba(255,255,255,0.16);
+}
+
+/* ============ BASE ============ */
+body {
+  margin:0;
+  font-family:system-ui, sans-serif;
+  background:var(--bg-dark);
+  color:var(--text-main);
+  overflow-x:hidden;
+}
+
+/* ============ PARTICLES ============ */
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:0.88;
+}
+
+/* ============ HAMBURGER ============ */
+.hamburger {
+  position:fixed;
+  top:24px; right:26px;
+  width:34px; height:24px;
+  cursor:pointer;
+  z-index:10001;
+}
+.hamburger span {
+  position:absolute; left:0;
+  width:100%; height:4px;
+  background:var(--accent);
+  border-radius:6px;
+  transition:.36s;
+}
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:10px; }
+.hamburger span:nth-child(3){ top:20px; }
+
+.hamburger.active span:nth-child(1){
+  transform:translateY(10px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){
+  opacity:0;
+}
+.hamburger.active span:nth-child(3){
+  transform:translateY(-10px) rotate(-45deg);
+}
+
+/* ============ MOBILE MENU ============ */
+#mobileMenu {
+  position:fixed;
+  right:-300px;
+  top:0;
+  width:240px;
+  height:100vh;
+  padding:90px 28px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  gap:26px;
+  transition:.4s;
+  z-index:10000;
+}
+#mobileMenu.show { right:0; }
+
+#mobileMenu a {
+  color:white;
+  font-size:18px;
+  text-decoration:none;
+}
+
+/* ============ HERO ============ */
+.hero {
+  width:100%;
+  height:100vh;
+  background:transparent;
+  position:relative;
+  margin-bottom:80px;
+}
+.kv {
+  width:100%;
+  height:100%;
+  object-fit:cover; /* ←★追加：見切れ防止しつつ全画面に広げる */
+  display:block;
+}
+
+@keyframes fadeIn {
+  0% { opacity:0; transform:scale(1.02); }
+  100% { opacity:1; transform:scale(1); }
+}
+
+/* ============ MAIN ============ */
+main {
+  max-width:960px;
+  margin:0 auto;
+  padding:0 24px 100px;
+}
+
+/* SECTION SPACING */
+section {
+  margin-top:90px;
+}
+
+/* TITLE */
+h2 {
+  border-left:4px solid var(--accent);
+  padding-left:14px;
+  margin-bottom:26px;
+  font-size:24px;
+}
+
+/* GLASS */
+.glass {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  padding:30px;
+  backdrop-filter:blur(10px);
+  margin-bottom:40px;
+}
+
+/* BUSINESS GRID（横2並び） */
+.business-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+  align-items: stretch; /* ←★追加：高さ揃え */
+}
+@media (min-width: 900px) {
+  .business-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* BUSINESS内部ガラス：高さ揃え */
+.business-grid .glass {
+  display:flex;                   /* ←★追加 */
+  flex-direction:column;          /* ←★追加 */
+  justify-content:space-between;  /* ←★追加 */
+}
+
+/* NEWS */
+.news-year {
+  font-size:22px;
+  margin-top:34px;
+  margin-bottom:14px;
+  cursor:pointer;
+  color:var(--accent);
+}
+.news-content {
+  display:none;
+  margin-bottom:20px;
+}
+.news-row {
+  padding:14px 0;
+  border-bottom:1px solid rgba(255,255,255,0.12);
+}
+.news-row .date {
+  font-weight:bold;
+  margin-right:8px;
+}
+.new-badge {
+  display:inline-block;
+  padding:2px 6px;
+  font-size:11px;
+  background:#ef4444;
+  color:white;
+  border-radius:4px;
+  margin-left:4px;
+}
+
+/* COMPANY TABLE（元のまま触らない） */
+.company-table {
+  width:100%;
+  border-collapse:collapse;
+  font-size:16px;
+}
+.company-table td {
+  padding:14px 10px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+.company-table td:first-child {
+  color:var(--accent);
+  width:150px;
+}
+
+/* FOOTER */
+footer {
+  padding:60px 24px;
+  text-align:center;
+  color:var(--text-soft);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.footer-social {
+  margin-top: 18px;
+}
+
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  text-decoration: none;
+  transition: .25s;
+}
+
+.footer-social a:hover {
+  color: #ffffff;
+}
+
+.footer-social svg {
+  width: 22px;
+  height: 22px;
+  fill: currentColor;
+}
+  
+.footer-links {
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:16px;
+}
+.footer-links a {
+  color:var(--text-soft);
+  text-decoration:none;
+}
+/* ==============================
+   Stracto Guide
+============================== */
+
+.stracto-guide-button {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  min-height: 54px;
+  padding: 8px 16px 8px 8px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+
+  background: #111;
+  color: #fff;
+
+  font: inherit;
+  cursor: pointer;
+
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.stracto-guide-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
+}
+
+.stracto-guide-button-icon {
+  display: grid;
+  place-items: center;
+
+  width: 38px;
+  height: 38px;
+
+  border-radius: 50%;
+  background: #fff;
+  color: #111;
+
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.stracto-guide-button-label {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.stracto-guide-panel {
+  position: fixed;
+  right: 24px;
+  bottom: 92px;
+  z-index: 1001;
+
+  margin-top: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  width: min(390px, calc(100vw - 32px));
+  max-height: min(620px, calc(100vh - 120px));
+
+  overflow: hidden;
+
+  border: 1px solid #dedede;
+  border-radius: 18px;
+
+  background: #fff;
+  color: #111;
+
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24);
+}
+
+.stracto-guide-panel[hidden] {
+  display: none;
+}
+
+.stracto-guide-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 16px 18px;
+
+  background: #111;
+  color: #fff;
+}
+
+.stracto-guide-header > div {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.stracto-guide-header strong {
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.stracto-guide-beta {
+  padding: 3px 6px;
+
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 999px;
+
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+
+.stracto-guide-close {
+  border: none;
+  background: transparent;
+  color: #fff;
+
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.stracto-guide-messages {
+  flex: 1;
+  min-height: 170px;
+  max-height: 330px;
+  overflow-y: auto;
+
+  padding: 18px;
+
+  background: #f6f6f6;
+}
+
+.stracto-guide-message {
+  width: fit-content;
+  max-width: 88%;
+
+  margin-bottom: 12px;
+  padding: 11px 13px;
+
+  border-radius: 12px;
+
+  font-size: 14px;
+  line-height: 1.7;
+
+  overflow-wrap: anywhere;
+}
+
+.guide-message-system {
+  margin-right: auto;
+
+  border: 1px solid #dedede;
+  background: #fff;
+}
+
+.guide-message-user {
+  margin-left: auto;
+
+  background: #111;
+  color: #fff;
+}
+
+.stracto-guide-message a {
+  color: inherit;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.stracto-guide-options {
+  display: grid;
+  gap: 9px;
+
+  padding: 14px 16px;
+
+  border-top: 1px solid #e5e5e5;
+  background: #fff;
+}
+
+.stracto-guide-option {
+  width: 100%;
+  padding: 11px 13px;
+
+  border: 1px solid #d5d5d5;
+  border-radius: 10px;
+
+  background: #fff;
+  color: #111;
+
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.stracto-guide-option:hover {
+  border-color: #111;
+  background: #f5f5f5;
+}
+
+.stracto-guide-footer {
+  padding: 0 16px 14px;
+  background: #fff;
+}
+
+.stracto-guide-home {
+  width: 100%;
+  padding: 8px;
+
+  border: none;
+  background: transparent;
+  color: #777;
+
+  font: inherit;
+  font-size: 12px;
+
+  cursor: pointer;
+}
+
+.stracto-guide-home:hover {
+  color: #111;
+}
+
+@media (max-width: 600px) {
+  .stracto-guide-button {
+    right: 16px;
+    bottom: 16px;
+
+    padding-right: 12px;
+  }
+
+  .stracto-guide-panel {
+    right: 16px;
+    bottom: 82px;
+
+    width: calc(100vw - 32px);
+    max-height: calc(100vh - 105px);
+  }
+
+  .stracto-guide-messages {
+    max-height: 290px;
+  }
+}
+
+/* Qualification badges */
+.cert-badge-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:40px;
+  flex-wrap:wrap;
+  margin:24px 0;
+}
+.cert-badge-row img{
+  max-width:180px;
+  width:100%;
+  height:auto;
+}
+.cert-text{
+  text-align:center;
+  line-height:2;
+  font-size:16px;
+}
+.cert-note{
+  margin-top:20px;
+  text-align:center;
+  color:var(--text-soft);
+  font-size:13px;
+}
+
+</style>
+
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</div>
+
+<div id="mobileMenu">
+  <a href="#news">NEWS</a>
+  <a href="#mission">MISSION</a>
+  <a href="#business">BUSINESS</a>
+  <a href="#company">COMPANY</a>
+  <a href="recruit.html">RECRUIT</a>
+  <a href="assets.html">ASSETS</a>
+  <a href="contact.html" aria-current="page">CONTACT</a>
+</div>
+
+<div class="hero">
+  <img src="keyvisual.png" class="kv">
+</div>
+
+<main>
+
+<!-- NEWS -->
+<section id="news">
+  <h2>NEWS 📰</h2>
+  <div id="newsArea">
+    <div class="news-year">2026</div>
+      
+    <div class="news-content">
+
+      <div class="news-row" data-date="2026-07-16">
+        <span class="date">2026-07-16</span>
+        Stracto Guide（β）を公開しました。
+      </div>
+      
+      <div class="news-row" data-date="2026-07-15">
+        <span class="date">2026-07-15</span>
+        公式Xアカウントを開設しました。
+      </div>
+      
+      <div class="news-row" data-date="2026-07-14">
+        <span class="date">2026-07-14</span>
+        お問い合わせページを公開しました。
+      </div>
+      
+      <div class="news-row" data-date="2026-07-12">
+        <span class="date">2026-07-12</span>
+        Stracto株式会社 公式サイトを公開しました。
+      </div>
+
+      <div class="news-row" data-date="2026-06-22">
+        <span class="date">2026-06-22</span>
+        資本金50万円で、会社を設立しました。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section id="mission">
+  <h2>MISSION</h2>
+  <div class="glass">
+　Stractoは、Strategy（戦略）、Action（実行）、Optimization（最適化）を理念とし、技術を駆使して持続的な価値を創造します。<br>
+  <br>
+　Strategy（戦略）<br>
+　AIを経営や投資に取り入れ、変化に柔軟に対応しながら、最適な意思決定を行います。<br>
+  <br>
+　Optimization（最適化）<br>
+　物事をシンプルに考え、無駄を減らし、本当に価値のある仕事に集中します。<br>
+  <br>
+　Action（実行）<br>
+　当たり前のことを確実に積み重ね、最後までやり切ることを大切にします。
+  </div>
+</section>
+
+<!-- BUSINESS -->
+<section id="business">
+  <h2>BUSINESS</h2>
+
+  <div class="business-grid">
+
+    <div class="glass">
+      <h3>資産運用事業</h3>
+      <p>
+        ・株式、ETF等への投資、及び運用<br>
+        ・投資戦略の企画、設計、運用<br>
+      </p>
+    </div>
+
+    <div class="glass">
+      <h3>SES/ITエンジニアリング事業</h3>
+      <p>
+        ・ネットワーク、セキュリティの設計、構築、運用<br>
+        ・ITインフラ、クラウドに関する技術支援<br>
+        ・ITコンサルティング<br>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMPANY -->
+<section id="company">
+  <h2>COMPANY</h2>
+
+  <div class="glass">
+    <table class="company-table">
+      <tr><td>会社名</td><td>Stracto株式会社</td></tr>
+      <tr><td>代表取締役</td><td>磯野 洋輝</td></tr>
+      <tr><td>所在地</td><td>〒107-0061 東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
+      <tr><td>資本金</td><td>500,000円</td></tr>
+      <tr><td>設立</td><td>2026年6月</td></tr>
+      <tr><td>決算月</td><td>5月</td></tr>
+      <tr><td>取引銀行</td><td>GMOあおぞらネット銀行</td></tr>
+      <tr><td>証券会社</td><td>SBI証券</td></tr>
+    </table>
+  </div>
+
+
+  <div class="glass">
+    <h3>代表者プロフィール</h3>
+    <p>
+      ネットワーク・セキュリティ分野を中心に10年以上の実務経験を有するITエンジニア。<br><br>
+      企業向けネットワークの設計・構築・運用に従事し、Palo Alto Networks製品を活用したセキュリティソリューションや、
+      Prisma Accessをはじめとするクラウドセキュリティ環境の導入・運用支援など、多数のプロジェクトを経験。<br><br>
+      Stracto株式会社を設立し、ネットワーク・セキュリティ分野を中心に、
+      企業のITインフラを支える技術支援を提供しています。
+    </p>
+
+    <hr style="margin:30px 0;border:none;border-top:1px solid rgba(255,255,255,0.1);">
+
+    <h3>資格取得実績</h3>
+
+    <div class="cert-badge-row">
+      <img src="pcnsa.png" alt="PCNSA Certification Badge">
+      <img src="pcnse.png" alt="PCNSE Certification Badge">
+    </div>
+
+    <div class="cert-text">
+      <p>Cisco Certified Network Associate (CCNA)</p>
+      <p>Cisco Certified Network Professional (CCNP)</p>
+    </div>
+
+    <p class="cert-note">
+      ※掲載している資格は過去に取得した実績です。
+    </p>
+  </div>
+
+
+</section>
+
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="#news">News</a>
+    <a href="#mission">Mission</a>
+    <a href="#business">Business</a>
+    <a href="#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+    <a href="assets.html">Assets</a>
+    <a href="contact.html">Contact</a>
+  </div>
+
+  <div class="footer-social">
+    <a href="https://x.com/stracto_Inc"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Stracto公式X">
+
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.847h-7.406l-5.8-7.584-6.63 7.584H.48l8.6-9.833L0 1.153h7.594l5.243 6.932L18.901 1.153zm-1.292 19.487h2.039L6.486 3.245H4.298L17.609 20.64z"/>
+      </svg>
+
+      <span>公式X</span>
+
+    </a>
+  </div>
+
+  <p style="margin-top:18px;">
+    © 2026 Stracto Inc. All Rights Reserved.
+  </p>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+  document.querySelector(".hamburger").classList.toggle("active");
+}
+
+/* NEWS */
+document.querySelectorAll(".news-year").forEach((year, idx)=>{
+  year.addEventListener("click",()=>{
+    const el = document.querySelectorAll(".news-content")[idx];
+    el.style.display = (el.style.display === "block") ? "none" : "block";
+  });
+});
+
+/* NEW BADGE */
+const today = new Date();
+document.querySelectorAll(".news-row").forEach(row=>{
+  const date = row.getAttribute("data-date");
+  if(!date) return;
+  const diff = (today - new Date(date)) / (1000*60*60*24);
+  if(diff <= 15){
+    row.querySelector(".date").insertAdjacentHTML("afterend",
+      `<span class="new-badge">NEW</span>`
+    );
+  }
+});
+
+/* PARTICLES */
+document.addEventListener("DOMContentLoaded", () => {
+  const canvas = document.getElementById("particles");
+  const ctx = canvas.getContext("2d");
+
+  function resize(){
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener("resize", resize);
+
+  const particles = Array.from({ length: 60 }).map(() => ({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.8 + 1.0,
+    vx: (Math.random() - 0.5) * 0.22,
+    vy: (Math.random() - 0.5) * 0.22
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+      const g = ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,0.50)");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle = g;
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
+      ctx.fill();
+
+      p.x += p.vx;
+      p.y += p.vy;
+      if(p.x<0||p.x>canvas.width) p.vx*=-1;
+      if(p.y<0||p.y>canvas.height) p.vy*=-1;
+    });
+
+    const lineDist = 140;
+    for(let i=0;i<particles.length;i++){
+      for(let j=i+1;j<particles.length;j++){
+        const p1 = particles[i], p2 = particles[j];
+        const dist = Math.hypot(p1.x-p2.x, p1.y-p2.y);
+        if(dist < lineDist){
+          const alpha = (1 - dist/lineDist) * 0.55;
+          ctx.strokeStyle = `rgba(150,180,255,${alpha})`;
+          ctx.lineWidth = 0.8;
+          ctx.beginPath();
+          ctx.moveTo(p1.x,p1.y);
+          ctx.lineTo(p2.x,p2.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
+document.addEventListener("DOMContentLoaded", () => {
+  const guideButton = document.getElementById("stracto-guide-button");
+  const guidePanel = document.getElementById("stracto-guide-panel");
+  const guideClose = document.getElementById("stracto-guide-close");
+  const guideMessages = document.getElementById("stracto-guide-messages");
+  const guideOptions = document.getElementById("stracto-guide-options");
+  const guideHome = document.getElementById("stracto-guide-home");
+
+  if (
+    !guideButton ||
+    !guidePanel ||
+    !guideClose ||
+    !guideMessages ||
+    !guideOptions ||
+    !guideHome
+  ) {
+    return;
+  }
+
+  const menu = {
+    main: {
+      message: "何について知りたいですか？",
+      options: [
+        {
+          label: "Stractoについて",
+          next: "company"
+        },
+        {
+          label: "事業・サービスについて",
+          next: "services"
+        },
+        {
+          label: "ネットワーク・セキュリティ支援",
+          next: "technology"
+        },
+        {
+          label: "お問い合わせ",
+          next: "contact"
+        }
+      ]
+    },
+
+    company: {
+      userLabel: "Stractoについて",
+      message:
+        "Stracto株式会社は、Strategy（戦略）、Action（実行）、Optimization（最適化）を理念とし、様々な技術を駆使して持続的な価値を創造する会社です。",
+      options: [
+        {
+          label: "会社情報を見る",
+          link: "#company"
+        },
+        {
+          label: "事業内容を知りたい",
+          next: "services"
+        }
+      ]
+    },
+
+    services: {
+      userLabel: "事業・サービスについて",
+      message:
+        "Stractoでは、ITインフラ、ネットワーク、情報セキュリティに関する技術支援を中心に、AI活用や財務投資戦略を含む事業を展開しています。",
+      options: [
+        {
+          label: "IT・セキュリティ支援",
+          next: "technology"
+        },
+        {
+          label: "事業内容を見る",
+          link: "#business"
+        },
+        {
+          label: "相談する",
+          next: "contact"
+        }
+      ]
+    },
+
+    technology: {
+      userLabel: "ネットワーク・セキュリティ支援",
+      message:
+        "ネットワークおよび情報セキュリティ領域において、設計・構築・運用支援などの技術的なご相談を受け付けています。具体的な対応可否は、お問い合わせ内容を確認したうえでご案内します。",
+      options: [
+        {
+          label: "お問い合わせへ進む",
+          link: "contact.html"
+        },
+        {
+          label: "その他のサービスを見る",
+          next: "services"
+        }
+      ]
+    },
+
+    contact: {
+      userLabel: "お問い合わせ",
+      message:
+        "業務・サービスに関するご相談は、お問い合わせページからお送りください。内容を確認後、必要に応じてご連絡します。",
+      options: [
+        {
+          label: "お問い合わせページを開く",
+          link: "contact.html"
+        }
+      ]
+    }
+  };
+
+  function openGuide() {
+    guidePanel.hidden = false;
+    guideButton.setAttribute("aria-expanded", "true");
+
+    if (!guideOptions.children.length) {
+      showMenu("main", false);
+    }
+  }
+
+  function closeGuide() {
+    guidePanel.hidden = true;
+    guideButton.setAttribute("aria-expanded", "false");
+  }
+
+  function showMenu(menuKey, showUserMessage = true) {
+    const item = menu[menuKey];
+
+    if (!item) {
+      return;
+    }
+
+    if (showUserMessage && item.userLabel) {
+      addMessage(item.userLabel, "user");
+    }
+
+    window.setTimeout(() => {
+      addMessage(item.message, "system");
+      renderOptions(item.options);
+    }, showUserMessage ? 250 : 0);
+  }
+
+  function renderOptions(options) {
+    guideOptions.replaceChildren();
+
+    options.forEach(option => {
+      const button = document.createElement("button");
+
+      button.type = "button";
+      button.className = "stracto-guide-option";
+      button.textContent = option.label;
+
+      button.addEventListener("click", () => {
+        if (option.next) {
+          showMenu(option.next);
+          return;
+        }
+
+        if (option.link) {
+          window.location.href = option.link;
+        }
+      });
+
+      guideOptions.appendChild(button);
+    });
+  }
+
+  function addMessage(text, sender) {
+    const message = document.createElement("div");
+
+    message.className =
+      sender === "user"
+        ? "stracto-guide-message guide-message-user"
+        : "stracto-guide-message guide-message-system";
+
+    message.textContent = text;
+
+    guideMessages.appendChild(message);
+    guideMessages.scrollTop = guideMessages.scrollHeight;
+  }
+
+  function resetGuide() {
+    guideMessages.replaceChildren();
+
+    addMessage(
+      "こんにちは。\nStracto株式会社についてご案内します。",
+      "system"
+    );
+
+    showMenu("main", false);
+  }
+
+  guideButton.addEventListener("click", () => {
+    if (guidePanel.hidden) {
+      openGuide();
+    } else {
+      closeGuide();
+    }
+  });
+
+  guideClose.addEventListener("click", closeGuide);
+  guideHome.addEventListener("click", resetGuide);
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !guidePanel.hidden) {
+      closeGuide();
+    }
+  });
+});
+</script>
+
+<!-- Stracto Guide -->
+<button
+  type="button"
+  id="stracto-guide-button"
+  class="stracto-guide-button"
+  aria-label="Stracto Guideを開く"
+>
+  <span class="stracto-guide-button-icon">AI</span>
+  <span class="stracto-guide-button-label">Guide</span>
+</button>
+
+<section
+  id="stracto-guide-panel"
+  class="stracto-guide-panel"
+  aria-label="Stracto Guide"
+  hidden
+>
+  <header class="stracto-guide-header">
+    <div>
+      <strong>Stracto Guide</strong>
+      <span class="stracto-guide-beta">BETA</span>
+    </div>
+
+    <button
+      type="button"
+      id="stracto-guide-close"
+      class="stracto-guide-close"
+      aria-label="閉じる"
+    >
+      ×
+    </button>
+  </header>
+
+  <div
+    id="stracto-guide-messages"
+    class="stracto-guide-messages"
+    aria-live="polite"
+  >
+    <div class="stracto-guide-message guide-message-system">
+    　こんにちは。<br>
+    　Stracto Guideです。<br><br>
+   　 会社情報やサービスについてご案内します。<br>
+  　  知りたい内容を選択してください。
+    </div>
+  </div>
+
+  <div
+    id="stracto-guide-options"
+    class="stracto-guide-options"
+  ></div>
+
+  <div class="stracto-guide-footer">
+    <button
+      type="button"
+      id="stracto-guide-home"
+      class="stracto-guide-home"
+    >
+      最初のメニューに戻る
+    </button>
+  </div>
+</section>
+</body>
+</html>
+
+
+
