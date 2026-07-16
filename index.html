@@ -513,6 +513,33 @@ footer {
     max-height: 290px;
   }
 }
+
+/* Qualification badges */
+.cert-badge-row{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:40px;
+  flex-wrap:wrap;
+  margin:24px 0;
+}
+.cert-badge-row img{
+  max-width:180px;
+  width:100%;
+  height:auto;
+}
+.cert-text{
+  text-align:center;
+  line-height:2;
+  font-size:16px;
+}
+.cert-note{
+  margin-top:20px;
+  text-align:center;
+  color:var(--text-soft);
+  font-size:13px;
+}
+
 </style>
 
 </head>
@@ -635,6 +662,37 @@ footer {
       <tr><td>証券会社</td><td>SBI証券</td></tr>
     </table>
   </div>
+
+
+  <div class="glass">
+    <h3>代表者プロフィール</h3>
+    <p>
+      ネットワーク・セキュリティ分野を中心に10年以上の実務経験を有するITエンジニア。<br><br>
+      企業向けネットワークの設計・構築・運用に従事し、Palo Alto Networks製品を活用したセキュリティソリューションや、
+      Prisma Accessをはじめとするクラウドセキュリティ環境の導入・運用支援など、多数のプロジェクトを経験。<br><br>
+      Stracto株式会社を設立し、ネットワーク・セキュリティ分野を中心に、
+      企業のITインフラを支える技術支援を提供しています。
+    </p>
+
+    <hr style="margin:30px 0;border:none;border-top:1px solid rgba(255,255,255,0.1);">
+
+    <h3>資格取得実績</h3>
+
+    <div class="cert-badge-row">
+      <img src="pcnsa.png" alt="PCNSA Certification Badge">
+      <img src="pcnse.png" alt="PCNSE Certification Badge">
+    </div>
+
+    <div class="cert-text">
+      <p>Cisco Certified Network Associate (CCNA)</p>
+      <p>Cisco Certified Network Professional (CCNP)</p>
+    </div>
+
+    <p class="cert-note">
+      ※掲載している資格は過去に取得した実績です。
+    </p>
+  </div>
+
 
 </section>
 
