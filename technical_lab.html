@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Technical Lab | Stracto Inc.</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ======================= SEO ======================= -->
+<meta name="description" content="Stracto Inc. のEnterprise Network Lab。マルチベンダー環境におけるネットワーク設計・構築・運用実績を紹介。">
+<link rel="canonical" href="https://stracto.co.jp/technical-lab.html">
+
+<!-- OGP -->
+<meta property="og:title" content="Stracto Inc. - Technical Lab">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stracto.co.jp/technical-lab.html">
+<meta property="og:image" content="ogp.png">
+<meta property="og:description" content="Enterprise Network Labの設計・構築・運用実績を紹介。">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+:root {
+  --bg-dark:#050816;
+  --text-main:#e5e7eb;
+  --text-soft:#9ca3af;
+  --accent:#38bdf8;
+  --glass-bg:rgba(255,255,255,0.06);
+  --glass-border:rgba(255,255,255,0.16);
+}
+
+/* ============ BASE ============ */
+body {
+  margin:0;
+  font-family:system-ui, sans-serif;
+  background:var(--bg-dark);
+  color:var(--text-main);
+  overflow-x:hidden;
+}
+
+#particles {
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  opacity:0.78;
+}
+
+/* ============ HAMBURGER ============ */
+.hamburger {
+  position:fixed;
+  top:22px;
+  right:24px;
+  width:36px;
+  height:26px;
+  cursor:pointer;
+  z-index:99999;
+  background:none;
+}
+.hamburger span {
+  position:absolute;
+  left:0;
+  width:100%;
+  height:4px;
+  background:var(--accent);
+  border-radius:6px;
+  transition:.36s;
+  box-shadow:none;
+}
+.hamburger span:nth-child(1){ top:0; }
+.hamburger span:nth-child(2){ top:11px; }
+.hamburger span:nth-child(3){ top:22px; }
+.hamburger.active span:nth-child(1){
+  transform:translateY(11px) rotate(45deg);
+}
+.hamburger.active span:nth-child(2){ opacity:0; }
+.hamburger.active span:nth-child(3){
+  transform:translateY(-11px) rotate(-45deg);
+}
+
+/* ============ MOBILE MENU ============ */
+#mobileMenu {
+  position:fixed;
+  right:-100%;
+  top:0;
+  width:240px;
+  height:100vh;
+  padding:90px 28px;
+  background:rgba(0,0,0,0.65);
+  backdrop-filter:blur(16px);
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+  transition:right .45s ease;
+  z-index:9999;
+  box-shadow:none;
+  border:none;
+}
+#mobileMenu.show { right:0; }
+
+#mobileMenu a {
+  color:white;
+  font-size:18px;
+  text-decoration:none;
+}
+
+/* ============ MAIN ============ */
+main {
+  max-width:960px;
+  margin:0 auto;
+  padding:140px 24px 120px;
+}
+
+h2 {
+  border-left:4px solid var(--accent);
+  padding-left:14px;
+  margin-bottom:38px;
+  font-size:26px;
+}
+
+/* ============ CARDS ============ */
+.glass-card {
+  background:var(--glass-bg);
+  border:1px solid var(--glass-border);
+  border-radius:14px;
+  backdrop-filter:blur(12px);
+}
+
+.intro-card {
+  padding:32px;
+  line-height:1.9;
+  margin-bottom:50px;
+  font-size:16px;
+}
+
+.intro-card p {
+  margin:0;
+}
+
+.section-card {
+  padding:30px;
+  margin-bottom:34px;
+}
+
+.section-card h3 {
+  margin:0 0 22px;
+  color:var(--accent);
+  font-size:20px;
+}
+
+.summary-grid {
+  display:grid;
+  grid-template-columns:repeat(5, 1fr);
+  gap:16px;
+}
+
+.summary-item {
+  padding:18px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.045);
+  border:1px solid rgba(255,255,255,0.10);
+}
+
+.summary-label {
+  color:var(--text-soft);
+  font-size:13px;
+  margin-bottom:8px;
+}
+
+.summary-value {
+  font-size:16px;
+  font-weight:bold;
+  line-height:1.5;
+}
+
+.tag-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.tag {
+  padding:10px 14px;
+  border-radius:999px;
+  background:rgba(56,189,248,0.09);
+  border:1px solid rgba(56,189,248,0.28);
+  color:var(--text-main);
+  font-size:14px;
+}
+
+.feature-grid {
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:14px;
+}
+
+.feature-item {
+  padding:15px 16px;
+  border-radius:11px;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.09);
+  font-size:14px;
+}
+
+.architecture-grid {
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:20px;
+}
+
+.architecture-block h4 {
+  margin:0 0 14px;
+  font-size:16px;
+}
+
+.image-placeholder {
+  min-height:290px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:24px;
+  border-radius:12px;
+  border:1px dashed rgba(255,255,255,0.25);
+  background:rgba(255,255,255,0.025);
+  color:var(--text-soft);
+  line-height:1.7;
+}
+
+.document-list {
+  display:grid;
+  grid-template-columns:repeat(2, 1fr);
+  gap:12px 24px;
+  margin:0;
+  padding-left:20px;
+  line-height:1.8;
+}
+
+.note {
+  color:var(--text-soft);
+  font-size:13px;
+  line-height:1.8;
+  margin-top:18px;
+}
+
+/* ============ FOOTER ============ */
+footer {
+  padding:60px 24px;
+  text-align:center;
+  color:var(--text-soft);
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.footer-links {
+  display:flex;
+  justify-content:center;
+  gap:18px;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+.footer-links a {
+  color:var(--text-soft);
+  text-decoration:none;
+}
+.footer-bottom {
+  margin-top:20px;
+  font-size:13px;
+  opacity:0.8;
+}
+
+@media(max-width:900px){
+  .summary-grid {
+    grid-template-columns:repeat(2, 1fr);
+  }
+
+  .feature-grid {
+    grid-template-columns:repeat(2, 1fr);
+  }
+}
+
+@media(max-width:680px){
+  main {
+    padding:120px 18px 90px;
+  }
+
+  .intro-card,
+  .section-card {
+    padding:24px;
+  }
+
+  .summary-grid,
+  .feature-grid,
+  .architecture-grid,
+  .document-list {
+    grid-template-columns:1fr;
+  }
+
+  .image-placeholder {
+    min-height:220px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="particles"></canvas>
+
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span><span></span><span></span>
+</div>
+
+<div id="mobileMenu">
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="recruit.html">RECRUIT</a>
+  <a href="technical-lab.html">TECHNICAL LAB</a>
+</div>
+
+<main>
+  <h2>TECHNICAL LAB</h2>
+
+  <section class="intro-card glass-card">
+    <p>
+      Stractoでは、Enterpriseネットワーク・情報セキュリティ技術の検証を目的として、<br>
+      Cisco、Palo Alto Networks、Fortinet、Juniperなど複数ベンダーの実機を利用した
+      マルチベンダー検証環境を構築・運用していました。<br><br>
+      本環境では、実インターネット回線を利用し、ネットワーク設計から構築、運用、
+      障害解析まで一連の技術検証を実施しました。
+    </p>
+  </section>
+
+  <section class="section-card glass-card">
+    <h3>Environment Summary</h3>
+    <div class="summary-grid">
+      <div class="summary-item">
+        <div class="summary-label">構築時期</div>
+        <div class="summary-value">2022年</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">構成</div>
+        <div class="summary-value">Enterprise Network Lab</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">運用形態</div>
+        <div class="summary-value">実インターネット接続環境</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">設計書</div>
+        <div class="summary-value">物理・論理設計書作成</div>
+      </div>
+      <div class="summary-item">
+        <div class="summary-label">運用</div>
+        <div class="summary-value">継続運用・技術検証</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-card glass-card">
+    <h3>Vendors</h3>
+    <div class="tag-list">
+      <span class="tag">Cisco</span>
+      <span class="tag">Palo Alto Networks</span>
+      <span class="tag">Fortinet</span>
+      <span class="tag">Juniper</span>
+      <span class="tag">Meraki</span>
+    </div>
+  </section>
+
+  <section class="section-card glass-card">
+    <h3>Technical Features</h3>
+    <div class="feature-grid">
+      <div class="feature-item">Enterprise Network Design</div>
+      <div class="feature-item">Physical / Logical Design</div>
+      <div class="feature-item">VLAN Design</div>
+      <div class="feature-item">Static Routing</div>
+      <div class="feature-item">Firewall Policy</div>
+      <div class="feature-item">Security Zone</div>
+      <div class="feature-item">Internet Gateway</div>
+      <div class="feature-item">Office 365 Connectivity</div>
+      <div class="feature-item">VPN</div>
+      <div class="feature-item">Wireless LAN</div>
+      <div class="feature-item">Network Monitoring</div>
+      <div class="feature-item">Packet Capture</div>
+      <div class="feature-item">Security Verification</div>
+    </div>
+  </section>
+
+  <section class="section-card glass-card">
+    <h3>Architecture</h3>
+    <div class="architecture-grid">
+      <div class="architecture-block">
+        <h4>Physical Topology</h4>
+        <div class="image-placeholder">
+          物理構成図をここに配置してください<br>
+          例：images/lab-physical-topology.png
+        </div>
+      </div>
+      <div class="architecture-block">
+        <h4>Logical Topology</h4>
+        <div class="image-placeholder">
+          論理構成図をここに配置してください<br>
+          例：images/lab-logical-topology.png
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-card glass-card">
+    <h3>Design Documents</h3>
+    <p>
+      本環境では、企業ネットワークを想定した設計書を作成し、
+      設計内容に基づいて構築・運用を行いました。
+    </p>
+    <ul class="document-list">
+      <li>基本設計</li>
+      <li>物理・論理構成設計</li>
+      <li>VLAN設計</li>
+      <li>ルーティング設計</li>
+      <li>セキュリティゾーン設計</li>
+      <li>Firewallポリシー設計</li>
+      <li>トラフィックフロー設計</li>
+      <li>NTP設計</li>
+      <li>パケットキャプチャ設計</li>
+      <li>監視設計</li>
+    </ul>
+    <div class="note">
+      ※掲載する図面・設計資料は、一部情報をマスキング・簡略化したものを使用してください。
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html#news">News</a>
+    <a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a>
+    <a href="index.html#company">Company</a>
+    <a href="recruit.html">Recruit</a>
+    <a href="technical-lab.html">Technical Lab</a>
+  </div>
+  <div class="footer-bottom">
+    © 2026 Stracto Inc. All Rights Reserved.
+  </div>
+</footer>
+
+<script>
+function toggleMenu(){
+  document.getElementById("mobileMenu").classList.toggle("show");
+  document.querySelector(".hamburger").classList.toggle("active");
+}
+
+/* ============ PARTICLES ============ */
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+
+  function resize(){
+    canvas.width=innerWidth;
+    canvas.height=innerHeight;
+  }
+  resize();
+  addEventListener("resize",resize);
+
+  const ps=Array.from({length:40}).map(()=>({
+    x:Math.random()*innerWidth,
+    y:Math.random()*innerHeight,
+    r:Math.random()*1.8+1,
+    vx:(Math.random()-0.5)*0.22,
+    vy:(Math.random()-0.5)*0.22
+  }));
+
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    ps.forEach(p=>{
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,0.42)");
+      g.addColorStop(1,"rgba(255,255,255,0)");
+      ctx.fillStyle=g;
+
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);
+      ctx.fill();
+
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>canvas.width)p.vx*=-1;
+      if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+
+    const dlim=120;
+    for(let i=0;i<ps.length;i++){
+      for(let j=i+1;j<ps.length;j++){
+        const a=ps[i],b=ps[j];
+        const d=Math.hypot(a.x-b.x,a.y-b.y);
+        if(d<dlim){
+          ctx.strokeStyle=`rgba(150,180,255,${(1-d/dlim)*0.48})`;
+          ctx.lineWidth=0.7;
+          ctx.beginPath();
+          ctx.moveTo(a.x,a.y);
+          ctx.lineTo(b.x,b.y);
+          ctx.stroke();
+        }
+      }
+    }
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+});
+</script>
+
+</body>
+</html>
