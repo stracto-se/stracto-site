@@ -1,25 +1,22 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8"/>
 <title>Stracto株式会社 | Official Website</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <!-- SEO -->
-<meta name="description" content="Stracto株式会社 - ネットワーク・セキュリティ技術を中心に、高品質なエンジニアリングサービスと革新的なITソリューションを提供します。">
-<link rel="canonical" href="https://stracto.co.jp/">
-
-  <!--  追加：タブアイコン（favicon） -->
-<link rel="icon" type="image/png" href="favicon.png">
-
+<meta content="Stracto株式会社 - ネットワーク・セキュリティ技術を中心に、高品質なエンジニアリングサービスと革新的なITソリューションを提供します。" name="description"/>
+<link href="https://stracto.co.jp/" rel="canonical"/>
+<!--  追加：タブアイコン（favicon） -->
+<link href="favicon.png" rel="icon" type="image/png"/>
 <!-- OGP -->
-<meta property="og:title" content="Stracto株式会社">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://stracto.co.jp/">
-<meta property="og:image" content="ogp.png">
-<meta property="og:description" content="ネットワーク・セキュリティ技術を中心としたエンジニアリング企業">
-<meta name="twitter:card" content="summary_large_image">
-
+<meta content="Stracto株式会社" property="og:title"/>
+<meta content="website" property="og:type"/>
+<meta content="https://stracto.co.jp/" property="og:url"/>
+<meta content="ogp.png" property="og:image"/>
+<meta content="ネットワーク・セキュリティ技術を中心としたエンジニアリング企業" property="og:description"/>
+<meta content="summary_large_image" name="twitter:card"/>
 <style>
 /* ============ ROOT ============ */
 :root {
@@ -540,193 +537,182 @@ footer {
   font-size:13px;
 }
 
-</style>
 
+
+/* ==============================
+   TECHNICAL ACHIEVEMENTS
+============================== */
+.achievement-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:20px}
+.achievement-card{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:14px;padding:24px 18px;backdrop-filter:blur(10px);transition:.25s}
+.achievement-card:hover{transform:translateY(-4px);border-color:var(--accent)}
+.achievement-card h3{margin:0 0 12px;color:var(--accent);font-size:18px}
+.achievement-card p{margin:0;line-height:1.8;font-size:14px}
+@media(max-width:900px){.achievement-grid{grid-template-columns:1fr}}
+
+</style>
 </head>
 <body>
-
 <canvas id="particles"></canvas>
-
 <div class="hamburger" onclick="toggleMenu()">
-  <span></span><span></span><span></span>
+<span></span><span></span><span></span>
 </div>
-
 <div id="mobileMenu">
-  <a href="#news">NEWS</a>
-  <a href="#mission">MISSION</a>
-  <a href="#business">BUSINESS</a>
-  <a href="#company">COMPANY</a>
-  <a href="recruit.html">RECRUIT</a>
-  <a href="contact.html" aria-current="page">CONTACT</a>
+<a href="#news">NEWS</a>
+<a href="#mission">MISSION</a>
+<a href="#business">BUSINESS</a>
+<a href="#company">COMPANY</a>
+<a href="recruit.html">RECRUIT</a>
+<a aria-current="page" href="contact.html">CONTACT</a>
 </div>
-
 <div class="hero">
-  <img src="keyvisual.png" class="kv">
+<img class="kv" src="keyvisual.png"/>
 </div>
-
 <main>
-
 <!-- NEWS -->
 <section id="news">
-  <h2>NEWS 📰</h2>
-  <div id="newsArea">
-    <div class="news-year">2026</div>
-      
-    <div class="news-content">
-
-      <div class="news-row" data-date="2026-07-16">
-        <span class="date">2026-07-16</span>
+<h2>NEWS 📰</h2>
+<div id="newsArea">
+<div class="news-year">2026</div>
+<div class="news-content">
+<div class="news-row" data-date="2026-07-16">
+<span class="date">2026-07-16</span>
         Stracto Guide（β）を公開しました。
       </div>
-      
-      <div class="news-row" data-date="2026-07-15">
-        <span class="date">2026-07-15</span>
+<div class="news-row" data-date="2026-07-15">
+<span class="date">2026-07-15</span>
         公式Xアカウントを開設しました。
       </div>
-      
-      <div class="news-row" data-date="2026-07-14">
-        <span class="date">2026-07-14</span>
+<div class="news-row" data-date="2026-07-14">
+<span class="date">2026-07-14</span>
         お問い合わせページを公開しました。
       </div>
-      
-      <div class="news-row" data-date="2026-07-12">
-        <span class="date">2026-07-12</span>
+<div class="news-row" data-date="2026-07-12">
+<span class="date">2026-07-12</span>
         Stracto株式会社 公式サイトを公開しました。
       </div>
-
-      <div class="news-row" data-date="2026-06-22">
-        <span class="date">2026-06-22</span>
+<div class="news-row" data-date="2026-06-22">
+<span class="date">2026-06-22</span>
         資本金50万円で、会社を設立しました。
       </div>
-    </div>
-  </div>
+</div>
+</div>
 </section>
-
 <!-- MISSION -->
 <section id="mission">
-  <h2>MISSION</h2>
-  <div class="glass">
-　Stractoは、Strategy（戦略）、Action（実行）、Optimization（最適化）を理念とし、技術を駆使して持続的な価値を創造します。<br>
-  <br>
-　Strategy（戦略）<br>
-　AIを経営や投資に取り入れ、変化に柔軟に対応しながら、最適な意思決定を行います。<br>
-  <br>
-　Optimization（最適化）<br>
-　物事をシンプルに考え、無駄を減らし、本当に価値のある仕事に集中します。<br>
-  <br>
-　Action（実行）<br>
+<h2>MISSION</h2>
+<div class="glass">
+　Stractoは、Strategy（戦略）、Action（実行）、Optimization（最適化）を理念とし、技術を駆使して持続的な価値を創造します。<br/>
+<br/>
+　Strategy（戦略）<br/>
+　AIを経営や投資に取り入れ、変化に柔軟に対応しながら、最適な意思決定を行います。<br/>
+<br/>
+　Optimization（最適化）<br/>
+　物事をシンプルに考え、無駄を減らし、本当に価値のある仕事に集中します。<br/>
+<br/>
+　Action（実行）<br/>
 　当たり前のことを確実に積み重ね、最後までやり切ることを大切にします。
   </div>
 </section>
-
 <!-- BUSINESS -->
 <section id="business">
-  <h2>BUSINESS</h2>
-
-  <div class="business-grid">
-
-    <div class="glass">
-      <h3>資産運用事業</h3>
-      <p>
-        ・株式、ETF等への投資、及び運用<br>
-        ・投資戦略の企画、設計、運用<br>
-      </p>
-    </div>
-
-    <div class="glass">
-      <h3>SES/ITエンジニアリング事業</h3>
-      <p>
-        ・ネットワーク、セキュリティの設計、構築、運用<br>
-        ・ITインフラ、クラウドに関する技術支援<br>
-        ・ITコンサルティング<br>
-      </p>
-    </div>
-
-  </div>
+<h2>BUSINESS</h2>
+<div class="business-grid">
+<div class="glass">
+<h3>資産運用事業</h3>
+<p>
+        ・株式、ETF等への投資、及び運用<br/>
+        ・投資戦略の企画、設計、運用<br/>
+</p>
+</div>
+<div class="glass">
+<h3>SES/ITエンジニアリング事業</h3>
+<p>
+        ・ネットワーク、セキュリティの設計、構築、運用<br/>
+        ・ITインフラ、クラウドに関する技術支援<br/>
+        ・ITコンサルティング<br/>
+</p>
+</div>
+</div>
 </section>
+<!-- TECHNICAL ACHIEVEMENTS -->
+<section id="achievements">
+<h2>TECHNICAL ACHIEVEMENTS</h2>
+<div class="achievement-grid">
+<div class="achievement-card">
+<h3>Palo Alto Networks</h3>
+<p>Prisma Access・NGFWを活用した<br/>ネットワーク・セキュリティ導入支援</p>
+</div>
+<div class="achievement-card">
+<h3>Enterprise Network</h3>
+<p>Ciscoを中心とした<br/>ネットワーク設計・構築支援</p>
+</div>
 
+</div>
+<p style="margin-top:20px;font-size:13px;color:var(--text-soft);">
+    ※掲載内容は守秘義務契約に基づき、企業名・案件名等は掲載しておりません。
+  </p>
+</section>
 <!-- COMPANY -->
 <section id="company">
-  <h2>COMPANY</h2>
-
-  <div class="glass">
-    <table class="company-table">
-      <tr><td>会社名</td><td>Stracto株式会社</td></tr>
-      <tr><td>代表取締役</td><td>磯野 洋輝</td></tr>
-      <tr><td>所在地</td><td>〒107-0061 東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
-      <tr><td>資本金</td><td>500,000円</td></tr>
-      <tr><td>設立</td><td>2026年6月</td></tr>
-      <tr><td>決算月</td><td>5月</td></tr>
-      <tr><td>取引銀行</td><td>GMOあおぞらネット銀行</td></tr>
-    </table>
-  </div>
-
-
-  <div class="glass">
-    <h3>代表者プロフィール</h3>
-    <p>
-      ネットワーク・セキュリティ分野を中心に、10年以上の実務経験を有する現役ITエンジニア。<br><br>
+<h2>COMPANY</h2>
+<div class="glass">
+<table class="company-table">
+<tr><td>会社名</td><td>Stracto株式会社</td></tr>
+<tr><td>代表取締役</td><td>磯野 洋輝</td></tr>
+<tr><td>所在地</td><td>〒107-0061 東京都港区北青山1-3-1 アールキューブ青山3階</td></tr>
+<tr><td>資本金</td><td>500,000円</td></tr>
+<tr><td>設立</td><td>2026年6月</td></tr>
+<tr><td>決算月</td><td>5月</td></tr>
+<tr><td>取引銀行</td><td>GMOあおぞらネット銀行</td></tr>
+</table>
+</div>
+<div class="glass">
+<h3>代表者プロフィール</h3>
+<p>
+      ネットワーク・セキュリティ分野を中心に、10年以上の実務経験を有する現役ITエンジニア。<br/><br/>
       企業向けネットワークの設計・構築・運用に従事し、Palo Alto Networks製品を活用したセキュリティソリューションや、
-      Prisma Accessをはじめとするクラウドセキュリティ環境の導入・運用支援など、多数のプロジェクトを経験。<br><br>
+      Prisma Accessをはじめとするクラウドセキュリティ環境の導入・運用支援など、多数のプロジェクトを経験。<br/><br/>
       Stracto株式会社を設立し、ネットワーク・セキュリティ分野を中心に、
       企業のITインフラを支える技術支援を提供しています。
     </p>
-
-    <hr style="margin:30px 0;border:none;border-top:1px solid rgba(255,255,255,0.1);">
-
-    <h3>資格取得実績</h3>
-
-    <div class="cert-badge-row">
-      <img src="pan_pcnsa_logo.png" alt="PCNSA Certification Badge">
-      <img src="pan_pcnse_logo.png" alt="PCNSE Certification Badge">
-    </div>
-
-    <div class="cert-text">
-      <p>Cisco Certified Network Associate (CCNA)</p>
-      <p>Cisco Certified Network Professional (CCNP)</p>
-    </div>
-
-    <p class="cert-note">
-      ※掲載している資格は過去に取得した実績です。<br>
+<hr style="margin:30px 0;border:none;border-top:1px solid rgba(255,255,255,0.1);"/>
+<h3>資格取得実績</h3>
+<div class="cert-badge-row">
+<img alt="PCNSA Certification Badge" src="pan_pcnsa_logo.png"/>
+<img alt="PCNSE Certification Badge" src="pan_pcnse_logo.png"/>
+</div>
+<div class="cert-text">
+<p>Cisco Certified Network Associate (CCNA)</p>
+<p>Cisco Certified Network Professional (CCNP)</p>
+</div>
+<p class="cert-note">
+      ※掲載している資格は過去に取得した実績です。<br/>
       ※各認定資格・デジタルバッジは各社の商標です。
     </p>
-  </div>
-
-
+</div>
 </section>
-
 </main>
-
 <footer>
-  <div class="footer-links">
-    <a href="#news">News</a>
-    <a href="#mission">Mission</a>
-    <a href="#business">Business</a>
-    <a href="#company">Company</a>
-    <a href="recruit.html">Recruit</a>
-    <a href="contact.html">Contact</a>
-  </div>
-
-  <div class="footer-social">
-    <a href="https://x.com/stracto_Inc"
-       target="_blank"
-       rel="noopener noreferrer"
-       aria-label="Stracto公式X">
-
-      <svg viewBox="0 0 24 24" aria-hidden="true">
-        <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.847h-7.406l-5.8-7.584-6.63 7.584H.48l8.6-9.833L0 1.153h7.594l5.243 6.932L18.901 1.153zm-1.292 19.487h2.039L6.486 3.245H4.298L17.609 20.64z"/>
-      </svg>
-
-      <span>公式X</span>
-
-    </a>
-  </div>
-
-  <p style="margin-top:18px;">
+<div class="footer-links">
+<a href="#news">News</a>
+<a href="#mission">Mission</a>
+<a href="#business">Business</a>
+<a href="#company">Company</a>
+<a href="recruit.html">Recruit</a>
+<a href="contact.html">Contact</a>
+</div>
+<div class="footer-social">
+<a aria-label="Stracto公式X" href="https://x.com/stracto_Inc" rel="noopener noreferrer" target="_blank">
+<svg aria-hidden="true" viewbox="0 0 24 24">
+<path d="M18.901 1.153h3.68l-8.04 9.19L24 22.847h-7.406l-5.8-7.584-6.63 7.584H.48l8.6-9.833L0 1.153h7.594l5.243 6.932L18.901 1.153zm-1.292 19.487h2.039L6.486 3.245H4.298L17.609 20.64z"></path>
+</svg>
+<span>公式X</span>
+</a>
+</div>
+<p style="margin-top:18px;">
     © 2026 Stracto株式会社. All Rights Reserved.
   </p>
 </footer>
-
 <script>
 function toggleMenu(){
   document.getElementById("mobileMenu").classList.toggle("show");
@@ -1020,74 +1006,39 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
-
 <!-- Stracto Guide -->
-<button
-  type="button"
-  id="stracto-guide-button"
-  class="stracto-guide-button"
-  aria-label="Stracto Guideを開く"
->
-  <span class="stracto-guide-button-icon">AI</span>
-  <span class="stracto-guide-button-label">Guide</span>
+<button aria-label="Stracto Guideを開く" class="stracto-guide-button" id="stracto-guide-button" type="button">
+<span class="stracto-guide-button-icon">AI</span>
+<span class="stracto-guide-button-label">Guide</span>
 </button>
-
-<section
-  id="stracto-guide-panel"
-  class="stracto-guide-panel"
-  aria-label="Stracto Guide"
-  hidden
->
-  <header class="stracto-guide-header">
-    <div>
-      <strong>Stracto Guide</strong>
-      <span class="stracto-guide-beta">BETA</span>
-    </div>
-
-    <button
-      type="button"
-      id="stracto-guide-close"
-      class="stracto-guide-close"
-      aria-label="閉じる"
-    >
+<section aria-label="Stracto Guide" class="stracto-guide-panel" hidden="" id="stracto-guide-panel">
+<header class="stracto-guide-header">
+<div>
+<strong>Stracto Guide</strong>
+<span class="stracto-guide-beta">BETA</span>
+</div>
+<button aria-label="閉じる" class="stracto-guide-close" id="stracto-guide-close" type="button">
       ×
     </button>
-  </header>
-
-  <div
-    id="stracto-guide-messages"
-    class="stracto-guide-messages"
-    aria-live="polite"
-  >
-    <div class="stracto-guide-message guide-message-system">
-    　こんにちは。<br>
-    　Stracto Guideです。<br><br>
-   　 会社情報やサービスについてご案内します。<br>
+</header>
+<div aria-live="polite" class="stracto-guide-messages" id="stracto-guide-messages">
+<div class="stracto-guide-message guide-message-system">
+    　こんにちは。<br/>
+    　Stracto Guideです。<br/><br/>
+   　 会社情報やサービスについてご案内します。<br/>
   　  知りたい内容を選択してください。
     </div>
-  </div>
-
-  <div
-    id="stracto-guide-options"
-    class="stracto-guide-options"
-  ></div>
-
-  <div class="stracto-guide-footer">
-    <button
-      type="button"
-      id="stracto-guide-home"
-      class="stracto-guide-home"
-    >
+</div>
+<div class="stracto-guide-options" id="stracto-guide-options"></div>
+<div class="stracto-guide-footer">
+<button class="stracto-guide-home" id="stracto-guide-home" type="button">
       最初のメニューに戻る
     </button>
-  </div>
+</div>
 </section>
-  <!-- Cloudflare Web Analytics -->
-  <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "d07a67c055d84feca93c502f58d7d8f1"}'>
-  </script>
-  <!-- End Cloudflare Web Analytics -->
+<!-- Cloudflare Web Analytics -->
+<script data-cf-beacon='{"token": "d07a67c055d84feca93c502f58d7d8f1"}' src="https://static.cloudflareinsights.com/beacon.min.js" type="module">
+</script>
+<!-- End Cloudflare Web Analytics -->
 </body>
 </html>
-
-
-
