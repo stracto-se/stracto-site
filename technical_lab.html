@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Technical Lab | Stracto株式会社</title>
+<title>Technical Lab | Stracto Inc.</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- ======================= SEO ======================= -->
@@ -224,6 +224,19 @@ h2 {
   line-height:1.7;
 }
 
+
+.architecture-image {
+  width:100%;
+  display:block;
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.15);
+  transition:transform .3s ease;
+}
+
+.architecture-image:hover{
+  transform:scale(1.02);
+}
+
 .document-list {
   display:grid;
   grid-template-columns:repeat(2, 1fr);
@@ -312,7 +325,7 @@ footer {
   <a href="index.html#business">BUSINESS</a>
   <a href="index.html#company">COMPANY</a>
   <a href="recruit.html">RECRUIT</a>
-  <a href="technical_lab.html">TECHNICAL LAB</a>
+  <a href="technical-lab.html">TECHNICAL LAB</a>
 </div>
 
 <main>
@@ -384,26 +397,30 @@ footer {
     </div>
   </section>
 
-<section class="section-card glass-card">
-  <h3>Architecture</h3>
-  <div class="architecture-grid">
-    <div class="architecture-block">
-      <h4>Physical Topology</h4>
-      <img
-        src="lab-physical-topology.png"
-        alt="Enterprise Network Lab Physical Topology"
-        class="architecture-image">
-    </div>
+  <section class="section-card glass-card">
+    <h3>Architecture</h3>
+    <div class="architecture-grid">
+      <div class="architecture-block">
+        <h4>Physical Topology</h4>
+        <a href="images/lab-physical-topology.png" target="_blank">
+          <img
+            src="images/lab-physical-topology.png"
+            alt="Enterprise Network Lab Physical Topology"
+            class="architecture-image">
+        </a>
+      </div>
 
-    <div class="architecture-block">
-      <h4>Logical Topology</h4>
-      <img
-        src="lab-logical-topology.png"
-        alt="Enterprise Network Lab Logical Topology"
-        class="architecture-image">
+      <div class="architecture-block">
+        <h4>Logical Topology</h4>
+        <a href="images/lab-logical-topology.png" target="_blank">
+          <img
+            src="images/lab-logical-topology.png"
+            alt="Enterprise Network Lab Logical Topology"
+            class="architecture-image">
+        </a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
   <section class="section-card glass-card">
     <h3>Design Documents</h3>
@@ -424,7 +441,7 @@ footer {
       <li>監視設計</li>
     </ul>
     <div class="note">
-      ※掲載する図面・設計資料は、一部情報をマスキング・簡略化したものを利用しています。
+      ※掲載する図面・設計資料は、一部情報をマスキング・簡略化したものを使用してください。
     </div>
   </section>
 </main>
@@ -436,10 +453,10 @@ footer {
     <a href="index.html#business">Business</a>
     <a href="index.html#company">Company</a>
     <a href="recruit.html">Recruit</a>
-    <a href="technical_lab.html">Technical Lab</a>
+    <a href="technical-lab.html">Technical Lab</a>
   </div>
   <div class="footer-bottom">
-    © 2026 Stracto株式会社. All Rights Reserved.
+    © 2026 Stracto Inc. All Rights Reserved.
   </div>
 </footer>
 
