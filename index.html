@@ -559,6 +559,23 @@ color:inherit;
 .achievement-card p{margin:0;line-height:1.7;font-size:13px}
 @media(max-width:900px){.achievement-grid{grid-template-columns:1fr}}
 
+
+
+.company-profile-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:30px;
+  align-items:start;
+}
+@media(min-width:900px){
+  .company-profile-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+.company-profile-grid .glass{
+  margin-bottom:0;
+  height:100%;
+}
 </style>
 </head>
 <body>
@@ -661,16 +678,15 @@ color:inherit;
 <h3>Enterprise Network</h3>
 <p>Ciscoを中心とした企業ネットワークの設計・構築・導入支援</p>
 </div>
-<a href="technical_lab.html" class="achievement-card achievement-link">
+<a class="achievement-card achievement-link" href="technical_lab.html">
 <h3>Enterprise Network Lab</h3>
 <p>
 Cisco / Palo Alto Networks / Fortinet / Juniperによる
-マルチベンダーEnterpriseネットワーク環境を設計・構築・運用。<br>
+マルチベンダーEnterpriseネットワーク環境を設計・構築・運用。<br/>
 実インターネット回線を利用し、ネットワーク・セキュリティ機能の
 検証および運用を実施。
 </p>
 </a>
-
 </div>
 <p style="margin-top:20px;font-size:13px;color:var(--text-soft);">
     ※掲載内容は守秘義務契約に基づき、企業名・案件名等は掲載しておりません。
@@ -679,7 +695,9 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
 <!-- COMPANY -->
 <section id="company">
 <h2>COMPANY</h2>
-<div class="glass">
+
+
+<div class="company-profile-grid"><div class="glass">
 <table class="company-table">
 <tr><td>会社名</td><td>Stracto株式会社</td></tr>
 <tr><td>代表取締役</td><td>磯野 洋輝</td></tr>
@@ -689,16 +707,15 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
 <tr><td>決算月</td><td>5月</td></tr>
 <tr><td>取引銀行</td><td>GMOあおぞらネット銀行</td></tr>
 </table>
-</div>
-<div class="glass">
+</div><div class="glass">
 <h3>代表者プロフィール</h3>
 <p>
-      ネットワーク・セキュリティ分野を中心に、10年以上の実務経験を有する現役ITエンジニア。<br/><br/>
+      ネットワーク・セキュリティ分野を中心に、10年以上の実務経験を有する現役ITエンジニア。<br><br/>
       企業向けネットワークの設計・構築・運用に従事し、Palo Alto Networks製品を活用したセキュリティソリューションや、
       Prisma Accessをはじめとするクラウドセキュリティ環境の導入・運用支援など、多数のプロジェクトを経験。<br/><br/>
       Stracto株式会社を設立し、ネットワーク・セキュリティ分野を中心に、
       企業のITインフラを支える技術支援を提供しています。
-    </p>
+    </br></p>
 <hr style="margin:30px 0;border:none;border-top:1px solid rgba(255,255,255,0.1);"/>
 <h3>資格取得実績</h3>
 <div class="cert-badge-row">
@@ -713,8 +730,7 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
       ※掲載している資格は過去に取得した実績です。<br/>
       ※各認定資格・デジタルバッジは各社の商標です。
     </p>
-</div>
-</section>
+</div></div></section>
 </main>
 <footer>
 <div class="footer-links">
