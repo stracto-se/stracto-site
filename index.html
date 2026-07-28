@@ -578,6 +578,34 @@ color:inherit;
   line-height:1.8;
 }
 
+/* BUSINESS / KNOWLEDGE（PCは横並び、スマホは縦並び） */
+.business-knowledge-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:30px;
+  margin-top:90px;
+  align-items:stretch;
+}
+.business-knowledge-grid section{
+  margin-top:0;
+  display:flex;
+  flex-direction:column;
+}
+.business-knowledge-grid .glass{
+  flex:1;
+  margin-bottom:0;
+}
+.business-knowledge-grid .business-box{
+  max-width:none;
+  width:auto;
+  margin:0;
+}
+@media(min-width:900px){
+  .business-knowledge-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
 .company-profile-grid{
   display:grid;
   grid-template-columns:1fr;
@@ -661,7 +689,8 @@ color:inherit;
 　当たり前のことを確実に積み重ね、最後までやり切ることを大切にします。
   </div>
 </section>
-<!-- BUSINESS -->
+<!-- BUSINESS / KNOWLEDGE -->
+<div class="business-knowledge-grid">
 <section id="business">
 <h2>BUSINESS</h2>
 <div class="glass business-box">
@@ -672,8 +701,17 @@ color:inherit;
         ・ITコンサルティング<br/>
 </p>
 </div>
+</section>
+<section id="knowledge">
+<h2>KNOWLEDGE</h2>
+<div class="glass">
+<h3>知識を資産に。AIとともに活用する。</h3>
+<p>
+        これまで培った経験や技術知見を社内に蓄積し、AIを活用して品質向上と業務効率化に取り組んでいます。
+</p>
 </div>
 </section>
+</div>
 <!-- TECHNICAL ACHIEVEMENTS -->
 <section id="achievements">
 <h2>TECHNICAL ACHIEVEMENTS</h2>
