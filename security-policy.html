@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<title>情報セキュリティ基本方針 | Stracto株式会社</title>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="Stracto株式会社の情報セキュリティ基本方針です。" name="description"/>
+<link href="favicon.png" rel="icon" type="image/png"/>
+<style>
+:root{--bg-dark:#050816;--text-main:#e5e7eb;--text-soft:#9ca3af;--accent:#38bdf8;--glass-bg:rgba(255,255,255,.06);--glass-border:rgba(255,255,255,.16)}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:var(--bg-dark);color:var(--text-main);overflow-x:hidden;line-height:1.85}
+#particles{position:fixed;inset:0;z-index:-1;opacity:.88}
+.page-header{max-width:960px;margin:0 auto;padding:72px 24px 0}.page-header a{color:var(--text-soft);text-decoration:none;font-size:14px}.page-header a:hover{color:var(--accent)}
+main{max-width:960px;margin:0 auto;padding:42px 24px 100px}
+h1{margin:0 0 42px;border-left:4px solid var(--accent);padding-left:14px;font-size:30px}
+.glass{background:var(--glass-bg);border:1px solid var(--glass-border);border-radius:14px;padding:30px;backdrop-filter:blur(10px);margin-bottom:40px}
+.policy-section+.policy-section{margin-top:34px;padding-top:30px;border-top:1px solid rgba(255,255,255,.1)}
+h2{border-left:4px solid var(--accent);padding-left:14px;margin:0 0 18px;font-size:21px}h3{margin:22px 0 10px;color:var(--accent);font-size:17px}
+p{margin:0 0 14px}ul{margin:10px 0 16px;padding-left:1.5em}li+li{margin-top:5px}.company-name{margin-top:26px;font-weight:700}.enacted{color:var(--text-soft);font-size:14px}
+footer{padding:60px 24px;text-align:center;color:var(--text-soft);border-top:1px solid rgba(255,255,255,.08)}
+.footer-links{display:flex;justify-content:center;gap:18px;margin-bottom:16px;flex-wrap:wrap}.footer-links a{color:var(--text-soft);text-decoration:none}.footer-links a:hover{color:var(--accent)}
+@media(max-width:600px){.page-header{padding:42px 18px 0}main{padding:30px 18px 70px}h1{font-size:26px;margin-bottom:30px}.glass{padding:22px 20px}h2{font-size:19px}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="page-header"><a href="index.html">← Stracto株式会社 公式サイトへ戻る</a></div>
+<main>
+<h1>INFORMATION SECURITY POLICY</h1>
+<article class="glass">
+<div class="policy-section"><p>Stracto株式会社（以下「当社」といいます。）は、お客様や取引先からお預かりする情報をはじめ、当社が取り扱う情報資産を適切に保護することが、重要な責務であると認識しています。</p><p>当社は、お客様および社会からの信頼に応えるため、以下の方針に基づき、情報セキュリティの確保と継続的な改善に取り組みます。</p></div>
+<div class="policy-section"><h2>1. 経営者の責任</h2><p>当社は、経営者の責任のもと、情報セキュリティを重要な経営課題の一つとして位置づけ、組織的かつ継続的な情報セキュリティ対策の改善・向上に努めます。</p></div>
+<div class="policy-section"><h2>2. 社内体制およびルールの整備</h2><p>当社は、情報セキュリティの維持および改善に必要な体制を整備するとともに、情報資産を適切に管理するためのルールを定め、適切に運用します。</p></div>
+<div class="policy-section"><h2>3. 従業員等の取組み</h2><p>当社の役員、従業員その他当社の業務に従事する者は、情報セキュリティの重要性を認識し、必要な知識の習得に努めるとともに、当社が定める情報セキュリティに関するルールを遵守します。</p></div>
+<div class="policy-section"><h2>4. 法令および契約上の義務の遵守</h2><p>当社は、情報セキュリティおよび情報管理に関係する法令、規制、その他の社会的規範ならびにお客様・取引先との契約上の義務を遵守します。</p></div>
+<div class="policy-section"><h2>5. 情報セキュリティ事故への対応</h2><p>当社は、情報漏えい、不正アクセスその他の情報セキュリティ事故が発生した場合、速やかに状況を把握し、被害の拡大防止および適切な対応に努めます。また、必要に応じて原因を分析し、再発防止に取り組みます。</p></div>
+<div class="policy-section"><h2>6. 継続的な改善</h2><p>当社は、事業環境や技術、情報セキュリティ上のリスクの変化を踏まえ、本方針および情報セキュリティ対策を継続的に見直し、改善に努めます。</p><p class="company-name">Stracto株式会社</p><p class="enacted">制定日：2026年8月16日</p></div>
+</article>
+</main>
+<footer><div class="footer-links">
+  <a href="#news">News</a>
+　<a href="#mission">Mission</a>
+　<a href="#business">Business</a>
+　<a href="#company">Company</a>
+　<a href="technical_lab.html">Techical Lab</a>
+　<a aria-current="page" href="contact.html">Contact</a>
+</div><p>© 2026 Stracto株式会社. All Rights Reserved.</p></footer>
+<script>
+document.addEventListener("DOMContentLoaded",()=>{const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener("resize",resize);const particles=Array.from({length:60}).map(()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*1.8+1,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);particles.forEach(p=>{const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);g.addColorStop(0,"rgba(255,255,255,0.50)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);ctx.fill();p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1});for(let i=0;i<particles.length;i++)for(let j=i+1;j<particles.length;j++){const a=particles[i],b=particles[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<140){ctx.strokeStyle=`rgba(150,180,255,${(1-d/140)*.55})`;ctx.lineWidth=.8;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}requestAnimationFrame(draw)}draw()});
+</script>
+<script data-cf-beacon='{"token":"d07a67c055d84feca93c502f58d7d8f1"}' src="https://static.cloudflareinsights.com/beacon.min.js" type="module"></script>
+</body></html>
