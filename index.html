@@ -621,6 +621,64 @@ color:inherit;
   margin-bottom:0;
   height:100%;
 }
+
+/* ==============================
+   SECURITY ACTION
+============================== */
+.security-action-card{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:34px;
+  align-items:center;
+}
+.security-action-logo-wrap{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.security-action-logo{
+  width:160px;
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+.security-action-copy h3{
+  margin:0 0 14px;
+  color:var(--accent);
+  font-size:20px;
+}
+.security-action-copy p{
+  margin:0;
+  line-height:1.9;
+}
+.security-policy-link{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  margin-top:20px;
+  color:var(--accent);
+  text-decoration:none;
+  font-weight:700;
+  transition:.25s;
+}
+.security-policy-link:hover{
+  color:#fff;
+  transform:translateX(3px);
+}
+@media(max-width:700px){
+  .security-action-card{
+    grid-template-columns:1fr;
+    gap:22px;
+    text-align:center;
+  }
+  .security-action-logo{
+    width:145px;
+  }
+  .security-action-copy h3{
+    font-size:18px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -635,6 +693,7 @@ color:inherit;
 <a href="#business">BUSINESS</a>
 <a href="#company">COMPANY</a>
 <a href="technical_lab.html">TECHNICAL LAB</a>
+<a href="#security">SECURITY</a>
 <a aria-current="page" href="contact.html">CONTACT</a>
 </div>
 <div class="hero">
@@ -743,6 +802,22 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
     ※掲載内容は守秘義務契約に基づき、企業名・案件名等は掲載しておりません。
   </p>
 </section>
+
+<!-- SECURITY ACTION -->
+<section id="security">
+<h2>SECURITY</h2>
+<div class="glass security-action-card">
+  <div class="security-action-logo-wrap">
+    <img class="security-action-logo" src="security_action_futatsuboshi-small_color.jpg" alt="SECURITY ACTION 二つ星 セキュリティ対策自己宣言"/>
+  </div>
+  <div class="security-action-copy">
+    <h3>情報セキュリティへの取り組み</h3>
+    <p>Stracto株式会社は、独立行政法人情報処理推進機構（IPA）が実施する「SECURITY ACTION」の趣旨に賛同し、二つ星を宣言しています。</p>
+    <a class="security-policy-link" href="security-policy.html">情報セキュリティ基本方針を見る <span aria-hidden="true">→</span></a>
+  </div>
+</div>
+</section>
+
 <!-- COMPANY -->
 <section id="company">
 <h2>COMPANY</h2>
@@ -792,6 +867,8 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
 <a href="#company">Company</a>
 <a href="technical_lab.html">Technical Lab</a>
 <a href="contact.html">Contact</a>
+<a href="privacy.html">Privacy Policy</a>
+<a href="security-policy.html">Security Policy</a>
 </div>
 <div class="footer-social">
 <a aria-label="Stracto公式X" href="https://x.com/stracto_Inc" rel="noopener noreferrer" target="_blank">
