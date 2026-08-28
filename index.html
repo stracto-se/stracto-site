@@ -1005,8 +1005,16 @@ document.addEventListener("DOMContentLoaded", () => {
           next: "services"
         },
         {
-          label: "ネットワーク・セキュリティ支援",
+          label: "技術・実績について",
           next: "technology"
+        },
+        {
+          label: "AI・ナレッジ活用",
+          next: "ai"
+        },
+        {
+          label: "セキュリティへの取り組み",
+          next: "security"
         },
         {
           label: "お問い合わせ",
@@ -1018,11 +1026,15 @@ document.addEventListener("DOMContentLoaded", () => {
     company: {
       userLabel: "Stractoについて",
       message:
-        "当社は、Strategy（戦略）、Action（実行）、Optimization（最適化）を理念とし、様々な技術を駆使して持続的な価値を創造する会社です。",
+        "Stracto株式会社は、ネットワーク・セキュリティ分野を中心としたITエンジニアリング企業です。Strategy（戦略）、Action（実行）、Optimization（最適化）を理念とし、技術を活用して持続的な価値の創造に取り組んでいます。",
       options: [
         {
           label: "会社情報を見る",
           link: "#company"
+        },
+        {
+          label: "ミッションを見る",
+          link: "#mission"
         },
         {
           label: "事業内容を知りたい",
@@ -1034,10 +1046,10 @@ document.addEventListener("DOMContentLoaded", () => {
     services: {
       userLabel: "事業・サービスについて",
       message:
-        "当社は、AIを活用しながら、ITインフラ、ネットワーク、情報セキュリティに関する技術支援を中心とした事業を展開しています。",
+        "SES / ITエンジニアリング事業として、ネットワーク・セキュリティの設計・構築・運用、ITインフラ・クラウドに関する技術支援、ITコンサルティングを提供しています。",
       options: [
         {
-          label: "IT・セキュリティ支援",
+          label: "技術・実績を見る",
           next: "technology"
         },
         {
@@ -1052,17 +1064,53 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     technology: {
-      userLabel: "ネットワーク・セキュリティ支援",
+      userLabel: "技術・実績について",
       message:
-        "ネットワークおよび情報セキュリティ分野を中心に、設計・構築・運用支援などの技術支援を提供しています。対応実績についてはTECHNICAL ACHIEVEMENTSおよびTECHNICAL LABをご覧ください。ご相談内容を確認のうえ、対応可否をご案内します。",
+        "Palo Alto Networks製品を活用したPrisma Access・NGFWの設計・構築・導入支援や、Ciscoを中心とした企業ネットワークの設計・構築・導入支援などの実績があります。Enterprise Network Labでは、複数ベンダー製品を用いたネットワーク・セキュリティ環境の検証・運用も行っています。",
       options: [
+        {
+          label: "技術実績を見る",
+          link: "#achievements"
+        },
+        {
+          label: "TECHNICAL LABを見る",
+          link: "technical_lab.html"
+        },
         {
           label: "お問い合わせへ進む",
           link: "contact.html"
+        }
+      ]
+    },
+
+    ai: {
+      userLabel: "AI・ナレッジ活用",
+      message:
+        "Stractoでは、これまで培った経験や技術知見を社内に蓄積し、AIと組み合わせて活用することで、業務効率化や品質向上につなげる取り組みを進めています。",
+      options: [
+        {
+          label: "ナレッジ活用について見る",
+          link: "#knowledge"
         },
         {
-          label: "その他のサービスを見る",
+          label: "事業・サービスを見る",
           next: "services"
+        }
+      ]
+    },
+
+    security: {
+      userLabel: "セキュリティへの取り組み",
+      message:
+        "Stracto株式会社は、独立行政法人情報処理推進機構（IPA）が実施する「SECURITY ACTION」の趣旨に賛同し、二つ星を宣言しています。情報セキュリティ基本方針も公開しています。",
+      options: [
+        {
+          label: "セキュリティへの取り組みを見る",
+          link: "#security"
+        },
+        {
+          label: "情報セキュリティ基本方針を見る",
+          link: "security-policy.html"
         }
       ]
     },
