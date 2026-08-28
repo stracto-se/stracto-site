@@ -771,11 +771,12 @@ color:inherit;
 </div>
 </section>
 <section id="knowledge">
-<h2>KNOWLEDGE</h2>
+<h2>KNOWLEDGE / AI SKILL MATCHING</h2>
 <div class="glass">
 <h3>知識を資産に。AIとともに活用する。</h3>
 <p>
-        これまで培った経験や技術知見を社内に蓄積し、AIを活用して品質向上と業務効率化に取り組んでいます。
+        これまで培った経験や技術知見を社内に蓄積し、AIを活用して品質向上と業務効率化に取り組んでいます。<br/><br/>
+        また、エンジニアのスキル・経験と案件情報をもとに、AIを活用して適性を分析する「AI Skill Matching」の開発・検証を進めています。
 </p>
 </div>
 </section>
@@ -1009,7 +1010,7 @@ document.addEventListener("DOMContentLoaded", () => {
           next: "technology"
         },
         {
-          label: "AI・ナレッジ活用",
+          label: "AI・技術への取り組み",
           next: "ai"
         },
         {
@@ -1084,17 +1085,37 @@ document.addEventListener("DOMContentLoaded", () => {
     },
 
     ai: {
-      userLabel: "AI・ナレッジ活用",
+      userLabel: "AI・技術への取り組み",
       message:
-        "Stractoでは、これまで培った経験や技術知見を社内に蓄積し、AIと組み合わせて活用することで、業務効率化や品質向上につなげる取り組みを進めています。",
+        "Stractoでは、これまで培った経験や技術知見を蓄積し、AIと組み合わせて活用するナレッジ活用に加え、エンジニアのスキル・経験と案件情報をもとに、AIを活用して適性を分析するマッチング技術の開発・検証を進めています。",
       options: [
         {
           label: "ナレッジ活用について見る",
           link: "#knowledge"
         },
         {
+          label: "AI Skill Matchingについて",
+          next: "skillMatching"
+        },
+        {
           label: "事業・サービスを見る",
           next: "services"
+        }
+      ]
+    },
+
+    skillMatching: {
+      userLabel: "AI Skill Matchingについて",
+      message:
+        "エンジニアのスキル・経験と案件情報をもとに、AIを活用して適性を分析するマッチング技術です。現在は将来的なサービス提供を見据え、開発・検証を進めています。",
+      options: [
+        {
+          label: "AI・技術への取り組みに戻る",
+          next: "ai"
+        },
+        {
+          label: "お問い合わせへ進む",
+          link: "contact.html"
         }
       ]
     },
