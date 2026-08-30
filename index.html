@@ -118,6 +118,22 @@ body {
   100% { opacity:1; transform:scale(1); }
 }
 
+/* HERO: mobile keeps the full key visual visible instead of cropping it */
+@media (max-width: 700px) {
+  .hero {
+    height: auto;
+    min-height: 0;
+    margin-bottom: 48px;
+  }
+
+  .kv {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center top;
+  }
+}
+
 /* ============ MAIN ============ */
 main {
   max-width:960px;
