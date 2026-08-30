@@ -113,19 +113,6 @@ body {
   display:block;
 }
 
-
-.hero picture {
-  display:block;
-  width:100%;
-  height:100%;
-}
-.hero picture .kv {
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;
-}
-
 @keyframes fadeIn {
   0% { opacity:0; transform:scale(1.02); }
   100% { opacity:1; transform:scale(1); }
@@ -734,6 +721,49 @@ color:inherit;
   }
 }
 
+/* ==============================
+   HERO NETWORK WAVE ANIMATION
+   Static key visual + subtle animated light particles
+============================== */
+.hero picture {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  display:block;
+}
+.hero .kv {
+  position:absolute;
+  inset:0;
+  z-index:0;
+}
+.hero-wave-canvas {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  z-index:1;
+  pointer-events:none;
+  mix-blend-mode:screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-wave-canvas { display:none; }
+}
+
+@media (max-width: 768px) {
+  .hero picture {
+    width:100%;
+    height:100%;
+  }
+  .hero .kv {
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center center;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -756,6 +786,7 @@ color:inherit;
   <source media="(max-width: 768px)" srcset="keyvisual3.png"/>
   <img class="kv" src="keyvisual2.png" alt="Stracto"/>
 </picture>
+<canvas class="hero-wave-canvas" id="heroWave" aria-hidden="true"></canvas>
 </div>
 <main>
 <!-- NEWS -->
@@ -1338,6 +1369,118 @@ document.addEventListener("DOMContentLoaded", () => {
 </section>
 <!-- Cloudflare Web Analytics -->
 <script data-cf-beacon='{"token": "d07a67c055d84feca93c502f58d7d8f1"}' src="https://static.cloudflareinsights.com/beacon.min.js" type="module">
+
+
+/* HERO NETWORK WAVE */
+(() => {
+  const canvas = document.getElementById("heroWave");
+  if (!canvas || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  const ctx = canvas.getContext("2d");
+  let w = 0, h = 0, dpr = 1, raf = 0, start = performance.now();
+  const movers = Array.from({ length: 26 }, (_, i) => ({
+    seed: Math.random() * Math.PI * 2,
+    speed: 0.000035 + Math.random() * 0.000035,
+    lane: i % 4,
+    size: 1.0 + Math.random() * 1.9,
+    alpha: 0.28 + Math.random() * 0.52
+  }));
+
+  function resizeHeroWave() {
+    const rect = canvas.getBoundingClientRect();
+    w = Math.max(1, rect.width);
+    h = Math.max(1, rect.height);
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    canvas.width = Math.round(w * dpr);
+    canvas.height = Math.round(h * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+
+  function waveY(x, lane, t) {
+    const mobile = w <= 768;
+    const base = h * (mobile ? 0.72 : 0.69);
+    const amp1 = h * (mobile ? 0.045 : 0.055);
+    const amp2 = h * (mobile ? 0.020 : 0.025);
+    const phase = lane * 0.72;
+    return base
+      + Math.sin((x / w) * Math.PI * 2.15 + t * 0.00022 + phase) * amp1
+      + Math.sin((x / w) * Math.PI * 5.1 - t * 0.00013 + phase * 1.7) * amp2
+      + (lane - 1.5) * h * 0.012;
+  }
+
+  function drawWave(t) {
+    ctx.clearRect(0, 0, w, h);
+
+    // Fine flowing strands over the static mesh.
+    for (let lane = 0; lane < 4; lane++) {
+      ctx.beginPath();
+      const step = Math.max(5, w / 180);
+      for (let x = -step; x <= w + step; x += step) {
+        const y = waveY(x, lane, t);
+        if (x <= 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+      }
+      const grad = ctx.createLinearGradient(0, 0, w, 0);
+      grad.addColorStop(0, "rgba(24,165,255,0.00)");
+      grad.addColorStop(0.18, `rgba(63,196,255,${0.10 + lane * 0.02})`);
+      grad.addColorStop(0.50, `rgba(154,231,255,${0.20 + lane * 0.025})`);
+      grad.addColorStop(0.82, `rgba(50,190,255,${0.10 + lane * 0.02})`);
+      grad.addColorStop(1, "rgba(24,165,255,0.00)");
+      ctx.strokeStyle = grad;
+      ctx.lineWidth = lane === 1 ? 1.15 : 0.75;
+      ctx.stroke();
+    }
+
+    // Bright particles drift along the wave paths.
+    for (const p of movers) {
+      const progress = (p.seed / (Math.PI * 2) + (t - start) * p.speed) % 1;
+      const x = progress * (w + 120) - 60;
+      const y = waveY(x, p.lane, t);
+
+      const glow = ctx.createRadialGradient(x, y, 0, x, y, p.size * 7);
+      glow.addColorStop(0, `rgba(230,250,255,${p.alpha})`);
+      glow.addColorStop(0.20, `rgba(77,210,255,${p.alpha * 0.9})`);
+      glow.addColorStop(1, "rgba(0,145,255,0)");
+      ctx.fillStyle = glow;
+      ctx.beginPath();
+      ctx.arc(x, y, p.size * 7, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.fillStyle = `rgba(232,252,255,${Math.min(0.95, p.alpha + 0.18)})`;
+      ctx.beginPath();
+      ctx.arc(x, y, p.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // Occasional subtle pulse nodes.
+    const pulseCount = w <= 768 ? 5 : 9;
+    for (let i = 0; i < pulseCount; i++) {
+      const x = (i + 0.5) / pulseCount * w;
+      const y = waveY(x, i % 4, t);
+      const pulse = (Math.sin(t * 0.0012 + i * 1.37) + 1) / 2;
+      const r = 1.3 + pulse * 2.2;
+      ctx.fillStyle = `rgba(77,210,255,${0.12 + pulse * 0.24})`;
+      ctx.beginPath();
+      ctx.arc(x, y, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    raf = requestAnimationFrame(drawWave);
+  }
+
+  resizeHeroWave();
+  window.addEventListener("resize", resizeHeroWave, { passive: true });
+  raf = requestAnimationFrame(drawWave);
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      cancelAnimationFrame(raf);
+    } else {
+      start = performance.now();
+      raf = requestAnimationFrame(drawWave);
+    }
+  });
+})();
+
 </script>
 <!-- End Cloudflare Web Analytics -->
 </body>
