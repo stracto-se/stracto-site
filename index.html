@@ -118,22 +118,6 @@ body {
   100% { opacity:1; transform:scale(1); }
 }
 
-/* HERO: mobile keeps the full key visual visible instead of cropping it */
-@media (max-width: 700px) {
-  .hero {
-    height: auto;
-    min-height: 0;
-    margin-bottom: 48px;
-  }
-
-  .kv {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
-    object-position: center top;
-  }
-}
-
 /* ============ MAIN ============ */
 main {
   max-width:960px;
@@ -504,6 +488,31 @@ footer {
 
 .stracto-guide-home:hover {
   color: #111;
+}
+
+@media (max-width: 700px) {
+  .hero {
+    width: 100%;
+    height: 100svh;
+    min-height: 100svh;
+    margin-bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--bg-dark);
+  }
+
+  .kv {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  main {
+    padding-top: 1px;
+  }
 }
 
 @media (max-width: 600px) {
