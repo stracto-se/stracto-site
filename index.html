@@ -148,6 +148,138 @@ h2 {
   margin-bottom:40px;
 }
 
+/* ==============================
+   MISSION
+============================== */
+#mission .mission-panel {
+  position:relative;
+  overflow:hidden;
+  padding:42px;
+  background:
+    radial-gradient(circle at 12% 0%, rgba(56,189,248,.13), transparent 35%),
+    radial-gradient(circle at 88% 100%, rgba(37,99,235,.12), transparent 38%),
+    rgba(10,15,31,.72);
+  border-color:rgba(125,211,252,.22);
+  box-shadow:0 24px 70px rgba(0,0,0,.24), inset 0 1px 0 rgba(255,255,255,.05);
+}
+#mission .mission-panel::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:linear-gradient(120deg, transparent 35%, rgba(56,189,248,.035) 50%, transparent 65%);
+}
+.mission-intro {
+  position:relative;
+  max-width:760px;
+  margin-bottom:32px;
+}
+.mission-statement {
+  margin:0;
+  color:#f8fafc;
+  font-size:clamp(20px, 2.7vw, 30px);
+  font-weight:750;
+  line-height:1.55;
+  letter-spacing:.025em;
+}
+.mission-statement span {
+  background:linear-gradient(90deg, #f8fafc 0%, #7dd3fc 70%, #38bdf8 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+.mission-lead {
+  margin:18px 0 0;
+  color:#cbd5e1;
+  font-size:16px;
+  line-height:1.9;
+}
+.mission-grid {
+  position:relative;
+  display:grid;
+  grid-template-columns:repeat(3, minmax(0,1fr));
+  gap:16px;
+}
+.mission-card {
+  position:relative;
+  min-height:185px;
+  padding:24px 22px 22px;
+  overflow:hidden;
+  border:1px solid rgba(148,163,184,.18);
+  border-radius:14px;
+  background:linear-gradient(145deg, rgba(255,255,255,.065), rgba(255,255,255,.025));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04);
+  transition:transform .3s ease, border-color .3s ease, background .3s ease;
+}
+.mission-card::after {
+  content:attr(data-word);
+  position:absolute;
+  right:-6px;
+  bottom:-9px;
+  color:rgba(125,211,252,.055);
+  font-size:29px;
+  font-weight:800;
+  letter-spacing:.06em;
+  white-space:nowrap;
+}
+.mission-card:hover {
+  transform:translateY(-5px);
+  border-color:rgba(56,189,248,.5);
+  background:linear-gradient(145deg, rgba(56,189,248,.1), rgba(255,255,255,.025));
+}
+.mission-icon {
+  display:grid;
+  place-items:center;
+  width:42px;
+  height:42px;
+  margin-bottom:18px;
+  color:#7dd3fc;
+  border:1px solid rgba(56,189,248,.32);
+  border-radius:12px;
+  background:rgba(14,165,233,.09);
+  box-shadow:0 0 24px rgba(56,189,248,.08);
+}
+.mission-icon svg {
+  width:22px;
+  height:22px;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:1.7;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+.mission-card h3 {
+  margin:0 0 10px;
+  color:#f8fafc;
+  font-size:18px;
+  letter-spacing:.02em;
+}
+.mission-card h3 span {
+  margin-left:7px;
+  color:#7dd3fc;
+  font-size:13px;
+  font-weight:600;
+}
+.mission-card p {
+  position:relative;
+  z-index:1;
+  margin:0;
+  color:#cbd5e1;
+  font-size:15px;
+  line-height:1.85;
+}
+@media(max-width:820px) {
+  #mission .mission-panel { padding:30px 24px; }
+  .mission-grid { grid-template-columns:1fr; }
+  .mission-card { min-height:0; }
+}
+@media(max-width:480px) {
+  #mission .mission-panel { padding:26px 20px; }
+  .mission-statement { font-size:20px; }
+  .mission-lead { font-size:15px; }
+  .mission-card { padding:21px 19px; }
+}
+
 /* BUSINESS GRID（横2並び） */
 .business-grid {
   display: grid;
@@ -833,20 +965,28 @@ color:inherit;
 <!-- MISSION -->
 <section id="mission">
 <h2>MISSION</h2>
-<div class="glass">
-　戦略を描き、実行し、最適化する。<br/>
-　テクノロジーの力で、持続的な価値を創造する。<br/>
-<br/>
-　Stractoは、Strategy、Action、Optimizationを軸に、テクノロジーとAIを活用して、事業と組織の成長を支えます。<br/>
-<br/>
-　Strategy | 戦略<br/>
-　変化を捉え、テクノロジーとデータを活用し、未来につながる意思決定を行います。<br/>
-<br/>
-　Action | 実行<br/>
-　戦略を構想で終わらせず、困難な課題にも向き合い、成果につながるまで実行します。<br/>
-<br/>
-　Optimization | 最適化<br/>
-　AIとテクノロジーを業務や経営に組み込み、継続的な改善と最適化を追求します。
+<div class="glass mission-panel">
+<div class="mission-intro">
+<p class="mission-statement">戦略を描き、実行し、最適化する。<br/><span>テクノロジーの力で、持続的な価値を創造する。</span></p>
+<p class="mission-lead">Stractoは、Strategy、Action、Optimizationを軸に、テクノロジーとAIを活用して、事業と組織の成長を支えます。</p>
+</div>
+<div class="mission-grid">
+<article class="mission-card" data-word="STRATEGY">
+<div class="mission-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/><path d="m14.2 9.8 5.3-5.3M16 4.5h3.5V8"/></svg></div>
+<h3>Strategy<span>戦略</span></h3>
+<p>変化を捉え、テクノロジーとデータを活用し、未来につながる意思決定を行います。</p>
+</article>
+<article class="mission-card" data-word="ACTION">
+<div class="mission-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m13 2-8 12h7l-1 8 8-12h-7l1-8Z"/></svg></div>
+<h3>Action<span>実行</span></h3>
+<p>戦略を構想で終わらせず、困難な課題にも向き合い、成果につながるまで実行します。</p>
+</article>
+<article class="mission-card" data-word="OPTIMIZATION">
+<div class="mission-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 18V9m8 9V5m8 13v-7M2 18h20"/><circle cx="4" cy="7" r="2"/><circle cx="12" cy="3" r="2"/><circle cx="20" cy="9" r="2"/></svg></div>
+<h3>Optimization<span>最適化</span></h3>
+<p>AIとテクノロジーを業務や経営に組み込み、継続的な改善と最適化を追求します。</p>
+</article>
+</div>
   </div>
 </section>
 <!-- BUSINESS / KNOWLEDGE -->
