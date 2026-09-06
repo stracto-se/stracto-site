@@ -19,7 +19,17 @@ h2{border-left:4px solid var(--accent);padding-left:14px;margin:0 0 18px;font-si
 p{margin:0 0 14px}ul{margin:10px 0 16px;padding-left:1.5em}li+li{margin-top:5px}.company-name{margin-top:26px;font-weight:700}.enacted{color:var(--text-soft);font-size:14px}
 footer{padding:60px 24px;text-align:center;color:var(--text-soft);border-top:1px solid rgba(255,255,255,.08)}
 .footer-links{display:flex;justify-content:center;gap:18px;margin-bottom:16px;flex-wrap:wrap}.footer-links a{color:var(--text-soft);text-decoration:none}.footer-links a:hover{color:var(--accent)}
+body{background:radial-gradient(circle at 50% -10%,rgba(37,99,235,.1),transparent 30%),var(--bg-dark)}
+.page-header a{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid rgba(125,211,252,.13);border-radius:999px;background:rgba(8,13,28,.56);backdrop-filter:blur(10px);transition:color .2s ease,border-color .2s ease,transform .2s ease}.page-header a:hover{border-color:rgba(56,189,248,.35);transform:translateX(-2px)}
+main{position:relative}main:before{content:"";position:absolute;top:0;right:24px;width:140px;height:140px;border:1px solid rgba(56,189,248,.05);border-radius:50%;box-shadow:0 0 0 36px rgba(56,189,248,.014),0 0 0 72px rgba(56,189,248,.009);pointer-events:none}
+h1{position:relative;width:fit-content;color:#f8fafc;font-weight:760;letter-spacing:.055em;text-shadow:0 0 24px rgba(56,189,248,.13)}h1:after{content:"";position:absolute;left:-4px;bottom:-11px;width:180px;height:1px;background:linear-gradient(90deg,var(--accent),rgba(56,189,248,.2),transparent)}
+.glass{position:relative;overflow:hidden;padding:38px 40px;border-color:rgba(125,211,252,.2);background:radial-gradient(circle at 0 0,rgba(56,189,248,.09),transparent 30%),linear-gradient(145deg,rgba(16,24,44,.87),rgba(8,13,28,.77));box-shadow:0 24px 65px rgba(0,0,0,.23),inset 0 1px 0 rgba(255,255,255,.045)}.glass:before{content:"";position:absolute;top:0;left:26px;width:96px;height:1px;background:linear-gradient(90deg,rgba(125,211,252,.9),transparent)}
+.policy-section{position:relative}.policy-section+.policy-section{margin-top:22px;padding:26px 24px 4px;border:1px solid rgba(148,163,184,.11);border-radius:12px;background:rgba(255,255,255,.018)}
+h2{position:relative;border-left:0;padding-left:17px;color:#f8fafc;font-size:20px;letter-spacing:.015em}h2:before{content:"";position:absolute;left:0;top:.25em;width:3px;height:1em;border-radius:3px;background:#38bdf8;box-shadow:0 0 13px rgba(56,189,248,.48)}
+p,li{color:#cbd5e1}.policy-section ul{list-style:none;padding-left:0}.policy-section li{position:relative;padding-left:18px}.policy-section li:before{content:"";position:absolute;left:1px;top:.78em;width:5px;height:5px;border-right:1px solid #7dd3fc;border-bottom:1px solid #7dd3fc;transform:rotate(-45deg)}
+.company-name{color:#f8fafc}.enacted{color:#94a3b8}footer{background:linear-gradient(180deg,transparent,rgba(8,13,28,.72));border-top-color:rgba(125,211,252,.12)}.footer-links a{transition:color .2s ease}
 @media(max-width:600px){.page-header{padding:42px 18px 0}main{padding:30px 18px 70px}h1{font-size:26px;margin-bottom:30px}.glass{padding:22px 20px}h2{font-size:19px}}
+@media(max-width:600px){main:before{display:none}.glass{padding:25px 20px}.policy-section+.policy-section{padding:22px 17px 3px}h1{font-size:23px;overflow-wrap:anywhere}}
 </style>
 </head>
 <body>

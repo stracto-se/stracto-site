@@ -412,6 +412,185 @@ footer {
     width:100%;
   }
 }
+
+/* ==============================
+   REFINED CONTACT
+   Unified with the top page
+============================== */
+body {
+  background:
+    radial-gradient(circle at 50% -12%, rgba(37,99,235,.11), transparent 32%),
+    var(--bg-dark);
+}
+main {
+  position:relative;
+}
+main::before {
+  content:"";
+  position:absolute;
+  top:92px;
+  right:24px;
+  width:150px;
+  height:150px;
+  border:1px solid rgba(56,189,248,.055);
+  border-radius:50%;
+  box-shadow:0 0 0 38px rgba(56,189,248,.015), 0 0 0 76px rgba(56,189,248,.01);
+  pointer-events:none;
+}
+h2 {
+  position:relative;
+  width:fit-content;
+  padding-left:17px;
+  color:#f8fafc;
+  font-weight:760;
+  letter-spacing:.065em;
+  text-shadow:0 0 24px rgba(56,189,248,.13);
+}
+h2::after {
+  content:"";
+  position:absolute;
+  left:-4px;
+  bottom:-11px;
+  width:120px;
+  height:1px;
+  background:linear-gradient(90deg,var(--accent),rgba(56,189,248,.2),transparent);
+}
+.glass-card {
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(125,211,252,.2);
+  background:
+    radial-gradient(circle at 0 0,rgba(56,189,248,.09),transparent 32%),
+    linear-gradient(145deg,rgba(16,24,44,.87),rgba(8,13,28,.77));
+  box-shadow:0 23px 62px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.045);
+}
+.glass-card::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:25px;
+  width:94px;
+  height:1px;
+  background:linear-gradient(90deg,rgba(125,211,252,.9),transparent);
+}
+.intro-card {
+  padding:36px 38px;
+  color:#dbe7f3;
+  background:
+    radial-gradient(circle at 92% 15%,rgba(56,189,248,.14),transparent 29%),
+    radial-gradient(circle at 5% 100%,rgba(37,99,235,.1),transparent 34%),
+    linear-gradient(145deg,rgba(16,24,44,.9),rgba(8,13,28,.79));
+}
+.contact-meta {
+  gap:14px;
+}
+.contact-meta-item {
+  position:relative;
+  overflow:hidden;
+  padding:20px;
+  border-color:rgba(125,211,252,.14);
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+}
+.contact-meta-item::after {
+  content:"";
+  position:absolute;
+  right:-15px;
+  bottom:-15px;
+  width:48px;
+  height:48px;
+  border:1px solid rgba(56,189,248,.08);
+  border-radius:50%;
+}
+.contact-meta-label {
+  color:#7dd3fc;
+  font-size:12px;
+  font-weight:650;
+  letter-spacing:.045em;
+}
+.contact-meta-value {
+  position:relative;
+  z-index:1;
+  color:#edf5fb;
+}
+.contact-card {
+  padding:38px;
+}
+.form-grid {
+  gap:24px 20px;
+}
+label {
+  color:#e8f0f8;
+  letter-spacing:.015em;
+}
+input,
+select,
+textarea {
+  border-color:rgba(125,211,252,.16);
+  background:rgba(4,11,26,.55);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+input:hover,
+select:hover,
+textarea:hover {
+  border-color:rgba(125,211,252,.28);
+}
+input:focus,
+select:focus,
+textarea:focus {
+  border-color:#38bdf8;
+  background:rgba(7,18,37,.72);
+  box-shadow:0 0 0 3px rgba(56,189,248,.1),0 0 22px rgba(56,189,248,.06);
+}
+.consent {
+  padding:20px;
+  border-color:rgba(125,211,252,.13);
+  background:rgba(4,11,26,.42);
+}
+.submit-button {
+  position:relative;
+  overflow:hidden;
+  border-color:rgba(125,211,252,.8);
+  border-radius:11px;
+  color:#f8fafc;
+  background:linear-gradient(135deg,#0284c7,#2563eb);
+  box-shadow:0 12px 30px rgba(14,165,233,.18),inset 0 1px 0 rgba(255,255,255,.2);
+}
+.submit-button::after {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.18) 48%,transparent 70%);
+  transform:translateX(-120%);
+  transition:transform .5s ease;
+}
+.submit-button:hover {
+  transform:translateY(-2px);
+  box-shadow:0 15px 36px rgba(14,165,233,.28);
+}
+.submit-button:hover::after {
+  transform:translateX(120%);
+}
+.note {
+  padding-top:18px;
+  border-top:1px solid rgba(148,163,184,.1);
+}
+footer {
+  background:linear-gradient(180deg,transparent,rgba(8,13,28,.72));
+  border-top-color:rgba(125,211,252,.12);
+}
+.footer-links a {
+  transition:color .2s ease;
+}
+.footer-links a:hover {
+  color:#7dd3fc;
+}
+@media(max-width:600px) {
+  main::before { display:none; }
+  h2 { font-size:23px; }
+  .intro-card,
+  .contact-card { padding:25px 21px; }
+  .contact-meta-item { padding:18px; }
+}
 </style>
 </head>
 
