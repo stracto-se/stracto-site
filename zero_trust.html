@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>中小企業向け｜Cloudflare Zero Trustで始めるゼロトラスト環境 | Stracto Technical Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="中小企業がCloudflare Zero Trustを導入するときの考え方、最小構成、設計ポイントを実務目線で整理します。">
+<link rel="canonical" href="https://stracto.co.jp/cloudflare-zero-trust-guide.html">
+<link href="favicon.png" rel="icon" type="image/png">
+<meta property="og:title" content="中小企業向け｜Cloudflare Zero Trustで始めるゼロトラスト環境">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stracto.co.jp/cloudflare-zero-trust-guide.html">
+<meta property="og:description" content="小さく始めるゼロトラストの構成と、導入時に押さえたい設計ポイントを解説。">
+<meta name="twitter:card" content="summary">
+
+<style>
+:root {
+  --bg:#050816;
+  --panel:rgba(12,20,39,.82);
+  --panel-soft:rgba(255,255,255,.035);
+  --line:rgba(125,211,252,.18);
+  --text:#e5edf5;
+  --soft:#9eacbd;
+  --accent:#38bdf8;
+  --accent-soft:#7dd3fc;
+}
+
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(37,99,235,.13), transparent 31%),
+    var(--bg);
+}
+
+#particles { position:fixed; inset:0; z-index:-1; opacity:.72; }
+
+.hamburger {
+  position:fixed; top:22px; right:24px; z-index:99999;
+  width:36px; height:26px; padding:0; border:0; cursor:pointer;
+  background:none;
+}
+.hamburger span {
+  position:absolute; left:0; width:100%; height:4px;
+  border-radius:6px; background:var(--accent); transition:.36s;
+}
+.hamburger span:nth-child(1){top:0}.hamburger span:nth-child(2){top:11px}.hamburger span:nth-child(3){top:22px}
+.hamburger.active span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+
+#mobileMenu {
+  position:fixed; top:0; right:-100%; z-index:9999;
+  display:flex; flex-direction:column; gap:28px;
+  width:240px; height:100vh; padding:90px 28px;
+  background:rgba(0,0,0,.68); backdrop-filter:blur(16px);
+  transition:right .45s ease;
+}
+#mobileMenu.show { right:0; }
+#mobileMenu a { color:#fff; font-size:18px; text-decoration:none; }
+
+main { position:relative; max-width:1040px; margin:0 auto; padding:112px 24px 110px; }
+main::before {
+  content:""; position:absolute; top:74px; right:28px; width:160px; height:160px;
+  border:1px solid rgba(56,189,248,.055); border-radius:50%;
+  box-shadow:0 0 0 40px rgba(56,189,248,.016),0 0 0 80px rgba(56,189,248,.01);
+  pointer-events:none;
+}
+
+.breadcrumb { display:flex; gap:8px; align-items:center; margin-bottom:34px; color:var(--soft); font-size:14px; }
+.breadcrumb a { color:var(--accent-soft); text-decoration:none; }
+.breadcrumb span { opacity:.55; }
+
+.article-hero {
+  position:relative; overflow:hidden; padding:46px 46px 42px;
+  border:1px solid rgba(125,211,252,.24); border-radius:18px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(56,189,248,.17), transparent 30%),
+    radial-gradient(circle at 0 100%, rgba(37,99,235,.12), transparent 36%),
+    linear-gradient(145deg, rgba(16,24,44,.93), rgba(8,13,28,.84));
+  box-shadow:0 24px 70px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.article-hero::before { content:""; position:absolute; top:0; left:35px; width:120px; height:1px; background:linear-gradient(90deg,var(--accent-soft),transparent); }
+.eyebrow { margin:0 0 18px; color:var(--accent-soft); font-size:13px; font-weight:750; letter-spacing:.14em; }
+h1 { max-width:790px; margin:0; color:#f8fafc; font-size:clamp(30px,5vw,48px); line-height:1.3; letter-spacing:.015em; }
+.lead { max-width:760px; margin:25px 0 0; color:#d4dfeb; font-size:18px; line-height:1.95; }
+.meta { display:flex; flex-wrap:wrap; gap:18px; margin-top:28px; color:var(--soft); font-size:13px; }
+
+.article-layout { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:30px; margin-top:30px; align-items:start; }
+.article-body { min-width:0; }
+.toc {
+  position:sticky; top:28px; padding:23px;
+  border:1px solid var(--line); border-radius:14px;
+  background:linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+}
+.toc-title { margin:0 0 14px; color:#f8fafc; font-weight:700; }
+.toc ol { margin:0; padding-left:21px; color:var(--soft); }
+.toc li+li { margin-top:10px; }
+.toc a { color:#bdcad8; font-size:14px; line-height:1.55; text-decoration:none; }
+.toc a:hover { color:var(--accent-soft); }
+
+.article-section {
+  margin-bottom:24px; padding:34px;
+  border:1px solid var(--line); border-radius:15px;
+  background:
+    radial-gradient(circle at 0 0,rgba(56,189,248,.075),transparent 30%),
+    linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+  box-shadow:0 18px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.article-section h2 { position:relative; margin:0 0 24px; padding-left:15px; color:#f8fafc; font-size:24px; line-height:1.5; }
+.article-section h2::before { content:""; position:absolute; left:0; top:.25em; width:3px; height:1.05em; border-radius:3px; background:var(--accent); box-shadow:0 0 14px rgba(56,189,248,.5); }
+.article-section h3 { margin:28px 0 12px; color:#dff4ff; font-size:18px; }
+.article-section p { margin:0 0 18px; color:#ccd7e3; font-size:16px; line-height:1.95; }
+.article-section p:last-child { margin-bottom:0; }
+
+.point-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; }
+.point {
+  padding:20px 18px; border:1px solid rgba(125,211,252,.14); border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+.point-number { display:block; margin-bottom:12px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.1em; }
+.point strong { display:block; margin-bottom:7px; color:#f2f7fb; font-size:16px; }
+.point p { margin:0; color:var(--soft); font-size:14px; line-height:1.75; }
+
+.architecture { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; align-items:stretch; margin:24px 0; }
+.architecture-step { position:relative; display:flex; flex-direction:column; justify-content:center; min-height:112px; padding:18px; text-align:center; border:1px solid rgba(56,189,248,.22); border-radius:12px; background:rgba(14,165,233,.055); }
+.architecture-step:not(:last-child)::after { content:"→"; position:absolute; right:-17px; top:50%; z-index:2; color:var(--accent-soft); font-size:20px; transform:translateY(-50%); }
+.architecture-step small { margin-bottom:7px; color:var(--soft); font-size:12px; }
+.architecture-step strong { color:#e9f7ff; font-size:15px; line-height:1.55; }
+
+.check-list { display:grid; gap:10px; margin:20px 0 0; padding:0; list-style:none; }
+.check-list li { position:relative; padding:14px 16px 14px 42px; border:1px solid rgba(148,163,184,.12); border-radius:10px; color:#d8e3ed; background:rgba(255,255,255,.024); line-height:1.7; }
+.check-list li::before { content:"✓"; position:absolute; left:17px; color:var(--accent-soft); font-weight:800; }
+
+.callout { margin-top:24px; padding:20px 22px; border-left:3px solid var(--accent); border-radius:0 10px 10px 0; color:#d6e1ec; background:rgba(56,189,248,.065); line-height:1.85; }
+.source-links { margin:20px 0 0; padding-left:20px; }
+.source-links li+li { margin-top:9px; }
+.source-links a { color:var(--accent-soft); text-underline-offset:3px; }
+
+.recommendation {
+  overflow:hidden; margin-top:24px; padding:27px;
+  border:1px solid rgba(125,211,252,.28); border-radius:14px;
+  background:linear-gradient(135deg,rgba(14,165,233,.105),rgba(37,99,235,.07));
+}
+.recommendation-label { margin:0 0 10px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.12em; }
+.recommendation h3 { margin:0 0 12px; color:#f7fbff; font-size:19px; }
+.recommendation p { margin:0 0 19px; }
+.cta-row { display:flex; flex-wrap:wrap; gap:11px; }
+.button { display:inline-flex; align-items:center; justify-content:center; min-height:46px; padding:0 19px; border:1px solid rgba(125,211,252,.36); border-radius:10px; color:#e9f8ff; font-weight:700; text-decoration:none; background:rgba(56,189,248,.12); transition:.25s ease; }
+.button:hover { border-color:var(--accent-soft); background:rgba(56,189,248,.2); transform:translateY(-1px); }
+.button.secondary { color:#c8d5e2; border-color:rgba(148,163,184,.2); background:rgba(255,255,255,.035); }
+
+.disclosure { margin-top:16px; color:#8291a2; font-size:12px; line-height:1.75; }
+
+footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px solid rgba(125,211,252,.1); background:linear-gradient(180deg,transparent,rgba(8,13,28,.72)); }
+.footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; margin-bottom:18px; }
+.footer-links a { color:var(--soft); text-decoration:none; }
+.footer-links a:hover { color:var(--accent-soft); }
+.footer-bottom { font-size:13px; opacity:.8; }
+
+@media(max-width:860px){
+  .article-layout { grid-template-columns:1fr; }
+  .toc { position:relative; top:auto; order:-1; }
+  .point-grid { grid-template-columns:1fr; }
+}
+@media(max-width:680px){
+  main { padding:94px 17px 80px; }
+  main::before { display:none; }
+  .breadcrumb { margin-bottom:24px; }
+  .article-hero { padding:32px 23px 30px; border-radius:15px; }
+  h1 { font-size:29px; }
+  .lead { font-size:16px; line-height:1.85; }
+  .article-section { padding:27px 21px; }
+  .article-section h2 { font-size:21px; }
+  .architecture { grid-template-columns:1fr; }
+  .architecture-step:not(:last-child)::after { content:"↓"; left:50%; right:auto; top:auto; bottom:-21px; transform:translateX(-50%); }
+  .button { width:100%; }
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu(this)">
+  <span></span><span></span><span></span>
+</button>
+
+<nav id="mobileMenu" aria-label="メインメニュー">
+  <a href="index.html">HOME</a>
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="technical_lab.html">TECHNICAL LAB</a>
+  <a href="contact.html">CONTACT</a>
+</nav>
+
+<main>
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <a href="index.html">HOME</a><span>/</span>
+    <a href="technical_lab.html">TECHNICAL LAB</a><span>/</span>
+    <span>ZERO TRUST GUIDE</span>
+  </nav>
+
+  <header class="article-hero">
+    <p class="eyebrow">SECURITY / ZERO TRUST</p>
+    <h1>中小企業向け｜Cloudflare Zero Trustで始めるゼロトラスト環境</h1>
+    <p class="lead">VPNを置き換えることだけがゼロトラストではありません。まず「誰が・どの端末から・どの業務システムへ接続できるか」を整理し、小さな範囲から適用することが重要です。</p>
+    <div class="meta">
+      <span>公開日：2026.09.08</span>
+      <span>読了目安：7分</span>
+      <span>Stracto Technical Lab</span>
+    </div>
+  </header>
+
+  <div class="article-layout">
+    <article class="article-body">
+      <section class="article-section" id="overview">
+        <h2>ゼロトラストを難しく考えすぎない</h2>
+        <p>従来の社内ネットワークでは、「社内に接続していること」自体が一定の信頼につながっていました。しかし、クラウドサービスやリモートワークが一般化すると、場所だけを基準に安全性を判断することは難しくなります。</p>
+        <p>ゼロトラストでは、接続元のユーザー、端末の状態、アクセス先、通信内容などを組み合わせて、その都度アクセス可否を判断します。中小企業の場合は、すべてを一度に変えるのではなく、重要な社内Webシステムの保護から始めるのが現実的です。</p>
+        <div class="point-grid">
+          <div class="point"><span class="point-number">POINT 01</span><strong>ユーザーを確認</strong><p>Microsoft 365などの認証基盤と連携し、本人確認を行います。</p></div>
+          <div class="point"><span class="point-number">POINT 02</span><strong>端末を確認</strong><p>管理端末か、WARPに接続しているかなどを条件にできます。</p></div>
+          <div class="point"><span class="point-number">POINT 03</span><strong>必要な通信だけ許可</strong><p>業務に必要なアプリや通信先へ、対象を絞って接続させます。</p></div>
+        </div>
+      </section>
+
+      <section class="article-section" id="minimum">
+        <h2>最初に作る最小構成</h2>
+        <p>最初の検証では、認証基盤、Cloudflare Access、WARPクライアントの3要素に絞ると構成を理解しやすくなります。</p>
+        <div class="architecture" role="img" aria-label="利用者がWARPとCloudflare Zero Trustを経由して社内Webシステムへ接続する最小構成">
+          <div class="architecture-step"><small>USER &amp; DEVICE</small><strong>利用者 + 管理端末</strong></div>
+          <div class="architecture-step"><small>POLICY</small><strong>WARP + Cloudflare Access</strong></div>
+          <div class="architecture-step"><small>APPLICATION</small><strong>社内Webシステム</strong></div>
+        </div>
+        <p>たとえば、社内ポータルや管理画面をCloudflare Accessで保護し、「会社アカウントで認証済み」「WARPに接続した管理端末」という条件を満たした場合だけ許可します。これなら、公開インターネット上に入口があっても、認証と端末条件を通過しないアクセスを拒否できます。</p>
+        <div class="callout"><strong>実務上のポイント：</strong>最初から全通信を制御するより、影響範囲が分かる社内Webシステムを1つ選び、認証・許可・拒否・ログ確認の一連の流れを検証すると安全です。</div>
+      </section>
+
+      <section class="article-section" id="design">
+        <h2>導入前に決めておきたい設計ポイント</h2>
+        <h3>1. 認証だけで終わらせない</h3>
+        <p>ユーザー認証だけでは、私物端末や意図しないネットワークからのアクセスまで許可してしまう可能性があります。端末登録、WARP接続、端末状態など、どの条件を追加するかを整理します。</p>
+        <h3>2. 例外通信を先に洗い出す</h3>
+        <p>音声・映像会議やMicrosoft 365など、通信量や経路の特性を考慮した方がよいサービスがあります。Split Tunnelを使う場合は、単に除外するのではなく、除外理由と対象ドメインを管理することが重要です。</p>
+        <h3>3. 許可と拒否の順序を確認する</h3>
+        <p>ポリシーは条件と評価順序によって結果が変わります。検証用ユーザーや端末を用意し、期待どおり許可されるケースだけでなく、WARP未接続や対象外アカウントが確実に拒否されることも確認します。</p>
+      </section>
+
+      <section class="article-section" id="steps">
+        <h2>小さく始める導入手順</h2>
+        <ul class="check-list">
+          <li>保護対象にする社内Webシステムを1つ決める</li>
+          <li>Microsoft 365などのIdPを接続する</li>
+          <li>Cloudflare Accessで対象ユーザーを限定する</li>
+          <li>検証端末へWARPを導入し、端末条件を追加する</li>
+          <li>許可・拒否・ログを確認してから対象を広げる</li>
+        </ul>
+        <p style="margin-top:22px">CloudflareはZero Trustサービスの無料プランから概念実証を始められると案内しています。最新の対象機能や契約条件は、導入時に公式ページで確認してください。</p>
+      </section>
+
+      <section class="article-section" id="fit">
+        <h2>Cloudflare Zero Trustが向いている企業</h2>
+        <p>小規模でもクラウドサービスの利用が多い企業、社外から業務システムへ安全に接続したい企業、拠点VPNの運用負荷を見直したい企業には検討価値があります。一方で、既存ネットワークや認証基盤との依存関係が複雑な場合は、製品導入より先に現状構成と通信要件の整理が必要です。</p>
+        <div class="recommendation">
+          <p class="recommendation-label">RELATED SERVICE</p>
+          <h3>まず公式情報と自社要件を照らし合わせる</h3>
+          <p>機能や料金は変更されるため、最新情報はCloudflare公式ページで確認してください。Stractoでは、特定製品の導入ありきではなく、既存環境を含めたネットワーク・セキュリティ設計のご相談を受け付けています。</p>
+          <div class="cta-row">
+            <a class="button" href="https://www.cloudflare.com/plans/zero-trust-services/" target="_blank" rel="noopener noreferrer">Cloudflare公式プランを見る</a>
+            <a class="button secondary" href="contact.html">Stractoに相談する</a>
+          </div>
+          <div class="disclosure">※本試作ページにはアフィリエイトリンクを含みません。今後紹介リンクを掲載する場合は、広告・プロモーションを含むことを明示します。</div>
+        </div>
+      </section>
+
+      <section class="article-section" id="sources">
+        <h2>参考情報</h2>
+        <p>本記事は、Cloudflareの公式ドキュメントおよび公式プラン情報を参照し、Stractoの実務的な観点から構成しています。</p>
+        <ul class="source-links">
+          <li><a href="https://developers.cloudflare.com/reference-architecture/implementation-guides/zero-trust/" target="_blank" rel="noopener noreferrer">Cloudflare Reference Architecture — Zero Trust</a></li>
+          <li><a href="https://www.cloudflare.com/plans/zero-trust-services/" target="_blank" rel="noopener noreferrer">Cloudflare Zero Trust &amp; SASE Plans</a></li>
+        </ul>
+      </section>
+    </article>
+
+    <aside class="toc" aria-label="記事の目次">
+      <p class="toc-title">この記事の内容</p>
+      <ol>
+        <li><a href="#overview">ゼロトラストとは</a></li>
+        <li><a href="#minimum">最小構成</a></li>
+        <li><a href="#design">設計ポイント</a></li>
+        <li><a href="#steps">導入手順</a></li>
+        <li><a href="#fit">向いている企業</a></li>
+        <li><a href="#sources">参考情報</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a><a href="index.html#company">Company</a>
+    <a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div>
+</footer>
+
+<script>
+function toggleMenu(button){
+  const menu=document.getElementById("mobileMenu");
+  const open=menu.classList.toggle("show");
+  button.classList.toggle("active",open);
+  button.setAttribute("aria-expanded",String(open));
+  button.setAttribute("aria-label",open?"メニューを閉じる":"メニューを開く");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+  resize(); addEventListener("resize",resize);
+  const ps=Array.from({length:40},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+1,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ps.forEach(p=>{
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,.42)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+    for(let i=0;i<ps.length;i++){for(let j=i+1;j<ps.length;j++){
+      const a=ps[i],b=ps[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){ctx.strokeStyle=`rgba(150,180,255,${(1-d/120)*.4})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
+    }}
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+});
+</script>
+</body>
+</html>
