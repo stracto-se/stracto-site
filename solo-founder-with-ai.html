@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>1人で起業して、AIとここまで作れるとは思っていなかった | Stracto Technical Lab</title>
+  <meta name="description" content="Webサイト、社内ポータル、ナレッジ、業務システム。Stracto代表が、AIを活用しながら1人で会社の仕組みを作ってきた過程をインタビュー形式で振り返ります。">
+  <meta property="og:title" content="1人で起業して、AIとここまで作れるとは思っていなかった">
+  <meta property="og:description" content="小さな会社がAIを使うと、どこまでできるのか。Stractoでの実践を振り返ります。">
+  <meta property="og:type" content="article">
+  <meta property="og:image" content="ogp.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.png" type="image/png">
+  <style>
+    :root {
+      --bg:#050816;
+      --bg-soft:#0a1024;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --accent:#38bdf8;
+      --accent-2:#818cf8;
+      --line:rgba(255,255,255,.13);
+      --glass:rgba(255,255,255,.055);
+    }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      min-height:100vh;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 15% 10%, rgba(56,189,248,.12), transparent 28rem),
+        radial-gradient(circle at 85% 35%, rgba(129,140,248,.10), transparent 32rem),
+        var(--bg);
+      font-family:system-ui,-apple-system,"Segoe UI","Noto Sans JP",sans-serif;
+      line-height:1.9;
+    }
+    a { color:inherit; }
+    .site-header {
+      position:sticky;
+      top:0;
+      z-index:20;
+      border-bottom:1px solid rgba(255,255,255,.08);
+      background:rgba(5,8,22,.78);
+      backdrop-filter:blur(16px);
+    }
+    .header-inner {
+      width:min(1120px, calc(100% - 40px));
+      height:72px;
+      margin:auto;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:24px;
+    }
+    .brand {
+      font-size:20px;
+      font-weight:750;
+      letter-spacing:.08em;
+      text-decoration:none;
+    }
+    .brand span { color:var(--accent); }
+    .header-link {
+      color:#cbd5e1;
+      font-size:13px;
+      letter-spacing:.08em;
+      text-decoration:none;
+    }
+    .header-link:hover { color:var(--accent); }
+    main { width:min(940px, calc(100% - 40px)); margin:auto; }
+    .hero { padding:92px 0 66px; }
+    .eyebrow {
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      margin:0 0 22px;
+      color:var(--accent);
+      font-size:12px;
+      font-weight:750;
+      letter-spacing:.16em;
+    }
+    .eyebrow::before { content:""; width:30px; height:1px; background:var(--accent); }
+    h1 {
+      max-width:850px;
+      margin:0;
+      font-size:clamp(34px,6vw,64px);
+      line-height:1.32;
+      letter-spacing:-.035em;
+    }
+    .lead {
+      max-width:760px;
+      margin:28px 0 0;
+      color:#cbd5e1;
+      font-size:clamp(16px,2.3vw,20px);
+    }
+    .meta {
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px 18px;
+      margin-top:30px;
+      color:var(--muted);
+      font-size:13px;
+    }
+    .story-map {
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      align-items:center;
+      gap:0;
+      margin:0 0 70px;
+      padding:22px;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:var(--glass);
+      box-shadow:0 18px 60px rgba(0,0,0,.22);
+    }
+    .story-item { position:relative; text-align:center; color:#dbeafe; font-size:13px; }
+    .story-item:not(:last-child)::after {
+      content:"→";
+      position:absolute;
+      right:-8px;
+      color:var(--accent);
+    }
+    article {
+      padding:clamp(28px,6vw,66px);
+      border:1px solid var(--line);
+      border-radius:24px;
+      background:linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
+      box-shadow:0 28px 80px rgba(0,0,0,.3);
+    }
+    .intro { margin:0 0 56px; font-size:18px; color:#d1d5db; }
+    .qa { padding:44px 0; border-top:1px solid var(--line); }
+    .question {
+      margin:0 0 24px;
+      color:#f8fafc;
+      font-size:clamp(20px,3vw,27px);
+      line-height:1.55;
+      letter-spacing:-.015em;
+    }
+    .question::before { content:"Q."; margin-right:12px; color:var(--accent); font-weight:800; }
+    .answer { color:#cbd5e1; }
+    .answer p { margin:0 0 18px; }
+    .answer p:last-child { margin-bottom:0; }
+    strong { color:#f8fafc; font-weight:700; }
+    .closing {
+      margin-top:50px;
+      padding:30px;
+      border-left:3px solid var(--accent);
+      border-radius:0 16px 16px 0;
+      background:rgba(56,189,248,.07);
+      font-size:clamp(18px,2.7vw,23px);
+      color:#e0f2fe;
+    }
+    .back-wrap { margin:42px 0 90px; text-align:center; }
+    .back-link {
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:13px 21px;
+      border:1px solid rgba(56,189,248,.42);
+      border-radius:999px;
+      color:#bae6fd;
+      text-decoration:none;
+      transition:.2s ease;
+    }
+    .back-link:hover { transform:translateY(-2px); background:rgba(56,189,248,.09); }
+    footer { padding:30px 20px 38px; border-top:1px solid rgba(255,255,255,.08); text-align:center; color:#64748b; font-size:12px; }
+    @media (max-width:680px) {
+      .header-inner, main { width:min(100% - 28px, 940px); }
+      .hero { padding:64px 0 46px; }
+      .story-map { grid-template-columns:1fr; gap:12px; padding:20px; }
+      .story-item { padding:4px; }
+      .story-item:not(:last-child)::after { position:static; display:block; margin-top:8px; transform:rotate(90deg); }
+      article { border-radius:18px; }
+      .qa { padding:34px 0; }
+      .header-link { font-size:11px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html">Stracto<span>.</span></a>
+      <a class="header-link" href="technical_lab.html">TECHNICAL LAB</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <p class="eyebrow">TECHNICAL LAB / INTERVIEW</p>
+      <h1>1人で起業して、<br>AIとここまで作れるとは<br>思っていなかった。</h1>
+      <p class="lead">Webサイト、社内ポータル、ナレッジ、業務システム。AIを活用しながら、1人で会社の仕組みを作ってきた過程を振り返ります。</p>
+      <div class="meta"><span>STORY</span><span>2026.09</span><span>約5分で読めます</span></div>
+    </section>
+
+    <div class="story-map" aria-label="Stractoの仕組みが発展した流れ">
+      <div class="story-item">公式サイト</div>
+      <div class="story-item">Portal</div>
+      <div class="story-item">Knowledge</div>
+      <div class="story-item">Finance / Project</div>
+      <div class="story-item">Stracto AI</div>
+    </div>
+
+    <article>
+      <div class="intro">
+        <p>Stractoは、現在まだ小さな会社です。</p>
+        <p>会社を立ち上げ、Webサイトを作り、社内ポータルを整備し、ナレッジや業務を支える仕組みを作る。通常であれば、専門の人に依頼したり、複数人で進めたりすることも少なくありません。</p>
+        <p>それを、AIを使いながら1人でどこまでできるのか。今回は、Stractoを立ち上げてから現在までを少し振り返ってみます。</p>
+      </div>
+
+      <section class="qa">
+        <h2 class="question">会社を作った当初から、今のような環境を作ろうと思っていたんですか？</h2>
+        <div class="answer">
+          <p>いえ、最初から全部を計画していたわけではありません。</p>
+          <p>会社として必要なものを一つずつ考えて、「まずWebサイトが必要だな」「次は社内の情報をまとめたいな」と進めていった結果、少しずつ今の形になっていきました。</p>
+          <p>その過程で大きかったのがAIです。以前なら「これは自分だけでは難しい」と考えていたものでも、AIと相談しながらなら、かなりのところまで自分で作れるようになりました。</p>
+        </div>
+      </section>
+
+      <section class="qa">
+        <h2 class="question">Webサイトも自分で作ったんですか？</h2>
+        <div class="answer">
+          <p>はい。StractoのWebサイトも、AIを活用しながら自分で作っています。</p>
+          <p>もちろん、ボタンを押したらAIが全部完成させてくれた、という話ではありません。「どういう会社に見せたいのか」「何を伝えたいのか」「このデザインはStractoらしいのか」といった部分は自分で考えます。</p>
+          <p>その考えをAIに伝えて、コードを書いてもらったり、デザインを調整したり、何度も修正したりする。そうやって一緒に作っていく感覚に近いです。</p>
+        </div>
+      </section>
+
+      <section class="qa">
+        <h2 class="question">社内ポータルまで作ったのはなぜですか？</h2>
+        <div class="answer">
+          <p>会社が小さいうちから、情報や仕組みを整理しておきたかったからです。</p>
+          <p>人数が増えてから「情報がどこにあるのか分からない」「特定の人しか分からない」という状態を直すより、最初から仕組みを作っておいた方がいい。そう考えて、社内ポータルやナレッジの仕組みも作っていきました。</p>
+          <p>1人の会社なのに社内ポータルが必要なのか、と言われれば、確かに今だけを考えれば必要ないかもしれません。でも、会社を大きくしてから作るのではなく、<strong>大きくなっても困らない仕組みを小さいうちから作る</strong>という考え方です。</p>
+        </div>
+      </section>
+
+      <section class="qa">
+        <h2 class="question">AIを使うことで、一番変わったことは何ですか？</h2>
+        <div class="answer">
+          <p>「自分ではできないから外注する」という境界線が、かなり変わりました。</p>
+          <p>私はすべての分野の専門家ではありません。それでも、自分がやりたいことを整理してAIに伝え、出てきたものを確認して、修正して、また試す。このサイクルを繰り返すことで、以前なら専門家にお願いしていたようなところまで、自分で形にできるようになりました。</p>
+          <p>これは1人で会社を経営するうえでは、かなり大きな変化だと思っています。</p>
+        </div>
+      </section>
+
+      <section class="qa">
+        <h2 class="question">では、AIがあれば1人で何でもできる？</h2>
+        <div class="answer">
+          <p>そこまでは思っていません。</p>
+          <p>AIが意思決定まで全部してくれるわけではありませんし、最終的に「何を作るのか」「なぜ作るのか」を決めるのは人間です。間違ったものが出てくることもあるので、確認も必要です。</p>
+          <p>ただ、これまで10のアイデアがあっても、時間や技術の問題で2、3しか試せなかったものが、AIによって7、8まで試せるようになる。その違いは非常に大きいと思います。</p>
+        </div>
+      </section>
+
+      <section class="qa">
+        <h2 class="question">1人で起業して、ここまでやってみてどうですか？</h2>
+        <div class="answer">
+          <p>自分でも、「1人で起業してここまでできるんだ」と感じることがあります。</p>
+          <p>Webサイトを作り、社内の仕組みを作り、AIを組み込み、少しずつ自動化していく。もちろん、まだ会社としては始まったばかりです。</p>
+          <p>それでもAIがあることで、小さな会社でもかなり本格的な仕組みを持てる時代になったと思います。</p>
+        </div>
+      </section>
+
+      <section class="qa">
+        <h2 class="question">最後に、これからAIをどう使っていきたいですか？</h2>
+        <div class="answer">
+          <p>AIそのものを目的にはしたくないと思っています。</p>
+          <p>「AIを導入しました」で終わるのではなく、人がやらなくてもいい作業を減らしたり、必要な情報をすぐ使えるようにしたり、経営判断を支援したり。会社を運営するための道具として、自然にAIが存在している状態にしたいです。</p>
+          <p>Stracto自身を実験場にしながら、これからもTechnical Labで実践したことを紹介していきたいと思います。</p>
+        </div>
+      </section>
+
+      <div class="closing"><strong>小さな会社がAIを使うと、どこまでできるのか。</strong><br>Stractoは、これからも自社で試し、学び、形にしていきます。</div>
+    </article>
+
+    <div class="back-wrap"><a class="back-link" href="technical_lab.html">← Technical Labへ戻る</a></div>
+  </main>
+
+  <footer>© 2026 Stracto株式会社. All Rights Reserved.</footer>
+</body>
+</html>
