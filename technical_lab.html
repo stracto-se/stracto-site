@@ -623,6 +623,26 @@ footer {
   .feature-grid { grid-template-columns:1fr; }
   .architecture-block { padding:13px; }
 }
+.article-link {
+  display:block;
+  padding:22px;
+  border:1px solid rgba(125,211,252,.2);
+  border-radius:12px;
+  background:rgba(56,189,248,.045);
+  color:#e5e7eb;
+  text-decoration:none;
+  line-height:1.8;
+  transition:background .2s ease, border-color .2s ease;
+}
+.article-link:hover,
+.article-link:focus-visible {
+  background:rgba(56,189,248,.09);
+  border-color:#7dd3fc;
+}
+.article-link:focus-visible { outline:2px solid #7dd3fc; outline-offset:4px; }
+.article-link strong { display:block; font-size:18px; color:#f8fafc; }
+.article-link p { margin:10px 0 16px; color:#cbd5e1; font-size:16px; }
+.article-link span { color:#7dd3fc; font-size:14px; }
 </style>
 </head>
 
@@ -646,6 +666,15 @@ footer {
 
 <main>
   <h2>TECHNICAL LAB</h2>
+
+  <section class="section-card glass-card" aria-labelledby="articles-heading">
+    <h3 id="articles-heading">技術記事</h3>
+    <a class="article-link" href="zero_trust.html">
+      <strong>中小企業向け｜Cloudflare Zero Trustで始めるゼロトラスト環境</strong>
+      <p>小さく始めるゼロトラストの構成と、導入時に押さえたい設計ポイントを解説します。</p>
+      <span>記事を読む →</span>
+    </a>
+  </section>
 
   <section class="intro-card glass-card">
     <p>
