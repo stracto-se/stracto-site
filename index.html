@@ -390,258 +390,33 @@ footer {
    Stracto Guide
 ============================== */
 
-.stracto-guide-button {
-  position: fixed;
-  right: 24px;
-  bottom: 24px;
-  z-index: 1000;
-
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  min-height: 54px;
-  padding: 8px 16px 8px 8px;
-
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 999px;
-
-  background: #111;
-  color: #fff;
-
-  font: inherit;
-  cursor: pointer;
-
-  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    opacity 0.2s ease;
-}
-
-.stracto-guide-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
-}
-
-.stracto-guide-button-icon {
-  display: grid;
-  place-items: center;
-
-  width: 38px;
-  height: 38px;
-
-  border-radius: 50%;
-  background: #fff;
-  color: #111;
-
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-}
-
-.stracto-guide-button-label {
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-}
-
-.stracto-guide-panel {
-  position: fixed;
-  right: 24px;
-  bottom: 92px;
-  z-index: 1001;
-
-  margin-top: 0;
-
-  display: flex;
-  flex-direction: column;
-
-  width: min(390px, calc(100vw - 32px));
-  max-height: min(620px, calc(100vh - 120px));
-
-  overflow: hidden;
-
-  border: 1px solid #dedede;
-  border-radius: 18px;
-
-  background: #fff;
-  color: #111;
-
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.24);
-}
-
-.stracto-guide-panel[hidden] {
-  display: none;
-}
-
-.stracto-guide-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 16px 18px;
-
-  background: #111;
-  color: #fff;
-}
-
-.stracto-guide-header > div {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.stracto-guide-header strong {
-  font-size: 15px;
-  letter-spacing: 0.04em;
-}
-
-.stracto-guide-beta {
-  padding: 3px 6px;
-
-  border: 1px solid rgba(255, 255, 255, 0.45);
-  border-radius: 999px;
-
-  font-size: 9px;
-  letter-spacing: 0.08em;
-}
-
-.stracto-guide-close {
-  border: none;
-  background: transparent;
-  color: #fff;
-
-  font-size: 26px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.stracto-guide-messages {
-  flex: 1;
-  min-height: 170px;
-  max-height: 330px;
-  overflow-y: auto;
-
-  padding: 18px;
-
-  background: #f6f6f6;
-}
-
-.stracto-guide-message {
-  width: fit-content;
-  max-width: 88%;
-
-  margin-bottom: 12px;
-  padding: 11px 13px;
-
-  border-radius: 12px;
-
-  font-size: 14px;
-  line-height: 1.7;
-
-  overflow-wrap: anywhere;
-}
-
-.guide-message-system {
-  margin-right: auto;
-
-  border: 1px solid #dedede;
-  background: #fff;
-}
-
-.guide-message-user {
-  margin-left: auto;
-
-  background: #111;
-  color: #fff;
-}
-
-.stracto-guide-message a {
-  color: inherit;
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.stracto-guide-options {
-  display: grid;
-  gap: 9px;
-
-  padding: 14px 16px;
-
-  border-top: 1px solid #e5e5e5;
-  background: #fff;
-}
-
-.stracto-guide-option {
-  width: 100%;
-  padding: 11px 13px;
-
-  border: 1px solid #d5d5d5;
-  border-radius: 10px;
-
-  background: #fff;
-  color: #111;
-
-  font: inherit;
-  font-size: 13px;
-  text-align: left;
-
-  cursor: pointer;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease;
-}
-
-.stracto-guide-option:hover {
-  border-color: #111;
-  background: #f5f5f5;
-}
-
-.stracto-guide-footer {
-  padding: 0 16px 14px;
-  background: #fff;
-}
-
-.stracto-guide-home {
-  width: 100%;
-  padding: 8px;
-
-  border: none;
-  background: transparent;
-  color: #777;
-
-  font: inherit;
-  font-size: 12px;
-
-  cursor: pointer;
-}
-
-.stracto-guide-home:hover {
-  color: #111;
-}
-
-@media (max-width: 600px) {
-  .stracto-guide-button {
-    right: 16px;
-    bottom: 16px;
-
-    padding-right: 12px;
-  }
-
-  .stracto-guide-panel {
-    right: 16px;
-    bottom: 82px;
-
-    width: calc(100vw - 32px);
-    max-height: calc(100vh - 105px);
-  }
-
-  .stracto-guide-messages {
-    max-height: 290px;
-  }
-}
+/* Stracto Guide — site navigation */
+.stracto-guide-button{position:fixed;right:24px;bottom:max(24px,env(safe-area-inset-bottom));z-index:1000;display:flex;align-items:center;gap:10px;min-height:54px;padding:8px 18px 8px 8px;border:1px solid #536a88;border-radius:999px;background:#101f35;color:#f1f6ff;font:inherit;cursor:pointer;box-shadow:0 12px 36px #0006}
+.stracto-guide-button-icon{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#bbecff,#8dafff);color:#10223a;font-size:18px;font-weight:700}
+.stracto-guide-button-label{font-size:14px;font-weight:600;letter-spacing:.04em}
+.stracto-guide-panel{position:fixed;right:24px;bottom:92px;z-index:1001;margin:0;padding:0;width:min(420px,calc(100vw - 32px));max-width:none;max-height:calc(100vh - 116px);max-height:min(700px,calc(100dvh - 116px));display:flex;flex-direction:column;overflow:hidden;border:1px solid #435570;border-radius:22px;background:#101d30;color:#eef4ff;box-shadow:0 24px 80px #0008;text-align:left}
+.stracto-guide-panel[hidden]{display:none}
+.stracto-guide-header{position:static;display:flex;flex-shrink:0;align-items:center;justify-content:space-between;padding:16px 18px;background:linear-gradient(120deg,#182d49,#122038);border-bottom:1px solid #33445d}
+.stracto-guide-header>div{display:flex;align-items:center;gap:10px}
+.stracto-guide-header strong{font-size:16px;letter-spacing:.025em}
+.stracto-guide-beta{padding:3px 7px;border:1px solid #667e9f;border-radius:6px;color:#c5d7f2;font-size:12px;letter-spacing:.05em}
+.stracto-guide-close{display:grid;place-items:center;width:44px;height:44px;border:0;border-radius:10px;background:#ffffff08;color:#eaf3ff;font-size:28px;cursor:pointer}
+.stracto-guide-body{overflow-y:auto;min-height:0;overscroll-behavior:contain;scrollbar-color:#536986 #101d30}
+.stracto-guide-messages{padding:20px 18px 0}
+.stracto-guide-message{width:fit-content;max-width:100%;margin-bottom:14px;padding:14px 16px;border-radius:14px;font-size:16px;line-height:1.85;white-space:pre-line;overflow-wrap:anywhere}
+.guide-message-system{margin-right:auto;border:1px solid #34465f;background:#192a42;color:#eef4ff}
+.guide-message-user{margin-left:auto;background:#28486b;color:#f1f8ff;font-size:14px;padding:8px 13px;max-width:90%}
+.stracto-guide-options{display:grid;gap:8px;padding:2px 18px 20px}
+.stracto-guide-option{box-sizing:border-box;display:flex;align-items:center;justify-content:space-between;gap:12px;width:100%;min-height:46px;padding:11px 14px;border:1px solid #405572;border-radius:11px;background:#14243a;color:#e7f1ff;font:inherit;font-size:14px;line-height:1.6;text-align:left;text-decoration:none;cursor:pointer;transition:background .18s,border-color .18s}
+.stracto-guide-option:hover{background:#243c58;border-color:#9bc7ef;color:#fff}
+.stracto-guide-option-arrow{color:#a9cbee;flex-shrink:0}
+.stracto-guide-footer{display:flex;gap:8px;flex-shrink:0;padding:10px 14px;background:#101d30;border-top:1px solid #33445d}
+.stracto-guide-home{flex:1;min-height:44px;padding:8px;border:0;border-radius:8px;background:transparent;color:#c4d4eb;font:inherit;font-size:14px;cursor:pointer}
+.stracto-guide-home:hover,.stracto-guide-close:hover{background:#ffffff10;color:#fff}
+.stracto-guide-home:disabled{opacity:.4;cursor:default}
+.stracto-guide-panel :focus-visible,.stracto-guide-button:focus-visible{outline:2px solid #9ddbff;outline-offset:-3px}
+@media(max-width:600px){.stracto-guide-button{right:16px;bottom:max(16px,env(safe-area-inset-bottom))}.stracto-guide-panel{right:16px;bottom:calc(82px + env(safe-area-inset-bottom));width:calc(100vw - 32px);max-height:calc(100vh - 106px);max-height:calc(100dvh - 106px - env(safe-area-inset-bottom));border-radius:18px}.stracto-guide-header{padding:10px 14px}}
+@media(prefers-reduced-motion:reduce){.stracto-guide-option{transition:none}}
 
 /* Qualification badges */
 .cert-badge-row{
@@ -1890,9 +1665,10 @@ document.addEventListener("DOMContentLoaded", () => {
           next: "technology"
         },
         {
-          label: "AI・技術への取り組み",
+          label: "AI × Technology",
           next: "ai"
         },
+        { label: "Technical Lab・技術記事", next: "lab" },
         {
           label: "セキュリティへの取り組み",
           next: "security"
@@ -1967,16 +1743,26 @@ document.addEventListener("DOMContentLoaded", () => {
     ai: {
       userLabel: "AI・技術への取り組み",
       message:
-        "Stractoでは、これまで培ってきた技術・知識・経験とAIを組み合わせ、業務の効率化や情報活用の高度化に取り組んでいます。社内での実践と検証を通じて、AIを活用した業務支援や情報分析など、より良い働き方につながる仕組みづくりを進めています。",
+        "Stractoでは、これまで培ってきた技術・知識・経験とAIを組み合わせ、業務の効率化や情報活用の高度化に取り組んでいます。\n\n社内での実践と検証を通じて、AIを活用した業務支援や情報分析など、より良い働き方につながる仕組みづくりを進めています。",
       options: [
         {
           label: "AI・技術への取り組みを見る",
           link: "#knowledge"
         },
         {
-          label: "事業・サービスを見る",
-          next: "services"
+          label: "Technical Labで実践を読む",
+          next: "lab"
         }
+      ]
+    },
+
+    lab: {
+      userLabel: "Technical Lab・技術記事",
+      message: "Technical Labでは、ネットワーク・セキュリティの検証や技術記事を公開しています。\n\n技術の実践に加え、AIを活用した取り組みも発信しています。記事一覧から、気になるテーマをご覧ください。",
+      options: [
+        { label: "Technical Labを読む", link: "technical_lab.html" },
+        { label: "AI活用への取り組み", next: "ai" },
+        { label: "技術・実績について", next: "technology" }
       ]
     },
 
@@ -2009,108 +1795,101 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
+  const guideBody = document.getElementById("stracto-guide-body");
+  const guideBack = document.getElementById("stracto-guide-back");
+  let history = [];
+
   function openGuide() {
     guidePanel.hidden = false;
     guideButton.setAttribute("aria-expanded", "true");
-
-    if (!guideOptions.children.length) {
-      showMenu("main", false);
-    }
+    guideButton.setAttribute("aria-label", "Stracto Guideを閉じる");
+    if (!history.length) resetGuide(false);
+    guideClose.focus();
   }
 
-  function closeGuide() {
+  function closeGuide(restoreFocus = true) {
     guidePanel.hidden = true;
     guideButton.setAttribute("aria-expanded", "false");
+    guideButton.setAttribute("aria-label", "Stracto Guideを開く");
+    if (restoreFocus) guideButton.focus();
   }
 
-  function showMenu(menuKey, showUserMessage = true) {
+  function showMenu(menuKey, moveFocus = true, remember = true) {
     const item = menu[menuKey];
-
-    if (!item) {
-      return;
-    }
-
-    if (showUserMessage && item.userLabel) {
-      addMessage(item.userLabel, "user");
-    }
-
-    window.setTimeout(() => {
-      addMessage(item.message, "system");
-      renderOptions(item.options);
-    }, showUserMessage ? 250 : 0);
+    if (!item) return;
+    if (remember) history.push(menuKey);
+    guideMessages.replaceChildren();
+    if (item.userLabel) addMessage(item.userLabel, "user");
+    addMessage(menuKey === "main"
+      ? "こんにちは。Stracto Guideです。\n会社・サービス・技術への取り組みをご案内します。\n\n知りたい内容を選んでください。"
+      : item.message, "system");
+    renderOptions(item.options);
+    guideBack.disabled = history.length < 2;
+    guideHome.disabled = menuKey === "main";
+    guideBody.scrollTop = 0;
+    if (moveFocus) guideMessages.focus({ preventScroll: true });
   }
 
   function renderOptions(options) {
     guideOptions.replaceChildren();
-
     options.forEach(option => {
-      const button = document.createElement("button");
-
-      button.type = "button";
-      button.className = "stracto-guide-option";
-      button.textContent = option.label;
-
-      button.addEventListener("click", () => {
-        if (option.next) {
-          showMenu(option.next);
-          return;
-        }
-
-        if (option.link) {
-          window.location.href = option.link;
+      const control = document.createElement(option.link ? "a" : "button");
+      if (option.link) control.href = option.link;
+      else control.type = "button";
+      control.className = "stracto-guide-option";
+      const label = document.createElement("span");
+      label.textContent = option.label;
+      const arrow = document.createElement("span");
+      arrow.className = "stracto-guide-option-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = option.link ? "↗" : "›";
+      control.append(label, arrow);
+      control.addEventListener("click", event => {
+        if (option.next) showMenu(option.next);
+        else if (option.link.startsWith("#") && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
+          const target = document.querySelector(option.link);
+          if (!target) return;
+          closeGuide(false);
+          const hadTabindex = target.hasAttribute("tabindex");
+          if (!hadTabindex) {
+            target.setAttribute("tabindex", "-1");
+            target.addEventListener("blur", () => target.removeAttribute("tabindex"), { once: true });
+          }
+          target.focus({ preventScroll: true });
         }
       });
-
-      guideOptions.appendChild(button);
+      guideOptions.appendChild(control);
     });
   }
 
   function addMessage(text, sender) {
     const message = document.createElement("div");
-
-    message.className =
-      sender === "user"
-        ? "stracto-guide-message guide-message-user"
-        : "stracto-guide-message guide-message-system";
-
+    message.className = "stracto-guide-message " + (sender === "user" ? "guide-message-user" : "guide-message-system");
     message.textContent = text;
-
     guideMessages.appendChild(message);
-    guideMessages.scrollTop = guideMessages.scrollHeight;
   }
 
-  function resetGuide() {
-    guideMessages.replaceChildren();
-
-    addMessage(
-      "こんにちは。\nStracto株式会社についてご案内します。",
-      "system"
-    );
-
-    showMenu("main", false);
+  function resetGuide(moveFocus = true) {
+    history = [];
+    showMenu("main", moveFocus);
   }
 
-  guideButton.addEventListener("click", () => {
-    if (guidePanel.hidden) {
-      openGuide();
-    } else {
-      closeGuide();
-    }
+  guideButton.addEventListener("click", () => guidePanel.hidden ? openGuide() : closeGuide());
+  guideClose.addEventListener("click", () => closeGuide());
+  guideHome.addEventListener("click", () => resetGuide());
+  guideBack.addEventListener("click", () => {
+    if (history.length < 2) return;
+    history.pop();
+    showMenu(history[history.length - 1], true, false);
   });
-
-  guideClose.addEventListener("click", closeGuide);
-  guideHome.addEventListener("click", resetGuide);
-
   document.addEventListener("keydown", event => {
-    if (event.key === "Escape" && !guidePanel.hidden) {
-      closeGuide();
-    }
+    if (event.key === "Escape" && !guidePanel.hidden) closeGuide();
   });
 });
 </script>
 <!-- Stracto Guide -->
-<button aria-label="Stracto Guideを開く" class="stracto-guide-button" id="stracto-guide-button" type="button">
-<span class="stracto-guide-button-icon">AI</span>
+<button aria-label="Stracto Guideを開く" aria-controls="stracto-guide-panel" aria-expanded="false" class="stracto-guide-button" id="stracto-guide-button" type="button">
+<span class="stracto-guide-button-icon" aria-hidden="true">S</span>
 <span class="stracto-guide-button-label">Guide</span>
 </button>
 <section aria-label="Stracto Guide" class="stracto-guide-panel" hidden="" id="stracto-guide-panel">
@@ -2123,19 +1902,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ×
     </button>
 </header>
-<div aria-live="polite" class="stracto-guide-messages" id="stracto-guide-messages">
-<div class="stracto-guide-message guide-message-system">
-    　こんにちは。<br/>
-    　Stracto Guideです。<br/><br/>
-   　 会社情報やサービスについてご案内します。<br/>
-  　  知りたい内容を選択してください。
-    </div>
+<div class="stracto-guide-body" id="stracto-guide-body">
+<div aria-live="polite" aria-atomic="true" tabindex="-1" class="stracto-guide-messages" id="stracto-guide-messages"></div>
+<nav aria-label="ガイドの選択肢" class="stracto-guide-options" id="stracto-guide-options"></nav>
 </div>
-<div class="stracto-guide-options" id="stracto-guide-options"></div>
 <div class="stracto-guide-footer">
-<button class="stracto-guide-home" id="stracto-guide-home" type="button">
-      最初のメニューに戻る
-    </button>
+<button class="stracto-guide-home" id="stracto-guide-back" type="button" disabled>ひとつ戻る</button>
+<button class="stracto-guide-home" id="stracto-guide-home" type="button">最初のメニュー</button>
 </div>
 </section>
 <!-- Cloudflare Web Analytics -->
