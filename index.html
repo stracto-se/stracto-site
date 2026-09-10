@@ -305,11 +305,11 @@ h2 {
   font-size:22px;
   margin-top:34px;
   margin-bottom:14px;
-  cursor:pointer;
+  cursor:default;
   color:var(--accent);
 }
 .news-content {
-  display:none;
+  display:block;
   margin-bottom:20px;
 }
 .news-row {
@@ -665,18 +665,15 @@ h2::after {
   font-weight:750;
   letter-spacing:.08em;
 }
-.news-year::after {
-  content:"+";
-  display:grid;
-  place-items:center;
-  width:28px;
-  height:28px;
-  border:1px solid rgba(56,189,248,.28);
-  border-radius:9px;
-  background:rgba(56,189,248,.07);
-  font-size:17px;
-  font-weight:400;
-}
+.news-archive { margin-top:16px; }
+.news-archive summary { display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px;padding:8px 0;color:#b6d8ef;font-size:14px;cursor:pointer;list-style:none; }
+.news-archive summary::-webkit-details-marker { display:none; }
+.news-archive summary::after { content:"+";font-size:20px;color:#7dd3fc; }
+.news-archive[open] summary::after { content:"−"; }
+.news-archive .news-hide-label { display:none; }
+.news-archive[open] .news-show-label { display:none; }
+.news-archive[open] .news-hide-label { display:inline; }
+.news-archive summary:focus-visible { outline:2px solid #7dd3fc;outline-offset:4px;border-radius:4px; }
 .news-row {
   display:grid;
   grid-template-columns:120px 1fr;
@@ -1351,6 +1348,8 @@ footer {
 <span class="date">2026-08-07</span>
 <span class="news-text">プライバシーポリシーを公開しました。</span>
       </div>
+<details class="news-archive">
+<summary><span class="news-show-label">過去の更新履歴を見る</span><span class="news-hide-label">過去の更新履歴を閉じる</span></summary>
 <div class="news-row" data-date="2026-07-19">
 <span class="date">2026-07-19</span>
 <span class="news-text">技術実績を公開しました。</span>
@@ -1375,6 +1374,7 @@ footer {
 <span class="date">2026-06-22</span>
 <span class="news-text">資本金50万円で、会社を設立しました。</span>
       </div>
+</details>
 </div>
 </div>
 </section>
@@ -1547,14 +1547,6 @@ function toggleMenu(){
   document.getElementById("mobileMenu").classList.toggle("show");
   document.querySelector(".hamburger").classList.toggle("active");
 }
-
-/* NEWS */
-document.querySelectorAll(".news-year").forEach((year, idx)=>{
-  year.addEventListener("click",()=>{
-    const el = document.querySelectorAll(".news-content")[idx];
-    el.style.display = (el.style.display === "block") ? "none" : "block";
-  });
-});
 
 /* NEW BADGE */
 const today = new Date();
