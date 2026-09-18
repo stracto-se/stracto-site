@@ -1174,7 +1174,7 @@ function toggleMenu(){
 
 /* ============ PARTICLES ============ */
 document.addEventListener("DOMContentLoaded",()=>{
-  const articleCount=document.querySelectorAll(".article-card").length;
+  const articleCount=document.querySelectorAll("#articlesPanel .article-card").length;
   document.getElementById("articleCount").textContent=`${articleCount} ${articleCount === 1 ? "ARTICLE" : "ARTICLES"}`;
 
   const canvas=document.getElementById("particles");
