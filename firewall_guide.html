@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ネットワーク基礎シリーズ #04｜ファイアウォールとは？役割と基本設定 | Stracto Technical Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ネットワーク基礎シリーズ第4回。ファイアウォールの役割、Security Zone、Address Object、Firewall Policy、ルーティング、NAT、管理・監視などの基本を、実際のFortiGate検証環境を一般化して解説します。">
+<link rel="canonical" href="https://stracto.co.jp/firewall-guide.html">
+<link href="favicon.png" rel="icon" type="image/png">
+<meta property="og:title" content="ネットワーク基礎シリーズ #04｜ファイアウォールとは？役割と基本設定">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stracto.co.jp/firewall-guide.html">
+<meta property="og:description" content="通信を許可・拒否するファイアウォールの役割と基本設定を、実際のFortiGate構成を一般化して解説。">
+<meta name="twitter:card" content="summary">
+
+<style>
+:root {
+  --bg:#050816;
+  --panel:rgba(12,20,39,.82);
+  --panel-soft:rgba(255,255,255,.035);
+  --line:rgba(125,211,252,.18);
+  --text:#e5edf5;
+  --soft:#9eacbd;
+  --accent:#38bdf8;
+  --accent-soft:#7dd3fc;
+}
+
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(37,99,235,.13), transparent 31%),
+    var(--bg);
+}
+
+#particles { position:fixed; inset:0; z-index:-1; opacity:.72; }
+
+.hamburger {
+  position:fixed; top:22px; right:24px; z-index:99999;
+  width:36px; height:26px; padding:0; border:0; cursor:pointer;
+  background:none;
+}
+.hamburger span {
+  position:absolute; left:0; width:100%; height:4px;
+  border-radius:6px; background:var(--accent); transition:.36s;
+}
+.hamburger span:nth-child(1){top:0}.hamburger span:nth-child(2){top:11px}.hamburger span:nth-child(3){top:22px}
+.hamburger.active span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+
+#mobileMenu {
+  position:fixed; top:0; right:-100%; z-index:9999;
+  display:flex; flex-direction:column; gap:28px;
+  width:240px; height:100vh; padding:90px 28px;
+  background:rgba(0,0,0,.68); backdrop-filter:blur(16px);
+  transition:right .45s ease;
+}
+#mobileMenu.show { right:0; }
+#mobileMenu a { color:#fff; font-size:18px; text-decoration:none; }
+
+main { position:relative; max-width:1040px; margin:0 auto; padding:112px 24px 110px; }
+main::before {
+  content:""; position:absolute; top:74px; right:28px; width:160px; height:160px;
+  border:1px solid rgba(56,189,248,.055); border-radius:50%;
+  box-shadow:0 0 0 40px rgba(56,189,248,.016),0 0 0 80px rgba(56,189,248,.01);
+  pointer-events:none;
+}
+
+.breadcrumb { display:flex; gap:8px; align-items:center; margin-bottom:34px; color:var(--soft); font-size:14px; }
+.breadcrumb a { color:var(--accent-soft); text-decoration:none; }
+.breadcrumb span { opacity:.55; }
+
+.article-hero {
+  position:relative; overflow:hidden; padding:46px 46px 42px;
+  border:1px solid rgba(125,211,252,.24); border-radius:18px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(56,189,248,.17), transparent 30%),
+    radial-gradient(circle at 0 100%, rgba(37,99,235,.12), transparent 36%),
+    linear-gradient(145deg, rgba(16,24,44,.93), rgba(8,13,28,.84));
+  box-shadow:0 24px 70px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.article-hero::before { content:""; position:absolute; top:0; left:35px; width:120px; height:1px; background:linear-gradient(90deg,var(--accent-soft),transparent); }
+.eyebrow { margin:0 0 18px; color:var(--accent-soft); font-size:13px; font-weight:750; letter-spacing:.14em; }
+h1 { max-width:790px; margin:0; color:#f8fafc; font-size:clamp(30px,5vw,48px); line-height:1.3; letter-spacing:.015em; }
+.lead { max-width:760px; margin:25px 0 0; color:#d4dfeb; font-size:18px; line-height:1.95; }
+.meta { display:flex; flex-wrap:wrap; gap:18px; margin-top:28px; color:var(--soft); font-size:13px; }
+
+
+.series-strip {
+  margin-top:30px; padding:24px;
+  border:1px solid rgba(125,211,252,.2); border-radius:15px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(56,189,248,.07),transparent 28%),
+    linear-gradient(145deg,rgba(16,24,44,.82),rgba(8,13,28,.75));
+}
+.series-label { margin:0 0 7px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.12em; }
+.series-title { margin:0; color:#f5fbff; font-size:20px; }
+.series-description { margin:9px 0 0; color:var(--soft); font-size:14px; line-height:1.7; }
+.series-items { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px; }
+.series-item {
+  min-height:96px; padding:16px;
+  border:1px solid rgba(148,163,184,.11); border-radius:11px;
+  background:rgba(255,255,255,.022);
+}
+.series-item.current {
+  border-color:rgba(125,211,252,.35);
+  background:rgba(56,189,248,.085);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+.series-item small { display:block; margin-bottom:8px; color:#7f90a4; font-size:11px; letter-spacing:.08em; }
+.series-item.current small { color:var(--accent-soft); }
+.series-item strong { display:block; color:#dce8f2; font-size:14px; line-height:1.55; }
+.series-item.current strong { color:#f4fbff; }
+
+.article-layout { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:30px; margin-top:30px; align-items:start; }
+.article-body { min-width:0; }
+.toc {
+  position:sticky; top:28px; padding:23px;
+  border:1px solid var(--line); border-radius:14px;
+  background:linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+}
+.toc-title { margin:0 0 14px; color:#f8fafc; font-weight:700; }
+.toc ol { margin:0; padding-left:21px; color:var(--soft); }
+.toc li+li { margin-top:10px; }
+.toc a { color:#bdcad8; font-size:14px; line-height:1.55; text-decoration:none; }
+.toc a:hover { color:var(--accent-soft); }
+
+.article-section {
+  margin-bottom:24px; padding:34px;
+  border:1px solid var(--line); border-radius:15px;
+  background:
+    radial-gradient(circle at 0 0,rgba(56,189,248,.075),transparent 30%),
+    linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+  box-shadow:0 18px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.article-section h2 { position:relative; margin:0 0 24px; padding-left:15px; color:#f8fafc; font-size:24px; line-height:1.5; }
+.article-section h2::before { content:""; position:absolute; left:0; top:.25em; width:3px; height:1.05em; border-radius:3px; background:var(--accent); box-shadow:0 0 14px rgba(56,189,248,.5); }
+.article-section h3 { margin:28px 0 12px; color:#dff4ff; font-size:18px; }
+.article-section p { margin:0 0 18px; color:#ccd7e3; font-size:16px; line-height:1.95; }
+.article-section p:last-child { margin-bottom:0; }
+
+.point-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; }
+.point {
+  padding:20px 18px; border:1px solid rgba(125,211,252,.14); border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+.point-number { display:block; margin-bottom:12px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.1em; }
+.point strong { display:block; margin-bottom:7px; color:#f2f7fb; font-size:16px; }
+.point p { margin:0; color:var(--soft); font-size:14px; line-height:1.75; }
+
+.architecture { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; align-items:stretch; margin:24px 0; }
+.architecture-step { position:relative; display:flex; flex-direction:column; justify-content:center; min-height:112px; padding:18px; text-align:center; border:1px solid rgba(56,189,248,.22); border-radius:12px; background:rgba(14,165,233,.055); }
+.architecture-step:not(:last-child)::after { content:"→"; position:absolute; right:-17px; top:50%; z-index:2; color:var(--accent-soft); font-size:20px; transform:translateY(-50%); }
+.architecture-step small { margin-bottom:7px; color:var(--soft); font-size:12px; }
+.architecture-step strong { color:#e9f7ff; font-size:15px; line-height:1.55; }
+
+.check-list { display:grid; gap:10px; margin:20px 0 0; padding:0; list-style:none; }
+.check-list li { position:relative; padding:14px 16px 14px 42px; border:1px solid rgba(148,163,184,.12); border-radius:10px; color:#d8e3ed; background:rgba(255,255,255,.024); line-height:1.7; }
+.check-list li::before { content:"✓"; position:absolute; left:17px; color:var(--accent-soft); font-weight:800; }
+
+.callout { margin-top:24px; padding:20px 22px; border-left:3px solid var(--accent); border-radius:0 10px 10px 0; color:#d6e1ec; background:rgba(56,189,248,.065); line-height:1.85; }
+
+.config-block {
+  margin:18px 0 22px;
+  overflow:auto;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:12px;
+  background:#040814;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+.config-label {
+  padding:10px 14px;
+  border-bottom:1px solid rgba(125,211,252,.12);
+  color:var(--accent-soft);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  background:rgba(56,189,248,.045);
+}
+.config-block pre { margin:0; padding:18px; min-width:520px; }
+.config-block code {
+  color:#d9edf8;
+  font-family:"Cascadia Code","SFMono-Regular",Consolas,monospace;
+  font-size:13px;
+  line-height:1.75;
+}
+
+.compare-table-wrap { overflow-x:auto; margin-top:18px; }
+.compare-table { width:100%; min-width:620px; border-collapse:collapse; }
+.compare-table th,
+.compare-table td {
+  padding:14px 15px;
+  border:1px solid rgba(125,211,252,.13);
+  text-align:left;
+  vertical-align:top;
+  line-height:1.7;
+}
+.compare-table th { color:#e8f7ff; background:rgba(56,189,248,.07); }
+.compare-table td { color:#cbd7e3; background:rgba(255,255,255,.018); }
+
+.source-note {
+  margin-top:18px;
+  padding:18px 20px;
+  border:1px solid rgba(148,163,184,.12);
+  border-radius:11px;
+  color:#aebdca;
+  font-size:14px;
+  line-height:1.8;
+  background:rgba(255,255,255,.02);
+}
+
+footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px solid rgba(125,211,252,.1); background:linear-gradient(180deg,transparent,rgba(8,13,28,.72)); }
+.footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; margin-bottom:18px; }
+.footer-links a { color:var(--soft); text-decoration:none; }
+.footer-links a:hover { color:var(--accent-soft); }
+.footer-bottom { font-size:13px; opacity:.8; }
+
+@media(max-width:860px){
+  .series-items { grid-template-columns:repeat(2,1fr); }
+  .article-layout { grid-template-columns:1fr; }
+  .toc { position:relative; top:auto; order:-1; }
+  .point-grid { grid-template-columns:1fr; }
+}
+@media(max-width:680px){
+  main { padding:94px 17px 80px; }
+  main::before { display:none; }
+  .breadcrumb { margin-bottom:24px; }
+  .article-hero { padding:32px 23px 30px; border-radius:15px; }
+  h1 { font-size:29px; }
+  .lead { font-size:16px; line-height:1.85; }
+  .article-section { padding:27px 21px; }
+  .article-section h2 { font-size:21px; }
+  .series-strip { padding:21px; }
+  .series-items { grid-template-columns:1fr; }
+  .architecture { grid-template-columns:1fr; }
+  .architecture-step:not(:last-child)::after { content:"↓"; left:50%; right:auto; top:auto; bottom:-21px; transform:translateX(-50%); }
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu(this)">
+  <span></span><span></span><span></span>
+</button>
+
+<nav id="mobileMenu" aria-label="メインメニュー">
+  <a href="index.html">HOME</a>
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="technical_lab.html">TECHNICAL LAB</a>
+  <a href="contact.html">CONTACT</a>
+</nav>
+
+<main>
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <a href="index.html">HOME</a><span>/</span>
+    <a href="technical_lab.html">TECHNICAL LAB</a><span>/</span>
+    <span>FIREWALL GUIDE</span>
+  </nav>
+
+  <header class="article-hero">
+    <p class="eyebrow">NETWORK BASICS / 04</p>
+    <h1>ファイアウォールとは？<br>役割と基本設定を実際のネットワーク構成から解説</h1>
+    <p class="lead">ネットワーク基礎シリーズ第4回。ファイアウォールは、ネットワークの境界で通信を確認し、ルールに基づいて許可・拒否する機器です。本記事では、Stractoの検証環境で使用したFortiGate-60Eの実設定を一般化しながら、Security Zone、Address Object、Firewall Policy、ルーティング、NAT、管理・監視などの基本を整理します。</p>
+    <div class="meta">
+      <span>公開日：2026.09.18</span>
+      <span>読了目安：9分</span>
+      <span>ネットワーク基礎シリーズ 第4回</span>
+      <span>Stracto Technical Lab</span>
+    </div>
+  </header>
+
+  <section class="series-strip" aria-label="ネットワーク基礎シリーズ">
+    <p class="series-label">NETWORK BASICS SERIES</p>
+    <h2 class="series-title">ネットワーク基礎シリーズ</h2>
+    <p class="series-description">ネットワークを構成する主要機器を、実際の構成・設定例を交えながら順番に解説します。</p>
+    <div class="series-items">
+      <div class="series-item"><small>#01 / PUBLISHED</small><strong>コアスイッチ</strong></div>
+      <div class="series-item"><small>#02 / PUBLISHED</small><strong>アクセススイッチ</strong></div>
+      <div class="series-item"><small>#03 / PUBLISHED</small><strong>ルータ</strong></div>
+      <div class="series-item current"><small>#04 / CURRENT</small><strong>ファイアウォール</strong></div>
+    </div>
+  </section>
+
+  <div class="article-layout">
+    <article class="article-body">
+
+      <section class="article-section" id="overview">
+        <h2>ファイアウォールとは</h2>
+        <p>ファイアウォールは、ネットワーク間を流れる通信を検査し、あらかじめ定義したポリシーに基づいて通信を許可または拒否する機器です。社内LANとインターネットの境界だけでなく、DMZ、管理ネットワーク、開発ネットワークなど、異なるセキュリティレベルのネットワークを分離するためにも利用されます。</p>
+        <p>ルータも異なるネットワーク間の通信を中継しますが、ファイアウォールでは「どこから、どこへ、何の通信を許可するか」というセキュリティ制御が中心になります。</p>
+
+        <div class="point-grid">
+          <div class="point"><span class="point-number">POINT 01</span><strong>通信を制御する</strong><p>送信元、宛先、サービスなどの条件で通信を許可・拒否します。</p></div>
+          <div class="point"><span class="point-number">POINT 02</span><strong>ネットワークを分離する</strong><p>Trust、Untrust、DMZ、MGMTなど、役割ごとに境界を作ります。</p></div>
+          <div class="point"><span class="point-number">POINT 03</span><strong>ログを残す</strong><p>許可・拒否された通信を記録し、障害解析やセキュリティ確認に利用します。</p></div>
+        </div>
+      </section>
+
+      <section class="article-section" id="architecture">
+        <h2>ネットワークの中でどこに置かれるのか</h2>
+        <p>Stractoの検証環境では、FortiGate-60Eを次世代ファイアウォールとして使用していました。内部側はLAGでコアスイッチへ接続し、外部側は2本のWANインターフェースをRedundant Interfaceとしてまとめる構成です。</p>
+
+        <div class="architecture" role="img" aria-label="内部ネットワーク、ファイアウォール、外部ネットワークを接続する構成">
+          <div class="architecture-step"><small>TRUST</small><strong>Core Switch<br>Internal Network</strong></div>
+          <div class="architecture-step"><small>FIREWALL</small><strong>Zone / Policy<br>Routing</strong></div>
+          <div class="architecture-step"><small>UNTRUST</small><strong>Router<br>Internet</strong></div>
+        </div>
+
+        <p>さらに、検証環境ではDMZと管理用ネットワークも個別に定義していました。通信経路だけでなく、「そのインターフェースがどのセキュリティ領域に属するのか」を整理しておくことで、ポリシーを設計しやすくなります。</p>
+
+        <div class="callout"><strong>実務上のポイント：</strong>ファイアウォールでは、ポリシーを作る前に「Trust / Untrust / DMZ / MGMTをどう分けるか」を決めておくことが重要です。ゾーン設計が曖昧だと、後からルールが複雑になりやすくなります。</div>
+      </section>
+
+      <section class="article-section" id="difference">
+        <h2>ルータとの違い</h2>
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th>項目</th>
+                <th>ファイアウォール</th>
+                <th>ルータ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>主な役割</td>
+                <td>通信の許可・拒否、セキュリティ制御</td>
+                <td>宛先に応じた経路制御</td>
+              </tr>
+              <tr>
+                <td>判断条件</td>
+                <td>Zone、送信元、宛先、Service、Applicationなど</td>
+                <td>主に宛先IPとルーティングテーブル</td>
+              </tr>
+              <tr>
+                <td>状態管理</td>
+                <td>セッションを追跡するStateful Inspectionが中心</td>
+                <td>製品・機能による</td>
+              </tr>
+              <tr>
+                <td>NAT</td>
+                <td>構成に応じて実施</td>
+                <td>構成に応じて実施</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="article-section" id="settings">
+        <h2>ファイアウォールで必要になる基本設定</h2>
+        <p>今回のFortiGate実機設定では、物理・論理インターフェース、LAG、Redundant Interface、Security Zone、Address Object、Firewall Policy、Static Route、管理アクセス、NTP、SNMPなどが設定されていました。</p>
+
+        <ul class="check-list">
+          <li><strong>Interface：</strong>Trust / Untrust / DMZ / MGMTなどの接続先を定義する</li>
+          <li><strong>Zone：</strong>複数のインターフェースを役割ごとのセキュリティ領域へまとめる</li>
+          <li><strong>Address Object：</strong>IPアドレスやFQDNを名前付きオブジェクトとして管理する</li>
+          <li><strong>Service：</strong>HTTP、HTTPS、IKE、ESPなど通信種別を定義する</li>
+          <li><strong>Firewall Policy：</strong>送信元・宛先・サービス・Actionを組み合わせて通信を制御する</li>
+          <li><strong>Routing：</strong>接続ネットワーク以外への経路を設定する</li>
+          <li><strong>NAT：</strong>必要な場合にアドレス変換を行う</li>
+          <li><strong>管理・監視：</strong>管理元制限、NTP、SNMP、ログなどを設定する</li>
+        </ul>
+      </section>
+
+      <section class="article-section" id="zone">
+        <h2>Security Zoneの設定</h2>
+        <p>FortiGateでは、インターフェースをZoneにまとめてポリシーを作成できます。今回の実機では、Trust、Untrust、DMZ、MGMTの4つのZoneを定義していました。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — SECURITY ZONE</div>
+          <pre><code>config system zone
+    edit "DMZ"
+        set interface "dmz"
+    next
+    edit "MGMT"
+        set interface "mgmt"
+    next
+    edit "Trust"
+        set interface "LAN-LAG" "VLAN30"
+    next
+    edit "Untrust"
+        set interface "WAN-REDUNDANT"
+    next
+end</code></pre>
+        </div>
+
+        <p>公開用の例ではインターフェース名を一般化しています。Zoneを利用すると、個々の物理ポートではなく「TrustからUntrustへ」のように、役割を基準にポリシーを設計できます。</p>
+      </section>
+
+      <section class="article-section" id="interface">
+        <h2>LAGとWAN冗長化</h2>
+        <p>今回の実機では、内部側の2ポートをAggregate Interfaceとしてまとめ、Trust側の接続に利用していました。また、外部側の2ポートはRedundant Interfaceとして構成していました。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — LAG</div>
+          <pre><code>config system interface
+    edit "LAN-LAG"
+        set type aggregate
+        set member "internal1" "internal2"
+        set role lan
+    next
+end</code></pre>
+        </div>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — REDUNDANT WAN</div>
+          <pre><code>config system interface
+    edit "WAN-REDUNDANT"
+        set type redundant
+        set member "wan1" "wan2"
+        set role wan
+    next
+end</code></pre>
+        </div>
+
+        <p>AggregateとRedundantは目的が異なります。Aggregateは複数リンクを束ねて利用する構成、Redundant Interfaceは複数ポートのうち利用可能なリンクを使う冗長構成です。実際の利用可否や動作は機種・FortiOSバージョン・対向機器の構成に合わせて確認します。</p>
+      </section>
+
+      <section class="article-section" id="objects">
+        <h2>Address Objectを使う理由</h2>
+        <p>Firewall PolicyへIPアドレスを直接書き続けると、ルールが増えたときに管理しづらくなります。FortiGateでは、ネットワークやFQDNをAddress Objectとして登録し、名前でポリシーから参照できます。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — ADDRESS OBJECT</div>
+          <pre><code>config firewall address
+    edit "USER-NETWORK"
+        set associated-interface "Trust"
+        set subnet 192.0.2.0 255.255.255.0
+    next
+    edit "VPN-DESTINATION"
+        set type fqdn
+        set associated-interface "Untrust"
+        set fqdn "vpn.example.com"
+    next
+end</code></pre>
+        </div>
+
+        <p>実機でも、内部ネットワークをSubnet Objectとして登録し、外部の特定宛先をFQDN Objectとして登録していました。FQDN Objectを使えば、IPアドレスが変化するサービスでも名前を基準に扱える場合があります。</p>
+      </section>
+
+      <section class="article-section" id="policy">
+        <h2>Firewall Policyの基本</h2>
+        <p>Firewall Policyでは、「どこから」「どこへ」「どのアドレスが」「どのサービスを使うか」を条件として通信を制御します。今回の実機ではTrustからUntrustへの通信を対象に、特定のVPN通信、一般的な外向き通信、その他の通信という順序でポリシーが構成されていました。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — ALLOW POLICY</div>
+          <pre><code>config firewall policy
+    edit 1
+        set srcintf "Trust"
+        set dstintf "Untrust"
+        set srcaddr "USER-NETWORK"
+        set dstaddr "VPN-DESTINATION"
+        set action accept
+        set schedule "always"
+        set service "IKE" "ESP"
+        set logtraffic all
+    next
+end</code></pre>
+        </div>
+
+        <p>上記の例では、Trust側のネットワークから特定のVPN宛先へのIKE / ESP通信のみを許可しています。</p>
+
+        <h3>最後に拒否する</h3>
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — DENY POLICY</div>
+          <pre><code>config firewall policy
+    edit 100
+        set srcintf "Trust"
+        set dstintf "Untrust"
+        set srcaddr "all"
+        set dstaddr "all"
+        set action deny
+        set schedule "always"
+        set service "ALL"
+        set logtraffic all
+    next
+end</code></pre>
+        </div>
+
+        <p>ポリシーは上から順に評価されるため、必要な通信を先に許可し、それ以外を拒否する考え方が基本です。公開例では意図を分かりやすくするため、拒否Actionを明示しています。</p>
+
+        <div class="callout"><strong>実務上のポイント：</strong>検証環境では外向き通信を広く許可するポリシーも使用していましたが、これは検証目的の構成です。本番環境では業務要件に合わせて宛先・Service・Security Profileなどを必要な範囲に絞ります。</div>
+      </section>
+
+      <section class="article-section" id="routing">
+        <h2>ファイアウォールにもルーティングが必要</h2>
+        <p>ファイアウォールはポリシーだけでは通信できません。宛先ネットワークへパケットを転送するためのルーティング情報も必要です。今回の実機では、内部ネットワーク向けの個別ルートと、外部側へ向ける経路が設定されていました。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — STATIC ROUTE</div>
+          <pre><code>config router static
+    edit 1
+        set dst 192.0.2.0 255.255.255.0
+        set gateway 198.51.100.1
+        set device "VLAN30"
+    next
+    edit 2
+        set gateway 203.0.113.1
+        set device "WAN-REDUNDANT"
+    next
+end</code></pre>
+        </div>
+
+        <p>Firewall Policyで通信を許可していても、適切な経路がなければ宛先へ転送できません。ポリシーとルーティングはセットで確認する必要があります。</p>
+      </section>
+
+      <section class="article-section" id="nat">
+        <h2>NATは必ずファイアウォールで行うとは限らない</h2>
+        <p>NATはファイアウォールでもよく使われる機能ですが、ネットワーク構成によっては上位ルータ側でNATを担当する場合があります。</p>
+        <p>今回確認したFortiGateのTrust → Untrustポリシーでは、該当ポリシーにNATを有効化する設定は確認できませんでした。検証環境では外接ルータも存在していたため、機器ごとの役割を分けて設計していた構成と読み取れます。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — POLICY NAT</div>
+          <pre><code>config firewall policy
+    edit 10
+        set srcintf "Trust"
+        set dstintf "Untrust"
+        set srcaddr "USER-NETWORK"
+        set dstaddr "all"
+        set action accept
+        set service "ALL"
+        set nat enable
+    next
+end</code></pre>
+        </div>
+
+        <p>上記はNATをファイアウォール側で行う場合の一般的な例です。これは今回の実機ポリシーをそのまま抜粋したものではありません。</p>
+      </section>
+
+      <section class="article-section" id="management">
+        <h2>管理・監視のための設定</h2>
+        <p>今回の実機では、管理用インターフェースを別に用意し、管理端末の送信元IPアドレスをTrusted Hostとして限定していました。管理アクセスとしてHTTPS、SSH、SNMPなども有効化されていました。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — MANAGEMENT INTERFACE</div>
+          <pre><code>config system interface
+    edit "mgmt"
+        set ip 192.0.2.10 255.255.255.0
+        set allowaccess ping https ssh snmp
+        set role lan
+    next
+end</code></pre>
+        </div>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — TRUSTED HOST</div>
+          <pre><code>config system admin
+    edit "admin"
+        set trusthost1 192.0.2.100 255.255.255.255
+        set trusthost2 192.0.2.101 255.255.255.255
+    next
+end</code></pre>
+        </div>
+
+        <h3>NTP / SNMP</h3>
+        <p>実機では内部のNTPサーバと時刻同期し、SNMPによる監視も有効化されていました。記事内では、実際に設定されていたSNMP Communityや監視サーバのIPアドレスは公開していません。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — NTP</div>
+          <pre><code>config system ntp
+    set ntpsync enable
+    set type custom
+    config ntpserver
+        edit 1
+            set server "192.0.2.20"
+        next
+    end
+end</code></pre>
+        </div>
+      </section>
+
+      <section class="article-section" id="summary">
+        <h2>まとめ</h2>
+        <p>ファイアウォールは、異なるセキュリティ領域の間で通信を制御するネットワーク機器です。Zone、Address Object、Service、Firewall Policy、Routingなどを組み合わせて、「必要な通信だけを許可する」構成を作ります。</p>
+        <p>今回のFortiGate実機では、Trust / Untrust / DMZ / MGMTのZone、LAG、Redundant Interface、Address Object、TrustからUntrustへのFirewall Policy、Static Route、管理元制限、NTP、SNMPなどを利用していました。</p>
+        <p>これで「ネットワーク基礎シリーズ」は、コアスイッチ、アクセススイッチ、ルータ、ファイアウォールの4記事が揃います。主要機器の役割を理解した後は、VLAN、STP、LAG、Routing、NAT、Firewall Policy、VPNなどを個別テーマとして掘り下げていくと、ネットワーク全体の理解をさらに深められます。</p>
+      </section>
+
+      <section class="article-section" id="sources">
+        <h2>記事について</h2>
+        <p>本記事は、Stractoが保有していたネットワーク検証環境で使用したFortiGate-60E（FortiOS 6.2.7）の実機設定ログを基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
+        <div class="source-note">
+          元の設定ログには、管理IPアドレス、ホスト名、Trusted Host、SNMP Community、アカウント情報、暗号化パスワード、証明書・秘密鍵などの機密情報が含まれるため、記事では掲載せずサンプル値へ置き換えています。実環境へ適用する場合は、利用機種・FortiOSバージョン・ライセンス・ネットワーク設計に合わせて確認してください。
+        </div>
+      </section>
+
+    </article>
+
+    <aside class="toc" aria-label="記事の目次">
+      <p class="toc-title">この記事の内容</p>
+      <ol>
+        <li><a href="#overview">ファイアウォールとは</a></li>
+        <li><a href="#architecture">ネットワーク上の役割</a></li>
+        <li><a href="#difference">ルータとの違い</a></li>
+        <li><a href="#settings">必要な基本設定</a></li>
+        <li><a href="#zone">Security Zone</a></li>
+        <li><a href="#interface">LAG / WAN冗長化</a></li>
+        <li><a href="#objects">Address Object</a></li>
+        <li><a href="#policy">Firewall Policy</a></li>
+        <li><a href="#routing">Routing</a></li>
+        <li><a href="#nat">NAT</a></li>
+        <li><a href="#management">管理・監視</a></li>
+        <li><a href="#summary">まとめ</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a><a href="index.html#company">Company</a>
+    <a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div>
+</footer>
+
+<script>
+function toggleMenu(button){
+  const menu=document.getElementById("mobileMenu");
+  const open=menu.classList.toggle("show");
+  button.classList.toggle("active",open);
+  button.setAttribute("aria-expanded",String(open));
+  button.setAttribute("aria-label",open?"メニューを閉じる":"メニューを開く");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+  resize(); addEventListener("resize",resize);
+  const ps=Array.from({length:40},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+1,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ps.forEach(p=>{
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,.42)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+    for(let i=0;i<ps.length;i++){for(let j=i+1;j<ps.length;j++){
+      const a=ps[i],b=ps[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){ctx.strokeStyle=`rgba(150,180,255,${(1-d/120)*.4})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
+    }}
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+});
+</script>
+</body>
+</html>
