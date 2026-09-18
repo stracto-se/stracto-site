@@ -765,7 +765,147 @@ footer {
   .article-card { min-height:0; padding:24px 21px; }
   .section-heading { align-items:start; }
 }
+
+/* ============ NETWORK BASICS SERIES LIST ============ */
+.series-list {
+  display:grid;
+  gap:11px;
+}
+.series-list-item {
+  position:relative;
+  display:grid;
+  grid-template-columns:58px minmax(0,1fr) 30px;
+  gap:17px;
+  align-items:center;
+  padding:19px 20px;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:13px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(56,189,248,.075),transparent 28%),
+    linear-gradient(145deg,rgba(16,24,44,.79),rgba(8,13,28,.7));
+  color:var(--text-main);
+  text-decoration:none;
+  transition:transform .22s ease,border-color .22s ease,background .22s ease;
+}
+.series-list-item:hover,
+.series-list-item:focus-visible {
+  transform:translateY(-2px);
+  border-color:rgba(125,211,252,.4);
+  background:
+    radial-gradient(circle at 100% 0,rgba(56,189,248,.12),transparent 30%),
+    linear-gradient(145deg,rgba(16,24,44,.9),rgba(8,13,28,.78));
+}
+.series-list-item:focus-visible {
+  outline:2px solid #7dd3fc;
+  outline-offset:3px;
+}
+.series-number {
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:52px;
+  height:52px;
+  border:1px solid rgba(56,189,248,.27);
+  border-radius:12px;
+  color:#7dd3fc;
+  background:rgba(56,189,248,.065);
+  font-size:13px;
+  font-weight:800;
+  letter-spacing:.08em;
+}
+.series-copy strong {
+  display:block;
+  color:#f8fafc;
+  font-size:17px;
+  line-height:1.55;
+}
+.series-copy span {
+  display:block;
+  margin-top:5px;
+  color:#94a3b8;
+  font-size:13px;
+  line-height:1.7;
+}
+.series-arrow {
+  color:#7dd3fc;
+  font-size:20px;
+  transition:transform .2s ease;
+}
+.series-list-item:hover .series-arrow { transform:translateX(4px); }
+
+@media(max-width:680px) {
+  .series-list-item {
+    grid-template-columns:48px minmax(0,1fr) 22px;
+    gap:12px;
+    padding:17px 15px;
+  }
+  .series-number {
+    width:44px;
+    height:44px;
+    font-size:12px;
+  }
+  .series-copy strong { font-size:15px; }
+  .series-copy span { font-size:12px; }
+}
+
+
+/* ============ COMPACT TECHNICAL LAB NAVIGATION ============ */
+.content-switcher {
+  position:sticky;
+  top:16px;
+  z-index:20;
+  display:flex;
+  gap:8px;
+  margin:0 0 28px;
+  padding:8px;
+  overflow-x:auto;
+  border:1px solid rgba(125,211,252,.15);
+  border-radius:14px;
+  background:rgba(5,8,22,.82);
+  backdrop-filter:blur(16px);
+  box-shadow:0 14px 38px rgba(0,0,0,.18);
+}
+.content-tab {
+  flex:1 0 auto;
+  min-width:170px;
+  padding:12px 15px;
+  border:1px solid transparent;
+  border-radius:10px;
+  color:#9fb0c2;
+  background:transparent;
+  font:inherit;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.025em;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.content-tab:hover { color:#e8f7ff; background:rgba(255,255,255,.035); }
+.content-tab.active {
+  color:#eaf8ff;
+  border-color:rgba(125,211,252,.27);
+  background:rgba(56,189,248,.09);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+.content-tab span {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:22px;
+  height:22px;
+  margin-left:7px;
+  padding:0 6px;
+  border-radius:999px;
+  color:#7dd3fc;
+  background:rgba(56,189,248,.08);
+  font-size:11px;
+}
+.js .content-panel { display:none; }
+.js .content-panel.active { display:block; }
+
+
 </style>
+<script>document.documentElement.classList.add("js");</script>
 </head>
 
 <body>
@@ -792,34 +932,86 @@ footer {
     <p class="page-intro">ネットワーク・セキュリティを中心に、実務で役立つ技術情報と検証内容を公開しています。</p>
   </header>
 
-  <section class="content-section" aria-labelledby="articles-heading">
+  <nav class="content-switcher" aria-label="Technical Lab コンテンツ切り替え">
+    <button class="content-tab active" type="button" data-panel="networkPanel" aria-controls="networkPanel" aria-selected="true">ネットワーク基礎<span>4</span></button>
+    <button class="content-tab" type="button" data-panel="articlesPanel" aria-controls="articlesPanel" aria-selected="false">その他の記事<span>4</span></button>
+    <button class="content-tab" type="button" data-panel="archivePanel" aria-controls="archivePanel" aria-selected="false">検証環境・実績</button>
+  </nav>
+
+  <section class="content-panel active" id="networkPanel" role="tabpanel" aria-labelledby="network-basics-heading">
     <div class="section-heading">
       <div class="section-heading-group">
-        <span class="section-kicker">TECHNICAL ARTICLES</span>
-        <h3 class="section-title" id="articles-heading">技術記事</h3>
-        <p class="section-description">設計・導入時の考え方を、実務的な視点で整理しています。</p>
+        <span class="section-kicker">NETWORK BASICS SERIES</span>
+        <h3 class="section-title" id="network-basics-heading">ネットワーク基礎シリーズ</h3>
+        <p class="section-description">主要機器4テーマを、実際の検証環境・設定例を交えて順番に解説します。</p>
       </div>
-      <span class="article-count" id="articleCount">5 ARTICLES</span>
+      <span class="article-count">4 ARTICLES</span>
     </div>
-    <div class="article-grid">
+
+    <div class="article-grid compact-article-grid">
       <a class="article-card" href="core_switch_guide.html">
         <div class="article-meta">
-          <span class="article-category">NETWORK BASICS</span>
+          <span class="article-category">NETWORK BASICS #01</span>
           <time datetime="2026-09-18">2026.09.18</time>
         </div>
-        <h4>ネットワーク基礎シリーズ #01｜コアスイッチとは？役割と基本設定</h4>
-        <p>コアスイッチの役割、アクセススイッチとの違い、VLAN・Trunk・SVI・ルーティングなどの基本設定を、実際の検証環境を一般化して解説します。</p>
+        <h4>コアスイッチとは？役割と基本設定</h4>
+        <p>VLAN、Trunk、SVI、ルーティングなど、ネットワーク中心部を担うコアスイッチの基本を解説します。</p>
         <span class="article-more">記事を読む</span>
       </a>
+
+      <a class="article-card" href="access_switch_guide.html">
+        <div class="article-meta">
+          <span class="article-category">NETWORK BASICS #02</span>
+          <time datetime="2026-09-18">2026.09.18</time>
+        </div>
+        <h4>アクセススイッチとは？役割と基本設定</h4>
+        <p>Access VLAN、Trunk、EtherChannel、STPなど、端末収容側のアクセススイッチを解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+
+      <a class="article-card" href="router_guide.html">
+        <div class="article-meta">
+          <span class="article-category">NETWORK BASICS #03</span>
+          <time datetime="2026-09-18">2026.09.18</time>
+        </div>
+        <h4>ルータとは？役割と基本設定</h4>
+        <p>Static Route、Default Route、PPPoE、NAT / PAT、ACLなど、ルータの基本機能を解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+
+      <a class="article-card" href="firewall_guide.html">
+        <div class="article-meta">
+          <span class="article-category">NETWORK BASICS #04</span>
+          <time datetime="2026-09-18">2026.09.18</time>
+        </div>
+        <h4>ファイアウォールとは？役割と基本設定</h4>
+        <p>Security Zone、Firewall Policy、Routing、NAT、管理・監視など、ファイアウォールの基本を解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="content-panel" id="articlesPanel" role="tabpanel" aria-labelledby="articles-heading">
+    <div class="section-heading">
+      <div class="section-heading-group">
+        <span class="section-kicker">OTHER TECHNICAL ARTICLES</span>
+        <h3 class="section-title" id="articles-heading">その他の技術記事</h3>
+        <p class="section-description">AI、クラウド、Zero Trustなどのテーマを掲載しています。</p>
+      </div>
+      <span class="article-count" id="articleCount">4 ARTICLES</span>
+    </div>
+
+    <div class="article-grid compact-article-grid">
       <a class="article-card" href="ai-driven-company.html">
         <div class="article-meta">
           <span class="article-category">AI / BUSINESS SYSTEMS</span>
           <time datetime="2026-09-16">2026.09.16</time>
         </div>
         <h4>AIを使う会社から、AIが動く会社へ</h4>
-        <p>生成AIを単なる業務支援ツールではなく、会社の仕組みをつくる開発パートナーとして活用する。小規模企業におけるAI基幹システムの考え方と、その可能性を紹介します。</p>
+        <p>生成AIを単なる業務支援ツールではなく、会社の仕組みをつくる開発パートナーとして活用する考え方を紹介します。</p>
         <span class="article-more">記事を読む</span>
       </a>
+
       <a class="article-card" href="solo-founder-with-ai.html">
         <div class="article-meta">
           <span class="article-category">AI / STORY</span>
@@ -829,150 +1021,132 @@ footer {
         <p>Webサイト、社内ポータル、ナレッジ、業務システム。AIとともに会社の仕組みを作ってきた過程を振り返ります。</p>
         <span class="article-more">記事を読む</span>
       </a>
+
       <a class="article-card" href="vps-guide.html">
         <div class="article-meta">
           <span class="article-category">CLOUD / VPS</span>
           <time datetime="2026-09-09">2026.09.09</time>
         </div>
-        <h4>VPS・レンタルサーバー・サーバーレスの違い｜企業のWeb基盤をどう選ぶか</h4>
+        <h4>VPS・レンタルサーバー・サーバーレスの違い</h4>
         <p>運用負荷、自由度、拡張性の違いから、企業に適したWeb基盤の選び方を整理します。</p>
         <span class="article-more">記事を読む</span>
       </a>
+
       <a class="article-card" href="zero_trust.html">
         <div class="article-meta">
           <span class="article-category">ZERO TRUST</span>
           <time datetime="2026-09-08">2026.09.08</time>
         </div>
-        <h4>中小企業向け｜Cloudflare Zero Trustで始めるゼロトラスト環境</h4>
+        <h4>Cloudflare Zero Trustで始めるゼロトラスト環境</h4>
         <p>小さく始めるゼロトラストの構成と、導入時に押さえたい設計ポイントを解説します。</p>
         <span class="article-more">記事を読む</span>
       </a>
     </div>
   </section>
 
-  <div class="section-heading archive-heading">
-    <div class="section-heading-group">
-      <span class="section-kicker">LAB ARCHIVE</span>
-      <h3 class="section-title">検証環境・技術実績</h3>
-    </div>
-  </div>
-
-  <section class="intro-card glass-card">
-    <p>
-      当社では、Enterpriseネットワーク・情報セキュリティ技術の検証を目的として、<br>
-      Cisco、Palo Alto Networks、Fortinet、Juniperなど複数ベンダーの実機を利用した
-      マルチベンダー検証環境を構築・運用していました。<br><br>
-      本環境では、実インターネット回線を利用し、ネットワーク設計から構築、運用、
-      障害切り分けまで一連の技術検証を実施しました。
-    </p>
-  </section>
-
-  <section class="section-card glass-card">
-    <h3>環境概要</h3>
-    <div class="summary-grid">
-      <div class="summary-item">
-        <div class="summary-label">構築時期</div>
-        <div class="summary-value">2022年～運用終了</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">構成</div>
-        <div class="summary-value">Enterprise Network Lab</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">運用形態</div>
-        <div class="summary-value">実インターネット接続環境</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">設計書</div>
-        <div class="summary-value">物理・論理設計書作成</div>
-      </div>
-      <div class="summary-item">
-        <div class="summary-label">運用</div>
-        <div class="summary-value">継続運用・技術検証</div>
+  <section class="content-panel" id="archivePanel" role="tabpanel" aria-labelledby="archive-heading">
+    <div class="section-heading archive-heading">
+      <div class="section-heading-group">
+        <span class="section-kicker">LAB ARCHIVE</span>
+        <h3 class="section-title" id="archive-heading">検証環境・技術実績</h3>
+        <p class="section-description">詳細は必要な項目だけ開いて確認できます。</p>
       </div>
     </div>
-  </section>
 
-  <section class="section-card glass-card">
-    <h3>使用製品・ベンダー</h3>
-    <div class="tag-list">
-      <span class="tag">Cisco</span>
-      <span class="tag">Palo Alto Networks</span>
-      <span class="tag">Fortinet</span>
-      <span class="tag">Juniper</span>
-      <span class="tag">Meraki</span>
-    </div>
-  </section>
+    <div class="archive-stack">
+      <details class="archive-accordion" open>
+        <summary>検証環境の概要</summary>
+        <div class="archive-body">
+          <section class="intro-card glass-card">
+            <p>
+              当社では、Enterpriseネットワーク・情報セキュリティ技術の検証を目的として、
+              Cisco、Palo Alto Networks、Fortinet、Juniperなど複数ベンダーの実機を利用した
+              マルチベンダー検証環境を構築・運用していました。
+              実インターネット回線を利用し、ネットワーク設計から構築、運用、障害切り分けまで一連の技術検証を実施しました。
+            </p>
+          </section>
 
-<section class="section-card glass-card">
-    <h3>技術要素</h3>
-    <div class="feature-grid">
-      <div class="feature-item">Enterprise Network設計</div>
-      <div class="feature-item">物理 / 論理設計</div>
-      <div class="feature-item">VLAN</div>
-      <div class="feature-item">Static Routing</div>
-    <div class="feature-item">OSPF</div>
-      <div class="feature-item">PPPoE</div>
-      <div class="feature-item">Access Control List</div>
-      <div class="feature-item">Security Policy</div>
-      <div class="feature-item">Security Zone</div>
-      <div class="feature-item">Virtual Domain</div>
-      <div class="feature-item">NAT</div>
-      <div class="feature-item">NTP</div>
-      <div class="feature-item">Context-Base Access Control</div>
-      <div class="feature-item">Wireless LAN</div>
-      <div class="feature-item">Network Monitoring</div>
-      <div class="feature-item">Packet Capture</div>
-      <div class="feature-item">SNMP</div>
-      <div class="feature-item">Link Aggregation</div>
-    </div>
-  </section>
+          <section class="section-card glass-card">
+            <h3>環境概要</h3>
+            <div class="summary-grid">
+              <div class="summary-item"><div class="summary-label">構築時期</div><div class="summary-value">2022年～運用終了</div></div>
+              <div class="summary-item"><div class="summary-label">構成</div><div class="summary-value">Enterprise Network Lab</div></div>
+              <div class="summary-item"><div class="summary-label">運用形態</div><div class="summary-value">実インターネット接続環境</div></div>
+              <div class="summary-item"><div class="summary-label">設計書</div><div class="summary-value">物理・論理設計書作成</div></div>
+              <div class="summary-item"><div class="summary-label">運用</div><div class="summary-value">継続運用・技術検証</div></div>
+            </div>
+          </section>
+        </div>
+      </details>
 
-  <section class="section-card glass-card">
-    <h3>ネットワーク構成</h3>
-    <div class="architecture-grid">
-      <div class="architecture-block">
-        <h4>物理構成図</h4>
-        <a href="lab-physical-topology.png" target="_blank">
-          <img
-            src="lab-physical-topology.png"
-            alt="Enterprise Network Lab Physical Topology"
-            class="architecture-image">
-        </a>
-      </div>
+      <details class="archive-accordion">
+        <summary>使用製品・技術要素</summary>
+        <div class="archive-body">
+          <section class="section-card glass-card">
+            <h3>使用製品・ベンダー</h3>
+            <div class="tag-list">
+              <span class="tag">Cisco</span>
+              <span class="tag">Palo Alto Networks</span>
+              <span class="tag">Fortinet</span>
+              <span class="tag">Juniper</span>
+              <span class="tag">Meraki</span>
+            </div>
+          </section>
+          <section class="section-card glass-card" style="margin-top:18px">
+            <h3>技術要素</h3>
+            <div class="feature-grid">
+              <div class="feature-item">Enterprise Network設計</div><div class="feature-item">物理 / 論理設計</div>
+              <div class="feature-item">VLAN</div><div class="feature-item">Static Routing</div>
+              <div class="feature-item">OSPF</div><div class="feature-item">PPPoE</div>
+              <div class="feature-item">Access Control List</div><div class="feature-item">Security Policy</div>
+              <div class="feature-item">Security Zone</div><div class="feature-item">Virtual Domain</div>
+              <div class="feature-item">NAT</div><div class="feature-item">NTP</div>
+              <div class="feature-item">Context-Base Access Control</div><div class="feature-item">Wireless LAN</div>
+              <div class="feature-item">Network Monitoring</div><div class="feature-item">Packet Capture</div>
+              <div class="feature-item">SNMP</div><div class="feature-item">Link Aggregation</div>
+            </div>
+          </section>
+        </div>
+      </details>
 
-      <div class="architecture-block">
-        <h4>論理構成図</h4>
-        <a href="lab-logical-topology.png" target="_blank">
-          <img
-            src="lab-logical-topology.png"
-            alt="Enterprise Network Lab Logical Topology"
-            class="architecture-image">
-        </a>
-      </div>
-    </div>
-  </section>
+      <details class="archive-accordion">
+        <summary>ネットワーク構成図</summary>
+        <div class="archive-body">
+          <section class="section-card glass-card">
+            <h3>ネットワーク構成</h3>
+            <div class="architecture-grid">
+              <div class="architecture-block">
+                <h4>物理構成図</h4>
+                <a href="lab-physical-topology.png" target="_blank" rel="noopener noreferrer">
+                  <img src="lab-physical-topology.png" alt="Enterprise Network Lab Physical Topology" class="architecture-image">
+                </a>
+              </div>
+              <div class="architecture-block">
+                <h4>論理構成図</h4>
+                <a href="lab-logical-topology.png" target="_blank" rel="noopener noreferrer">
+                  <img src="lab-logical-topology.png" alt="Enterprise Network Lab Logical Topology" class="architecture-image">
+                </a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </details>
 
-  <section class="section-card glass-card">
-    <h3>設計内容</h3>
-    <p>
-      本環境では、企業ネットワークを想定した設計書を作成し、
-      設計内容に基づいて構築・運用を行いました。
-    </p>
-    <ul class="document-list">
-      <li>基本設計</li>
-      <li>物理・論理構成設計</li>
-      <li>VLAN設計</li>
-      <li>ルーティング設計</li>
-      <li>セキュリティゾーン設計</li>
-      <li>セキュリティポリシー設計</li>
-      <li>トラフィックフロー設計</li>
-      <li>NTP設計</li>
-      <li>パケットキャプチャ設計</li>
-      <li>監視設計</li>
-    </ul>
-    <div class="note">
-      ※掲載する図面・設計資料は、一部情報をマスキング・簡略化したものを使用しています。
+      <details class="archive-accordion">
+        <summary>設計内容</summary>
+        <div class="archive-body">
+          <section class="section-card glass-card">
+            <h3>設計内容</h3>
+            <p>本環境では、企業ネットワークを想定した設計書を作成し、設計内容に基づいて構築・運用を行いました。</p>
+            <ul class="document-list">
+              <li>基本設計</li><li>物理・論理構成設計</li><li>VLAN設計</li><li>ルーティング設計</li>
+              <li>セキュリティゾーン設計</li><li>セキュリティポリシー設計</li>
+              <li>トラフィックフロー設計</li><li>NTP設計</li><li>パケットキャプチャ設計</li><li>監視設計</li>
+            </ul>
+            <div class="note">※掲載する図面・設計資料は、一部情報をマスキング・簡略化したものを使用しています。</div>
+          </section>
+        </div>
+      </details>
     </div>
   </section>
 </main>
@@ -1059,6 +1233,34 @@ document.addEventListener("DOMContentLoaded",()=>{
   }
   draw();
 });
+</script>
+
+
+<script>
+(function(){
+  const tabs=[...document.querySelectorAll(".content-tab")];
+  const panels=[...document.querySelectorAll(".content-panel")];
+  if(!tabs.length || !panels.length) return;
+
+  function activate(panelId, updateHash=true){
+    tabs.forEach(tab=>{
+      const active=tab.dataset.panel===panelId;
+      tab.classList.toggle("active",active);
+      tab.setAttribute("aria-selected",String(active));
+    });
+    panels.forEach(panel=>panel.classList.toggle("active",panel.id===panelId));
+    if(updateHash){
+      const hashMap={networkPanel:"network",articlesPanel:"articles",archivePanel:"archive"};
+      history.replaceState(null,"","#"+hashMap[panelId]);
+    }
+  }
+
+  tabs.forEach(tab=>tab.addEventListener("click",()=>activate(tab.dataset.panel)));
+
+  const panelMap={network:"networkPanel",articles:"articlesPanel",archive:"archivePanel"};
+  const initial=panelMap[location.hash.replace("#","")];
+  if(initial) activate(initial,false);
+})();
 </script>
 
 </body>
