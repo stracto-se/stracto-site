@@ -850,6 +850,61 @@ footer {
 
 
 
+
+/* ============ LAB TO NETWORK BASICS LINKS ============ */
+.lab-article-links {
+  margin-top:22px;
+  padding-top:20px;
+  border-top:1px solid rgba(148,163,184,.12);
+}
+.lab-article-links-title {
+  margin:0 0 12px;
+  color:#dff4ff;
+  font-size:14px;
+  font-weight:700;
+}
+.lab-article-link-grid {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.lab-article-link {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+  padding:12px 13px;
+  border:1px solid rgba(125,211,252,.17);
+  border-radius:10px;
+  color:#dbeafe;
+  background:rgba(56,189,248,.045);
+  text-decoration:none;
+  font-size:13px;
+  line-height:1.5;
+  transition:.2s ease;
+}
+.lab-article-link::after {
+  content:"→";
+  color:#7dd3fc;
+  flex:0 0 auto;
+}
+.lab-article-link:hover,
+.lab-article-link:focus-visible {
+  border-color:rgba(125,211,252,.4);
+  background:rgba(56,189,248,.085);
+  transform:translateY(-1px);
+}
+.lab-article-link:focus-visible {
+  outline:2px solid #7dd3fc;
+  outline-offset:3px;
+}
+@media(max-width:760px) {
+  .lab-article-link-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:480px) {
+  .lab-article-link-grid { grid-template-columns:1fr; }
+}
+
 /* ============ NETWORK BASICS / LAB RELATION ============ */
 .series-origin-note {
   margin:0 0 22px;
@@ -1154,6 +1209,16 @@ footer {
                 <a href="lab-logical-topology.png" target="_blank" rel="noopener noreferrer">
                   <img src="lab-logical-topology.png" alt="Enterprise Network Lab Logical Topology" class="architecture-image">
                 </a>
+              </div>
+            </div>
+
+            <div class="lab-article-links" aria-label="ネットワーク構成に関連する基礎記事">
+              <p class="lab-article-links-title">この構成で使用している主要機器を記事で確認する</p>
+              <div class="lab-article-link-grid">
+                <a class="lab-article-link" href="core_switch_guide.html">コアスイッチ</a>
+                <a class="lab-article-link" href="access_switch_guide.html">アクセススイッチ</a>
+                <a class="lab-article-link" href="router_guide.html">ルータ</a>
+                <a class="lab-article-link" href="firewall_guide.html">ファイアウォール</a>
               </div>
             </div>
           </section>
