@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <title>ネットワーク基礎シリーズ #01｜コアスイッチとは？役割と基本設定 | Stracto Technical Lab</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="ネットワーク基礎シリーズ第1回。コアスイッチの役割、アクセススイッチとの違い、VLAN・Trunk・SVI・ルーティング・SSH・NTPなどの基本設定を、実際の検証環境を一般化して解説します。">
+<meta name="description" content="ネットワーク基礎シリーズ第1回。コアスイッチの役割、アクセススイッチとの違い、VLAN・Trunk・SVI・ルーティング・DHCP・SSH・NTPなどの基本設定を、実際の検証環境を一般化して解説します。">
 <link rel="canonical" href="https://stracto.co.jp/core-switch-guide.html">
 <link href="favicon.png" rel="icon" type="image/png">
 <meta property="og:title" content="ネットワーク基礎シリーズ #01｜コアスイッチとは？役割と基本設定">
@@ -361,7 +361,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="settings">
         <h2>コアスイッチで必要になる基本設定</h2>
-        <p>実際にコアスイッチを構築する場合は、機器を接続するだけではなく、役割に応じた設定が必要です。Stractoの検証環境では、VLAN、Trunk、SVI、IP Routing、スタティックルート、SSH、NTP、Syslog、SNMPなどを設定しています。</p>
+        <p>実際にコアスイッチを構築する場合は、機器を接続するだけではなく、役割に応じた設定が必要です。Stractoの検証環境では、VLAN、Trunk、SVI、IP Routing、スタティックルート、DHCP、SSH、NTP、Syslog、SNMPなどを設定しています。</p>
 
         <ul class="check-list">
           <li><strong>ホスト名・管理IP：</strong>機器を識別し、管理ネットワークから接続できるようにする</li>
@@ -369,6 +369,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
           <li><strong>Access / Trunk：</strong>接続先に応じてポートの動作を決める</li>
           <li><strong>SVI：</strong>VLANごとのL3インターフェースを作成する</li>
           <li><strong>IP Routing / Static Route：</strong>異なるネットワーク間の経路を定義する</li>
+          <li><strong>DHCP：</strong>VLANごとにIPアドレス、デフォルトゲートウェイ、DNSなどを端末へ配布する</li>
           <li><strong>SSH：</strong>管理端末から安全にCLIへ接続する</li>
           <li><strong>NTP：</strong>ログや障害解析のため機器の時刻を同期する</li>
           <li><strong>Syslog / SNMP：</strong>ログ収集や状態監視を行う</li>
@@ -405,6 +406,27 @@ interface Vlan10
         </div>
 
         <p><code>ip routing</code>を有効化することで、L3スイッチとしてルーティングを行えるようになります。実環境では設計要件に応じて、ACLやFirewall側のポリシーも含めて通信可否を設計します。</p>
+      </section>
+
+      <section class="article-section" id="dhcp">
+        <h2>DHCPサーバとしての機能</h2>
+        <p>コアスイッチは、L2/L3の集約やルーティングだけでなく、構成によってはDHCPサーバとして動作させることもできます。Stractoの検証環境では、Catalyst 3750X上に複数のDHCPプールを定義し、各VLANの端末へIPアドレスを自動配布しています。</p>
+
+        <p>DHCPプールでは、払い出すネットワークに加えて、デフォルトゲートウェイ、DNSサーバ、リース期間などを指定します。また、DHCPで払い出さないアドレス範囲は、<code>ip dhcp excluded-address</code>で明示的に除外しています。</p>
+
+        <div class="config-block">
+          <div class="config-label">CONFIG EXAMPLE — DHCP SERVER</div>
+          <pre><code>ip dhcp excluded-address 192.0.2.50 192.0.2.254
+!
+ip dhcp pool USER-LAN
+ network 192.0.2.0 255.255.255.0
+ default-router 192.0.2.254
+ dns-server 192.0.2.53
+ lease infinite</code></pre>
+        </div>
+
+        <p>この例では、<code>ip dhcp excluded-address</code>で固定利用するアドレス範囲を除外し、<code>ip dhcp pool</code>で端末へ配布する情報を定義しています。Stractoの検証環境では複数のネットワークに対して同様のDHCPプールを設定しています。</p>
+
       </section>
 
       <section class="article-section" id="ports">
@@ -482,7 +504,7 @@ ntp server 192.0.2.10 prefer</code></pre>
       <section class="article-section" id="summary">
         <h2>まとめ</h2>
         <p>コアスイッチは、アクセススイッチやFirewallなどを接続し、複数のネットワークを束ねる中心的な機器です。L3スイッチを利用する場合は、VLAN間ルーティングや外部ネットワークへの経路制御も担当できます。</p>
-        <p>最初に押さえておきたいのは、VLAN、Access / Trunk、SVI、ルーティング、SSH、NTP、監視といった基本設定です。それぞれの設定を個別に覚えるだけでなく、「ネットワーク全体の中で、この機器に何を担当させるのか」を整理して設計することが重要です。</p>
+        <p>最初に押さえておきたいのは、VLAN、Access / Trunk、SVI、ルーティング、DHCP、SSH、NTP、監視といった基本設定です。それぞれの設定を個別に覚えるだけでなく、「ネットワーク全体の中で、この機器に何を担当させるのか」を整理して設計することが重要です。</p>
         <p>本記事は「ネットワーク基礎シリーズ」の第1回です。次回は、PCや無線APなどの端末を収容するエッジスイッチ（アクセススイッチ）を取り上げ、その役割と基本設定を解説します。</p>
         <p>シリーズでは、このあとルータ、ファイアウォールと続き、ネットワークを構成する主要機器を内側から外側へ順番に整理していきます。</p>
       </section>
@@ -504,6 +526,7 @@ ntp server 192.0.2.10 prefer</code></pre>
         <li><a href="#difference">アクセススイッチとの違い</a></li>
         <li><a href="#settings">必要な基本設定</a></li>
         <li><a href="#vlan">VLANとSVI</a></li>
+        <li><a href="#dhcp">DHCPサーバ</a></li>
         <li><a href="#ports">Access / Trunk</a></li>
         <li><a href="#routing">ルーティング</a></li>
         <li><a href="#management">管理・監視</a></li>
