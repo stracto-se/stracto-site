@@ -271,7 +271,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
   <header class="article-hero">
     <p class="eyebrow">NETWORK BASICS / 03</p>
     <h1>ルータとは？<br>役割と基本設定を実際のネットワーク構成から解説</h1>
-    <p class="lead">ネットワーク基礎シリーズ第3回。ルータは、異なるネットワーク同士を接続し、宛先に応じて通信経路を選択する機器です。本記事では、Stractoの検証環境で使用したCisco 891FJの実設定を一般化しながら、ルーティング、PPPoE、NAT/PAT、ACLなどの基本を整理します。</p>
+    <p class="lead">ネットワーク基礎シリーズ第3回。ルータは、異なるネットワーク同士を接続し、宛先に応じて通信経路を選択する機器です。本記事では、Stractoの検証環境で使用しているCisco 891FJの実設定を一般化しながら、ルーティング、PPPoE、NAT/PAT、ACLなどの基本を整理します。</p>
     <div class="meta">
       <span>公開日：2026.09.18</span>
       <span>読了目安：8分</span>
@@ -308,7 +308,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="architecture">
         <h2>ネットワークの中でどこに置かれるのか</h2>
-        <p>Stractoの検証環境では、Cisco 891FJをインターネットルータとして使用していました。内部側では複数のファイアウォール向けネットワークを収容し、外部側ではPPPoEを使ってインターネット回線へ接続する構成です。</p>
+        <p>Stractoの検証環境では、Cisco 891FJをインターネットルータとして使用しています。内部側では複数のファイアウォール向けネットワークを収容し、外部側ではPPPoEを使ってインターネット回線へ接続する構成です。</p>
         <div class="architecture" role="img" aria-label="社内ネットワークがファイアウォールとルータを経由してインターネットへ接続する構成">
           <div class="architecture-step"><small>INTERNAL</small><strong>Core / Firewall<br>Internal Network</strong></div>
           <div class="architecture-step"><small>ROUTER</small><strong>Routing / NAT<br>PPPoE</strong></div>
@@ -335,7 +335,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="settings">
         <h2>ルータで必要になる基本設定</h2>
-        <p>今回の実機設定では、管理インターフェース、内部側VLAN、PPPoE、スタティックルート、NAT/PAT、ACL、CBAC、SSH、NTP、Syslog、SNMPなどが設定されていました。</p>
+        <p>StractoのCisco 891FJでは、管理インターフェース、内部側VLAN、PPPoE、スタティックルート、NAT/PAT、ACL、CBAC、SSH、NTP、Syslog、SNMPなどを設定しています。</p>
         <ul class="check-list">
           <li><strong>LAN / WANインターフェース：</strong>内部側と外部側の接続先を定義する</li>
           <li><strong>ルーティング：</strong>宛先ネットワークごとの転送先を設定する</li>
@@ -358,19 +358,19 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 ip route 203.0.113.0 255.255.255.0 198.51.100.2</code></pre>
         </div>
 
-        <p>今回の実機では、内部の各ネットワークに対して複数のスタティックルートが設定され、ファイアウォール側のアドレスをNext Hopとしていました。</p>
+        <p>Stractoのルータでは、内部の各ネットワークに対して複数のスタティックルートを設定し、ファイアウォール側のアドレスをNext Hopとしています。</p>
 
         <h3>デフォルトルート</h3>
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — DEFAULT ROUTE</div>
           <pre><code>ip route 0.0.0.0 0.0.0.0 Dialer1</code></pre>
         </div>
-        <p><code>0.0.0.0/0</code>は、より具体的な経路が存在しない宛先に対して使用されます。実機ではインターネット向けのデフォルトルートをPPPoE用Dialerインターフェースへ向けていました。</p>
+        <p><code>0.0.0.0/0</code>は、より具体的な経路が存在しない宛先に対して使用されます。Stractoのルータではインターネット向けのデフォルトルートをPPPoE用Dialerインターフェースへ向けています。</p>
       </section>
 
       <section class="article-section" id="pppoe">
         <h2>PPPoEによるインターネット接続</h2>
-        <p>今回の検証環境では、物理WANポートでPPPoEを有効化し、実際のIPアドレスやPPP認証はDialerインターフェース側で処理する構成でした。</p>
+        <p>Stractoの検証環境では、物理WANポートでPPPoEを有効化し、実際のIPアドレスやPPP認証はDialerインターフェース側で処理する構成です。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — PPPoE</div>
@@ -409,12 +409,12 @@ interface Dialer1
 ip nat inside source list 100 interface Dialer1 overload</code></pre>
         </div>
 
-        <p>実機では、複数の内部セグメントをACLで指定し、<code>overload</code>を利用してDialerインターフェースのアドレスへPATしていました。</p>
+        <p>Stractoのルータでは、複数の内部セグメントをACLで指定し、<code>overload</code>を利用してDialerインターフェースのアドレスへPATしています。</p>
       </section>
 
       <section class="article-section" id="security">
         <h2>ACLと状態管理</h2>
-        <p>ルータでもACLを利用して、管理通信やWAN側からの受信通信を制御できます。今回の実機では、WAN側に受信ACLを適用し、必要な通信のみを明示的に許可し、それ以外を拒否する構成でした。</p>
+        <p>ルータでもACLを利用して、管理通信やWAN側からの受信通信を制御できます。Stractoのルータでは、WAN側に受信ACLを適用し、必要な通信のみを明示的に許可し、それ以外を拒否する構成です。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — WAN ACL</div>
@@ -427,7 +427,7 @@ interface Dialer1
         </div>
 
         <h3>CBACによる戻り通信の制御</h3>
-        <p>実機ではCBAC（Context-Based Access Control）も利用しており、TCP、UDP、ICMP、NTPなどの通信を検査し、内部から開始した通信の戻りトラフィックを動的に扱う構成でした。</p>
+        <p>StractoのルータではCBAC（Context-Based Access Control）も利用しており、TCP、UDP、ICMP、NTPなどの通信を検査し、内部から開始した通信の戻りトラフィックを動的に扱う構成です。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — CBAC</div>
@@ -444,7 +444,7 @@ interface Dialer1
 
       <section class="article-section" id="management">
         <h2>管理・監視のための設定</h2>
-        <p>ルータはネットワークの出口を担うため、管理経路と監視も重要です。今回の実機では、専用の管理インターフェースにIPアドレスを設定し、SSHによる管理、NTP、Syslog、SNMPを利用していました。</p>
+        <p>ルータはネットワークの出口を担うため、管理経路と監視も重要です。Stractoのルータでは、専用の管理インターフェースにIPアドレスを設定し、SSHによる管理、NTP、Syslog、SNMPを利用しています。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — SSH MANAGEMENT</div>
@@ -465,19 +465,19 @@ line vty 0 4
 ntp server 203.0.113.20 prefer</code></pre>
         </div>
 
-        <p>実機では外部NTPサーバと同期し、自身を内部向けNTPサーバとして利用する設定も行われていました。ルータ、スイッチ、ファイアウォールの時刻を揃えておくことで、障害発生時に各機器のログを時系列で追いやすくなります。</p>
+        <p>Stractoのルータでは外部NTPサーバと同期し、自身を内部向けNTPサーバとして利用する設定も行っています。ルータ、スイッチ、ファイアウォールの時刻を揃えておくことで、障害発生時に各機器のログを時系列で追いやすくなります。</p>
       </section>
 
       <section class="article-section" id="summary">
         <h2>まとめ</h2>
         <p>ルータは、異なるネットワーク間の通信経路を制御し、LANとWANをつなぐ役割を持つ機器です。インターネット接続では、ルーティングだけでなくPPPoE、NAT/PAT、ACLなど複数の機能を組み合わせることがあります。</p>
-        <p>今回の実機構成では、Cisco 891FJ上でスタティックルート、デフォルトルート、PPPoE、PAT、ACL、CBAC、SSH、NTP、Syslog、SNMPなどを利用していました。</p>
+        <p>StractoのCisco 891FJでは、スタティックルート、デフォルトルート、PPPoE、PAT、ACL、CBAC、SSH、NTP、Syslog、SNMPなどを利用しています。</p>
         <p>本記事は「ネットワーク基礎シリーズ」の第3回です。次回はファイアウォールを取り上げ、Security Zone、Policy、NAT、通信制御などの基本を解説します。</p>
       </section>
 
       <section class="article-section" id="sources">
         <h2>記事について</h2>
-        <p>本記事は、Stractoが保有していたネットワーク検証環境で使用したCisco 891FJの実機設定ログを基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
+        <p>本記事は、Stractoのネットワーク検証環境におけるCisco 891FJの実機設定ログを基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
         <div class="source-note">
           掲載しているコンフィグ例では、実際の設定パターンを参考にしつつ、IPアドレス、PPPoE認証情報、ユーザー名、パスワード、SNMP Community、管理アドレスなどをサンプル値へ置き換えています。実環境へ適用する場合は、利用機種・IOSバージョン・ISP・ネットワーク設計に合わせて確認してください。
         </div>

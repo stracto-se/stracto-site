@@ -271,7 +271,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
   <header class="article-hero">
     <p class="eyebrow">NETWORK BASICS / 01</p>
     <h1>コアスイッチとは？<br>役割と基本設定を実際のネットワーク構成から解説</h1>
-    <p class="lead">ネットワーク基礎シリーズ第1回。コアスイッチは、アクセススイッチやファイアウォールなどをつなぎ、ネットワークの中心で通信を集約する機器です。本記事では、実際の検証環境で使用した構成を一般化しながら、コアスイッチの役割と基本設定を分かりやすく整理します。</p>
+    <p class="lead">ネットワーク基礎シリーズ第1回。コアスイッチは、アクセススイッチやファイアウォールなどをつなぎ、ネットワークの中心で通信を集約する機器です。本記事では、Stractoの検証環境で使用している構成を一般化しながら、コアスイッチの役割と基本設定を分かりやすく整理します。</p>
     <div class="meta">
       <span>公開日：2026.09.18</span>
       <span>読了目安：8分</span>
@@ -309,7 +309,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="architecture">
         <h2>ネットワークの中でどこに置かれるのか</h2>
-        <p>実際の検証環境では、Cisco Catalyst 3750Xをコアスイッチとして配置し、アクセススイッチ、FortiGate、Palo Alto、Juniper製ファイアウォールなどを接続していました。</p>
+        <p>Stractoの検証環境では、Cisco Catalyst 3750Xをコアスイッチとして配置し、アクセススイッチ、FortiGate、Palo Alto、Juniper製ファイアウォールなどを接続しています。</p>
 
         <div class="architecture" role="img" aria-label="インターネット側のルータとファイアウォール、コアスイッチ、アクセススイッチを接続するネットワーク構成">
           <div class="architecture-step"><small>EDGE / SECURITY</small><strong>Router<br>Firewall</strong></div>
@@ -361,7 +361,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="settings">
         <h2>コアスイッチで必要になる基本設定</h2>
-        <p>実際にコアスイッチを構築する場合は、機器を接続するだけではなく、役割に応じた設定が必要です。今回参照した検証環境では、VLAN、Trunk、SVI、IP Routing、スタティックルート、SSH、NTP、Syslog、SNMPなどが設定されていました。</p>
+        <p>実際にコアスイッチを構築する場合は、機器を接続するだけではなく、役割に応じた設定が必要です。Stractoの検証環境では、VLAN、Trunk、SVI、IP Routing、スタティックルート、SSH、NTP、Syslog、SNMPなどを設定しています。</p>
 
         <ul class="check-list">
           <li><strong>ホスト名・管理IP：</strong>機器を識別し、管理ネットワークから接続できるようにする</li>
@@ -377,7 +377,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="vlan">
         <h2>VLANとSVIの設定</h2>
-        <p>VLANは、1台の物理スイッチ上に複数の論理ネットワークを作る仕組みです。今回の検証環境でも、管理用、インターネット接続用、開発・検証用など、用途に応じて複数のネットワークが分離されていました。</p>
+        <p>VLANは、1台の物理スイッチ上に複数の論理ネットワークを作る仕組みです。Stractoの検証環境でも、管理用、インターネット接続用、開発・検証用など、用途に応じて複数のネットワークを分離しています。</p>
 
         <h3>VLANの作成</h3>
         <p>実際の設定パターンを一般化すると、Cisco IOSでは次のようにVLANを作成します。</p>
@@ -435,12 +435,12 @@ interface Vlan10
  switchport nonegotiate</code></pre>
         </div>
 
-        <p>実際の検証環境でも、アクセススイッチ側やFirewall側との接続にTrunkが利用され、通過させるVLANを限定していました。</p>
+        <p>Stractoの検証環境でも、アクセススイッチ側やFirewall側との接続にTrunkを利用し、通過させるVLANを限定しています。</p>
       </section>
 
       <section class="article-section" id="routing">
         <h2>ルーティングの設定</h2>
-        <p>コアスイッチがL3機能を担当する場合、VLAN間だけでなく外部ネットワークへの経路も定義します。今回参照した検証環境では、動的ルーティングではなくスタティックルーティングを採用していました。</p>
+        <p>コアスイッチがL3機能を担当する場合、VLAN間だけでなく外部ネットワークへの経路も定義します。Stractoの検証環境では、動的ルーティングではなくスタティックルーティングを採用しています。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — STATIC ROUTE</div>
@@ -474,9 +474,9 @@ line vty 0 4
 ntp server 192.0.2.10 prefer</code></pre>
         </div>
 
-        <p>今回確認した実機ログでもNTP同期状態は正常で、コアスイッチはネットワーク内のNTPサーバと時刻同期していました。ログの時刻が揃っていることは、障害解析や変更履歴の確認で重要です。</p>
+        <p>Stractoの検証環境ではNTP同期状態は正常で、コアスイッチはネットワーク内のNTPサーバと時刻同期しています。ログの時刻が揃っていることは、障害解析や変更履歴の確認で重要です。</p>
 
-        <p>また、実環境ではSyslogとSNMPも設定されていました。監視対象や通知方法は環境ごとに異なりますが、コアスイッチのような中心機器ほど「異常を検知できること」まで含めて設計する必要があります。</p>
+        <p>また、Stractoの検証環境ではSyslogとSNMPも設定しています。監視対象や通知方法は環境ごとに異なりますが、コアスイッチのような中心機器ほど「異常を検知できること」まで含めて設計する必要があります。</p>
       </section>
 
       <section class="article-section" id="summary">

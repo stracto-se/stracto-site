@@ -271,7 +271,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
   <header class="article-hero">
     <p class="eyebrow">NETWORK BASICS / 04</p>
     <h1>ファイアウォールとは？<br>役割と基本設定を実際のネットワーク構成から解説</h1>
-    <p class="lead">ネットワーク基礎シリーズ第4回。ファイアウォールは、ネットワークの境界で通信を確認し、ルールに基づいて許可・拒否する機器です。本記事では、Stractoの検証環境で使用したFortiGate-60Eの実設定を一般化しながら、Security Zone、Address Object、Firewall Policy、ルーティング、NAT、管理・監視などの基本を整理します。</p>
+    <p class="lead">ネットワーク基礎シリーズ第4回。ファイアウォールは、ネットワークの境界で通信を確認し、ルールに基づいて許可・拒否する機器です。本記事では、Stractoの検証環境で使用しているFortiGate-60Eの実設定を一般化しながら、Security Zone、Address Object、Firewall Policy、ルーティング、NAT、管理・監視などの基本を整理します。</p>
     <div class="meta">
       <span>公開日：2026.09.18</span>
       <span>読了目安：9分</span>
@@ -309,7 +309,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="architecture">
         <h2>ネットワークの中でどこに置かれるのか</h2>
-        <p>Stractoの検証環境では、FortiGate-60Eを次世代ファイアウォールとして使用していました。内部側はLAGでコアスイッチへ接続し、外部側は2本のWANインターフェースをRedundant Interfaceとしてまとめる構成です。</p>
+        <p>Stractoの検証環境では、FortiGate-60Eを次世代ファイアウォールとして使用しています。内部側はLAGでコアスイッチへ接続し、外部側は2本のWANインターフェースをRedundant Interfaceとしてまとめる構成です。</p>
 
         <div class="architecture" role="img" aria-label="内部ネットワーク、ファイアウォール、外部ネットワークを接続する構成">
           <div class="architecture-step"><small>TRUST</small><strong>Core Switch<br>Internal Network</strong></div>
@@ -317,7 +317,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
           <div class="architecture-step"><small>UNTRUST</small><strong>Router<br>Internet</strong></div>
         </div>
 
-        <p>さらに、検証環境ではDMZと管理用ネットワークも個別に定義していました。通信経路だけでなく、「そのインターフェースがどのセキュリティ領域に属するのか」を整理しておくことで、ポリシーを設計しやすくなります。</p>
+        <p>さらに、検証環境ではDMZと管理用ネットワークも個別に定義しています。通信経路だけでなく、「そのインターフェースがどのセキュリティ領域に属するのか」を整理しておくことで、ポリシーを設計しやすくなります。</p>
 
         <div class="callout"><strong>実務上のポイント：</strong>ファイアウォールでは、ポリシーを作る前に「Trust / Untrust / DMZ / MGMTをどう分けるか」を決めておくことが重要です。ゾーン設計が曖昧だと、後からルールが複雑になりやすくなります。</div>
       </section>
@@ -361,7 +361,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="settings">
         <h2>ファイアウォールで必要になる基本設定</h2>
-        <p>今回のFortiGate実機設定では、物理・論理インターフェース、LAG、Redundant Interface、Security Zone、Address Object、Firewall Policy、Static Route、管理アクセス、NTP、SNMPなどが設定されていました。</p>
+        <p>StractoのFortiGateでは、物理・論理インターフェース、LAG、Redundant Interface、Security Zone、Address Object、Firewall Policy、Static Route、管理アクセス、NTP、SNMPなどを設定しています。</p>
 
         <ul class="check-list">
           <li><strong>Interface：</strong>Trust / Untrust / DMZ / MGMTなどの接続先を定義する</li>
@@ -377,7 +377,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="zone">
         <h2>Security Zoneの設定</h2>
-        <p>FortiGateでは、インターフェースをZoneにまとめてポリシーを作成できます。今回の実機では、Trust、Untrust、DMZ、MGMTの4つのZoneを定義していました。</p>
+        <p>FortiGateでは、インターフェースをZoneにまとめてポリシーを作成できます。StractoのFortiGateでは、Trust、Untrust、DMZ、MGMTの4つのZoneを定義しています。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — SECURITY ZONE</div>
@@ -402,7 +402,7 @@ end</code></pre>
 
       <section class="article-section" id="interface">
         <h2>LAGとWAN冗長化</h2>
-        <p>今回の実機では、内部側の2ポートをAggregate Interfaceとしてまとめ、Trust側の接続に利用していました。また、外部側の2ポートはRedundant Interfaceとして構成していました。</p>
+        <p>StractoのFortiGateでは、内部側の2ポートをAggregate Interfaceとしてまとめ、Trust側の接続に利用しています。また、外部側の2ポートはRedundant Interfaceとして構成しています。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — LAG</div>
@@ -448,12 +448,12 @@ end</code></pre>
 end</code></pre>
         </div>
 
-        <p>実機でも、内部ネットワークをSubnet Objectとして登録し、外部の特定宛先をFQDN Objectとして登録していました。FQDN Objectを使えば、IPアドレスが変化するサービスでも名前を基準に扱える場合があります。</p>
+        <p>StractoのFortiGateでも、内部ネットワークをSubnet Objectとして登録し、外部の特定宛先をFQDN Objectとして登録しています。FQDN Objectを使えば、IPアドレスが変化するサービスでも名前を基準に扱える場合があります。</p>
       </section>
 
       <section class="article-section" id="policy">
         <h2>Firewall Policyの基本</h2>
-        <p>Firewall Policyでは、「どこから」「どこへ」「どのアドレスが」「どのサービスを使うか」を条件として通信を制御します。今回の実機ではTrustからUntrustへの通信を対象に、特定のVPN通信、一般的な外向き通信、その他の通信という順序でポリシーが構成されていました。</p>
+        <p>Firewall Policyでは、「どこから」「どこへ」「どのアドレスが」「どのサービスを使うか」を条件として通信を制御します。StractoのFortiGateではTrustからUntrustへの通信を対象に、特定のVPN通信、一般的な外向き通信、その他の通信という順序でポリシーを構成しています。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — ALLOW POLICY</div>
@@ -492,12 +492,12 @@ end</code></pre>
 
         <p>ポリシーは上から順に評価されるため、必要な通信を先に許可し、それ以外を拒否する考え方が基本です。公開例では意図を分かりやすくするため、拒否Actionを明示しています。</p>
 
-        <div class="callout"><strong>実務上のポイント：</strong>検証環境では外向き通信を広く許可するポリシーも使用していましたが、これは検証目的の構成です。本番環境では業務要件に合わせて宛先・Service・Security Profileなどを必要な範囲に絞ります。</div>
+        <div class="callout"><strong>実務上のポイント：</strong>検証環境では外向き通信を広く許可するポリシーも使用していますが、これは検証目的の構成です。本番環境では業務要件に合わせて宛先・Service・Security Profileなどを必要な範囲に絞ります。</div>
       </section>
 
       <section class="article-section" id="routing">
         <h2>ファイアウォールにもルーティングが必要</h2>
-        <p>ファイアウォールはポリシーだけでは通信できません。宛先ネットワークへパケットを転送するためのルーティング情報も必要です。今回の実機では、内部ネットワーク向けの個別ルートと、外部側へ向ける経路が設定されていました。</p>
+        <p>ファイアウォールはポリシーだけでは通信できません。宛先ネットワークへパケットを転送するためのルーティング情報も必要です。StractoのFortiGateでは、内部ネットワーク向けの個別ルートと、外部側へ向ける経路を設定しています。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — STATIC ROUTE</div>
@@ -520,7 +520,7 @@ end</code></pre>
       <section class="article-section" id="nat">
         <h2>NATは必ずファイアウォールで行うとは限らない</h2>
         <p>NATはファイアウォールでもよく使われる機能ですが、ネットワーク構成によっては上位ルータ側でNATを担当する場合があります。</p>
-        <p>今回確認したFortiGateのTrust → Untrustポリシーでは、該当ポリシーにNATを有効化する設定は確認できませんでした。検証環境では外接ルータも存在していたため、機器ごとの役割を分けて設計していた構成と読み取れます。</p>
+        <p>今回の検証環境では、Trust → UntrustポリシーでNATを有効化していません。NATは外接ルータ側で実施しており、FortiGateは主に通信制御を担当する構成としています。このように、ネットワーク構成によってはルータとファイアウォールで役割を分け、NATをルータ側で実施する場合があります。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — POLICY NAT</div>
@@ -537,12 +537,12 @@ end</code></pre>
 end</code></pre>
         </div>
 
-        <p>上記はNATをファイアウォール側で行う場合の一般的な例です。これは今回の実機ポリシーをそのまま抜粋したものではありません。</p>
+        <p>上記はNATをファイアウォール側で行う場合の一般的な例です。これはStractoのFortiGateポリシーをそのまま抜粋したものではありません。</p>
       </section>
 
       <section class="article-section" id="management">
         <h2>管理・監視のための設定</h2>
-        <p>今回の実機では、管理用インターフェースを別に用意し、管理端末の送信元IPアドレスをTrusted Hostとして限定していました。管理アクセスとしてHTTPS、SSH、SNMPなども有効化されていました。</p>
+        <p>StractoのFortiGateでは、管理用インターフェースを別に用意し、管理端末の送信元IPアドレスをTrusted Hostとして限定しています。管理アクセスとしてHTTPS、SSH、SNMPなども有効化しています。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — MANAGEMENT INTERFACE</div>
@@ -566,7 +566,7 @@ end</code></pre>
         </div>
 
         <h3>NTP / SNMP</h3>
-        <p>実機では内部のNTPサーバと時刻同期し、SNMPによる監視も有効化されていました。記事内では、実際に設定されていたSNMP Communityや監視サーバのIPアドレスは公開していません。</p>
+        <p>FortiGateは内部のNTPサーバと時刻同期し、SNMPによる監視も有効化しています。記事内では、実際のSNMP Communityや監視サーバのIPアドレスは公開していません。</p>
 
         <div class="config-block">
           <div class="config-label">CONFIG EXAMPLE — NTP</div>
@@ -585,13 +585,13 @@ end</code></pre>
       <section class="article-section" id="summary">
         <h2>まとめ</h2>
         <p>ファイアウォールは、異なるセキュリティ領域の間で通信を制御するネットワーク機器です。Zone、Address Object、Service、Firewall Policy、Routingなどを組み合わせて、「必要な通信だけを許可する」構成を作ります。</p>
-        <p>今回のFortiGate実機では、Trust / Untrust / DMZ / MGMTのZone、LAG、Redundant Interface、Address Object、TrustからUntrustへのFirewall Policy、Static Route、管理元制限、NTP、SNMPなどを利用していました。</p>
+        <p>StractoのFortiGateでは、Trust / Untrust / DMZ / MGMTのZone、LAG、Redundant Interface、Address Object、TrustからUntrustへのFirewall Policy、Static Route、管理元制限、NTP、SNMPなどを利用しています。</p>
         <p>これで「ネットワーク基礎シリーズ」は、コアスイッチ、アクセススイッチ、ルータ、ファイアウォールの4記事が揃います。主要機器の役割を理解した後は、VLAN、STP、LAG、Routing、NAT、Firewall Policy、VPNなどを個別テーマとして掘り下げていくと、ネットワーク全体の理解をさらに深められます。</p>
       </section>
 
       <section class="article-section" id="sources">
         <h2>記事について</h2>
-        <p>本記事は、Stractoが保有していたネットワーク検証環境で使用したFortiGate-60E（FortiOS 6.2.7）の実機設定ログを基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
+        <p>本記事は、Stractoのネットワーク検証環境におけるFortiGate-60E（FortiOS 6.2.7）の実機設定ログを基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
         <div class="source-note">
           元の設定ログには、管理IPアドレス、ホスト名、Trusted Host、SNMP Community、アカウント情報、暗号化パスワード、証明書・秘密鍵などの機密情報が含まれるため、記事では掲載せずサンプル値へ置き換えています。実環境へ適用する場合は、利用機種・FortiOSバージョン・ライセンス・ネットワーク設計に合わせて確認してください。
         </div>

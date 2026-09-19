@@ -271,7 +271,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
   <header class="article-hero">
     <p class="eyebrow">NETWORK BASICS / 02</p>
     <h1>アクセススイッチとは？<br>役割と基本設定を実際のネットワーク構成から解説</h1>
-    <p class="lead">ネットワーク基礎シリーズ第2回。アクセススイッチは、PCやサーバ、無線APなどの端末をネットワークへ収容する、利用者に最も近い位置のスイッチです。本記事では、Stractoの検証環境で実際に使用していたCisco Catalyst 3750Gの設定を一般化・匿名化しながら、コアスイッチとの違いと基本設定を整理します。</p>
+    <p class="lead">ネットワーク基礎シリーズ第2回。アクセススイッチは、PCやサーバ、無線APなどの端末をネットワークへ収容する、利用者に最も近い位置のスイッチです。本記事では、Stractoの検証環境で実際に使用しているCisco Catalyst 3750Gの設定を一般化・匿名化しながら、コアスイッチとの違いと基本設定を整理します。</p>
     <div class="meta">
       <span>公開日：2026.09.18</span>
       <span>読了目安：7分</span>
@@ -307,7 +307,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="architecture">
         <h2>ネットワークの中でどこに置かれるのか</h2>
-        <p>Stractoの検証環境では、Cisco Catalyst 3750Gをエッジアクセススイッチ、Catalyst 2960Xを監視用アクセススイッチとして使用していました。上位のコアスイッチやファイアウォールと接続し、端末や各種ネットワーク機器を収容する構成です。</p>
+        <p>Stractoの検証環境では、Cisco Catalyst 3750Gをエッジアクセススイッチ、Catalyst 2960Xを監視用アクセススイッチとして使用しています。上位のコアスイッチやファイアウォールと接続し、端末や各種ネットワーク機器を収容する構成です。</p>
         <div class="architecture" role="img" aria-label="端末がアクセススイッチを経由してコアスイッチへ接続するネットワーク構成">
           <div class="architecture-step"><small>ENDPOINT</small><strong>PC / Server<br>Wireless AP</strong></div>
           <div class="architecture-step"><small>ACCESS</small><strong>Access Switch<br>VLAN収容</strong></div>
@@ -349,7 +349,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
       <section class="article-section" id="access-port">
         <h2>Accessポートの設定</h2>
-        <p>PCや無線APなど、1つのVLANだけを利用する機器を接続する場合はAccessポートを使用します。今回確認した実機では、利用者向けポートや無線AP向けポートをVLAN 10、管理系の接続をVLAN 2へ割り当てていました。</p>
+        <p>PCや無線APなど、1つのVLANだけを利用する機器を接続する場合はAccessポートを使用します。Stractoの検証環境では、利用者向けポートや無線AP向けポートをVLAN 10、管理系の接続をVLAN 2へ割り当てています。</p>
         <p>以下は、実機設定の構成を保ちながらインターフェース名や説明、VLAN用途を公開用に一般化した例です。</p>
         <div class="config-block">
           <div class="config-label">REAL CONFIG PATTERN — ACCESS PORT</div>
@@ -359,12 +359,12 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
  switchport mode access
  switchport nonegotiate</code></pre>
         </div>
-        <p><code>switchport access vlan</code>で所属VLANを指定し、<code>switchport mode access</code>でAccessポートとして固定します。実機でも、端末やAPを接続するポートごとに用途に応じたVLANを明示的に設定していました。</p>
+        <p><code>switchport access vlan</code>で所属VLANを指定し、<code>switchport mode access</code>でAccessポートとして固定します。検証環境でも、端末やAPを接続するポートごとに用途に応じたVLANを明示的に設定しています。</p>
       </section>
 
       <section class="article-section" id="trunk">
         <h2>上位スイッチとのTrunk接続</h2>
-        <p>アクセススイッチからコアスイッチへVLANの通信を渡す場合はTrunkポートを使用します。実機では、コアスイッチ向けの複数ポートを802.1Q Trunkとして構成し、通過させるVLANを明示的に限定していました。</p>
+        <p>アクセススイッチからコアスイッチへVLANの通信を渡す場合はTrunkポートを使用します。検証環境では、コアスイッチ向けの複数ポートを802.1Q Trunkとして構成し、通過させるVLANを明示的に限定しています。</p>
         <div class="config-block">
           <div class="config-label">REAL CONFIG PATTERN — TRUNK PORT</div>
           <pre><code>interface GigabitEthernet1/0/21
@@ -375,12 +375,12 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
  switchport nonegotiate
  channel-group 1 mode on</code></pre>
         </div>
-        <p><code>switchport trunk allowed vlan</code>を使うことで、Trunk上を通過させるVLANを限定できます。今回の構成では、アクセス側からコア側へ必要なVLANだけを転送する設計になっていました。</p>
+        <p><code>switchport trunk allowed vlan</code>を使うことで、Trunk上を通過させるVLANを限定できます。この構成では、アクセス側からコア側へ必要なVLANだけを転送する設計にしています。</p>
       </section>
 
       <section class="article-section" id="etherchannel">
         <h2>EtherChannelで上位リンクを束ねる</h2>
-        <p>今回のアクセススイッチでは、コアスイッチとの接続に4本のGigabit Ethernetを使用し、それらを1つのPort-channelとして束ねていました。複数の物理リンクを論理的な1本のリンクとして扱う仕組みがEtherChannelです。</p>
+        <p>Stractoのアクセススイッチでは、コアスイッチとの接続に4本のGigabit Ethernetを使用し、それらを1つのPort-channelとして束ねています。複数の物理リンクを論理的な1本のリンクとして扱う仕組みがEtherChannelです。</p>
         <div class="config-block">
           <div class="config-label">REAL CONFIG PATTERN — ETHERCHANNEL</div>
           <pre><code>interface Port-channel1
@@ -396,37 +396,37 @@ interface GigabitEthernet1/0/21
 interface GigabitEthernet1/0/22
  channel-group 1 mode on</code></pre>
         </div>
-        <p>実機では<code>mode on</code>による静的EtherChannelを使用していました。構築時は、対向機器側でも同じチャネル構成・VLAN設定になっていることを確認する必要があります。</p>
+        <p>検証環境では<code>mode on</code>による静的EtherChannelを使用しています。構築時は、対向機器側でも同じチャネル構成・VLAN設定になっていることを確認する必要があります。</p>
         <div class="callout"><strong>確認ポイント：</strong>EtherChannelのメンバーポートでVLAN設定などに差異があると、ポートがチャネルへ正常に参加できないことがあります。設定後は<code>show etherchannel summary</code>などで状態を確認します。</div>
       </section>
 
       <section class="article-section" id="stp">
         <h2>STPとL2ループ対策</h2>
         <p>スイッチを複数台接続する環境では、物理的な接続方法によってL2ループが発生する可能性があります。STP（Spanning Tree Protocol）は、冗長なL2経路を制御し、ループを防ぐための代表的な仕組みです。</p>
-        <p>今回の実機では、STPモードとしてRapid-PVSTが設定されていました。</p>
+        <p>検証環境では、STPモードとしてRapid-PVSTを設定しています。</p>
         <div class="config-block">
           <div class="config-label">REAL CONFIG PATTERN — STP MODE</div>
           <pre><code>spanning-tree mode rapid-pvst
 spanning-tree extend system-id</code></pre>
         </div>
-        <p>一方、検証環境固有の設定として一部VLANでSTPを無効化する設定も確認できました。この部分は一般的な推奨設定として掲載せず、実際のネットワークでは冗長経路やループ発生条件を整理したうえでSTP設計を行う必要があります。</p>
+        <p>一方、検証環境固有の設定として一部VLANではSTPを無効化しています。この部分は一般的な推奨設定として掲載せず、実際のネットワークでは冗長経路やループ発生条件を整理したうえでSTP設計を行う必要があります。</p>
       </section>
 
       <section class="article-section" id="unused">
         <h2>未使用ポートの扱い</h2>
-        <p>今回の実機では、使用していない多数のインターフェースを<code>shutdown</code>していました。未使用ポートを無効化しておくことで、意図しない端末接続を防ぎ、実際に利用しているポートも把握しやすくなります。</p>
+        <p>検証環境では、使用していない多数のインターフェースを<code>shutdown</code>しています。未使用ポートを無効化しておくことで、意図しない端末接続を防ぎ、実際に利用しているポートも把握しやすくなります。</p>
         <div class="config-block">
           <div class="config-label">REAL CONFIG PATTERN — UNUSED PORT</div>
           <pre><code>interface GigabitEthernet1/0/4
  switchport mode access
  shutdown</code></pre>
         </div>
-        <p>実機の<code>show interfaces status</code>でも、未使用ポートは<code>disabled</code>として確認できる状態でした。</p>
+        <p>検証環境の<code>show interfaces status</code>でも、未使用ポートは<code>disabled</code>として確認できる状態です。</p>
       </section>
 
       <section class="article-section" id="management">
         <h2>管理・監視のための設定</h2>
-        <p>アクセススイッチもコアスイッチと同様に、管理用IP、時刻同期、ログ収集、監視の設定を用意します。実機では管理用VLANにIPアドレスを設定し、NTPの送信元にもそのVLANを利用していました。</p>
+        <p>アクセススイッチもコアスイッチと同様に、管理用IP、時刻同期、ログ収集、監視の設定を用意します。検証環境では管理用VLANにIPアドレスを設定し、NTPの送信元にもそのVLANを利用しています。</p>
         <div class="config-block">
           <div class="config-label">REAL CONFIG PATTERN — MANAGEMENT</div>
           <pre><code>interface Vlan2
@@ -438,8 +438,8 @@ ip default-gateway 192.0.2.1
 ntp source Vlan2
 ntp server 192.0.2.10 prefer</code></pre>
         </div>
-        <p>実機ではSyslogサーバへのログ転送とSNMPによる監視も設定されており、NTP同期状態も正常であることを確認できました。障害解析では、スイッチ単体の設定だけでなく「いつ・どのポートで・何が起きたか」を追える状態にしておくことが重要です。</p>
-        <div class="callout"><strong>管理アクセスについて：</strong>この検証環境は過去に構築したもので、実機設定ではVTYにSSH以外も許可する設定が残っています。現在新規に構築する場合は、管理アクセスをSSHなどの暗号化方式へ限定することを推奨します。</div>
+        <p>検証環境ではSyslogサーバへのログ転送とSNMPによる監視も設定しており、NTPも正常に同期しています。障害解析では、スイッチ単体の設定だけでなく「いつ・どのポートで・何が起きたか」を追える状態にしておくことが重要です。</p>
+        <div class="callout"><strong>管理アクセスについて：</strong>この検証環境では、VTYにSSH以外も許可する設定が残っています。現在新規に構築する場合は、管理アクセスをSSHなどの暗号化方式へ限定することを推奨します。</div>
       </section>
 
       <section class="article-section" id="summary">
@@ -451,8 +451,8 @@ ntp server 192.0.2.10 prefer</code></pre>
 
       <section class="article-section" id="sources">
         <h2>記事について</h2>
-        <p>本記事は、Stractoが保有していたネットワーク検証環境の設計書およびCisco Catalyst 3750Gの実機設定ログを基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
-        <div class="source-note">掲載しているコンフィグは、実機で使用していたVLAN、Accessポート、Trunk、EtherChannel、管理VLAN、NTPなどの設定パターンを参考にしつつ、IPアドレス、ホスト名、認証情報、監視先などを公開用のサンプル値へ置き換えています。検証環境固有の設定は、そのまま推奨構成として扱わないよう区別しています。</div>
+        <p>本記事は、Stractoのネットワーク検証環境の設計書およびCisco Catalyst 3750Gの実機設定ログを基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
+        <div class="source-note">掲載しているコンフィグは、検証環境で使用しているVLAN、Accessポート、Trunk、EtherChannel、管理VLAN、NTPなどの設定パターンを基にしつつ、IPアドレス、ホスト名、認証情報、監視先などを公開用のサンプル値へ置き換えています。検証環境固有の設定は、そのまま推奨構成として扱わないよう区別しています。</div>
       </section>
     </article>
 
