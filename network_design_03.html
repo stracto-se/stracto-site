@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ネットワーク設計シリーズ #03｜VLAN・IPアドレス設計のまとめ方 | Stracto Technical Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ネットワーク設計シリーズ第3回。VLAN ID、IP Subnet、Gateway、Access / Trunk、用途など、VLAN・IPアドレス設計を設計書へ整理する方法を、実際の検証環境の設計書を一般化して解説します。">
+<link rel="canonical" href="https://stracto.co.jp/network-design-03.html">
+<link href="favicon.png" rel="icon" type="image/png">
+<meta property="og:title" content="ネットワーク設計シリーズ #03｜VLAN・IPアドレス設計のまとめ方">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stracto.co.jp/network-design-03.html">
+<meta property="og:description" content="VLAN ID、IP Subnet、Gateway、Access / Trunk、用途をどう整理するか。ネットワーク設計書のVLAN・IP設計を分かりやすく解説。">
+<meta name="twitter:card" content="summary">
+
+<style>
+:root {
+  --bg:#050816;
+  --panel:rgba(12,20,39,.82);
+  --panel-soft:rgba(255,255,255,.035);
+  --line:rgba(125,211,252,.18);
+  --text:#e5edf5;
+  --soft:#9eacbd;
+  --accent:#38bdf8;
+  --accent-soft:#7dd3fc;
+}
+
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(37,99,235,.13), transparent 31%),
+    var(--bg);
+}
+
+#particles { position:fixed; inset:0; z-index:-1; opacity:.72; }
+
+.hamburger {
+  position:fixed; top:22px; right:24px; z-index:99999;
+  width:36px; height:26px; padding:0; border:0; cursor:pointer;
+  background:none;
+}
+.hamburger span {
+  position:absolute; left:0; width:100%; height:4px;
+  border-radius:6px; background:var(--accent); transition:.36s;
+}
+.hamburger span:nth-child(1){top:0}.hamburger span:nth-child(2){top:11px}.hamburger span:nth-child(3){top:22px}
+.hamburger.active span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+
+#mobileMenu {
+  position:fixed; top:0; right:-100%; z-index:9999;
+  display:flex; flex-direction:column; gap:28px;
+  width:240px; height:100vh; padding:90px 28px;
+  background:rgba(0,0,0,.68); backdrop-filter:blur(16px);
+  transition:right .45s ease;
+}
+#mobileMenu.show { right:0; }
+#mobileMenu a { color:#fff; font-size:18px; text-decoration:none; }
+
+main { position:relative; max-width:1040px; margin:0 auto; padding:112px 24px 110px; }
+main::before {
+  content:""; position:absolute; top:74px; right:28px; width:160px; height:160px;
+  border:1px solid rgba(56,189,248,.055); border-radius:50%;
+  box-shadow:0 0 0 40px rgba(56,189,248,.016),0 0 0 80px rgba(56,189,248,.01);
+  pointer-events:none;
+}
+
+.breadcrumb { display:flex; gap:8px; align-items:center; margin-bottom:34px; color:var(--soft); font-size:14px; }
+.breadcrumb a { color:var(--accent-soft); text-decoration:none; }
+.breadcrumb span { opacity:.55; }
+
+.article-hero {
+  position:relative; overflow:hidden; padding:46px 46px 42px;
+  border:1px solid rgba(125,211,252,.24); border-radius:18px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(56,189,248,.17), transparent 30%),
+    radial-gradient(circle at 0 100%, rgba(37,99,235,.12), transparent 36%),
+    linear-gradient(145deg, rgba(16,24,44,.93), rgba(8,13,28,.84));
+  box-shadow:0 24px 70px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.article-hero::before { content:""; position:absolute; top:0; left:35px; width:120px; height:1px; background:linear-gradient(90deg,var(--accent-soft),transparent); }
+.eyebrow { margin:0 0 18px; color:var(--accent-soft); font-size:13px; font-weight:750; letter-spacing:.14em; }
+h1 { max-width:790px; margin:0; color:#f8fafc; font-size:clamp(30px,5vw,48px); line-height:1.3; letter-spacing:.015em; }
+.lead { max-width:760px; margin:25px 0 0; color:#d4dfeb; font-size:18px; line-height:1.95; }
+.meta { display:flex; flex-wrap:wrap; gap:18px; margin-top:28px; color:var(--soft); font-size:13px; }
+
+
+.series-strip {
+  margin-top:30px; padding:24px;
+  border:1px solid rgba(125,211,252,.2); border-radius:15px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(56,189,248,.07),transparent 28%),
+    linear-gradient(145deg,rgba(16,24,44,.82),rgba(8,13,28,.75));
+}
+.series-label { margin:0 0 7px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.12em; }
+.series-title { margin:0; color:#f5fbff; font-size:20px; }
+.series-description { margin:9px 0 0; color:var(--soft); font-size:14px; line-height:1.7; }
+.series-items { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px; }
+.series-item {
+  min-height:96px; padding:16px;
+  border:1px solid rgba(148,163,184,.11); border-radius:11px;
+  background:rgba(255,255,255,.022);
+}
+.series-item.current {
+  border-color:rgba(125,211,252,.35);
+  background:rgba(56,189,248,.085);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+.series-item small { display:block; margin-bottom:8px; color:#7f90a4; font-size:11px; letter-spacing:.08em; }
+.series-item.current small { color:var(--accent-soft); }
+.series-item strong { display:block; color:#dce8f2; font-size:14px; line-height:1.55; }
+.series-item.current strong { color:#f4fbff; }
+a.series-item { text-decoration:none; transition:border-color .2s ease,background .2s ease,transform .2s ease; }
+a.series-item:hover,
+a.series-item:focus-visible {
+  border-color:rgba(125,211,252,.34);
+  background:rgba(56,189,248,.06);
+  transform:translateY(-2px);
+}
+a.series-item:focus-visible { outline:2px solid var(--accent-soft); outline-offset:3px; }
+
+.article-layout { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:30px; margin-top:30px; align-items:start; }
+.article-body { min-width:0; }
+.toc {
+  position:sticky; top:28px; padding:23px;
+  border:1px solid var(--line); border-radius:14px;
+  background:linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+}
+.toc-title { margin:0 0 14px; color:#f8fafc; font-weight:700; }
+.toc ol { margin:0; padding-left:21px; color:var(--soft); }
+.toc li+li { margin-top:10px; }
+.toc a { color:#bdcad8; font-size:14px; line-height:1.55; text-decoration:none; }
+.toc a:hover { color:var(--accent-soft); }
+
+.article-section {
+  margin-bottom:24px; padding:34px;
+  border:1px solid var(--line); border-radius:15px;
+  background:
+    radial-gradient(circle at 0 0,rgba(56,189,248,.075),transparent 30%),
+    linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+  box-shadow:0 18px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.article-section h2 { position:relative; margin:0 0 24px; padding-left:15px; color:#f8fafc; font-size:24px; line-height:1.5; }
+.article-section h2::before { content:""; position:absolute; left:0; top:.25em; width:3px; height:1.05em; border-radius:3px; background:var(--accent); box-shadow:0 0 14px rgba(56,189,248,.5); }
+.article-section h3 { margin:28px 0 12px; color:#dff4ff; font-size:18px; }
+.article-section p { margin:0 0 18px; color:#ccd7e3; font-size:16px; line-height:1.95; }
+.article-section p:last-child { margin-bottom:0; }
+
+.point-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; }
+.point {
+  padding:20px 18px; border:1px solid rgba(125,211,252,.14); border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+.point-number { display:block; margin-bottom:12px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.1em; }
+.point strong { display:block; margin-bottom:7px; color:#f2f7fb; font-size:16px; }
+.point p { margin:0; color:var(--soft); font-size:14px; line-height:1.75; }
+
+.architecture { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; align-items:stretch; margin:24px 0; }
+.architecture-step { position:relative; display:flex; flex-direction:column; justify-content:center; min-height:112px; padding:18px; text-align:center; border:1px solid rgba(56,189,248,.22); border-radius:12px; background:rgba(14,165,233,.055); }
+.architecture-step:not(:last-child)::after { content:"→"; position:absolute; right:-17px; top:50%; z-index:2; color:var(--accent-soft); font-size:20px; transform:translateY(-50%); }
+.architecture-step small { margin-bottom:7px; color:var(--soft); font-size:12px; }
+.architecture-step strong { color:#e9f7ff; font-size:15px; line-height:1.55; }
+
+.check-list { display:grid; gap:10px; margin:20px 0 0; padding:0; list-style:none; }
+.check-list li { position:relative; padding:14px 16px 14px 42px; border:1px solid rgba(148,163,184,.12); border-radius:10px; color:#d8e3ed; background:rgba(255,255,255,.024); line-height:1.7; }
+.check-list li::before { content:"✓"; position:absolute; left:17px; color:var(--accent-soft); font-weight:800; }
+
+.callout { margin-top:24px; padding:20px 22px; border-left:3px solid var(--accent); border-radius:0 10px 10px 0; color:#d6e1ec; background:rgba(56,189,248,.065); line-height:1.85; }
+
+.config-block {
+  margin:18px 0 22px;
+  overflow:auto;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:12px;
+  background:#040814;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+.config-label {
+  padding:10px 14px;
+  border-bottom:1px solid rgba(125,211,252,.12);
+  color:var(--accent-soft);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  background:rgba(56,189,248,.045);
+}
+.config-block pre { margin:0; padding:18px; min-width:520px; }
+.config-block code {
+  color:#d9edf8;
+  font-family:"Cascadia Code","SFMono-Regular",Consolas,monospace;
+  font-size:13px;
+  line-height:1.75;
+}
+
+.compare-table-wrap { overflow-x:auto; margin-top:18px; }
+.compare-table { width:100%; min-width:620px; border-collapse:collapse; }
+.compare-table th,
+.compare-table td {
+  padding:14px 15px;
+  border:1px solid rgba(125,211,252,.13);
+  text-align:left;
+  vertical-align:top;
+  line-height:1.7;
+}
+.compare-table th { color:#e8f7ff; background:rgba(56,189,248,.07); }
+.compare-table td { color:#cbd7e3; background:rgba(255,255,255,.018); }
+
+.source-note {
+  margin-top:18px;
+  padding:18px 20px;
+  border:1px solid rgba(148,163,184,.12);
+  border-radius:11px;
+  color:#aebdca;
+  font-size:14px;
+  line-height:1.8;
+  background:rgba(255,255,255,.02);
+}
+
+footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px solid rgba(125,211,252,.1); background:linear-gradient(180deg,transparent,rgba(8,13,28,.72)); }
+.footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; margin-bottom:18px; }
+.footer-links a { color:var(--soft); text-decoration:none; }
+.footer-links a:hover { color:var(--accent-soft); }
+.footer-bottom { font-size:13px; opacity:.8; }
+
+@media(max-width:860px){
+  .series-items { grid-template-columns:repeat(2,1fr); }
+  .article-layout { grid-template-columns:1fr; }
+  .toc { position:relative; top:auto; order:-1; }
+  .point-grid { grid-template-columns:1fr; }
+}
+@media(max-width:680px){
+  main { padding:94px 17px 80px; }
+  main::before { display:none; }
+  .breadcrumb { margin-bottom:24px; }
+  .article-hero { padding:32px 23px 30px; border-radius:15px; }
+  h1 { font-size:29px; }
+  .lead { font-size:16px; line-height:1.85; }
+  .article-section { padding:27px 21px; }
+  .article-section h2 { font-size:21px; }
+  .series-strip { padding:21px; }
+  .series-items { grid-template-columns:1fr; }
+  .architecture { grid-template-columns:1fr; }
+  .architecture-step:not(:last-child)::after { content:"↓"; left:50%; right:auto; top:auto; bottom:-21px; transform:translateX(-50%); }
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu(this)">
+  <span></span><span></span><span></span>
+</button>
+
+<nav id="mobileMenu" aria-label="メインメニュー">
+  <a href="index.html">HOME</a>
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="technical_lab.html">TECHNICAL LAB</a>
+  <a href="contact.html">CONTACT</a>
+</nav>
+
+<main>
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <a href="index.html">HOME</a><span>/</span>
+    <a href="technical_lab.html">TECHNICAL LAB</a><span>/</span>
+    <span>NETWORK DESIGN / 03</span>
+  </nav>
+
+  <header class="article-hero">
+    <p class="eyebrow">NETWORK DESIGN / 03</p>
+    <h1>VLAN・IPアドレスはどう設計する？<br>ネットワーク分割とアドレス設計の基本</h1>
+    <p class="lead">ネットワーク設計シリーズ第3回。VLANとIPアドレスは、端末やサーバーをどのネットワークへ収容し、どこで通信を分けるかを決める基本要素です。本記事では、実際の検証環境で作成した設計書の構成を一般化しながら、VLAN ID、IP Subnet、Gateway、Access / Trunk、用途をどのように整理すると分かりやすいかを解説します。</p>
+    <div class="meta">
+      <span>公開日：2026.09.24</span>
+      <span>読了目安：8分</span>
+      <span>ネットワーク設計シリーズ 第3回</span>
+      <span>Stracto Technical Lab</span>
+    </div>
+  </header>
+
+  <section class="series-strip" aria-label="ネットワーク設計シリーズ">
+    <p class="series-label">NETWORK DESIGN SERIES</p>
+    <h2 class="series-title">ネットワーク設計シリーズ</h2>
+    <p class="series-description">ネットワーク機器の知識を、設計書・構成図・設計項目へ落とし込む方法を整理します。</p>
+    <div class="series-items">
+      <a class="series-item" href="network-design-01.html"><small>#01 / PUBLISHED</small><strong>設計書には何を書く？</strong></a>
+      <a class="series-item" href="network-design-02.html"><small>#02 / PUBLISHED</small><strong>物理・論理構成図</strong></a>
+      <div class="series-item current"><small>#03 / CURRENT</small><strong>VLAN・IP設計</strong></div>
+      <a class="series-item" href="network-design-04.html"><small>#04 / NEXT</small><strong>Routing・Security設計</strong></a>
+    </div>
+  </section>
+
+  <div class="article-layout">
+    <article class="article-body">
+
+      <section class="article-section" id="overview">
+        <h2>VLAN・IPアドレス設計とは</h2>
+        <p>VLAN・IPアドレス設計では、ネットワークをどの単位で分割し、それぞれにどのアドレス帯を割り当てるかを決めます。</p>
+        <p>設計書では、VLAN IDだけを決めるのではなく、<strong>用途、IP Subnet、Gateway、Access / Trunkの扱い</strong>まで対応づけておくと、構成図や機器設定との関係を追いやすくなります。</p>
+
+        <div class="point-grid">
+          <div class="point"><span class="point-number">POINT 01</span><strong>用途で分ける</strong><p>User、Management、Server、Transitなど、通信の役割ごとにネットワークを整理します。</p></div>
+          <div class="point"><span class="point-number">POINT 02</span><strong>IPを対応づける</strong><p>VLANごとにSubnetとGatewayを決め、アドレスの重複を避けます。</p></div>
+          <div class="point"><span class="point-number">POINT 03</span><strong>接続方式まで書く</strong><p>Access / Trunkや収容先を整理し、L2設計とL3設計をつなげます。</p></div>
+        </div>
+      </section>
+
+      <section class="article-section" id="purpose">
+        <h2>1. まずネットワークの用途を分ける</h2>
+        <p>最初に、「何を同じネットワークへ収容し、何を分離するか」を決めます。用途が決まる前にVLAN番号だけを割り当てると、後から設計意図が分かりにくくなります。</p>
+
+        <ul class="check-list">
+          <li><strong>User Network：</strong>PCなど利用者端末を収容するネットワーク</li>
+          <li><strong>Management Network：</strong>ネットワーク機器の管理用通信を収容するネットワーク</li>
+          <li><strong>Server / Service Network：</strong>サーバーやサービス用の通信を分離するネットワーク</li>
+          <li><strong>Transit Network：</strong>ルータやファイアウォールなどL3機器間を接続するネットワーク</li>
+        </ul>
+
+        <div class="callout"><strong>設計のポイント：</strong>VLANは単なる番号ではなく、「通信をどの単位で分離するか」を表す設計要素です。用途を先に決めると、Security PolicyやRoutingの設計にもつなげやすくなります。</div>
+      </section>
+
+      <section class="article-section" id="vlan-table">
+        <h2>2. VLANは「ID・IP・接続方式・用途」で一覧化する</h2>
+        <p>第1回で紹介した設計書では、VLAN ID、IPアドレス、Access / Trunk、用途を同じ表で整理していました。この形式にすると、論理構成とスイッチ設定の対応を確認しやすくなります。</p>
+
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>VLAN ID</th><th>Network</th><th>接続方式</th><th>用途</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>10</td><td>192.0.2.0/24</td><td>Access</td><td>User Network</td></tr>
+              <tr><td>20</td><td>198.51.100.0/24</td><td>Trunk / Transit</td><td>Firewall Transit</td></tr>
+              <tr><td>30</td><td>203.0.113.0/24</td><td>Access</td><td>Management</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>公開記事では、IPアドレスはDocumentation用のサンプル値へ置き換えています。実環境では、既存ネットワークとの重複や将来拡張も確認したうえでアドレス帯を決めます。</p>
+      </section>
+
+      <section class="article-section" id="ip-plan">
+        <h2>3. IPアドレスは「Subnet・Gateway・利用範囲」で整理する</h2>
+        <p>IPアドレス設計では、ネットワークアドレスだけでなく、Gatewayや機器・端末へ割り当てる範囲も決めておくと運用しやすくなります。</p>
+
+        <div class="config-block">
+          <div class="config-label">IP ADDRESS PLAN — EXAMPLE</div>
+          <pre><code>VLAN 10 / User Network
+  Network : 192.0.2.0/24
+  Gateway : 192.0.2.254
+  Client  : 192.0.2.10 - 192.0.2.199
+  Reserve : 192.0.2.200 - 192.0.2.253
+
+VLAN 30 / Management
+  Network : 203.0.113.0/24
+  Gateway : 203.0.113.254
+  Device  : 203.0.113.10 - 203.0.113.99</code></pre>
+        </div>
+
+        <p>固定IP、DHCP、将来利用する予約範囲などを分けておくと、機器追加やアドレス払い出し時の衝突を防ぎやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="gateway">
+        <h2>4. Gatewayをどこに置くかを決める</h2>
+        <p>各SubnetのGatewayをどの機器が持つかは、通信経路を決める重要な設計項目です。L3スイッチのSVIで終端するのか、ファイアウォールで終端するのかによって、RoutingやSecurity Policyの考え方も変わります。</p>
+
+        <div class="architecture" role="img" aria-label="VLANからGatewayを経由して上位ネットワークへ通信する設計例">
+          <div class="architecture-step"><small>VLAN</small><strong>User / Server<br>Network</strong></div>
+          <div class="architecture-step"><small>GATEWAY</small><strong>SVI / Firewall<br>L3 Interface</strong></div>
+          <div class="architecture-step"><small>UPSTREAM</small><strong>Route / Policy<br>Next Hop</strong></div>
+        </div>
+
+        <p>設計書では、GatewayのIPアドレスだけでなく、そのGatewayを持つ機器やInterfaceも構成図と対応づけておくと、設定レビューがしやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="access-trunk">
+        <h2>5. Access / Trunkの役割を分ける</h2>
+        <p>VLAN設計をスイッチ設定へ落とし込むために、端末を収容するAccess Portと、複数VLANを通すTrunk Portを整理します。</p>
+
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead><tr><th>項目</th><th>Access</th><th>Trunk</th></tr></thead>
+            <tbody>
+              <tr><td>主な用途</td><td>PC、サーバー、機器など単一VLANの収容</td><td>Switch間、Firewall接続など複数VLANの運搬</td></tr>
+              <tr><td>設計書で確認する情報</td><td>Port、VLAN ID、接続先</td><td>Port、許可VLAN、接続先</td></tr>
+              <tr><td>レビューの観点</td><td>正しいVLANへ収容されているか</td><td>必要なVLANだけが通る構成か</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="article-section" id="transit">
+        <h2>6. Transit Networkと管理ネットワークを分けて考える</h2>
+        <p>ルータやファイアウォール間のTransit Networkは、ユーザー端末を収容するVLANとは目的が異なります。また、Management Networkも業務通信とは分離して設計すると、管理経路を整理しやすくなります。</p>
+
+        <ul class="check-list">
+          <li>Transit NetworkはL3機器間の接続に必要な範囲へ限定する</li>
+          <li>Management Networkは管理対象機器と管理元を明確にする</li>
+          <li>User / Server用VLANと管理用VLANを混在させない</li>
+          <li>論理構成図とVLAN一覧で同じ名称・IDを使用する</li>
+        </ul>
+      </section>
+
+      <section class="article-section" id="review">
+        <h2>7. 設計レビューで確認するポイント</h2>
+        <p>VLAN・IPアドレス設計は、表だけを見るのではなく、物理構成図・論理構成図と合わせて確認します。</p>
+
+        <ul class="check-list">
+          <li>VLAN IDやSubnetが重複していないか</li>
+          <li>各SubnetのGatewayが明確になっているか</li>
+          <li>Access / Trunkの扱いが構成図と一致しているか</li>
+          <li>管理用・ユーザー用・Transit用の役割が分離されているか</li>
+          <li>将来の機器追加やアドレス増加に必要な余地があるか</li>
+        </ul>
+
+        <div class="callout"><strong>レビューの考え方：</strong>「VLAN表だけ正しい」ではなく、構成図、Gateway、Routing、Security Policyへ矛盾なくつながっていることを確認します。</div>
+      </section>
+
+      <section class="article-section" id="summary">
+        <h2>まとめ</h2>
+        <p>VLAN・IPアドレス設計では、VLAN IDだけでなく、用途、Subnet、Gateway、Access / Trunk、収容先をセットで整理すると、設計意図が伝わりやすくなります。</p>
+        <p>「用途を決める → VLANを分ける → IPを割り当てる → Gatewayと接続方式を決める」の順で整理すると、論理構成図やスイッチ設定へ落とし込みやすくなります。</p>
+        <p>次回は、VLAN・IP設計の上位にある<strong>RoutingとSecurity設計</strong>を取り上げます。通信経路とFirewall Policyをどのように設計書へ整理するかを見ていきます。</p>
+      </section>
+
+      <section class="article-section" id="sources">
+        <h2>記事について</h2>
+        <p>本記事は、Stractoが保有していたネットワーク検証環境の設計書に含まれるVLAN・IPアドレス設計を基に、公開可能な内容へ一般化して構成しています。</p>
+        <div class="source-note">元の設計書に含まれる実際のIPアドレス、VLAN名称、機器名などは掲載せず、記事内ではDocumentation用アドレスと一般名称へ置き換えています。</div>
+      </section>
+
+    </article>
+
+    <aside class="toc" aria-label="記事の目次">
+      <p class="toc-title">この記事の内容</p>
+      <ol>
+        <li><a href="#overview">VLAN・IP設計とは</a></li>
+        <li><a href="#purpose">用途を分ける</a></li>
+        <li><a href="#vlan-table">VLAN一覧</a></li>
+        <li><a href="#ip-plan">IPアドレス設計</a></li>
+        <li><a href="#gateway">Gateway設計</a></li>
+        <li><a href="#access-trunk">Access / Trunk</a></li>
+        <li><a href="#transit">Transit / Management</a></li>
+        <li><a href="#review">レビュー</a></li>
+        <li><a href="#summary">まとめ</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a><a href="index.html#company">Company</a>
+    <a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div>
+</footer>
+
+<script>
+function toggleMenu(button){
+  const menu=document.getElementById("mobileMenu");
+  const open=menu.classList.toggle("show");
+  button.classList.toggle("active",open);
+  button.setAttribute("aria-expanded",String(open));
+  button.setAttribute("aria-label",open?"メニューを閉じる":"メニューを開く");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+  resize(); addEventListener("resize",resize);
+  const ps=Array.from({length:40},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+1,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ps.forEach(p=>{
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,.42)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+    for(let i=0;i<ps.length;i++){for(let j=i+1;j<ps.length;j++){
+      const a=ps[i],b=ps[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){ctx.strokeStyle=`rgba(150,180,255,${(1-d/120)*.4})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
+    }}
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+});
+</script>
+</body>
+</html>

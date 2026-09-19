@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>ネットワーク設計シリーズ #01｜ネットワーク設計書には何を書く？ | Stracto Technical Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="ネットワーク設計シリーズ第1回。ネットワーク設計書に何を書くべきかを、実際の検証環境で作成した設計書の構成を一般化しながら、要件、物理・論理構成、VLAN、ルーティング、セキュリティ、トラフィックフロー、運用設計の観点から解説します。">
+<link rel="canonical" href="https://stracto.co.jp/network-design-01.html">
+<link href="favicon.png" rel="icon" type="image/png">
+<meta property="og:title" content="ネットワーク設計シリーズ #01｜ネットワーク設計書には何を書く？">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stracto.co.jp/network-design-01.html">
+<meta property="og:description" content="要件、構成図、VLAN、Routing、Security、Traffic Flow、監視まで。実際のネットワーク設計書を一般化して基本構成を解説。">
+<meta name="twitter:card" content="summary">
+
+<style>
+:root {
+  --bg:#050816;
+  --panel:rgba(12,20,39,.82);
+  --panel-soft:rgba(255,255,255,.035);
+  --line:rgba(125,211,252,.18);
+  --text:#e5edf5;
+  --soft:#9eacbd;
+  --accent:#38bdf8;
+  --accent-soft:#7dd3fc;
+}
+
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0;
+  min-height:100vh;
+  overflow-x:hidden;
+  color:var(--text);
+  font-family:system-ui,-apple-system,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -12%, rgba(37,99,235,.13), transparent 31%),
+    var(--bg);
+}
+
+#particles { position:fixed; inset:0; z-index:-1; opacity:.72; }
+
+.hamburger {
+  position:fixed; top:22px; right:24px; z-index:99999;
+  width:36px; height:26px; padding:0; border:0; cursor:pointer;
+  background:none;
+}
+.hamburger span {
+  position:absolute; left:0; width:100%; height:4px;
+  border-radius:6px; background:var(--accent); transition:.36s;
+}
+.hamburger span:nth-child(1){top:0}.hamburger span:nth-child(2){top:11px}.hamburger span:nth-child(3){top:22px}
+.hamburger.active span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}
+.hamburger.active span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+
+#mobileMenu {
+  position:fixed; top:0; right:-100%; z-index:9999;
+  display:flex; flex-direction:column; gap:28px;
+  width:240px; height:100vh; padding:90px 28px;
+  background:rgba(0,0,0,.68); backdrop-filter:blur(16px);
+  transition:right .45s ease;
+}
+#mobileMenu.show { right:0; }
+#mobileMenu a { color:#fff; font-size:18px; text-decoration:none; }
+
+main { position:relative; max-width:1040px; margin:0 auto; padding:112px 24px 110px; }
+main::before {
+  content:""; position:absolute; top:74px; right:28px; width:160px; height:160px;
+  border:1px solid rgba(56,189,248,.055); border-radius:50%;
+  box-shadow:0 0 0 40px rgba(56,189,248,.016),0 0 0 80px rgba(56,189,248,.01);
+  pointer-events:none;
+}
+
+.breadcrumb { display:flex; gap:8px; align-items:center; margin-bottom:34px; color:var(--soft); font-size:14px; }
+.breadcrumb a { color:var(--accent-soft); text-decoration:none; }
+.breadcrumb span { opacity:.55; }
+
+.article-hero {
+  position:relative; overflow:hidden; padding:46px 46px 42px;
+  border:1px solid rgba(125,211,252,.24); border-radius:18px;
+  background:
+    radial-gradient(circle at 92% 8%, rgba(56,189,248,.17), transparent 30%),
+    radial-gradient(circle at 0 100%, rgba(37,99,235,.12), transparent 36%),
+    linear-gradient(145deg, rgba(16,24,44,.93), rgba(8,13,28,.84));
+  box-shadow:0 24px 70px rgba(0,0,0,.26), inset 0 1px 0 rgba(255,255,255,.05);
+}
+.article-hero::before { content:""; position:absolute; top:0; left:35px; width:120px; height:1px; background:linear-gradient(90deg,var(--accent-soft),transparent); }
+.eyebrow { margin:0 0 18px; color:var(--accent-soft); font-size:13px; font-weight:750; letter-spacing:.14em; }
+h1 { max-width:790px; margin:0; color:#f8fafc; font-size:clamp(30px,5vw,48px); line-height:1.3; letter-spacing:.015em; }
+.lead { max-width:760px; margin:25px 0 0; color:#d4dfeb; font-size:18px; line-height:1.95; }
+.meta { display:flex; flex-wrap:wrap; gap:18px; margin-top:28px; color:var(--soft); font-size:13px; }
+
+
+.series-strip {
+  margin-top:30px; padding:24px;
+  border:1px solid rgba(125,211,252,.2); border-radius:15px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(56,189,248,.07),transparent 28%),
+    linear-gradient(145deg,rgba(16,24,44,.82),rgba(8,13,28,.75));
+}
+.series-label { margin:0 0 7px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.12em; }
+.series-title { margin:0; color:#f5fbff; font-size:20px; }
+.series-description { margin:9px 0 0; color:var(--soft); font-size:14px; line-height:1.7; }
+.series-items { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-top:18px; }
+.series-item {
+  min-height:96px; padding:16px;
+  border:1px solid rgba(148,163,184,.11); border-radius:11px;
+  background:rgba(255,255,255,.022);
+}
+.series-item.current {
+  border-color:rgba(125,211,252,.35);
+  background:rgba(56,189,248,.085);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+}
+.series-item small { display:block; margin-bottom:8px; color:#7f90a4; font-size:11px; letter-spacing:.08em; }
+.series-item.current small { color:var(--accent-soft); }
+.series-item strong { display:block; color:#dce8f2; font-size:14px; line-height:1.55; }
+.series-item.current strong { color:#f4fbff; }
+a.series-item { text-decoration:none; transition:border-color .2s ease,background .2s ease,transform .2s ease; }
+a.series-item:hover,
+a.series-item:focus-visible {
+  border-color:rgba(125,211,252,.34);
+  background:rgba(56,189,248,.06);
+  transform:translateY(-2px);
+}
+a.series-item:focus-visible { outline:2px solid var(--accent-soft); outline-offset:3px; }
+
+.article-layout { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:30px; margin-top:30px; align-items:start; }
+.article-body { min-width:0; }
+.toc {
+  position:sticky; top:28px; padding:23px;
+  border:1px solid var(--line); border-radius:14px;
+  background:linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+}
+.toc-title { margin:0 0 14px; color:#f8fafc; font-weight:700; }
+.toc ol { margin:0; padding-left:21px; color:var(--soft); }
+.toc li+li { margin-top:10px; }
+.toc a { color:#bdcad8; font-size:14px; line-height:1.55; text-decoration:none; }
+.toc a:hover { color:var(--accent-soft); }
+
+.article-section {
+  margin-bottom:24px; padding:34px;
+  border:1px solid var(--line); border-radius:15px;
+  background:
+    radial-gradient(circle at 0 0,rgba(56,189,248,.075),transparent 30%),
+    linear-gradient(145deg,rgba(16,24,44,.86),rgba(8,13,28,.78));
+  box-shadow:0 18px 50px rgba(0,0,0,.18),inset 0 1px 0 rgba(255,255,255,.035);
+}
+.article-section h2 { position:relative; margin:0 0 24px; padding-left:15px; color:#f8fafc; font-size:24px; line-height:1.5; }
+.article-section h2::before { content:""; position:absolute; left:0; top:.25em; width:3px; height:1.05em; border-radius:3px; background:var(--accent); box-shadow:0 0 14px rgba(56,189,248,.5); }
+.article-section h3 { margin:28px 0 12px; color:#dff4ff; font-size:18px; }
+.article-section p { margin:0 0 18px; color:#ccd7e3; font-size:16px; line-height:1.95; }
+.article-section p:last-child { margin-bottom:0; }
+
+.point-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; }
+.point {
+  padding:20px 18px; border:1px solid rgba(125,211,252,.14); border-radius:12px;
+  background:rgba(255,255,255,.025);
+}
+.point-number { display:block; margin-bottom:12px; color:var(--accent-soft); font-size:12px; font-weight:750; letter-spacing:.1em; }
+.point strong { display:block; margin-bottom:7px; color:#f2f7fb; font-size:16px; }
+.point p { margin:0; color:var(--soft); font-size:14px; line-height:1.75; }
+
+.architecture { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; align-items:stretch; margin:24px 0; }
+.architecture-step { position:relative; display:flex; flex-direction:column; justify-content:center; min-height:112px; padding:18px; text-align:center; border:1px solid rgba(56,189,248,.22); border-radius:12px; background:rgba(14,165,233,.055); }
+.architecture-step:not(:last-child)::after { content:"→"; position:absolute; right:-17px; top:50%; z-index:2; color:var(--accent-soft); font-size:20px; transform:translateY(-50%); }
+.architecture-step small { margin-bottom:7px; color:var(--soft); font-size:12px; }
+.architecture-step strong { color:#e9f7ff; font-size:15px; line-height:1.55; }
+
+.check-list { display:grid; gap:10px; margin:20px 0 0; padding:0; list-style:none; }
+.check-list li { position:relative; padding:14px 16px 14px 42px; border:1px solid rgba(148,163,184,.12); border-radius:10px; color:#d8e3ed; background:rgba(255,255,255,.024); line-height:1.7; }
+.check-list li::before { content:"✓"; position:absolute; left:17px; color:var(--accent-soft); font-weight:800; }
+
+.callout { margin-top:24px; padding:20px 22px; border-left:3px solid var(--accent); border-radius:0 10px 10px 0; color:#d6e1ec; background:rgba(56,189,248,.065); line-height:1.85; }
+
+.config-block {
+  margin:18px 0 22px;
+  overflow:auto;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:12px;
+  background:#040814;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
+}
+.config-label {
+  padding:10px 14px;
+  border-bottom:1px solid rgba(125,211,252,.12);
+  color:var(--accent-soft);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.08em;
+  background:rgba(56,189,248,.045);
+}
+.config-block pre { margin:0; padding:18px; min-width:520px; }
+.config-block code {
+  color:#d9edf8;
+  font-family:"Cascadia Code","SFMono-Regular",Consolas,monospace;
+  font-size:13px;
+  line-height:1.75;
+}
+
+.compare-table-wrap { overflow-x:auto; margin-top:18px; }
+.compare-table { width:100%; min-width:620px; border-collapse:collapse; }
+.compare-table th,
+.compare-table td {
+  padding:14px 15px;
+  border:1px solid rgba(125,211,252,.13);
+  text-align:left;
+  vertical-align:top;
+  line-height:1.7;
+}
+.compare-table th { color:#e8f7ff; background:rgba(56,189,248,.07); }
+.compare-table td { color:#cbd7e3; background:rgba(255,255,255,.018); }
+
+.source-note {
+  margin-top:18px;
+  padding:18px 20px;
+  border:1px solid rgba(148,163,184,.12);
+  border-radius:11px;
+  color:#aebdca;
+  font-size:14px;
+  line-height:1.8;
+  background:rgba(255,255,255,.02);
+}
+
+footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px solid rgba(125,211,252,.1); background:linear-gradient(180deg,transparent,rgba(8,13,28,.72)); }
+.footer-links { display:flex; flex-wrap:wrap; justify-content:center; gap:18px; margin-bottom:18px; }
+.footer-links a { color:var(--soft); text-decoration:none; }
+.footer-links a:hover { color:var(--accent-soft); }
+.footer-bottom { font-size:13px; opacity:.8; }
+
+@media(max-width:860px){
+  .series-items { grid-template-columns:repeat(2,1fr); }
+  .article-layout { grid-template-columns:1fr; }
+  .toc { position:relative; top:auto; order:-1; }
+  .point-grid { grid-template-columns:1fr; }
+}
+@media(max-width:680px){
+  main { padding:94px 17px 80px; }
+  main::before { display:none; }
+  .breadcrumb { margin-bottom:24px; }
+  .article-hero { padding:32px 23px 30px; border-radius:15px; }
+  h1 { font-size:29px; }
+  .lead { font-size:16px; line-height:1.85; }
+  .article-section { padding:27px 21px; }
+  .article-section h2 { font-size:21px; }
+  .series-strip { padding:21px; }
+  .series-items { grid-template-columns:1fr; }
+  .architecture { grid-template-columns:1fr; }
+  .architecture-step:not(:last-child)::after { content:"↓"; left:50%; right:auto; top:auto; bottom:-21px; transform:translateX(-50%); }
+}
+</style>
+</head>
+
+<body>
+<canvas id="particles" aria-hidden="true"></canvas>
+
+<button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu(this)">
+  <span></span><span></span><span></span>
+</button>
+
+<nav id="mobileMenu" aria-label="メインメニュー">
+  <a href="index.html">HOME</a>
+  <a href="index.html#news">NEWS</a>
+  <a href="index.html#mission">MISSION</a>
+  <a href="index.html#business">BUSINESS</a>
+  <a href="index.html#company">COMPANY</a>
+  <a href="technical_lab.html">TECHNICAL LAB</a>
+  <a href="contact.html">CONTACT</a>
+</nav>
+
+<main>
+  <nav class="breadcrumb" aria-label="パンくずリスト">
+    <a href="index.html">HOME</a><span>/</span>
+    <a href="technical_lab.html">TECHNICAL LAB</a><span>/</span>
+    <span>NETWORK DESIGN / 01</span>
+  </nav>
+
+  <header class="article-hero">
+    <p class="eyebrow">NETWORK DESIGN / 01</p>
+    <h1>ネットワーク設計書には何を書く？<br>実際の設計書から見る基本構成</h1>
+    <p class="lead">ネットワーク設計シリーズ第1回。機器を接続して設定する前に、要件・構成・アドレス・経路・セキュリティ・運用方法を整理するのがネットワーク設計です。本記事では、実際の検証環境で作成したネットワーク設計書の構成を一般化しながら、「設計書に何を書くのか」を順番に整理します。</p>
+    <div class="meta">
+      <span>公開日：2026.09.18</span>
+      <span>読了目安：9分</span>
+      <span>ネットワーク設計シリーズ 第1回</span>
+      <span>Stracto Technical Lab</span>
+    </div>
+  </header>
+
+  <section class="series-strip" aria-label="ネットワーク設計シリーズ">
+    <p class="series-label">NETWORK DESIGN SERIES</p>
+    <h2 class="series-title">ネットワーク設計シリーズ</h2>
+    <p class="series-description">ネットワーク機器の知識を、設計書・構成図・設計項目へ落とし込む方法を整理します。</p>
+    <div class="series-items">
+      <div class="series-item current"><small>#01 / CURRENT</small><strong>設計書には何を書く？</strong></div>
+      <div class="series-item"><small>#02 / NEXT</small><strong>物理・論理構成図</strong></div>
+      <div class="series-item"><small>#03</small><strong>VLAN・IP設計</strong></div>
+      <div class="series-item"><small>#04</small><strong>Routing・Security設計</strong></div>
+    </div>
+  </section>
+
+  <div class="article-layout">
+    <article class="article-body">
+
+      <section class="article-section" id="overview">
+        <h2>ネットワーク設計書とは</h2>
+        <p>ネットワーク設計書は、構築するネットワークの要件と設計内容を整理し、構築・レビュー・運用で共通認識を持つための資料です。</p>
+        <p>今回ベースにした設計書では、最初に「検証環境を構築する目的」と「満たすべき基本要件」を整理し、その後に物理構成、論理構成、VLAN、ルーティング、セキュリティ、トラフィックフロー、監視へ展開しています。</p>
+
+        <div class="point-grid">
+          <div class="point"><span class="point-number">POINT 01</span><strong>要件を定義する</strong><p>何を実現するネットワークなのかを最初に明確にします。</p></div>
+          <div class="point"><span class="point-number">POINT 02</span><strong>構成を可視化する</strong><p>物理構成と論理構成を分け、接続と通信の両方を整理します。</p></div>
+          <div class="point"><span class="point-number">POINT 03</span><strong>運用まで設計する</strong><p>NTP、監視、ログ、パケットキャプチャなど構築後の運用も設計対象にします。</p></div>
+        </div>
+      </section>
+
+      <section class="article-section" id="requirements">
+        <h2>1. 最初に「概要・基本要件」を書く</h2>
+        <p>設計書の最初に置きたいのが、ネットワークを構築する目的と基本要件です。今回の設計書では、複数ベンダーのネットワーク機器を利用すること、有線・無線からインターネットへ接続できること、管理用セグメントを用意すること、用途ごとの通信を分離することなどを要件として整理していました。</p>
+
+        <div class="config-block">
+          <div class="config-label">DESIGN DOCUMENT EXAMPLE — REQUIREMENTS</div>
+          <pre><code>目的
+  技術検証を行うためのネットワーク環境を構築する
+
+基本要件
+  ・複数ベンダーのネットワーク機器を利用する
+  ・有線 / 無線の双方から外部ネットワークへ接続できる
+  ・管理用ネットワークを分離する
+  ・用途ごとに通信セグメントを分ける
+  ・セキュリティ機器を経由して通信を制御する</code></pre>
+        </div>
+
+        <div class="callout"><strong>設計書の読みやすさを左右するポイント：</strong>最初に要件があると、後に出てくるVLAN、ルーティング、セキュリティ設計が「何のための設定なのか」を追いやすくなります。</div>
+      </section>
+
+      <section class="article-section" id="structure">
+        <h2>2. 設計項目を先に整理する</h2>
+        <p>今回の設計書では、目次として物理概要図、論理概要図、ホスト名、VLAN、リンクアグリゲーション、ルーティング、セキュリティゾーン、アドレスオブジェクト、ポリシー、トラフィックフロー、セキュリティ、NTP、パケットキャプチャ、監視を並べていました。</p>
+
+        <ul class="check-list">
+          <li><strong>構成：</strong>物理構成図 / 論理構成図</li>
+          <li><strong>機器管理：</strong>ホスト名 / 管理アドレス / 管理方式</li>
+          <li><strong>L2：</strong>VLAN / Access・Trunk / Link Aggregation</li>
+          <li><strong>L3：</strong>Routing / Default Route</li>
+          <li><strong>Security：</strong>Zone / Address Object / Policy</li>
+          <li><strong>通信：</strong>Traffic Flow</li>
+          <li><strong>運用：</strong>NTP / Packet Capture / Monitoring</li>
+        </ul>
+
+        <p>最初に設計項目を決めておくと、「構成図だけ作って終わる」「IPアドレスはあるが通信ポリシーが整理されていない」といった抜けを減らしやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="topology">
+        <h2>3. 物理構成図と論理構成図を分ける</h2>
+        <p>物理構成図では、どの機器のどのインターフェース同士が接続されるのか、リンク速度や冗長構成を含めて整理します。一方、論理構成図ではVLAN、IPセグメント、Gateway、通信経路など、通信上の関係を表現します。</p>
+
+        <div class="architecture" role="img" aria-label="物理構成と論理構成を分けて整理する例">
+          <div class="architecture-step"><small>PHYSICAL</small><strong>Device / Port<br>Link / Speed</strong></div>
+          <div class="architecture-step"><small>LOGICAL</small><strong>VLAN / Subnet<br>Gateway</strong></div>
+          <div class="architecture-step"><small>TRAFFIC</small><strong>Route / Policy<br>Communication</strong></div>
+        </div>
+
+        <p>今回の資料でも、物理構成図には機器・ポート・リンク速度、論理構成図にはVLANや各ネットワークの関係が描かれており、同じネットワークを異なる視点から確認できる構成になっていました。</p>
+      </section>
+
+      <section class="article-section" id="inventory">
+        <h2>4. ホスト名・管理情報を一覧にする</h2>
+        <p>機器が増えると、「どの機器が何の役割なのか」「どこから管理するのか」が分かりにくくなります。設計書では、ホスト名、機種、管理アドレス、管理方式などを一覧にしておくと確認しやすくなります。</p>
+
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>項目</th><th>記載例</th><th>目的</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Hostname</td><td>lab-core-sw01</td><td>機器を一意に識別する</td></tr>
+              <tr><td>Model</td><td>Core Switch</td><td>機種・役割を確認する</td></tr>
+              <tr><td>Management IP</td><td>192.0.2.10/24</td><td>管理経路を明確にする</td></tr>
+              <tr><td>Management</td><td>SSH / HTTPS</td><td>利用する管理方式を整理する</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>公開記事では実際のホスト名や管理IPアドレスは掲載せず、例示用の値へ置き換えています。</p>
+      </section>
+
+      <section class="article-section" id="vlan">
+        <h2>5. VLAN設計は「ID・IP・接続方式・用途」で整理する</h2>
+        <p>今回の設計書では、VLAN ID、IPアドレス、Access / Trunk、用途を1つの表にまとめていました。この形式にすると、「何番のVLANが何のために存在するのか」を一目で確認できます。</p>
+
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>VLAN ID</th><th>Network</th><th>Access / Trunk</th><th>用途</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>10</td><td>192.0.2.0/24</td><td>Access</td><td>User Network</td></tr>
+              <tr><td>20</td><td>198.51.100.0/24</td><td>Trunk</td><td>Firewall Transit</td></tr>
+              <tr><td>30</td><td>203.0.113.0/24</td><td>Access</td><td>Management</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>VLAN名や用途だけでなく、IPセグメントとAccess / Trunkの扱いまで同じ表で管理することで、スイッチ設定との対応を確認しやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="routing">
+        <h2>6. ルーティングは「方式」と「出口」を決める</h2>
+        <p>今回の設計書では、ルーティング方式としてStatic Routingを採用し、インターネット向け通信にはDefault Routeを利用する方針が明記されていました。</p>
+
+        <div class="config-block">
+          <div class="config-label">DESIGN POLICY — ROUTING</div>
+          <pre><code>Routing Method
+  Static Routing
+
+Internet Traffic
+  Default Route
+
+Internal Networks
+  Destination NetworkごとにNext Hopを定義</code></pre>
+        </div>
+
+        <p>設計書ではコマンドそのものを書く前に、「どのルーティング方式を使うか」「Default Routeをどこへ向けるか」といった方針を先に決めておくと、機器設定へ落とし込みやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="security">
+        <h2>7. Security ZoneとFirewall Policyを分けて整理する</h2>
+        <p>ファイアウォール設計では、最初にSecurity Zoneを定義し、そのZone間でどの通信を許可するかをPolicyとして整理します。</p>
+
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <thead>
+              <tr><th>Zone</th><th>Interface</th><th>用途</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Trust</td><td>Internal</td><td>内部ネットワーク</td></tr>
+              <tr><td>Untrust</td><td>WAN</td><td>外部ネットワーク</td></tr>
+              <tr><td>DMZ</td><td>DMZ</td><td>公開・サーバーネットワーク</td></tr>
+              <tr><td>MGMT</td><td>Management</td><td>管理用ネットワーク</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>今回の設計書では、Firewall PolicyについてもSource Zone、Destination Zone、Source Address、Destination Address、Service、NAT、Log、Actionを表形式で整理していました。</p>
+
+        <div class="config-block">
+          <div class="config-label">DESIGN TABLE — FIREWALL POLICY</div>
+          <pre><code>Src Zone | Dst Zone | Src Addr | Dst Addr | Service | NAT | Log | Action
+Trust    | Untrust   | USER-NET | Internet | HTTPS   | -   | ALL | Accept
+Trust    | Untrust   | ALL      | ALL      | ALL     | -   | ALL | Deny</code></pre>
+        </div>
+
+        <p>「許可する通信」と「それ以外を拒否する通信」を表にすると、レビュー時にポリシーの意図を確認しやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="traffic">
+        <h2>8. Traffic Flowで通信経路を確認する</h2>
+        <p>物理構成図や論理構成図だけでは、特定の通信がどの機器を通るのか分かりづらい場合があります。そのため、今回の設計書ではインターネット向け通信のTraffic Flowを別の図として整理していました。</p>
+
+        <div class="architecture" role="img" aria-label="端末からインターネットまでのトラフィックフロー例">
+          <div class="architecture-step"><small>SOURCE</small><strong>User / Server<br>VLAN</strong></div>
+          <div class="architecture-step"><small>TRANSIT</small><strong>Core / Firewall<br>Router</strong></div>
+          <div class="architecture-step"><small>DESTINATION</small><strong>Internet<br>Cloud Service</strong></div>
+        </div>
+
+        <p>Traffic Flowを用意すると、「どのFirewall Policyにマッチするか」「どのRouteを利用するか」「戻り通信は同じ経路を通るか」といった確認がしやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="operations">
+        <h2>9. 構築後の運用も設計書に含める</h2>
+        <p>ネットワーク設計は、通信できれば終わりではありません。今回の資料では、NTP同期、パケットキャプチャ、監視も設計項目として含まれていました。</p>
+
+        <ul class="check-list">
+          <li><strong>NTP：</strong>機器間で時刻を揃え、ログを時系列で追えるようにする</li>
+          <li><strong>Monitoring：</strong>機器やインターフェースの状態を継続的に確認する</li>
+          <li><strong>Packet Capture：</strong>障害解析時に通信を確認できるポイントを決める</li>
+          <li><strong>Management Network：</strong>管理用通信を業務通信から分離する</li>
+        </ul>
+
+        <p>今回の設計書では外接ルータをNTPサーバとして利用し、そのルータ自身はインターネット上のNTPサーバと同期する構成が記載されていました。</p>
+      </section>
+
+      <section class="article-section" id="characteristics">
+        <h2>設計を進めやすくするポイント</h2>
+        <p>ネットワーク設計を進めるときは、要件から始まり、構成、L2 / L3、Security、Traffic Flow、運用へ順番に整理していくと、設計内容を段階的に具体化しやすくなります。</p>
+
+        <div class="architecture" role="img" aria-label="要件から運用まで設計を段階的に詳細化する流れ">
+          <div class="architecture-step"><small>STEP 1</small><strong>Requirement<br>要件</strong></div>
+          <div class="architecture-step"><small>STEP 2</small><strong>Architecture<br>構成・通信</strong></div>
+          <div class="architecture-step"><small>STEP 3</small><strong>Operation<br>管理・監視</strong></div>
+        </div>
+
+        <p>特に、構成図で全体像を整理したあとに、VLANやRouting、Security Policyを表形式で具体化し、最後にTraffic Flowで通信の流れを確認すると、設計内容と機器設定の対応関係が分かりやすくなります。レビューや構築時の確認もしやすくなるため、設計書を作る際は「全体像 → 詳細設計 → 通信確認」の順でまとめると効率的です。</p>
+      </section>
+
+      <section class="article-section" id="summary">
+        <h2>まとめ</h2>
+        <p>ネットワーク設計書には、構成図だけでなく、要件、機器管理、VLAN、Routing、Security Zone、Firewall Policy、Traffic Flow、NTP、監視など、構築から運用までに必要な情報を整理します。</p>
+        <p>重要なのは、設定コマンドを先に書くことではなく、「何を実現するのか」「どのような構成にするのか」「どの通信を許可するのか」を設計として整理し、その結果を機器設定へ落とし込むことです。</p>
+        <p>次回は、ネットワーク設計書の中でも特に重要な「物理構成図と論理構成図の書き分け方」を取り上げます。</p>
+      </section>
+
+      <section class="article-section" id="sources">
+        <h2>記事について</h2>
+        <p>本記事は、Stractoが保有していたネットワーク検証環境の設計書を基に、公開可能な内容へ一般化・匿名化して構成しています。</p>
+        <div class="source-note">
+          元の設計書には、実際のIPアドレス、ホスト名、機種情報、ネットワーク構成などが含まれるため、記事ではサンプル値や一般名称へ置き換えています。また、本記事は設計書の記載内容を中心に整理しており、元資料に記載されていない設計判断の理由は補足として明確に分けています。
+        </div>
+      </section>
+
+    </article>
+
+    <aside class="toc" aria-label="記事の目次">
+      <p class="toc-title">この記事の内容</p>
+      <ol>
+        <li><a href="#overview">ネットワーク設計書とは</a></li>
+        <li><a href="#requirements">概要・基本要件</a></li>
+        <li><a href="#structure">設計項目</a></li>
+        <li><a href="#topology">物理・論理構成図</a></li>
+        <li><a href="#inventory">ホスト名・管理情報</a></li>
+        <li><a href="#vlan">VLAN設計</a></li>
+        <li><a href="#routing">Routing設計</a></li>
+        <li><a href="#security">Security設計</a></li>
+        <li><a href="#traffic">Traffic Flow</a></li>
+        <li><a href="#operations">運用設計</a></li>
+        <li><a href="#characteristics">設計を進めるポイント</a></li>
+        <li><a href="#summary">まとめ</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-links">
+    <a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a>
+    <a href="index.html#business">Business</a><a href="index.html#company">Company</a>
+    <a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a>
+  </div>
+  <div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div>
+</footer>
+
+<script>
+function toggleMenu(button){
+  const menu=document.getElementById("mobileMenu");
+  const open=menu.classList.toggle("show");
+  button.classList.toggle("active",open);
+  button.setAttribute("aria-expanded",String(open));
+  button.setAttribute("aria-label",open?"メニューを閉じる":"メニューを開く");
+}
+
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+  resize(); addEventListener("resize",resize);
+  const ps=Array.from({length:40},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+1,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ps.forEach(p=>{
+      const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);
+      g.addColorStop(0,"rgba(255,255,255,.42)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);ctx.fill();
+      p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;
+    });
+    for(let i=0;i<ps.length;i++){for(let j=i+1;j<ps.length;j++){
+      const a=ps[i],b=ps[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+      if(d<120){ctx.strokeStyle=`rgba(150,180,255,${(1-d/120)*.4})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}
+    }}
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+});
+</script>
+</body>
+</html>
