@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>監視サーバとは？TWSNMPで学ぶPing・SNMPによるネットワーク監視 | Stracto Technical Lab</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="TWSNMPを使った実際の検証データを一般化し、監視サーバの役割、Ping監視、SNMP監視、インターフェース状態、ARP監視、Syslog・SNMP Trapの考え方を図解します。">
+<link rel="canonical" href="https://stracto.co.jp/twsnmp_guide.html">
+<link href="favicon.png" rel="icon" type="image/png">
+<meta property="og:title" content="監視サーバとは？TWSNMPで学ぶPing・SNMPによるネットワーク監視">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://stracto.co.jp/twsnmp_guide.html">
+<meta property="og:description" content="TWSNMPの実データをもとに、ネットワーク監視の基本をPing・SNMP・ARP・イベントログの流れから図解します。">
+<meta name="twitter:card" content="summary">
+<style>
+:root {
+  --bg:#050816;
+  --panel:rgba(12,20,39,.82);
+  --panel-soft:rgba(255,255,255,.035);
+  --line:rgba(125,211,252,.18);
+  --text:#e5edf5;
+  --soft:#9eacbd;
+  --accent:#38bdf8;
+  --accent-soft:#7dd3fc;
+  --success:#34d399;
+  --warn:#f59e0b;
+  --danger:#fb7185;
+  --violet:#a78bfa;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;overflow-x:hidden;color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;background:radial-gradient(circle at 50% -12%,rgba(37,99,235,.13),transparent 31%),var(--bg)}
+#particles{position:fixed;inset:0;z-index:-1;opacity:.72}
+.hamburger{position:fixed;top:22px;right:24px;z-index:99999;width:36px;height:26px;padding:0;border:0;cursor:pointer;background:none}
+.hamburger span{position:absolute;left:0;width:100%;height:4px;border-radius:6px;background:var(--accent);transition:.36s}
+.hamburger span:nth-child(1){top:0}.hamburger span:nth-child(2){top:11px}.hamburger span:nth-child(3){top:22px}
+.hamburger.active span:nth-child(1){transform:translateY(11px) rotate(45deg)}
+.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:translateY(-11px) rotate(-45deg)}
+#mobileMenu{position:fixed;top:0;right:-100%;z-index:9999;display:flex;flex-direction:column;gap:28px;width:240px;height:100vh;padding:90px 28px;background:rgba(0,0,0,.68);backdrop-filter:blur(16px);transition:right .45s ease}
+#mobileMenu.show{right:0}
+#mobileMenu a{color:#fff;font-size:18px;text-decoration:none}
+main{position:relative;max-width:1040px;margin:0 auto;padding:112px 24px 110px}
+main::before{content:"";position:absolute;top:74px;right:28px;width:160px;height:160px;border:1px solid rgba(56,189,248,.055);border-radius:50%;box-shadow:0 0 0 40px rgba(56,189,248,.016),0 0 0 80px rgba(56,189,248,.01);pointer-events:none}
+.breadcrumb{display:flex;gap:8px;align-items:center;margin-bottom:34px;color:var(--soft);font-size:14px;flex-wrap:wrap}
+.breadcrumb a{color:var(--accent-soft);text-decoration:none}
+.breadcrumb span{opacity:.55}
+.article-hero{position:relative;overflow:hidden;padding:46px 46px 42px;border:1px solid rgba(125,211,252,.24);border-radius:18px;background:radial-gradient(circle at 92% 8%,rgba(56,189,248,.17),transparent 30%),radial-gradient(circle at 0 100%,rgba(37,99,235,.12),transparent 36%),linear-gradient(145deg,rgba(16,24,44,.93),rgba(8,13,28,.84));box-shadow:0 24px 70px rgba(0,0,0,.26),inset 0 1px 0 rgba(255,255,255,.05)}
+.article-hero::before{content:"";position:absolute;top:0;left:35px;width:120px;height:1px;background:linear-gradient(90deg,var(--accent-soft),transparent)}
+.eyebrow{margin:0 0 18px;color:var(--accent-soft);font-size:13px;font-weight:750;letter-spacing:.14em}
+h1{max-width:870px;margin:0;color:#f8fafc;font-size:clamp(30px,5vw,48px);line-height:1.3;letter-spacing:.015em}
+.lead{max-width:810px;margin:25px 0 0;color:#d4dfeb;font-size:18px;line-height:1.95}
+.meta{display:flex;flex-wrap:wrap;gap:18px;margin-top:28px;color:var(--soft);font-size:13px}
+.series-strip{margin-top:30px;padding:26px 28px;border:1px solid rgba(125,211,252,.16);border-radius:16px;background:rgba(255,255,255,.03)}
+.series-label{margin:0 0 10px;color:var(--accent-soft);font-size:12px;font-weight:700;letter-spacing:.15em}
+.series-title{margin:0;font-size:26px}
+.series-description{margin:12px 0 0;color:#cad8e5;line-height:1.85}
+.article-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:28px;margin-top:32px;align-items:start}
+.article-body{display:flex;flex-direction:column;gap:22px}
+.article-section{padding:34px 32px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(180deg,rgba(255,255,255,.038),rgba(255,255,255,.024));box-shadow:0 18px 40px rgba(0,0,0,.14)}
+.article-section h2{margin:0 0 18px;font-size:28px;line-height:1.4;color:#f3f8fd}
+.article-section h3{margin:26px 0 14px;font-size:20px;color:#f8fbff}
+.article-section p{margin:0 0 18px;line-height:1.95;color:#d8e3ee}
+.article-section>p{max-width:76ch}.article-section>p+p{margin-top:4px}.article-section p:last-child{margin-bottom:0}.article-section strong{color:#f4f9fd}
+.point-grid,.mini-grid,.component-grid,.compare-grid,.step-grid,.stat-grid{display:grid;gap:14px}
+.point-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px}
+.component-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:18px}
+.mini-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:18px}
+.compare-grid{grid-template-columns:repeat(2,minmax(0,1fr));margin-top:16px}
+.step-grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-top:18px}
+.stat-grid{grid-template-columns:repeat(3,minmax(0,1fr));margin-top:22px}
+.point,.mini-card,.component-card,.compare-card,.step-card,.stat-card{padding:18px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.03)}
+.point-number,.card-label,.section-kicker{display:inline-block;margin-bottom:10px;color:var(--accent-soft);font-size:11px;font-weight:800;letter-spacing:.12em}
+.point strong,.mini-card strong,.component-card strong,.compare-card strong,.step-card strong{display:block;margin-bottom:8px;font-size:16px;color:#f4f8fc}
+.point p,.mini-card p,.component-card p,.compare-card p,.step-card p{margin:0;color:#ccd8e4;font-size:14px;line-height:1.75}
+.stat-card{text-align:center;padding:20px 14px}
+.stat-card .value{display:block;font-size:34px;font-weight:800;line-height:1.1;color:#f7fbff}
+.stat-card .unit{font-size:14px;color:var(--accent-soft)}
+.stat-card p{margin:9px 0 0;font-size:13px;line-height:1.6;color:var(--soft)}
+.component-card{min-height:170px}.component-card .tag{display:inline-block;margin-top:8px;padding:5px 10px;border-radius:999px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.2);font-size:12px;color:#d7f1ff}
+.check-list{display:flex;flex-direction:column;gap:12px;margin:24px 0 0;padding:0;list-style:none}
+.check-list li{position:relative;padding:14px 16px 14px 46px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.028);line-height:1.8;color:#dbe6ef}
+.check-list li::before{content:"✓";position:absolute;left:16px;top:15px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:rgba(52,211,153,.18);color:#a7f3d0;font-size:12px;font-weight:700}
+.callout{margin-top:20px;padding:18px 20px;border-left:4px solid var(--accent);border-radius:12px;background:rgba(56,189,248,.07);line-height:1.9;color:#d7e4ef}
+.callout.warn{border-left-color:var(--warn);background:rgba(245,158,11,.065)}
+.inline-note{margin-top:16px;padding:14px 16px;border:1px dashed rgba(255,255,255,.14);border-radius:12px;color:#d3dfea;background:rgba(255,255,255,.02);font-size:14px;line-height:1.85}
+.diagram-panel{margin-top:26px;padding:18px;border:1px solid rgba(125,211,252,.14);border-radius:16px;background:linear-gradient(180deg,rgba(14,23,45,.92),rgba(8,13,28,.9));overflow:hidden}
+.figure-title{margin:0 0 12px;color:#f1f7fd;font-size:15px;font-weight:700}.figure-note{margin:12px 0 0;color:var(--soft);font-size:13px;line-height:1.7}.diagram-panel svg{display:block;width:100%;height:auto}
+.legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;color:var(--soft);font-size:12px}.legend span{display:inline-flex;align-items:center;gap:7px}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%}
+.table-wrap{overflow:auto;margin-top:24px}.compare-table{width:100%;border-collapse:collapse;min-width:640px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}.compare-table th,.compare-table td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;vertical-align:top;line-height:1.8}.compare-table th{background:rgba(255,255,255,.04);font-size:14px;color:#f5fbff}.compare-table td{font-size:14px;color:#d5e2ee}.compare-table tr:last-child td{border-bottom:none}
+.toc{position:sticky;top:92px;padding:24px;border:1px solid rgba(125,211,252,.14);border-radius:18px;background:rgba(8,14,30,.82);box-shadow:0 18px 40px rgba(0,0,0,.16)}.toc-title{margin:0 0 14px;color:#f8fbff;font-size:16px;font-weight:800}.toc ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}.toc a{color:#d1def0;text-decoration:none;line-height:1.65}.toc a:hover{color:#fff}
+.reference-list{display:flex;flex-direction:column;gap:12px;margin:18px 0 0;padding:0;list-style:none}.reference-list li{padding:15px 16px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(255,255,255,.025);line-height:1.75;color:#d3dfec}.reference-list a{color:var(--accent-soft);text-decoration:none;font-weight:700}.reference-list a:hover{text-decoration:underline}.reference-list span{display:block;margin-top:5px;color:var(--soft);font-size:13px}
+.data-note{display:flex;gap:12px;align-items:flex-start;margin-top:18px;padding:16px 18px;border:1px solid rgba(167,139,250,.18);border-radius:14px;background:rgba(167,139,250,.055);color:#dcd8f7;line-height:1.8}.data-note .badge{flex:0 0 auto;padding:4px 8px;border-radius:999px;background:rgba(167,139,250,.12);color:#ddd6fe;font-size:11px;font-weight:800;letter-spacing:.08em}
+.footer-links{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;margin-bottom:16px}footer{max-width:1040px;margin:0 auto;padding:0 24px 52px;color:var(--soft);font-size:14px;text-align:center}footer a{color:var(--soft);text-decoration:none}.footer-bottom{color:#7f8ea3}
+@media(max-width:980px){.article-layout{grid-template-columns:1fr}.toc{position:static}.point-grid,.component-grid,.stat-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.step-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){main{padding:104px 18px 90px}.article-hero,.article-section,.series-strip,.toc{padding:26px 22px}.point-grid,.mini-grid,.component-grid,.compare-grid,.step-grid,.stat-grid{grid-template-columns:1fr}.article-section h2{font-size:24px}.lead{font-size:17px;line-height:1.85}.meta{gap:10px 14px}.compare-table{min-width:560px}}
+</style>
+</head>
+<body>
+<canvas id="particles" aria-hidden="true"></canvas>
+<button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu(this)"><span></span><span></span><span></span></button>
+<nav id="mobileMenu" aria-label="メインメニュー">
+  <a href="index.html">HOME</a><a href="index.html#news">NEWS</a><a href="index.html#mission">MISSION</a><a href="index.html#business">BUSINESS</a><a href="index.html#company">COMPANY</a><a href="technical_lab.html">TECHNICAL LAB</a><a href="contact.html">CONTACT</a>
+</nav>
+<main>
+  <nav class="breadcrumb" aria-label="パンくずリスト"><a href="index.html">HOME</a><span>/</span><a href="technical_lab.html">TECHNICAL LAB</a><span>/</span><span>TWSNMP MONITORING GUIDE</span></nav>
+
+  <header class="article-hero">
+    <p class="eyebrow">NETWORK MONITORING / TWSNMP</p>
+    <h1>監視サーバとは？<br>TWSNMPで学ぶネットワーク監視の基本</h1>
+    <p class="lead">ネットワーク機器は、通信できているだけでは「正常」とは言い切れません。疎通はあるか、ポートは落ちていないか、機器は再起動していないか、異常な端末が増えていないか。<br><br>本記事では、TWSNMPで取得していた実際の検証データを一般化しながら、Ping・SNMP・ARP・イベントログを使ってネットワークを監視する仕組みを図で整理します。</p>
+    <div class="meta"><span>公開日：2026.09.24</span><span>読了目安：10分</span><span>ネットワーク監視</span><span>Stracto Technical Lab</span></div>
+  </header>
+
+  <section class="series-strip" aria-label="記事の概要">
+    <p class="series-label">MONITORING BASICS</p>
+    <h2 class="series-title">「つながる」を継続的に確認する仕組み</h2>
+    <p class="series-description">監視サーバは、ルータ、スイッチ、ファイアウォール、サーバなどへ定期的に問い合わせ、状態を記録します。異常が起きたときだけ見るのではなく、平常時からデータを蓄積しておくことで、障害の発見と切り分けを早くできます。</p>
+  </section>
+
+  <div class="article-layout">
+    <article class="article-body">
+      <section class="article-section" id="overview">
+        <h2>監視サーバとは</h2>
+        <p>監視サーバは、ネットワークやサーバの状態を定期的に確認し、結果を記録・可視化するためのシステムです。人が毎回ログインして確認する代わりに、監視サーバが一定間隔で機器へ問い合わせます。</p>
+        <p>重要なのは、単に「機器が起動しているか」だけではありません。複数の監視方法を組み合わせることで、<strong>どこまで正常で、どこから異常なのか</strong>を段階的に切り分けられます。</p>
+        <div class="point-grid">
+          <div class="point"><span class="point-number">POINT 01</span><strong>死活を確認する</strong><p>Pingなどを使い、対象機器まで通信できるかを定期的に確認します。</p></div>
+          <div class="point"><span class="point-number">POINT 02</span><strong>内部状態を見る</strong><p>SNMPを使うと、インターフェース状態や稼働時間など、機器内部の情報を取得できます。</p></div>
+          <div class="point"><span class="point-number">POINT 03</span><strong>変化を記録する</strong><p>イベントや状態変化を残しておくことで、障害発生時に「いつから何が変わったか」を追えます。</p></div>
+        </div>
+      </section>
+
+      <section class="article-section" id="twsnmp">
+        <h2>TWSNMPとは</h2>
+        <p>TWSNMPは、ネットワークの状態をマップで可視化し、PingやSNMPなどを使ったポーリング、ログ受信、レポートなどを行えるネットワーク管理ツールです。</p>
+        <p>現在公開されているTWSNMP FC／TWSNMP FKでは、Ping・SNMPに加えてHTTP、DNS、NTPなどのポーリング、SyslogやSNMP Trap、NetFlow/IPFIXなど幅広い監視・ログ機能が提供されています。本記事では、その中でもネットワーク監視の基本になる<strong>Ping・SNMP・ARP</strong>に焦点を当てます。</p>
+        <div class="mini-grid">
+          <div class="mini-card"><span class="card-label">MAP</span><strong>ネットワークを地図のように見る</strong><p>機器をノードとして配置し、どの機器が正常かを一画面で把握できます。</p></div>
+          <div class="mini-card"><span class="card-label">POLLING</span><strong>同じ条件で繰り返し確認する</strong><p>決めた間隔で状態を取得するため、人手による確認漏れを減らせます。</p></div>
+        </div>
+      </section>
+
+      <section class="article-section" id="data">
+        <h2>実際の監視データから見えた構成</h2>
+        <p>この監視環境では、監視対象として6ノードを登録し、合計83個のポーリングを設定しています。構成は、監視端末、ルータ、コアスイッチ、アクセススイッチ、ファイアウォールといった小規模な検証ネットワークです。</p>
+        <p>公開用の記事では、実際のIPアドレス、ホスト名、MACアドレス、SNMP認証情報などは使用せず、以下のように一般化しています。</p>
+
+        <div class="stat-grid">
+          <div class="stat-card"><span class="value">6</span><span class="unit"> nodes</span><p>監視対象として登録しているノード</p></div>
+          <div class="stat-card"><span class="value">83</span><span class="unit"> polls</span><p>Ping＋SNMPの監視項目</p></div>
+          <div class="stat-card"><span class="value">60</span><span class="unit"> sec</span><p>当時のポーリング間隔</p></div>
+        </div>
+
+        <div class="diagram-panel">
+          <p class="figure-title">検証環境を一般化した監視イメージ</p>
+          <svg role="img" aria-label="TWSNMP監視サーバからルータ、ファイアウォール、コアスイッチ、アクセススイッチを監視する構成図" viewBox="0 0 920 500">
+            <defs>
+              <marker id="arrowA" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#7dd3fc"/></marker>
+              <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+            </defs>
+            <rect x="300" y="185" width="320" height="130" rx="22" fill="#102641" stroke="#38bdf8" stroke-width="2" filter="url(#glow)"/>
+            <circle cx="350" cy="250" r="25" fill="#0b1629" stroke="#7dd3fc" stroke-width="2"/>
+            <path d="M337 242h26v16h-26zM342 263h16" fill="none" stroke="#7dd3fc" stroke-width="3" stroke-linecap="round"/>
+            <text x="480" y="230" fill="#f8fafc" font-size="21" font-weight="700" text-anchor="middle">Monitoring Server</text>
+            <text x="480" y="259" fill="#b8d6ea" font-size="14" text-anchor="middle">TWSNMP / Polling</text>
+            <text x="480" y="281" fill="#b8d6ea" font-size="14" text-anchor="middle">Event Log</text>
+            <text x="480" y="303" fill="#7dd3fc" font-size="13" text-anchor="middle">Ping ・ SNMP ・ ARP</text>
+
+            <g font-family="system-ui" text-anchor="middle">
+              <rect x="45" y="45" width="180" height="82" rx="16" fill="#12233a" stroke="#7dd3fc"/><text x="135" y="79" fill="#f7fbff" font-size="20" font-weight="700">Router</text><text x="135" y="105" fill="#9fc3dd" font-size="13">Ping / SNMP</text>
+              <rect x="370" y="38" width="180" height="82" rx="16" fill="#12233a" stroke="#7dd3fc"/><text x="460" y="72" fill="#f7fbff" font-size="20" font-weight="700">Core Switch</text><text x="460" y="98" fill="#9fc3dd" font-size="13">Ping / SNMP</text>
+              <rect x="695" y="45" width="180" height="82" rx="16" fill="#12233a" stroke="#f59e0b"/><text x="785" y="79" fill="#fff8ec" font-size="20" font-weight="700">Firewall</text><text x="785" y="105" fill="#f7d49a" font-size="13">Ping</text>
+              <rect x="155" y="385" width="180" height="82" rx="16" fill="#12233a" stroke="#7dd3fc"/><text x="245" y="419" fill="#f7fbff" font-size="20" font-weight="700">Access SW 01</text><text x="245" y="445" fill="#9fc3dd" font-size="13">Ping / SNMP</text>
+              <rect x="585" y="385" width="180" height="82" rx="16" fill="#12233a" stroke="#7dd3fc"/><text x="675" y="419" fill="#f7fbff" font-size="20" font-weight="700">Access SW 02</text><text x="675" y="445" fill="#9fc3dd" font-size="13">Ping / SNMP</text>
+            </g>
+            <g stroke="#7dd3fc" stroke-width="2.5" fill="none" stroke-dasharray="6 7" opacity=".9" marker-end="url(#arrowA)">
+              <path d="M320 205 C270 165,220 135,170 120"/><path d="M460 185 V122"/><path d="M600 205 C650 165,700 135,750 120"/><path d="M365 315 C330 345,295 370,270 385"/><path d="M555 315 C590 345,625 370,650 385"/>
+            </g>
+            <g fill="#7dd3fc" font-size="12" text-anchor="middle"><text x="255" y="154">polling</text><text x="460" y="151">polling</text><text x="665" y="154">polling</text><text x="305" y="352">polling</text><text x="615" y="352">polling</text></g>
+          </svg>
+          <p class="figure-note">※実際の監視データに含まれる識別情報は公開用に置き換えています。図は監視対象の役割を分かりやすく整理したものです。</p>
+        </div>
+
+        <div class="diagram-panel">
+          <p class="figure-title">83個のポーリング設定の内訳</p>
+          <svg role="img" aria-label="Ping 6項目、SNMP 77項目の監視内訳を示す図" viewBox="0 0 900 360">
+            <text x="40" y="52" fill="#f4f8fc" font-size="18" font-weight="700">PING</text>
+            <rect x="160" y="30" width="74" height="34" rx="9" fill="#38bdf8"/>
+            <text x="197" y="53" fill="#04131e" font-size="15" font-weight="800" text-anchor="middle">6</text>
+            <text x="255" y="53" fill="#aebfd0" font-size="13">全ノードの死活・応答時間を確認</text>
+
+            <text x="40" y="115" fill="#f4f8fc" font-size="18" font-weight="700">SNMP</text>
+            <rect x="160" y="93" width="540" height="34" rx="9" fill="#7dd3fc"/>
+            <text x="430" y="116" fill="#04131e" font-size="15" font-weight="800" text-anchor="middle">77</text>
+            <text x="785" y="108" fill="#aebfd0" font-size="13" text-anchor="middle">機器内部の</text>
+            <text x="785" y="124" fill="#aebfd0" font-size="13" text-anchor="middle">状態を取得</text>
+
+            <rect x="160" y="160" width="540" height="42" rx="10" fill="#34d399"/>
+            <text x="430" y="180" fill="#042116" font-size="14" font-weight="800" text-anchor="middle">Interface status</text>
+            <text x="430" y="195" fill="#042116" font-size="12" font-weight="700" text-anchor="middle">73 polls</text>
+            <rect x="720" y="160" width="120" height="42" rx="10" fill="#a78bfa"/>
+            <text x="780" y="180" fill="#1f123d" font-size="14" font-weight="800" text-anchor="middle">Uptime</text>
+            <text x="780" y="195" fill="#1f123d" font-size="12" font-weight="700" text-anchor="middle">4 polls</text>
+
+            <text x="430" y="233" fill="#a7e6d0" font-size="12" text-anchor="middle">各インターフェースのUp / Downを確認</text>
+            <text x="780" y="228" fill="#d8ccff" font-size="12" text-anchor="middle">再起動の兆候を</text>
+            <text x="780" y="244" fill="#d8ccff" font-size="12" text-anchor="middle">確認</text>
+
+            <line x1="160" y1="292" x2="840" y2="292" stroke="#29425d"/>
+            <text x="160" y="317" fill="#8193a7" font-size="12">実データから監視設定を集計し、公開用に識別情報を除外しています。</text>
+            <text x="160" y="334" fill="#8193a7" font-size="12">機器名・IPアドレス・認証情報などは記事用に一般化しています。</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="article-section" id="flow">
+        <h2>監視はどう動くのか</h2>
+        <p>ポーリング監視は、監視サーバが一定間隔で対象へ問い合わせ、応答内容を評価して状態を更新する仕組みです。障害時だけ通信するのではなく、正常時も繰り返し確認します。</p>
+        <div class="step-grid">
+          <div class="step-card"><span class="card-label">STEP 01</span><strong>問い合わせ</strong><p>PingやSNMPで対象機器へ定期的にリクエストを送ります。</p></div>
+          <div class="step-card"><span class="card-label">STEP 02</span><strong>応答を取得</strong><p>応答時間やMIBの値など、監視対象のデータを取得します。</p></div>
+          <div class="step-card"><span class="card-label">STEP 03</span><strong>状態を判定</strong><p>正常・異常などの条件と照合し、現在状態を更新します。</p></div>
+          <div class="step-card"><span class="card-label">STEP 04</span><strong>記録・通知</strong><p>変化をイベントとして残し、必要に応じて通知へつなげます。</p></div>
+        </div>
+        <div class="diagram-panel">
+          <p class="figure-title">ポーリング監視のサイクル</p>
+          <svg role="img" aria-label="問い合わせ、応答、判定、記録を繰り返す監視サイクル" viewBox="0 0 900 280">
+            <defs><marker id="arrowB" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#7dd3fc"/></marker></defs>
+            <g font-family="system-ui" text-anchor="middle">
+              <circle cx="125" cy="125" r="64" fill="#10243a" stroke="#38bdf8"/><text x="125" y="118" fill="#f8fafc" font-size="20" font-weight="700">Poll</text><text x="125" y="145" fill="#9fc3dd" font-size="13">問い合わせ</text>
+              <circle cx="345" cy="125" r="64" fill="#10243a" stroke="#7dd3fc"/><text x="345" y="113" fill="#f8fafc" font-size="19" font-weight="700">Response</text><text x="345" y="142" fill="#9fc3dd" font-size="13">応答</text><text x="345" y="160" fill="#9fc3dd" font-size="13">データ</text>
+              <circle cx="565" cy="125" r="64" fill="#10243a" stroke="#34d399"/><text x="565" y="113" fill="#f8fafc" font-size="19" font-weight="700">Evaluate</text><text x="565" y="142" fill="#a7e6d0" font-size="13">状態</text><text x="565" y="160" fill="#a7e6d0" font-size="13">判定</text>
+              <circle cx="785" cy="125" r="64" fill="#10243a" stroke="#a78bfa"/><text x="785" y="118" fill="#f8fafc" font-size="20" font-weight="700">Log</text><text x="785" y="145" fill="#d2c8ff" font-size="13">記録・通知</text>
+            </g>
+            <g stroke="#7dd3fc" stroke-width="3" fill="none" marker-end="url(#arrowB)"><path d="M190 125 H280"/><path d="M410 125 H500"/><path d="M630 125 H720"/><path d="M785 190 C750 252 160 252 125 190"/></g>
+            <text x="455" y="252" text-anchor="middle" fill="#8193a7" font-size="13">一定間隔で繰り返す</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="article-section" id="ping">
+        <h2>Ping監視：まず「届くか」を確認する</h2>
+        <p>Ping監視は、対象機器へICMP Echo Requestを送り、応答が返ってくるかを確認する基本的な死活監視です。ネットワーク障害の入口として非常に分かりやすく、この環境では全6ノードにPing監視を設定しています。</p>
+        <div class="compare-grid">
+          <div class="compare-card"><span class="card-label">REACHABILITY</span><strong>応答の有無</strong><p>返答がなければ、機器停止、経路障害、フィルタリングなどを疑うきっかけになります。</p></div>
+          <div class="compare-card"><span class="card-label">RESPONSE TIME</span><strong>応答時間</strong><p>応答が返る場合でも、平常時より大きく遅くなっていれば通信品質の変化を確認できます。</p></div>
+        </div>
+        <div class="callout"><strong>Pingだけでは分からないこと：</strong>Pingが成功していても、特定のインターフェースがDownしていたり、CPUやメモリに問題があったりする可能性はあります。そこでSNMPなどの監視を組み合わせます。</div>
+      </section>
+
+      <section class="article-section" id="snmp">
+        <h2>SNMP監視：機器の中の状態を見る</h2>
+        <p>SNMP（Simple Network Management Protocol）を使うと、ルータやスイッチなどが持つ管理情報を監視サーバから取得できます。Pingが「そこまで届くか」を見るのに対し、SNMPは「機器の中で何が起きているか」を見るために使います。</p>
+        <p>この環境では、SNMP監視77項目のうち、73項目でインターフェース状態、4項目で稼働時間を監視しています。ネットワーク機器の各ポートが想定どおりUpしているかまで確認する構成です。</p>
+        <div class="mini-grid">
+          <div class="mini-card"><span class="card-label">ifOperStatus</span><strong>インターフェースの動作状態</strong><p>各ポートがUp／Downなど、どの状態にあるかを確認します。リンク障害や意図しないポートDownの検知に利用できます。</p></div>
+          <div class="mini-card"><span class="card-label">sysUpTime</span><strong>機器の稼働時間</strong><p>機器がどれくらい連続稼働しているかを確認します。値が大きく変化すれば、再起動の可能性を調べる手掛かりになります。</p></div>
+        </div>
+        <div class="diagram-panel">
+          <p class="figure-title">PingとSNMPの見える範囲の違い</p>
+          <svg role="img" aria-label="Pingは到達性、SNMPは機器内部のインターフェースや稼働時間を確認することを示す図" viewBox="0 0 900 310">
+            <defs><marker id="arrowC" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#7dd3fc"/></marker></defs>
+            <rect x="45" y="88" width="190" height="125" rx="18" fill="#102641" stroke="#38bdf8"/><text x="140" y="130" fill="#f8fafc" font-size="22" font-weight="700" text-anchor="middle">Monitoring</text><text x="140" y="158" fill="#f8fafc" font-size="22" font-weight="700" text-anchor="middle">Server</text><text x="140" y="187" fill="#9fc3dd" font-size="13" text-anchor="middle">TWSNMP</text>
+            <rect x="620" y="55" width="235" height="195" rx="20" fill="#12233a" stroke="#7dd3fc"/><text x="738" y="92" fill="#f8fafc" font-size="23" font-weight="700" text-anchor="middle">Network Device</text>
+            <rect x="655" y="118" width="165" height="38" rx="9" fill="#17324c"/><text x="738" y="143" fill="#cde9fa" font-size="14" text-anchor="middle">Interface status</text>
+            <rect x="655" y="171" width="165" height="38" rx="9" fill="#17324c"/><text x="738" y="196" fill="#cde9fa" font-size="14" text-anchor="middle">System uptime</text>
+            <path d="M235 125 H610" stroke="#38bdf8" stroke-width="4" fill="none" marker-end="url(#arrowC)"/><text x="422" y="96" fill="#7dd3fc" font-size="16" font-weight="700" text-anchor="middle">PING</text><text x="422" y="151" fill="#9fc3dd" font-size="13" text-anchor="middle">到達できるか</text>
+            <path d="M610 202 H250" stroke="#a78bfa" stroke-width="4" fill="none" marker-end="url(#arrowC)"/><text x="422" y="183" fill="#c4b5fd" font-size="16" font-weight="700" text-anchor="middle">SNMP</text><text x="422" y="229" fill="#aaa4ce" font-size="13" text-anchor="middle">機器内部の状態を取得</text>
+            <text x="450" y="280" fill="#8193a7" font-size="13" text-anchor="middle">死活と内部状態を組み合わせると、</text><text x="450" y="298" fill="#8193a7" font-size="13" text-anchor="middle">障害箇所をより細かく切り分けられます。</text>
+          </svg>
+        </div>
+      </section>
+
+      <section class="article-section" id="arp">
+        <h2>ARP監視と自動発見：ネットワークの変化を見る</h2>
+        <p>ARP情報を利用すると、ネットワーク上で確認されたIPアドレスとMACアドレスの対応を把握できます。この環境ではARP Watchも利用しており、端末の発見やMACアドレスの変化を追えるようにしています。</p>
+        <p>これは「登録した機器だけを見る」監視とは少し役割が異なります。ネットワーク内に新しい端末が現れた、同じIPアドレスに別のMACアドレスが見えた、といった<strong>環境の変化</strong>を見つける材料になります。</p>
+        <div class="mini-grid">
+          <div class="mini-card"><span class="card-label">DISCOVERY</span><strong>端末を見つける</strong><p>指定したネットワーク範囲を調べ、監視対象候補を洗い出します。</p></div>
+          <div class="mini-card"><span class="card-label">ARP WATCH</span><strong>IPとMACの変化を見る</strong><p>アドレス情報の変化をイベントとして記録し、ネットワークの変化に気付きやすくします。</p></div>
+        </div>
+      </section>
+
+      <section class="article-section" id="events">
+        <h2>ポーリングとイベント受信は役割が違う</h2>
+        <p>監視には、監視サーバ側から定期的に確認する<strong>ポーリング</strong>と、機器側から異常やログを送ってもらう<strong>イベント受信</strong>があります。</p>
+        <p>TWSNMPではSyslogやSNMP Trapなども扱えます。この監視環境では、SyslogとSNMP Trapの受信機能も有効にしています。</p>
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead><tr><th>方式</th><th>動き</th><th>向いている確認</th></tr></thead>
+            <tbody>
+              <tr><td><strong>Ping / SNMP Polling</strong></td><td>監視サーバ → 機器</td><td>定期的な死活、状態、性能値の確認</td></tr>
+              <tr><td><strong>Syslog</strong></td><td>機器 → 監視サーバ</td><td>装置が出力したログやイベントの集約</td></tr>
+              <tr><td><strong>SNMP Trap</strong></td><td>機器 → 監視サーバ</td><td>リンク状態変化など、機器から通知されるイベント</td></tr>
+              <tr><td><strong>ARP Watch</strong></td><td>ネットワーク変化を観測</td><td>IP・MACの対応や端末の変化</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout"><strong>使い分け：</strong>ポーリングは「一定間隔で必ず確認できる」ことが強みです。一方、ログやTrapは「イベント発生時に詳細を受け取れる」ことが強みです。両方を組み合わせると、検知と原因調査をつなげやすくなります。</div>
+      </section>
+
+      <section class="article-section" id="incident">
+        <h2>障害が起きたとき、監視データはどう役立つか</h2>
+        <p>例えば「拠点から通信できない」という申告があった場合、監視データがあると、最初からすべての機器へログインする必要はありません。PingとSNMPの状態を並べるだけでも、切り分けの方向が見えてきます。</p>
+        <div class="diagram-panel">
+          <p class="figure-title">障害切り分けのイメージ</p>
+          <svg role="img" aria-label="正常、ポート異常、機器応答なしの順に監視結果を切り分ける図" viewBox="0 0 900 340">
+            <defs><marker id="arrowD" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L10,3 L0,6 Z" fill="#6d8299"/></marker></defs>
+            <line x1="135" y1="116" x2="765" y2="116" stroke="#38516c" stroke-width="3" marker-end="url(#arrowD)"/>
+            <g font-family="system-ui" text-anchor="middle">
+              <circle cx="150" cy="116" r="42" fill="#0f342a" stroke="#34d399" stroke-width="2"/><text x="150" y="112" fill="#d1fae5" font-size="17" font-weight="700">正常</text><text x="150" y="135" fill="#9ee8cd" font-size="12">Ping OK</text>
+              <circle cx="450" cy="116" r="42" fill="#3a2b0f" stroke="#f59e0b" stroke-width="2"/><text x="450" y="112" fill="#fff7dc" font-size="17" font-weight="700">要確認</text><text x="450" y="135" fill="#f7d49a" font-size="12">Port Down</text>
+              <circle cx="750" cy="116" r="42" fill="#3b1720" stroke="#fb7185" stroke-width="2"/><text x="750" y="112" fill="#ffe4e6" font-size="17" font-weight="700">異常</text><text x="750" y="135" fill="#fecdd3" font-size="12">Ping NG</text>
+            </g>
+            <rect x="80" y="194" width="740" height="118" rx="16" fill="#0e182a" stroke="#283d56"/>
+            <text x="112" y="222" fill="#bcd0e1" font-size="14" font-weight="700">例</text>
+            <text x="160" y="222" fill="#dfeaf3" font-size="14">
+              <tspan x="160" dy="0">Pingは成功</tspan>
+              <tspan x="160" dy="21">→ SNMPで特定ポートのみDown</tspan>
+              <tspan x="160" dy="21">→ 配線・対向機器・ポート設定を優先して確認</tspan>
+            </text>
+            <text x="160" y="292" fill="#9fb2c5" font-size="13">監視結果があると「どこから調べるか」の優先順位を付けやすくなります。</text>
+          </svg>
+        </div>
+        <ul class="check-list">
+          <li><strong>Ping NG：</strong>機器停止、経路、VLAN、ACL／Firewall、物理接続など広い範囲を確認します。</li>
+          <li><strong>Ping OK・SNMP NG：</strong>SNMP設定、認証、管理アクセス、ACLなど管理プレーン側を確認します。</li>
+          <li><strong>Ping OK・特定IF Down：</strong>対象ポート、ケーブル、対向機器、意図したShutdownかどうかを確認します。</li>
+          <li><strong>稼働時間がリセット：</strong>再起動や電源断、ソフトウェア更新などの発生時刻と突き合わせます。</li>
+        </ul>
+      </section>
+
+      <section class="article-section" id="security">
+        <h2>監視サーバ自体のセキュリティも重要</h2>
+        <p>監視サーバは、多くの機器へアクセスするための情報を持つことがあります。そのため、監視対象だけでなく、監視サーバ自身を保護する必要があります。</p>
+        <ul class="check-list">
+          <li><strong>監視DBやバックアップを外部公開しない：</strong>監視設定にはIPアドレス、ホスト名、認証情報などが含まれる場合があります。</li>
+          <li><strong>管理画面へのアクセスを制限する：</strong>管理ネットワーク、VPN、アクセス制御などを使い、インターネットへ不用意に公開しないようにします。</li>
+          <li><strong>SNMPの認証方式を確認する：</strong>対応機器ではSNMPv3など、認証・暗号化を利用できる方式を検討します。</li>
+          <li><strong>監視用アカウントの権限を絞る：</strong>監視に必要な範囲だけを許可し、設定変更権限を安易に持たせないようにします。</li>
+        </ul>
+        <div class="callout warn"><strong>監視データを公開用ページへそのまま掲載していない理由：</strong>監視DBにはネットワークを特定できる情報や監視用の認証情報が含まれることがあります。公開ページでは、構成と監視方式だけを取り上げ、識別情報はすべて一般化しています。</div>
+      </section>
+
+      <section class="article-section" id="summary">
+        <h2>まとめ</h2>
+        <p>監視サーバの役割は、ネットワークの状態を継続的に確認し、異常を早く見つけることです。TWSNMPのような監視ツールを使うと、Pingによる死活監視、SNMPによる機器内部の状態確認、ARPやログによる環境変化の把握を一か所にまとめられます。</p>
+        <p>この監視環境では、6ノードに対して83個のポーリングを設定し、Pingだけでなく、スイッチやルータのインターフェース状態まで細かく監視しています。</p>
+        <p>ネットワーク監視を始める場合は、まず<strong>「Pingで届くか」→「SNMPで中の状態を見る」→「ログやTrapでイベントを補う」</strong>という順で考えると、全体像を理解しやすくなります。</p>
+      </section>
+
+      <section class="article-section" id="references">
+        <h2>参考情報</h2>
+        <p>本記事は、TWSNMPの公開情報と、Stractoの検証環境で過去に取得した監視データをもとに、ネットワーク監視の基本を一般化して整理しています。</p>
+        <p>TWSNMPは継続的に更新されており、現在の機能や対応方式は利用するエディション・バージョンによって異なる場合があります。導入時は最新の公式情報を確認してください。</p>
+        <ul class="reference-list">
+          <li><a href="https://github.com/twsnmp/twsnmpfc" target="_blank" rel="noopener noreferrer">TWSNMP For Container - GitHub</a><span>マップ表示、Ping／SNMPを含むポーリング、Syslog、SNMP Trap、NetFlow/IPFIXなど、TWSNMP FCの機能一覧と公開情報。</span></li>
+          <li><a href="https://github.com/twsnmp/twsnmpfk" target="_blank" rel="noopener noreferrer">TWSNMP FK - GitHub</a><span>デスクトップ向けTWSNMP FKの機能、動作環境、更新情報。</span></li>
+        </ul>
+        <div class="data-note"><span class="badge">DATA</span><div>記事中の「6ノード」「83ポーリング」「Ping 6／SNMP 77」「60秒間隔」は、提供された監視DBを解析して確認した当時の検証環境の値です。公開ページではIPアドレス、ホスト名、MACアドレス、認証情報などを掲載していません。</div></div>
+      </section>
+    </article>
+
+    <aside class="toc" aria-label="記事の目次">
+      <p class="toc-title">この記事の内容</p>
+      <ol>
+        <li><a href="#overview">監視サーバとは</a></li>
+        <li><a href="#twsnmp">TWSNMPとは</a></li>
+        <li><a href="#data">実データから見えた構成</a></li>
+        <li><a href="#flow">監視はどう動くのか</a></li>
+        <li><a href="#ping">Ping監視</a></li>
+        <li><a href="#snmp">SNMP監視</a></li>
+        <li><a href="#arp">ARP監視と自動発見</a></li>
+        <li><a href="#events">Syslog・SNMP Trap</a></li>
+        <li><a href="#incident">障害切り分け</a></li>
+        <li><a href="#security">監視サーバのセキュリティ</a></li>
+        <li><a href="#summary">まとめ</a></li>
+        <li><a href="#references">参考情報</a></li>
+      </ol>
+    </aside>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-links"><a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a><a href="index.html#business">Business</a><a href="index.html#company">Company</a><a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a></div>
+  <div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div>
+</footer>
+
+<script>
+function toggleMenu(button){
+  const menu=document.getElementById("mobileMenu");
+  const open=menu.classList.toggle("show");
+  button.classList.toggle("active",open);
+  button.setAttribute("aria-expanded",String(open));
+  button.setAttribute("aria-label",open?"メニューを閉じる":"メニューを開く");
+}
+document.addEventListener("DOMContentLoaded",()=>{
+  const canvas=document.getElementById("particles");
+  const ctx=canvas.getContext("2d");
+  function resize(){canvas.width=innerWidth;canvas.height=innerHeight}
+  resize();addEventListener("resize",resize);
+  const ps=Array.from({length:40},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+1,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));
+  function draw(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ps.forEach(p=>{const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);g.addColorStop(0,"rgba(255,255,255,.42)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);ctx.fill();p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1;});
+    for(let i=0;i<ps.length;i++){for(let j=i+1;j<ps.length;j++){const a=ps[i],b=ps[j],d=Math.hypot(a.x-b.x,a.y-b.y);if(d<120){ctx.strokeStyle=`rgba(150,180,255,${(1-d/120)*.4})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke()}}}
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia("(prefers-reduced-motion: reduce)").matches) draw();
+});
+</script>
+</body>
+</html>
