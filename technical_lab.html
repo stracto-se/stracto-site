@@ -104,9 +104,11 @@ body {
 
 /* ============ MAIN ============ */
 main {
-  max-width:960px;
+  box-sizing:border-box;
+  width:100%;
+  max-width:1280px;
   margin:0 auto;
-  padding:140px 24px 120px;
+  padding:140px clamp(20px,2.5vw,32px) 120px;
 }
 
 h2 {
@@ -927,56 +929,135 @@ footer {
 }
 
 /* ============ COMPACT TECHNICAL LAB NAVIGATION ============ */
-.content-switcher {
+
+.lab-layout {
+  display:grid;
+  grid-template-columns:minmax(0,1fr) clamp(260px,22vw,288px);
+  gap:clamp(28px,3vw,40px);
+  align-items:start;
+}
+
+.lab-main {
+  min-width:0;
+}
+
+.lab-sidebar {
+  min-width:0;
+}
+
+.category-box {
   position:sticky;
-  top:16px;
-  z-index:20;
-  display:flex;
-  gap:8px;
-  margin:0 0 28px;
-  padding:8px;
-  overflow-x:auto;
+  top:22px;
+  overflow:hidden;
   border:1px solid rgba(125,211,252,.15);
   border-radius:14px;
-  background:rgba(5,8,22,.82);
-  backdrop-filter:blur(16px);
-  box-shadow:0 14px 38px rgba(0,0,0,.18);
+  background:
+    radial-gradient(circle at 100% 0,rgba(56,189,248,.08),transparent 34%),
+    linear-gradient(145deg,rgba(16,24,44,.84),rgba(8,13,28,.76));
+  box-shadow:0 18px 48px rgba(0,0,0,.2);
 }
+
+.category-title {
+  padding:15px 18px 12px;
+  border-bottom:1px solid rgba(148,163,184,.12);
+  color:#7dd3fc;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+
+.content-switcher {
+  display:block;
+  margin:0;
+  padding:8px 14px 14px;
+}
+
 .content-tab {
-  flex:1 0 auto;
-  min-width:170px;
-  padding:12px 15px;
-  border:1px solid transparent;
-  border-radius:10px;
-  color:#9fb0c2;
+  position:relative;
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr) auto;
+  gap:9px;
+  align-items:center;
+  width:100%;
+  min-width:0;
+  padding:13px 4px;
+  border:0;
+  border-bottom:1px dotted rgba(148,163,184,.22);
+  border-radius:0;
+  color:#cbd5e1;
   background:transparent;
   font:inherit;
   font-size:13px;
-  font-weight:700;
-  letter-spacing:.025em;
+  font-weight:650;
+  text-align:left;
   cursor:pointer;
-  transition:.2s ease;
+  transition:color .2s ease,background .2s ease,border-color .2s ease;
 }
-.content-tab:hover { color:#e8f7ff; background:rgba(255,255,255,.035); }
+
+.content-tab:last-child {
+  border-bottom:0;
+}
+
+.content-tab::before {
+  content:"";
+  width:6px;
+  height:6px;
+  border-right:1px solid #7dd3fc;
+  border-bottom:1px solid #7dd3fc;
+  transform:rotate(-45deg);
+}
+
+.content-tab:hover {
+  color:#f8fafc;
+  background:rgba(56,189,248,.035);
+}
+
 .content-tab.active {
-  color:#eaf8ff;
-  border-color:rgba(125,211,252,.27);
-  background:rgba(56,189,248,.09);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.035);
+  color:#7dd3fc;
+  background:rgba(56,189,248,.05);
 }
+
 .content-tab span {
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  min-width:22px;
-  height:22px;
-  margin-left:7px;
+  min-width:24px;
+  height:21px;
+  margin-left:auto;
   padding:0 6px;
   border-radius:999px;
-  color:#7dd3fc;
+  color:#9ecbe2;
   background:rgba(56,189,248,.08);
-  font-size:11px;
+  font-size:10px;
+  font-weight:700;
 }
+
+@media(max-width:900px) {
+  .lab-layout {
+    grid-template-columns:1fr;
+  }
+
+  .lab-sidebar {
+    order:-1;
+  }
+
+  .category-box {
+    position:static;
+  }
+
+  .content-switcher {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:0 18px;
+  }
+}
+
+@media(max-width:560px) {
+  .content-switcher {
+    grid-template-columns:1fr;
+  }
+}
+
 .js .content-panel { display:none; }
 .js .content-panel.active { display:block; }
 
@@ -1009,25 +1090,21 @@ footer {
     <p class="page-intro">ネットワーク・セキュリティを中心に、実務で役立つ技術情報と検証内容を公開しています。</p>
   </header>
 
-  <nav class="content-switcher" aria-label="Technical Lab コンテンツ切り替え">
-    <button class="content-tab active" type="button" data-panel="networkPanel" aria-controls="networkPanel" aria-selected="true">ネットワーク基礎<span>4</span></button>
-    <button class="content-tab" type="button" data-panel="articlesPanel" aria-controls="articlesPanel" aria-selected="false">その他の記事<span>4</span></button>
-    <button class="content-tab" type="button" data-panel="archivePanel" aria-controls="archivePanel" aria-selected="false">検証環境・実績</button>
-  </nav>
-
+  <div class="lab-layout">
+    <div class="lab-main">
   <section class="content-panel active" id="networkPanel" role="tabpanel" aria-labelledby="network-basics-heading">
     <div class="section-heading">
       <div class="section-heading-group">
         <span class="section-kicker">NETWORK BASICS SERIES</span>
         <h3 class="section-title" id="network-basics-heading">ネットワーク基礎シリーズ</h3>
-        <p class="section-description">「検証環境・技術実績」で紹介しているEnterprise Network Labをベースに、主要機器4テーマを実際の構成・設定例から解説します。</p>
+        <p class="section-description">Enterprise Network Labをベースに、主要機器4テーマを実際の構成・設定例から解説します。</p>
       </div>
       <span class="article-count">4 ARTICLES</span>
     </div>
 
     <div class="series-origin-note">
       <strong>検証環境・技術実績との関係</strong>
-      <p>ネットワーク基礎シリーズは、「検証環境・技術実績」で紹介しているEnterprise Network Labに実際に構築・運用したネットワークをベースにしています。コアスイッチ、アクセススイッチ、ルータ、ファイアウォールの実設定を一般化・匿名化し、基礎解説として整理しています。</p>
+      <p>ネットワーク基礎シリーズは、「検証環境・技術実績」で紹介しているEnterprise Network Labで構築・運用したネットワークをベースにしています。コアスイッチ、アクセススイッチ、ルータ、ファイアウォールの構成・設定を一般化・匿名化し、基礎解説として整理しています。</p>
     </div>
 
     <div class="article-grid compact-article-grid">
@@ -1073,17 +1150,144 @@ footer {
     </div>
   </section>
 
+  <section class="content-panel" id="designPanel" role="tabpanel" aria-labelledby="network-design-heading">
+    <div class="section-heading">
+      <div class="section-heading-group">
+        <span class="section-kicker">NETWORK DESIGN SERIES</span>
+        <h3 class="section-title" id="network-design-heading">ネットワーク設計シリーズ</h3>
+        <p class="section-description">Enterprise Network Labをベースに、ネットワーク設計の主要4テーマを実際の設計書から解説します。</p>
+      </div>
+      <span class="article-count">4 ARTICLES</span>
+    </div>
+
+    <div class="series-origin-note">
+      <strong>検証環境・技術実績との関係</strong>
+      <p>ネットワーク設計シリーズは、「検証環境・技術実績」で紹介しているEnterprise Network Labで作成した設計書をベースにしています。要件整理、物理・論理構成、VLAN・IPアドレス、ルーティング・セキュリティなどの設計内容を一般化・匿名化して解説しています。</p>
+    </div>
+
+    <div class="article-grid compact-article-grid">
+      <a class="article-card" href="network-design-01.html">
+        <div class="article-meta">
+          <span class="article-category">NETWORK DESIGN #01</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>ネットワーク設計書には何を書く？</h4>
+        <p>要件、構成図、VLAN、ルーティング、セキュリティ、トラフィックフロー、監視など、ネットワーク設計書に整理する基本項目を解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+
+      <a class="article-card" href="network-design-02.html">
+        <div class="article-meta">
+          <span class="article-category">NETWORK DESIGN #02</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>物理構成図と論理構成図の書き分け方</h4>
+        <p>機器・ポート・リンクを示す物理構成図と、VLAN・IPアドレス・ゲートウェイを示す論理構成図の使い分けを解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+
+      <a class="article-card" href="network-design-03.html">
+        <div class="article-meta">
+          <span class="article-category">NETWORK DESIGN #03</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>VLAN・IPアドレス設計のまとめ方</h4>
+        <p>VLAN ID、IPサブネット、ゲートウェイ、Access / Trunk、用途の整理方法を解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+
+      <a class="article-card" href="network-design-04.html">
+        <div class="article-meta">
+          <span class="article-category">NETWORK DESIGN #04</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>Routing・Security設計のまとめ方</h4>
+        <p>Static Routing、Default Route、Security Zone、Firewall Policy、Traffic Flowなど、ルーティングとセキュリティ設計のまとめ方を解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+    </div>
+  </section>
+
+
+  <section class="content-panel" id="operationsPanel" role="tabpanel" aria-labelledby="operations-heading">
+    <div class="section-heading">
+      <div class="section-heading-group">
+        <span class="section-kicker">OPERATIONS / MONITORING</span>
+        <h3 class="section-title" id="operations-heading">運用・監視</h3>
+        <p class="section-description">Enterprise Network Labをベースに、ネットワーク監視・障害解析の主要テーマを実際の監視データやログから解説します。</p>
+      </div>
+      <span class="article-count">2 ARTICLES</span>
+    </div>
+
+    <div class="article-grid compact-article-grid">
+      <a class="article-card" href="twsnmp_guide.html">
+        <div class="article-meta">
+          <span class="article-category">OPERATIONS / MONITORING</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>監視サーバとは？TWSNMPで学ぶネットワーク監視の基本</h4>
+        <p>Ping、SNMP、ARPなどを使ったネットワーク監視の仕組みを、実際の検証環境をもとに分かりやすく解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+
+      <a class="article-card" href="pa_techsupport_guide_final.html">
+        <div class="article-meta">
+          <span class="article-category">OPERATIONS / TROUBLESHOOTING</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>Palo Alto NetworksのTech Support Fileとは？障害解析で確認するポイント</h4>
+        <p>PA-200から取得した実際のTech Support Fileをもとに、Management Plane / Data Planeや通信障害時の確認ポイントを解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+    </div>
+  </section>
+
+
+  <section class="content-panel" id="sasePanel" role="tabpanel" aria-labelledby="sase-heading">
+    <div class="section-heading">
+      <div class="section-heading-group">
+        <span class="section-kicker">SASE / ZERO TRUST</span>
+        <h3 class="section-title" id="sase-heading">SASE（Secure Access Service Edge）</h3>
+        <p class="section-description">SASE（Secure Access Service Edge）やZero Trustに関連する技術として、Prisma AccessとCloudflare Zero Trustの基本構成・主要機能を解説します。</p>
+      </div>
+      <span class="article-count">2 ARTICLES</span>
+    </div>
+
+    <div class="article-grid compact-article-grid">
+      <a class="article-card" href="prisma-access-guide.html">
+        <div class="article-meta">
+          <span class="article-category">SASE / PRISMA ACCESS</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>Prisma Accessとは？基本構成と主な機能</h4>
+        <p>Mobile Users、Remote Networks、Service Connection、GlobalProtect、認証、端末情報、通信経路などを概要レベルで解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+
+      <a class="article-card" href="cloudflare-zero-trust-design.html">
+        <div class="article-meta">
+          <span class="article-category">SASE / CLOUDFLARE ZERO TRUST</span>
+          <time datetime="2026-09-24">2026.09.24</time>
+        </div>
+        <h4>Cloudflare Zero Trustとは？一般的な構成と基本設計</h4>
+        <p>IdP（Identity Provider）、Cloudflare One Client、Access、Device Posture、Gateway、DNS Policy、Split Tunnelなどの基本構成・設計を解説します。</p>
+        <span class="article-more">記事を読む</span>
+      </a>
+    </div>
+  </section>
+
   <section class="content-panel" id="articlesPanel" role="tabpanel" aria-labelledby="articles-heading">
     <div class="section-heading">
       <div class="section-heading-group">
         <span class="section-kicker">OTHER TECHNICAL ARTICLES</span>
         <h3 class="section-title" id="articles-heading">その他の技術記事</h3>
-        <p class="section-description">AI、クラウド、Zero Trustなどのテーマを掲載しています。</p>
+        <p class="section-description">AI、クラウドなど、ネットワーク基礎・設計・SASE以外の技術テーマを掲載しています。</p>
       </div>
       <span class="article-count" id="articleCount">4 ARTICLES</span>
     </div>
 
     <div class="article-grid compact-article-grid">
+
       <a class="article-card" href="ai-driven-company.html">
         <div class="article-meta">
           <span class="article-category">AI / BUSINESS SYSTEMS</span>
@@ -1131,7 +1335,7 @@ footer {
       <div class="section-heading-group">
         <span class="section-kicker">LAB ARCHIVE</span>
         <h3 class="section-title" id="archive-heading">検証環境・技術実績</h3>
-        <p class="section-description">ネットワーク基礎シリーズのベースとなったEnterprise Network Labの構成・設計・実績を掲載しています。詳細は必要な項目だけ開いて確認できます。</p>
+        <p class="section-description">ネットワーク基礎・設計シリーズのベースとなったEnterprise Network Labの構成、設計内容、技術実績を掲載しています。詳細は必要な項目だけ開いて確認できます。</p>
       </div>
     </div>
 
@@ -1141,11 +1345,11 @@ footer {
         <div class="archive-body">
           <section class="intro-card glass-card">
             <p>
-              当社では、Enterpriseネットワーク・情報セキュリティ技術の検証を目的として、
+              当社では、エンタープライズネットワークと情報セキュリティ技術の検証を目的として、
               Cisco、Palo Alto Networks、Fortinet、Juniperなど複数ベンダーの実機を利用した
               マルチベンダー検証環境を構築・運用していました。
-              実インターネット回線を利用し、ネットワーク設計から構築、運用、障害切り分けまで一連の技術検証を実施しました。
-              ネットワーク基礎シリーズでは、この検証環境で構築したコアスイッチ、アクセススイッチ、ルータ、ファイアウォールの構成・設定を一般化・匿名化して解説しています。
+              実際のインターネット回線を利用し、ネットワーク設計から構築、運用、障害切り分けまで一連の技術検証を実施しました。
+              ネットワーク基礎・設計シリーズでは、この検証環境の機器構成・設定や設計書をもとに、ネットワークの構成・設計内容を一般化・匿名化して解説しています。
             </p>
           </section>
 
@@ -1154,8 +1358,8 @@ footer {
             <div class="summary-grid">
               <div class="summary-item"><div class="summary-label">構築時期</div><div class="summary-value">2022年～運用終了</div></div>
               <div class="summary-item"><div class="summary-label">構成</div><div class="summary-value">Enterprise Network Lab</div></div>
-              <div class="summary-item"><div class="summary-label">運用形態</div><div class="summary-value">実インターネット接続環境</div></div>
-              <div class="summary-item"><div class="summary-label">設計書</div><div class="summary-value">物理・論理設計書作成</div></div>
+              <div class="summary-item"><div class="summary-label">運用形態</div><div class="summary-value">実回線を利用したインターネット接続環境</div></div>
+              <div class="summary-item"><div class="summary-label">設計資料</div><div class="summary-value">物理・論理構成図／各種設計書</div></div>
               <div class="summary-item"><div class="summary-label">運用</div><div class="summary-value">継続運用・技術検証</div></div>
             </div>
           </section>
@@ -1184,7 +1388,7 @@ footer {
               <div class="feature-item">Access Control List</div><div class="feature-item">Security Policy</div>
               <div class="feature-item">Security Zone</div><div class="feature-item">Virtual Domain</div>
               <div class="feature-item">NAT</div><div class="feature-item">NTP</div>
-              <div class="feature-item">Context-Base Access Control</div><div class="feature-item">Wireless LAN</div>
+              <div class="feature-item">Context-Based Access Control</div><div class="feature-item">Wireless LAN</div>
               <div class="feature-item">Network Monitoring</div><div class="feature-item">Packet Capture</div>
               <div class="feature-item">SNMP</div><div class="feature-item">Link Aggregation</div>
             </div>
@@ -1213,7 +1417,7 @@ footer {
             </div>
 
             <div class="lab-article-links" aria-label="ネットワーク構成に関連する基礎記事">
-              <p class="lab-article-links-title">この構成で使用している主要機器を記事で確認する</p>
+              <p class="lab-article-links-title">この構成で使用した主要機器を記事で確認する</p>
               <div class="lab-article-link-grid">
                 <a class="lab-article-link" href="core_switch_guide.html">コアスイッチ</a>
                 <a class="lab-article-link" href="access_switch_guide.html">アクセススイッチ</a>
@@ -1230,18 +1434,45 @@ footer {
         <div class="archive-body">
           <section class="section-card glass-card">
             <h3>設計内容</h3>
-            <p>本環境では、企業ネットワークを想定した設計書を作成し、設計内容に基づいて構築・運用を行いました。</p>
+            <p>本環境では、企業ネットワークを想定した設計書を作成し、その設計に基づいて構築・運用を行いました。</p>
             <ul class="document-list">
               <li>基本設計</li><li>物理・論理構成設計</li><li>VLAN設計</li><li>ルーティング設計</li>
               <li>セキュリティゾーン設計</li><li>セキュリティポリシー設計</li>
               <li>トラフィックフロー設計</li><li>NTP設計</li><li>パケットキャプチャ設計</li><li>監視設計</li>
             </ul>
+
+            <div class="lab-article-links" aria-label="ネットワーク設計シリーズへのリンク">
+              <p class="lab-article-links-title">この検証環境の設計内容をもとにした記事を確認する</p>
+              <div class="lab-article-link-grid">
+                <a class="lab-article-link" href="network-design-01.html">#01 設計書の基本構成</a>
+                <a class="lab-article-link" href="network-design-02.html">#02 物理・論理構成図</a>
+                <a class="lab-article-link" href="network-design-03.html">#03 VLAN・IPアドレス設計</a>
+                <a class="lab-article-link" href="network-design-04.html">#04 Routing・Security設計</a>
+              </div>
+            </div>
+
             <div class="note">※掲載する図面・設計資料は、一部情報をマスキング・簡略化したものを使用しています。</div>
           </section>
         </div>
       </details>
     </div>
   </section>
+    </div>
+
+    <aside class="lab-sidebar" aria-label="Technical Lab カテゴリ">
+      <div class="category-box">
+        <div class="category-title">CATEGORY</div>
+<nav class="content-switcher" aria-label="Technical Lab コンテンツ切り替え">
+    <button class="content-tab active" type="button" data-panel="networkPanel" aria-controls="networkPanel" aria-selected="true">ネットワーク基礎<span>4</span></button>
+    <button class="content-tab" type="button" data-panel="designPanel" aria-controls="designPanel" aria-selected="false">ネットワーク設計<span>4</span></button>
+    <button class="content-tab" type="button" data-panel="operationsPanel" aria-controls="operationsPanel" aria-selected="false">運用・監視<span>2</span></button>
+    <button class="content-tab" type="button" data-panel="sasePanel" aria-controls="sasePanel" aria-selected="false">SASE<span>2</span></button>
+    <button class="content-tab" type="button" data-panel="articlesPanel" aria-controls="articlesPanel" aria-selected="false">その他の記事<span>4</span></button>
+    <button class="content-tab" type="button" data-panel="archivePanel" aria-controls="archivePanel" aria-selected="false">検証環境・実績</button>
+  </nav>
+      </div>
+    </aside>
+  </div>
 </main>
 
 <footer>
@@ -1343,14 +1574,14 @@ document.addEventListener("DOMContentLoaded",()=>{
     });
     panels.forEach(panel=>panel.classList.toggle("active",panel.id===panelId));
     if(updateHash){
-      const hashMap={networkPanel:"network",articlesPanel:"articles",archivePanel:"archive"};
+      const hashMap={networkPanel:"network",designPanel:"design",operationsPanel:"operations",sasePanel:"sase",articlesPanel:"articles",archivePanel:"archive"};
       history.replaceState(null,"","#"+hashMap[panelId]);
     }
   }
 
   tabs.forEach(tab=>tab.addEventListener("click",()=>activate(tab.dataset.panel)));
 
-  const panelMap={network:"networkPanel",articles:"articlesPanel",archive:"archivePanel"};
+  const panelMap={network:"networkPanel",design:"designPanel",operations:"operationsPanel",sase:"sasePanel",articles:"articlesPanel",archive:"archivePanel"};
   const initial=panelMap[location.hash.replace("#","")];
   if(initial) activate(initial,false);
 })();
