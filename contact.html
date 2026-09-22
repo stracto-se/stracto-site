@@ -8,16 +8,18 @@
 <link rel="icon" type="image/png" href="favicon.png">
 
 <!-- ======================= SEO ======================= -->
-<meta name="description" content="Stracto Inc. へのお問い合わせページです。業務のご相談、取材、採用、その他のお問い合わせを受け付けています。">
+<meta name="description" content="Stracto株式会社へのお問い合わせページです。技術支援、ビジネスパートナー、取材・掲載、採用などのご連絡を受け付けています。">
 <link rel="canonical" href="https://stracto.co.jp/contact.html">
 
 <!-- OGP -->
 <meta property="og:title" content="Stracto Inc. - Contact">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://stracto.co.jp/contact.html">
-<meta property="og:image" content="ogp.png">
-<meta property="og:description" content="Stracto Inc. へのお問い合わせはこちらから。">
+<meta property="og:image" content="https://stracto.co.jp/ogp.png">
+<meta property="og:description" content="技術支援、ビジネスパートナー、取材・掲載、採用などのお問い合わせはこちらから。">
+<meta property="og:locale" content="ja_JP">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#050816">
 
 <style>
 :root {
@@ -591,10 +593,280 @@ footer {
   .contact-card { padding:25px 21px; }
   .contact-meta-item { padding:18px; }
 }
+
+/* ==============================
+   ORGANIZED / REFINED CONTACT + FORM ASSIST
+============================== */
+body.menu-open { overflow:hidden; }
+button, a, input, select, textarea, summary { -webkit-tap-highlight-color:transparent; }
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+summary:focus-visible {
+  outline:2px solid #7dd3fc;
+  outline-offset:4px;
+}
+.skip-link {
+  position:fixed;
+  top:14px;
+  left:14px;
+  z-index:100000;
+  padding:9px 14px;
+  border-radius:8px;
+  color:#03111f;
+  background:#7dd3fc;
+  font-weight:800;
+  text-decoration:none;
+  transform:translateY(-160%);
+  transition:transform .2s ease;
+}
+.skip-link:focus { transform:translateY(0); }
+.menu-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:9998;
+  border:0;
+  opacity:0;
+  visibility:hidden;
+  background:rgba(1,5,15,.56);
+  backdrop-filter:blur(2px);
+  transition:opacity .3s ease,visibility .3s ease;
+}
+.menu-backdrop.show { opacity:1; visibility:visible; }
+#mobileMenu {
+  box-sizing:border-box;
+  border-left:1px solid rgba(125,211,252,.14);
+  background:rgba(4,8,21,.92);
+  box-shadow:-24px 0 64px rgba(0,0,0,.36);
+}
+#mobileMenu a[aria-current="page"] { color:#7dd3fc; }
+main { padding-top:112px; }
+.page-header {
+  position:relative;
+  margin-bottom:34px;
+  padding-bottom:34px;
+  border-bottom:1px solid rgba(125,211,252,.13);
+}
+.page-header::after {
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  width:120px;
+  height:1px;
+  background:linear-gradient(90deg,#38bdf8,transparent);
+}
+.breadcrumb {
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin:0 0 28px;
+  color:#53758e;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.breadcrumb a { color:#7891a5; text-decoration:none; }
+.breadcrumb a:hover { color:#7dd3fc; }
+.page-kicker {
+  display:block;
+  margin-bottom:9px;
+  color:#7dd3fc;
+  font-size:11px;
+  font-weight:800;
+  letter-spacing:.18em;
+}
+.page-header h1 {
+  margin:0;
+  padding-left:17px;
+  border-left:4px solid var(--accent);
+  color:#f8fafc;
+  font-size:clamp(30px,4vw,43px);
+  line-height:1.25;
+  letter-spacing:.06em;
+}
+.page-lead {
+  max-width:720px;
+  margin:21px 0 0;
+  color:#b8c5d3;
+  font-size:16px;
+  line-height:1.9;
+}
+.intro-card { margin-bottom:26px; }
+.assist-card {
+  margin-bottom:26px;
+  padding:34px 38px;
+  background:
+    radial-gradient(circle at 96% 5%,rgba(56,189,248,.13),transparent 31%),
+    linear-gradient(145deg,rgba(13,25,47,.94),rgba(8,15,31,.86));
+}
+.assist-header {
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:26px;
+}
+.assist-eyebrow {
+  display:block;
+  margin-bottom:6px;
+  color:#7dd3fc;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.17em;
+}
+.assist-header h2 {
+  margin:0 0 8px;
+  padding:0;
+  border:0;
+  color:#f8fafc;
+  font-size:22px;
+  letter-spacing:.02em;
+  text-shadow:none;
+}
+.assist-header h2::after { display:none; }
+.assist-header p {
+  max-width:620px;
+  margin:0;
+  color:#aebdca;
+  font-size:14px;
+  line-height:1.75;
+}
+.assist-badge {
+  flex:0 0 auto;
+  padding:6px 10px;
+  border:1px solid rgba(125,211,252,.2);
+  border-radius:999px;
+  color:#8fbfd5;
+  background:rgba(56,189,248,.06);
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.14em;
+}
+.assist-step { margin:0; padding:0; border:0; }
+.assist-step + .assist-step { margin-top:22px; }
+.assist-step legend,
+.assist-input-label {
+  display:block;
+  margin-bottom:11px;
+  color:#dce8f2;
+  font-size:13px;
+  font-weight:700;
+}
+.assist-options { display:flex; flex-wrap:wrap; gap:9px; }
+.assist-option {
+  padding:9px 13px;
+  border:1px solid rgba(125,211,252,.17);
+  border-radius:999px;
+  color:#b8c7d5;
+  background:rgba(4,11,26,.46);
+  font-size:12px;
+  font-weight:650;
+  cursor:pointer;
+  transition:border-color .2s ease,color .2s ease,background .2s ease;
+}
+.assist-option:hover { color:#e0f2fe; border-color:rgba(125,211,252,.4); }
+.assist-option.active {
+  color:#7dd3fc;
+  border-color:rgba(56,189,248,.62);
+  background:rgba(56,189,248,.1);
+  box-shadow:0 0 20px rgba(56,189,248,.06);
+}
+#assistSummary { min-height:112px; }
+.assist-actions {
+  display:flex;
+  align-items:center;
+  flex-wrap:wrap;
+  gap:12px;
+  margin-top:16px;
+}
+.assist-generate,
+.assist-clear {
+  min-height:42px;
+  padding:0 16px;
+  border-radius:9px;
+  font-size:13px;
+  font-weight:750;
+  cursor:pointer;
+}
+.assist-generate {
+  border:1px solid rgba(125,211,252,.55);
+  color:#e0f2fe;
+  background:linear-gradient(135deg,rgba(2,132,199,.62),rgba(37,99,235,.56));
+}
+.assist-generate:disabled { cursor:not-allowed; opacity:.42; }
+.assist-clear {
+  border:1px solid rgba(148,163,184,.18);
+  color:#94a3b8;
+  background:transparent;
+}
+.assist-status {
+  min-height:1.5em;
+  margin-top:12px;
+  color:#86efac;
+  font-size:12px;
+}
+.assist-note {
+  margin-top:18px;
+  padding-top:15px;
+  border-top:1px solid rgba(148,163,184,.1);
+  color:#8293a5;
+  font-size:12px;
+}
+.assist-note summary { width:fit-content; cursor:pointer; color:#8fbfd5; }
+.assist-note p { margin:10px 0 0; line-height:1.7; }
+.contact-card-header { margin-bottom:26px; }
+.contact-card-header h2 {
+  margin:0 0 7px;
+  padding:0;
+  border:0;
+  color:#f8fafc;
+  font-size:20px;
+  letter-spacing:.025em;
+  text-shadow:none;
+}
+.contact-card-header h2::after { display:none; }
+.contact-card-header p { margin:0; color:#91a1b3; font-size:13px; }
+.form-section-label {
+  grid-column:1/-1;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-top:4px;
+  color:#7dd3fc;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.15em;
+}
+.form-section-label::after {
+  content:"";
+  flex:1;
+  height:1px;
+  background:linear-gradient(90deg,rgba(125,211,252,.18),transparent);
+}
+
+@media(max-width:600px) {
+  main { padding-top:96px; }
+  .page-header { margin-bottom:26px; padding-bottom:28px; }
+  .breadcrumb { margin-bottom:22px; }
+  .page-header h1 { font-size:30px; }
+  .page-lead { font-size:15px; }
+  .assist-card { padding:26px 21px; }
+  .assist-header { flex-direction:column; gap:12px; }
+  .assist-options { display:grid; grid-template-columns:1fr 1fr; }
+  .assist-option:last-child { grid-column:1/-1; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+}
 </style>
 </head>
 
 <body>
+
+<a class="skip-link" href="#main-content">本文へ移動</a>
 
 <canvas id="particles"></canvas>
 
@@ -602,7 +874,9 @@ footer {
   <span></span><span></span><span></span>
 </button>
 
-<nav id="mobileMenu" aria-label="サイトメニュー">
+<button class="menu-backdrop" type="button" onclick="toggleMenu(false)" aria-label="メニューを閉じる"></button>
+
+<nav id="mobileMenu" aria-label="サイトメニュー" aria-hidden="true">
   <a href="index.html">HOME</a>
   <a href="index.html#news">NEWS</a>
   <a href="index.html#mission">MISSION</a>
@@ -612,13 +886,18 @@ footer {
   <a href="contact.html" aria-current="page">CONTACT</a>
 </nav>
 
-<main>
-  <h2>CONTACT</h2>
+<main id="main-content">
+  <header class="page-header">
+    <nav class="breadcrumb" aria-label="パンくずリスト"><a href="index.html">HOME</a><span aria-hidden="true">/</span><span>CONTACT</span></nav>
+    <span class="page-kicker">CONTACT / PARTNERSHIP</span>
+    <h1>CONTACT</h1>
+    <p class="page-lead">技術支援、ビジネスパートナー、取材・掲載など、ご用件に合わせてお問い合わせください。</p>
+  </header>
 
   <section class="intro-card glass-card">
     <p>
       Stractoへのお問い合わせは、以下のフォームよりご連絡ください。<br>
-      業務のご相談、取材、採用、その他のお問い合わせを受け付けています。<br>
+      技術支援のご相談、ビジネスパートナー、取材・掲載、採用、その他のお問い合わせを受け付けています。<br>
       内容を確認のうえ、通常3営業日以内を目安にご返信いたします。
     </p>
 
@@ -636,7 +915,49 @@ footer {
     </div>
   </section>
 
+  <section class="assist-card glass-card" aria-labelledby="assistHeading">
+    <div class="assist-header">
+      <div>
+        <span class="assist-eyebrow">SMART FORM ASSIST / BETA</span>
+        <h2 id="assistHeading">お問い合わせ内容を整理する</h2>
+        <p>ご用件と簡単なメモから、件名とお問い合わせ文のひな形を作成してフォームへ反映します。</p>
+      </div>
+      <span class="assist-badge">IN-BROWSER</span>
+    </div>
+
+    <fieldset class="assist-step">
+      <legend>1. ご用件を選択してください</legend>
+      <div class="assist-options" id="assistOptions">
+        <button class="assist-option" type="button" data-assist-category="business">技術支援の相談</button>
+        <button class="assist-option" type="button" data-assist-category="partner">パートナー募集</button>
+        <button class="assist-option" type="button" data-assist-category="media">取材・掲載</button>
+        <button class="assist-option" type="button" data-assist-category="recruit">採用</button>
+        <button class="assist-option" type="button" data-assist-category="other">その他</button>
+      </div>
+    </fieldset>
+
+    <div class="assist-step">
+      <label class="assist-input-label" for="assistSummary">2. 伝えたいことを簡単に入力してください</label>
+      <textarea id="assistSummary" placeholder="例：ネットワーク更改の設計・構築について相談したい。実施時期は来年1月頃を予定。"></textarea>
+    </div>
+
+    <div class="assist-actions">
+      <button class="assist-generate" id="assistGenerate" type="button" disabled>フォームに反映する</button>
+      <button class="assist-clear" id="assistClear" type="button">クリア</button>
+    </div>
+    <div class="assist-status" id="assistStatus" role="status" aria-live="polite"></div>
+
+    <details class="assist-note">
+      <summary>この機能について</summary>
+      <p>この参考版では、入力内容を外部サービスへ送信せず、ブラウザ内で文面のひな形を作成します。生成AIと接続する場合は、APIキーを公開しないサーバー側の実装が別途必要です。</p>
+    </details>
+  </section>
+
   <section class="contact-card glass-card">
+    <div class="contact-card-header">
+      <h2>お問い合わせフォーム</h2>
+      <p>アシストを使わず、直接入力することもできます。</p>
+    </div>
     <!--
       現在はフロント側の入力チェックのみです。
       Formspree / Cloudflare Workers / Microsoft Forms などを利用する場合は、
@@ -644,6 +965,7 @@ footer {
     -->
     <form id="contactForm" novalidate>
       <div class="form-grid">
+        <div class="form-section-label">CONTACT DETAILS</div>
         <div class="form-group">
           <label for="company">会社名・団体名<span class="optional">任意</span></label>
           <input id="company" name="company" type="text" autocomplete="organization" placeholder="例：Stracto株式会社">
@@ -664,12 +986,14 @@ footer {
           <select id="category" name="category" required>
             <option value="">選択してください</option>
             <option value="business">業務・サービスに関するご相談</option>
+            <option value="partner">ビジネスパートナーに関するお問い合わせ</option>
             <option value="media">取材・掲載に関するお問い合わせ</option>
             <option value="recruit">採用に関するお問い合わせ</option>
             <option value="other">その他</option>
           </select>
         </div>
 
+        <div class="form-section-label">MESSAGE</div>
         <div class="form-group full">
           <label for="subject">件名<span class="required">必須</span></label>
           <input id="subject" name="subject" type="text" placeholder="お問い合わせの件名をご入力ください" required>
@@ -677,8 +1001,8 @@ footer {
 
         <div class="form-group full">
           <label for="message">お問い合わせ内容<span class="required">必須</span></label>
-          <textarea id="message" name="message" placeholder="お問い合わせ内容をご入力ください" required></textarea>
-          <div class="helper-text">営業・勧誘のみを目的としたお問い合わせには、返信いたしかねる場合があります。</div>
+          <textarea id="message" name="message" placeholder="お問い合わせ内容をご入力ください" aria-describedby="messageHelp" required></textarea>
+          <div class="helper-text" id="messageHelp">営業・勧誘のみを目的としたお問い合わせには、返信いたしかねる場合があります。</div>
         </div>
 
         <div class="form-group full">
@@ -686,6 +1010,7 @@ footer {
           data-sitekey="0x4AAAAAAD1dpflmR9gaTNjp">
         </div>
        </div>
+        <div class="form-group full">
           <div class="consent">
             <input id="privacy" name="privacy" type="checkbox" required>
             <label for="privacy">
@@ -727,34 +1052,122 @@ footer {
 <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
 <script>
-function toggleMenu(){
+function toggleMenu(forceOpen){
   const menu = document.getElementById("mobileMenu");
   const button = document.querySelector(".hamburger");
-  const isOpen = menu.classList.toggle("show");
+  const backdrop = document.querySelector(".menu-backdrop");
+  const isOpen = typeof forceOpen === "boolean" ? forceOpen : !menu.classList.contains("show");
 
+  menu.classList.toggle("show", isOpen);
   button.classList.toggle("active", isOpen);
+  backdrop.classList.toggle("show", isOpen);
+  document.body.classList.toggle("menu-open", isOpen);
   button.setAttribute("aria-expanded", String(isOpen));
+  button.setAttribute("aria-label", isOpen ? "メニューを閉じる" : "メニューを開く");
+  menu.setAttribute("aria-hidden", String(!isOpen));
 }
 
-document.addEventListener("click", (event) => {
-  const menu = document.getElementById("mobileMenu");
-  const button = document.querySelector(".hamburger");
-
-  if (
-    menu.classList.contains("show") &&
-    !menu.contains(event.target) &&
-    !button.contains(event.target)
-  ) {
-    menu.classList.remove("show");
-    button.classList.remove("active");
-    button.setAttribute("aria-expanded", "false");
-  }
+document.querySelectorAll("#mobileMenu a").forEach(link => {
+  link.addEventListener("click", () => toggleMenu(false));
+});
+document.addEventListener("keydown", (event) => {
+  if(event.key === "Escape") toggleMenu(false);
 });
 
 /* ============ CONTACT FORM ============ */
 const contactForm = document.getElementById("contactForm");
 const formMessage = document.getElementById("formMessage");
 const submitButton = contactForm.querySelector('button[type="submit"]');
+
+/* ============ SMART FORM ASSIST ============ */
+const assistOptions = [...document.querySelectorAll(".assist-option")];
+const assistSummary = document.getElementById("assistSummary");
+const assistGenerate = document.getElementById("assistGenerate");
+const assistClear = document.getElementById("assistClear");
+const assistStatus = document.getElementById("assistStatus");
+const categoryField = document.getElementById("category");
+const subjectField = document.getElementById("subject");
+const messageField = document.getElementById("message");
+let selectedAssistCategory = "";
+
+const assistTemplates = {
+  business: {
+    subject:"ネットワーク・セキュリティの技術支援に関するご相談",
+    placeholder:"例：ネットワーク更改の設計・構築について相談したい。実施時期は来年1月頃を予定。",
+    sections:["ご相談の概要","対象領域・現在の状況","希望時期","その他のご要望"]
+  },
+  partner: {
+    subject:"ビジネスパートナーに関するお問い合わせ",
+    placeholder:"例：ネットワーク・セキュリティ案件での協業について相談したい。対応可能な領域は設計・構築。",
+    sections:["会社・事業概要","連携を希望する領域","対応可能な技術・体制","ご希望の進め方"]
+  },
+  media: {
+    subject:"取材・掲載に関するお問い合わせ",
+    placeholder:"例：ネットワークエンジニアリングに関する記事で取材をお願いしたい。公開予定は来月。",
+    sections:["媒体・企画の概要","ご依頼内容","掲載・公開予定日","確認事項"]
+  },
+  recruit: {
+    subject:"採用に関するお問い合わせ",
+    placeholder:"例：募集職種と選考について確認したい。ネットワーク設計・構築の経験あり。",
+    sections:["お問い合わせの概要","ご経験・関心のある領域","確認したい内容","その他"]
+  },
+  other: {
+    subject:"その他のお問い合わせ",
+    placeholder:"お問い合わせの背景、確認したいこと、希望時期などを簡単にご入力ください。",
+    sections:["お問い合わせの概要","確認したい内容","希望時期","その他"]
+  }
+};
+
+function selectAssistCategory(category){
+  if(!assistTemplates[category]) return;
+  selectedAssistCategory = category;
+  assistOptions.forEach(option => {
+    const active = option.dataset.assistCategory === category;
+    option.classList.toggle("active", active);
+    option.setAttribute("aria-pressed", String(active));
+  });
+  categoryField.value = category;
+  assistSummary.placeholder = assistTemplates[category].placeholder;
+  assistGenerate.disabled = false;
+  assistStatus.textContent = "";
+}
+
+assistOptions.forEach(option => {
+  option.setAttribute("aria-pressed", "false");
+  option.addEventListener("click", () => selectAssistCategory(option.dataset.assistCategory));
+});
+
+assistGenerate.addEventListener("click", () => {
+  const template = assistTemplates[selectedAssistCategory];
+  if(!template) return;
+  const memo = assistSummary.value.trim();
+  const sections = template.sections.map((label, index) => {
+    const value = index === 0 && memo ? memo : "（ご記入ください）";
+    return `【${label}】\n${value}`;
+  });
+
+  categoryField.value = selectedAssistCategory;
+  subjectField.value = template.subject;
+  messageField.value = sections.join("\n\n");
+  assistStatus.textContent = "件名とお問い合わせ内容のひな形をフォームへ反映しました。内容を確認・編集してください。";
+  subjectField.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"center"});
+  setTimeout(() => subjectField.focus({preventScroll:true}), 350);
+});
+
+assistClear.addEventListener("click", () => {
+  selectedAssistCategory = "";
+  assistOptions.forEach(option => {
+    option.classList.remove("active");
+    option.setAttribute("aria-pressed", "false");
+  });
+  assistSummary.value = "";
+  assistSummary.placeholder = "例：ネットワーク更改の設計・構築について相談したい。実施時期は来年1月頃を予定。";
+  assistGenerate.disabled = true;
+  assistStatus.textContent = "";
+});
+
+const requestedCategory = new URLSearchParams(location.search).get("category");
+if(requestedCategory && assistTemplates[requestedCategory]) selectAssistCategory(requestedCategory);
 
 function showFormMessage(type, message){
   formMessage.className = "form-message show " + type;
