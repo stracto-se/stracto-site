@@ -242,6 +242,338 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
   .architecture-step:not(:last-child)::after { content:"↓"; left:50%; right:auto; top:auto; bottom:-21px; transform:translateX(-50%); }
 }
 </style>
+<style>
+
+/* VPS記事ページのデザインに合わせるための共通オーバーライド */
+:root {
+  --bg:#050816;
+  --panel:#0d1529;
+  --text:#e5e7eb;
+  --soft:#9ca3af;
+  --accent:#38bdf8;
+  --line:rgba(125,211,252,.18);
+}
+
+body {
+  background:radial-gradient(circle at 50% -10%,rgba(37,99,235,.13),transparent 32%),var(--bg);
+  color:var(--text);
+}
+
+.hamburger {
+  top:22px;
+  right:24px;
+  z-index:10001;
+  height:28px;
+}
+
+#mobileMenu {
+  right:-310px;
+  width:min(280px,86vw);
+  padding:90px 28px;
+  gap:26px;
+  background:rgba(0,0,0,.72);
+  transition:right .4s;
+  z-index:10000;
+}
+
+#mobileMenu a { font-size:17px; }
+
+main {
+  width:100%;
+  max-width:1280px;
+  padding:112px clamp(20px,2.5vw,32px) 110px;
+}
+
+main::before { display:none; }
+
+.breadcrumb {
+  flex-wrap:wrap;
+  gap:9px;
+  margin:0 0 24px;
+  color:#8795a8;
+  font-size:13px;
+}
+
+.breadcrumb a { color:#9ecbe2; }
+
+.article-hero,
+.series-strip,
+.article-section,
+.toc {
+  position:relative;
+  overflow:hidden;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:radial-gradient(circle at 100% 0,rgba(56,189,248,.11),transparent 32%),linear-gradient(145deg,rgba(16,24,44,.92),rgba(8,13,28,.84));
+  box-shadow:0 20px 56px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.article-hero::before,
+.series-strip::before,
+.article-section::before,
+.toc::before {
+  content:"";
+  position:absolute;
+  left:26px;
+  top:0;
+  width:92px;
+  height:1px;
+  background:linear-gradient(90deg,#7dd3fc,transparent);
+}
+
+.article-hero {
+  padding:clamp(28px,5vw,52px);
+  margin-bottom:26px;
+}
+
+.eyebrow {
+  display:inline-block;
+  margin:0 0 18px;
+  padding:6px 10px;
+  border:1px solid rgba(56,189,248,.28);
+  border-radius:999px;
+  background:rgba(56,189,248,.07);
+  color:#7dd3fc;
+  font-size:12px;
+  font-weight:750;
+  letter-spacing:.08em;
+}
+
+h1 {
+  max-width:820px;
+  color:#f8fafc;
+  font-size:clamp(29px,4vw,44px);
+  line-height:1.42;
+  letter-spacing:.02em;
+}
+
+.lead {
+  max-width:none;
+  margin:25px 0 0;
+  color:#c8d5e2;
+  font-size:17px;
+  line-height:2;
+}
+
+.meta {
+  gap:12px 20px;
+  margin-top:25px;
+  padding-top:19px;
+  border-top:1px solid rgba(148,163,184,.13);
+  color:#93a4b6;
+}
+
+.series-strip {
+  margin:0 0 26px;
+  padding:24px;
+}
+
+.series-strip::before { display:block; }
+.series-items { gap:10px; }
+.series-item {
+  border-color:rgba(148,163,184,.13);
+  background:rgba(255,255,255,.025);
+}
+.series-item.current {
+  border-color:rgba(56,189,248,.3);
+  background:rgba(56,189,248,.075);
+}
+
+.article-layout {
+  grid-template-columns:minmax(0,1fr) clamp(260px,22vw,288px);
+  gap:clamp(28px,3vw,40px);
+  margin-top:0;
+}
+
+.article-section {
+  margin-bottom:22px;
+  padding:clamp(24px,4vw,40px);
+}
+
+.article-section h2 {
+  margin:0 0 25px;
+  padding-left:16px;
+  font-size:clamp(22px,3vw,28px);
+}
+
+.article-section h2::before {
+  width:4px;
+  top:.22em;
+  height:1.08em;
+}
+
+.article-section h3 {
+  margin:31px 0 12px;
+  color:#dff4ff;
+  font-size:19px;
+}
+
+.article-section p,
+.article-section li {
+  color:#c5d1de;
+  font-size:16px;
+  line-height:1.95;
+}
+
+.toc {
+  top:22px;
+  padding:22px;
+}
+
+.toc-title {
+  margin:0 0 15px;
+  padding-bottom:11px;
+  border-bottom:1px solid rgba(148,163,184,.13);
+  color:#7dd3fc;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+}
+
+.toc ol {
+  margin:0;
+  padding:0;
+  list-style:none;
+}
+
+.toc li+li { margin-top:0; }
+
+.toc a {
+  display:block;
+  padding:11px 2px;
+  border-bottom:1px dotted rgba(148,163,184,.2);
+  color:#cbd5e1;
+  font-size:13px;
+  line-height:1.55;
+}
+
+.toc li:last-child a { border-bottom:0; }
+.toc a:hover { color:#7dd3fc; }
+
+.config-block,
+.source-note,
+.point,
+.check-list li,
+.compare-table th,
+.compare-table td {
+  border-color:rgba(125,211,252,.15);
+}
+
+footer {
+  border-top:1px solid rgba(125,211,252,.11);
+  background:linear-gradient(180deg,transparent,rgba(8,13,28,.72));
+}
+
+@media(max-width:900px){
+  .article-layout { grid-template-columns:1fr; }
+  .toc { position:static; order:-1; }
+}
+
+@media(max-width:680px){
+  main { padding:98px 17px 82px; }
+  .article-hero { padding:27px 21px; }
+  h1 { font-size:29px; }
+  .lead { font-size:16px; }
+  .article-section { padding:25px 21px; }
+  .series-strip { padding:21px; }
+  .hamburger { right:18px; }
+}
+
+
+/* VPS記事と同じ、本文＋右サイドバーのレイアウト */
+.series-strip { display:none; }
+
+.sidebar {
+  display:grid;
+  gap:18px;
+  position:sticky;
+  top:22px;
+}
+
+.side-card {
+  position:relative;
+  overflow:hidden;
+  padding:22px;
+  border:1px solid var(--line);
+  border-radius:15px;
+  background:radial-gradient(circle at 100% 0,rgba(56,189,248,.11),transparent 32%),linear-gradient(145deg,rgba(16,24,44,.92),rgba(8,13,28,.84));
+  box-shadow:0 20px 56px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.04);
+}
+
+.side-card::before {
+  content:"";
+  position:absolute;
+  left:26px;
+  top:0;
+  width:92px;
+  height:1px;
+  background:linear-gradient(90deg,#7dd3fc,transparent);
+}
+
+.side-title {
+  margin:0 0 15px;
+  padding-bottom:11px;
+  border-bottom:1px solid rgba(148,163,184,.13);
+  color:#7dd3fc;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.15em;
+}
+
+.sidebar .toc {
+  position:static;
+  top:auto;
+  overflow:visible;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+}
+
+.sidebar .toc::before { display:none; }
+
+.sidebar .toc a,
+.side-links a {
+  display:block;
+  padding:11px 2px;
+  border-bottom:1px dotted rgba(148,163,184,.2);
+  color:#cbd5e1;
+  font-size:13px;
+  line-height:1.55;
+  text-decoration:none;
+}
+
+.sidebar .toc a:last-child,
+.side-links a:last-child { border-bottom:0; }
+
+.sidebar .toc a:hover,
+.side-links a:hover { color:#7dd3fc; }
+
+.category-list {
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.category-list a {
+  padding:7px 10px;
+  border:1px solid rgba(56,189,248,.2);
+  border-radius:999px;
+  background:rgba(56,189,248,.055);
+  color:#bfe9fb;
+  font-size:12px;
+  text-decoration:none;
+}
+
+@media(max-width:900px){
+  .sidebar { position:static; order:-1; }
+  .side-card.toc-card { display:none; }
+}
+
+
+</style>
 </head>
 
 <body>
@@ -268,6 +600,8 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
     <span>FIREWALL GUIDE</span>
   </nav>
 
+  <div class="article-layout">
+    <article class="article-body">
   <header class="article-hero">
     <p class="eyebrow">NETWORK BASICS / 04</p>
     <h1>ファイアウォールとは？<br>役割と基本設定を実際のネットワーク構成から解説</h1>
@@ -292,8 +626,6 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
     </div>
   </section>
 
-  <div class="article-layout">
-    <article class="article-body">
 
       <section class="article-section" id="overview">
         <h2>ファイアウォールとは</h2>
@@ -599,22 +931,40 @@ end</code></pre>
 
     </article>
 
-    <aside class="toc" aria-label="記事の目次">
-      <p class="toc-title">この記事の内容</p>
-      <ol>
-        <li><a href="#overview">ファイアウォールとは</a></li>
-        <li><a href="#architecture">ネットワーク上の役割</a></li>
-        <li><a href="#difference">ルータとの違い</a></li>
-        <li><a href="#settings">必要な基本設定</a></li>
-        <li><a href="#zone">Security Zone</a></li>
-        <li><a href="#interface">LAG / WAN冗長化</a></li>
-        <li><a href="#objects">Address Object</a></li>
-        <li><a href="#policy">Firewall Policy</a></li>
-        <li><a href="#routing">Routing</a></li>
-        <li><a href="#nat">NAT</a></li>
-        <li><a href="#management">管理・監視</a></li>
-        <li><a href="#summary">まとめ</a></li>
-      </ol>
+    <aside class="sidebar" aria-label="記事ナビゲーション">
+      <section class="side-card toc-card">
+        <h2 class="side-title">CONTENTS</h2>
+        <nav class="toc">
+          <a href="#overview">ファイアウォールとは</a>
+          <a href="#architecture">ネットワーク上の役割</a>
+          <a href="#difference">ルータとの違い</a>
+          <a href="#settings">必要な基本設定</a>
+          <a href="#zone">Security Zone</a>
+          <a href="#interface">LAG / WAN冗長化</a>
+          <a href="#objects">Address Object</a>
+          <a href="#policy">Firewall Policy</a>
+          <a href="#routing">Routing</a>
+          <a href="#nat">NAT</a>
+          <a href="#management">管理・監視</a>
+          <a href="#summary">まとめ</a>
+        </nav>
+      </section>
+      <section class="side-card">
+        <h2 class="side-title">CATEGORY</h2>
+        <div class="category-list">
+          <a href="technical_lab.html#network">SECURITY</a>
+          <a href="technical_lab.html#network">FIREWALL</a>
+          <a href="technical_lab.html#network">NETWORK</a>
+        </div>
+      </section>
+      <section class="side-card">
+        <h2 class="side-title">RELATED ARTICLES</h2>
+        <nav class="side-links">
+          <a href="core_switch_guide.html">コアスイッチとは？役割と基本設定</a>
+          <a href="access_switch_guide.html">アクセススイッチとは？役割と基本設定</a>
+          <a href="router_guide.html">ルータとは？役割と基本設定</a>
+        </nav>
+      </section>
     </aside>
   </div>
 </main>
