@@ -104,11 +104,9 @@ body {
 
 /* ============ MAIN ============ */
 main {
-  box-sizing:border-box;
-  width:100%;
-  max-width:1280px;
+  max-width:960px;
   margin:0 auto;
-  padding:140px clamp(20px,2.5vw,32px) 120px;
+  padding:140px 24px 120px;
 }
 
 h2 {
@@ -932,8 +930,8 @@ footer {
 
 .lab-layout {
   display:grid;
-  grid-template-columns:minmax(0,1fr) clamp(260px,22vw,288px);
-  gap:clamp(28px,3vw,40px);
+  grid-template-columns:minmax(0,1fr) 260px;
+  gap:34px;
   align-items:start;
 }
 
@@ -1062,6 +1060,115 @@ footer {
 .js .content-panel.active { display:block; }
 
 
+
+/* ============ BUSINESS / CONTACT CTA ============ */
+.lab-business-cta {
+  position:relative;
+  overflow:hidden;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) auto;
+  gap:28px;
+  align-items:center;
+  margin-top:56px;
+  padding:28px 30px;
+  border:1px solid rgba(125,211,252,.18);
+  border-radius:14px;
+  background:
+    radial-gradient(circle at 100% 0,rgba(56,189,248,.11),transparent 34%),
+    linear-gradient(145deg,rgba(16,24,44,.9),rgba(8,13,28,.82));
+  box-shadow:0 18px 48px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.04);
+}
+.lab-business-cta::before {
+  content:"";
+  position:absolute;
+  top:0;
+  left:30px;
+  width:92px;
+  height:1px;
+  background:linear-gradient(90deg,#7dd3fc,transparent);
+}
+.lab-business-cta-copy {
+  min-width:0;
+}
+.lab-business-cta-kicker {
+  display:block;
+  margin-bottom:8px;
+  color:#6f9db8;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+.lab-business-cta h3 {
+  margin:0 0 10px;
+  color:#f8fafc;
+  font-size:19px;
+}
+.lab-business-cta p {
+  margin:0;
+  max-width:700px;
+  color:#b8c7d7;
+  font-size:14px;
+  line-height:1.85;
+}
+.lab-business-cta-actions {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  gap:10px;
+}
+.lab-business-cta-link {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 16px;
+  border:1px solid rgba(125,211,252,.25);
+  border-radius:9px;
+  color:#dff4ff;
+  background:rgba(56,189,248,.045);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.06em;
+  text-decoration:none;
+  transition:transform .2s ease,border-color .2s ease,background .2s ease,color .2s ease;
+}
+.lab-business-cta-link:hover {
+  transform:translateY(-2px);
+  border-color:rgba(125,211,252,.48);
+  background:rgba(56,189,248,.09);
+  color:#fff;
+}
+.lab-business-cta-link.primary {
+  border-color:rgba(56,189,248,.42);
+  color:#03111f;
+  background:#7dd3fc;
+}
+.lab-business-cta-link.primary:hover {
+  background:#bae6fd;
+  color:#03111f;
+}
+@media(max-width:760px) {
+  .lab-business-cta {
+    grid-template-columns:1fr;
+    gap:20px;
+    margin-top:42px;
+    padding:24px 21px;
+  }
+  .lab-business-cta-actions {
+    justify-content:flex-start;
+  }
+}
+@media(max-width:480px) {
+  .lab-business-cta-actions {
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .lab-business-cta-link {
+    width:100%;
+    box-sizing:border-box;
+  }
+}
+
 </style>
 <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -1166,7 +1273,7 @@ footer {
     </div>
 
     <div class="article-grid compact-article-grid">
-      <a class="article-card" href="network_design_01.html">
+      <a class="article-card" href="network-design-01.html">
         <div class="article-meta">
           <span class="article-category">NETWORK DESIGN #01</span>
           <time datetime="2026-09-24">2026.09.24</time>
@@ -1176,7 +1283,7 @@ footer {
         <span class="article-more">記事を読む</span>
       </a>
 
-      <a class="article-card" href="network_design_02.html">
+      <a class="article-card" href="network-design-02.html">
         <div class="article-meta">
           <span class="article-category">NETWORK DESIGN #02</span>
           <time datetime="2026-09-24">2026.09.24</time>
@@ -1186,7 +1293,7 @@ footer {
         <span class="article-more">記事を読む</span>
       </a>
 
-      <a class="article-card" href="network_design_03.html">
+      <a class="article-card" href="network-design-03.html">
         <div class="article-meta">
           <span class="article-category">NETWORK DESIGN #03</span>
           <time datetime="2026-09-24">2026.09.24</time>
@@ -1196,7 +1303,7 @@ footer {
         <span class="article-more">記事を読む</span>
       </a>
 
-      <a class="article-card" href="network_design_04.html">
+      <a class="article-card" href="network-design-04.html">
         <div class="article-meta">
           <span class="article-category">NETWORK DESIGN #04</span>
           <time datetime="2026-09-24">2026.09.24</time>
@@ -1230,7 +1337,7 @@ footer {
         <span class="article-more">記事を読む</span>
       </a>
 
-      <a class="article-card" href="pa_techsupport_guide.html">
+      <a class="article-card" href="pa_techsupport_guide_final.html">
         <div class="article-meta">
           <span class="article-category">OPERATIONS / TROUBLESHOOTING</span>
           <time datetime="2026-09-24">2026.09.24</time>
@@ -1254,7 +1361,7 @@ footer {
     </div>
 
     <div class="article-grid compact-article-grid">
-      <a class="article-card" href="prisma_access_guide.html">
+      <a class="article-card" href="prisma-access-guide.html">
         <div class="article-meta">
           <span class="article-category">SASE / PRISMA ACCESS</span>
           <time datetime="2026-09-24">2026.09.24</time>
@@ -1264,7 +1371,7 @@ footer {
         <span class="article-more">記事を読む</span>
       </a>
 
-      <a class="article-card" href="cloudflare_zero_trust_design.html">
+      <a class="article-card" href="cloudflare-zero-trust-design.html">
         <div class="article-meta">
           <span class="article-category">SASE / CLOUDFLARE ZERO TRUST</span>
           <time datetime="2026-09-24">2026.09.24</time>
@@ -1444,10 +1551,10 @@ footer {
             <div class="lab-article-links" aria-label="ネットワーク設計シリーズへのリンク">
               <p class="lab-article-links-title">この検証環境の設計内容をもとにした記事を確認する</p>
               <div class="lab-article-link-grid">
-                <a class="lab-article-link" href="network_design_01.html">#01 設計書の基本構成</a>
-                <a class="lab-article-link" href="network_design_02.html">#02 物理・論理構成図</a>
-                <a class="lab-article-link" href="network_design_03.html">#03 VLAN・IPアドレス設計</a>
-                <a class="lab-article-link" href="network_design_04.html">#04 Routing・Security設計</a>
+                <a class="lab-article-link" href="network-design-01.html">#01 設計書の基本構成</a>
+                <a class="lab-article-link" href="network-design-02.html">#02 物理・論理構成図</a>
+                <a class="lab-article-link" href="network-design-03.html">#03 VLAN・IPアドレス設計</a>
+                <a class="lab-article-link" href="network-design-04.html">#04 Routing・Security設計</a>
               </div>
             </div>
 
@@ -1473,6 +1580,19 @@ footer {
       </div>
     </aside>
   </div>
+
+  <section class="lab-business-cta" aria-label="技術支援のご案内">
+    <div class="lab-business-cta-copy">
+      <span class="lab-business-cta-kicker">FROM LAB TO BUSINESS</span>
+      <h3>技術支援について</h3>
+      <p>Technical Labで扱っているネットワーク・セキュリティ、SASE、ITインフラ領域について、設計・構築・運用・技術支援のご相談を受け付けています。</p>
+    </div>
+    <div class="lab-business-cta-actions">
+      <a class="lab-business-cta-link" href="index.html#business">BUSINESSを見る <span aria-hidden="true">→</span></a>
+      <a class="lab-business-cta-link primary" href="contact.html">技術支援を相談する <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
 </main>
 
 <footer>
