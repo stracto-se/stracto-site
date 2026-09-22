@@ -572,6 +572,53 @@ footer {
   text-decoration:none;
 }
 
+
+.article-nav {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+
+.article-nav.single { grid-template-columns:1fr; }
+
+.article-nav a {
+  padding:16px 19px;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:11px;
+  background:rgba(255,255,255,.025);
+  color:#dbeafe;
+  text-decoration:none;
+  line-height:1.6;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+
+.article-nav a:hover {
+  transform:translateY(-2px);
+  border-color:rgba(125,211,252,.34);
+  background:rgba(56,189,248,.055);
+}
+
+.article-nav small {
+  display:block;
+  margin-bottom:7px;
+  color:#7dd3fc;
+  font-size:12px;
+  letter-spacing:.04em;
+}
+
+.article-nav strong {
+  display:block;
+  color:#e5edf5;
+  font-size:15px;
+  font-weight:600;
+}
+
+@media(max-width:680px){
+  .article-nav { grid-template-columns:1fr; }
+}
+
+
 @media(max-width:900px){
   .sidebar { position:static; order:-1; }
   .side-card.toc-card { display:none; }
@@ -804,6 +851,10 @@ Purple : Service / Development Network</code></pre>
         <p>物理構成図は機器・ポート・リンクを確認するための図、論理構成図はVLAN・Subnet・Gateway・通信関係を確認するための図です。同じ情報を両方へ詰め込まず、それぞれの役割を分けることで読みやすくなります。</p>
         <p>「物理接続 → VLAN / IP → Routing / Policy」の順で設計を進め、2つの図をセットでレビューすると、設計から構築、障害切り分けまで使いやすい資料になります。</p>
         <p>次回は、ネットワーク設計の中でも設定へ直結する「VLAN・IPアドレス設計のまとめ方」を取り上げます。</p>
+        <nav class="article-nav" aria-label="シリーズ記事ナビゲーション">
+          <a href="network_design_01.html"><small>PREVIOUS ARTICLE</small><strong>ネットワーク設計書には何を書く？</strong></a>
+          <a href="network_design_03.html"><small>NEXT ARTICLE</small><strong>VLAN・IPアドレス設計のまとめ方</strong></a>
+        </nav>
       </section>
 
       <section class="article-section" id="sources">

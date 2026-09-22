@@ -567,6 +567,53 @@ footer {
   text-decoration:none;
 }
 
+
+.article-nav {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+
+.article-nav.single { grid-template-columns:1fr; }
+
+.article-nav a {
+  padding:16px 19px;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:11px;
+  background:rgba(255,255,255,.025);
+  color:#dbeafe;
+  text-decoration:none;
+  line-height:1.6;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+
+.article-nav a:hover {
+  transform:translateY(-2px);
+  border-color:rgba(125,211,252,.34);
+  background:rgba(56,189,248,.055);
+}
+
+.article-nav small {
+  display:block;
+  margin-bottom:7px;
+  color:#7dd3fc;
+  font-size:12px;
+  letter-spacing:.04em;
+}
+
+.article-nav strong {
+  display:block;
+  color:#e5edf5;
+  font-size:15px;
+  font-weight:600;
+}
+
+@media(max-width:680px){
+  .article-nav { grid-template-columns:1fr; }
+}
+
+
 @media(max-width:900px){
   .sidebar { position:static; order:-1; }
   .side-card.toc-card { display:none; }
@@ -839,6 +886,9 @@ ntp server 192.0.2.10 prefer</code></pre>
         <p>最初に押さえておきたいのは、VLAN、Access / Trunk、SVI、ルーティング、DHCP、SSH、NTP、監視といった基本設定です。それぞれの設定を個別に覚えるだけでなく、「ネットワーク全体の中で、この機器に何を担当させるのか」を整理して設計することが重要です。</p>
         <p>本記事は「ネットワーク基礎シリーズ」の第1回です。次回は、PCや無線APなどの端末を収容するエッジスイッチ（アクセススイッチ）を取り上げ、その役割と基本設定を解説します。</p>
         <p>シリーズでは、このあとルータ、ファイアウォールと続き、ネットワークを構成する主要機器を内側から外側へ順番に整理していきます。</p>
+        <nav class="article-nav single" aria-label="シリーズ記事ナビゲーション">
+          <a href="access_switch_guide.html"><small>NEXT ARTICLE</small><strong>アクセススイッチとは？役割と基本設定</strong></a>
+        </nav>
       </section>
 
       <section class="article-section" id="sources">

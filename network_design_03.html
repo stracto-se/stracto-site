@@ -572,6 +572,53 @@ footer {
   text-decoration:none;
 }
 
+
+.article-nav {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+
+.article-nav.single { grid-template-columns:1fr; }
+
+.article-nav a {
+  padding:16px 19px;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:11px;
+  background:rgba(255,255,255,.025);
+  color:#dbeafe;
+  text-decoration:none;
+  line-height:1.6;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+
+.article-nav a:hover {
+  transform:translateY(-2px);
+  border-color:rgba(125,211,252,.34);
+  background:rgba(56,189,248,.055);
+}
+
+.article-nav small {
+  display:block;
+  margin-bottom:7px;
+  color:#7dd3fc;
+  font-size:12px;
+  letter-spacing:.04em;
+}
+
+.article-nav strong {
+  display:block;
+  color:#e5edf5;
+  font-size:15px;
+  font-weight:600;
+}
+
+@media(max-width:680px){
+  .article-nav { grid-template-columns:1fr; }
+}
+
+
 @media(max-width:900px){
   .sidebar { position:static; order:-1; }
   .side-card.toc-card { display:none; }
@@ -758,6 +805,10 @@ VLAN 30 / Management
         <p>VLAN・IPアドレス設計では、VLAN IDだけでなく、用途、Subnet、Gateway、Access / Trunk、収容先をセットで整理すると、設計意図が伝わりやすくなります。</p>
         <p>「用途を決める → VLANを分ける → IPを割り当てる → Gatewayと接続方式を決める」の順で整理すると、論理構成図やスイッチ設定へ落とし込みやすくなります。</p>
         <p>次回は、VLAN・IP設計の上位にある<strong>RoutingとSecurity設計</strong>を取り上げます。通信経路とFirewall Policyをどのように設計書へ整理するかを見ていきます。</p>
+        <nav class="article-nav" aria-label="シリーズ記事ナビゲーション">
+          <a href="network_design_02.html"><small>PREVIOUS ARTICLE</small><strong>物理構成図と論理構成図の書き分け方</strong></a>
+          <a href="network_design_04.html"><small>NEXT ARTICLE</small><strong>Routing・Security設計のまとめ方</strong></a>
+        </nav>
       </section>
 
       <section class="article-section" id="sources">

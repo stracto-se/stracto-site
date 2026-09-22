@@ -572,6 +572,53 @@ footer {
   text-decoration:none;
 }
 
+
+.article-nav {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:24px;
+}
+
+.article-nav.single { grid-template-columns:1fr; }
+
+.article-nav a {
+  padding:16px 19px;
+  border:1px solid rgba(125,211,252,.16);
+  border-radius:11px;
+  background:rgba(255,255,255,.025);
+  color:#dbeafe;
+  text-decoration:none;
+  line-height:1.6;
+  transition:border-color .2s,background .2s,transform .2s;
+}
+
+.article-nav a:hover {
+  transform:translateY(-2px);
+  border-color:rgba(125,211,252,.34);
+  background:rgba(56,189,248,.055);
+}
+
+.article-nav small {
+  display:block;
+  margin-bottom:7px;
+  color:#7dd3fc;
+  font-size:12px;
+  letter-spacing:.04em;
+}
+
+.article-nav strong {
+  display:block;
+  color:#e5edf5;
+  font-size:15px;
+  font-weight:600;
+}
+
+@media(max-width:680px){
+  .article-nav { grid-template-columns:1fr; }
+}
+
+
 @media(max-width:900px){
   .sidebar { position:static; order:-1; }
   .side-card.toc-card { display:none; }
@@ -785,6 +832,9 @@ Trust    | Untrust  | ALL      | ALL      | ALL     | -   | ALL | Deny</code></p
         <p>Routing設計では通信の行き先を決め、Security設計ではその通信を許可する条件を決めます。設計書では、Route、Security Zone、Firewall Policy、NAT、Traffic Flowをそれぞれ整理し、最後に一連の通信として確認します。</p>
         <p>「VLAN / IP → Gateway → Route → Security Policy → Traffic Flow」の順でつなげると、設計内容と機器設定の対応関係を追いやすくなります。</p>
         <p>これで、ネットワーク設計シリーズ #01〜#04として、設計書の全体像から構成図、VLAN・IP、Routing・Securityまで一通りつながる構成になります。</p>
+        <nav class="article-nav single" aria-label="シリーズ記事ナビゲーション">
+          <a href="network_design_03.html"><small>PREVIOUS ARTICLE</small><strong>VLAN・IPアドレス設計のまとめ方</strong></a>
+        </nav>
       </section>
 
       <section class="article-section" id="sources">
