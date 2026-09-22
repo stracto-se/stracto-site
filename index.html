@@ -1305,14 +1305,255 @@ footer {
   }
 }
 
+/* ==============================
+   REFINED REFERENCE VERSION
+   Preserve the original visual identity while improving structure.
+============================== */
+html { scroll-behavior:smooth; }
+body { line-height:1.75; }
+body.menu-open { overflow:hidden; }
+button, a, summary { -webkit-tap-highlight-color:transparent; }
+button:focus-visible,
+a:focus-visible,
+summary:focus-visible {
+  outline:2px solid #7dd3fc;
+  outline-offset:4px;
+}
+.skip-link {
+  position:fixed;
+  top:14px;
+  left:14px;
+  z-index:20000;
+  padding:9px 14px;
+  border-radius:8px;
+  color:#03111f;
+  background:#7dd3fc;
+  font-weight:800;
+  text-decoration:none;
+  transform:translateY(-160%);
+  transition:transform .2s ease;
+}
+.skip-link:focus { transform:translateY(0); }
+.visually-hidden {
+  position:absolute!important;
+  width:1px!important;
+  height:1px!important;
+  padding:0!important;
+  margin:-1px!important;
+  overflow:hidden!important;
+  clip:rect(0,0,0,0)!important;
+  white-space:nowrap!important;
+  border:0!important;
+}
+.hamburger {
+  padding:0;
+  border:0;
+  background:transparent;
+}
+.menu-backdrop {
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  border:0;
+  opacity:0;
+  visibility:hidden;
+  background:rgba(1,5,15,.56);
+  backdrop-filter:blur(2px);
+  transition:opacity .3s ease,visibility .3s ease;
+}
+.menu-backdrop.show { opacity:1; visibility:visible; }
+#mobileMenu {
+  box-sizing:border-box;
+  border-left:1px solid rgba(125,211,252,.14);
+  box-shadow:-24px 0 64px rgba(0,0,0,.36);
+}
+#mobileMenu a {
+  position:relative;
+  padding-bottom:7px;
+  border-bottom:1px solid transparent;
+}
+#mobileMenu a:hover { color:#7dd3fc; border-bottom-color:rgba(125,211,252,.2); }
+.hero { margin-bottom:0; }
+.hero::after {
+  content:"";
+  position:absolute;
+  inset:auto 0 0;
+  z-index:2;
+  height:150px;
+  pointer-events:none;
+  background:linear-gradient(180deg,transparent,#050816);
+}
+.hero-scroll {
+  position:absolute;
+  left:50%;
+  bottom:28px;
+  z-index:4;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:8px;
+  color:rgba(226,232,240,.62);
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.22em;
+  text-decoration:none;
+  transform:translateX(-50%);
+}
+.hero-scroll::after {
+  content:"";
+  width:1px;
+  height:34px;
+  background:linear-gradient(#7dd3fc,transparent);
+  animation:scrollSignal 2.2s ease-in-out infinite;
+}
+@keyframes scrollSignal {
+  0%,100% { opacity:.35; transform:scaleY(.7); transform-origin:top; }
+  50% { opacity:1; transform:scaleY(1); transform-origin:top; }
+}
+main { max-width:1040px; padding-top:34px; }
+section { scroll-margin-top:24px; }
+.section-guide {
+  display:grid;
+  grid-template-columns:auto repeat(5,1fr);
+  align-items:stretch;
+  margin:0 0 88px;
+  border:1px solid rgba(125,211,252,.14);
+  border-radius:14px;
+  overflow:hidden;
+  background:rgba(10,15,31,.58);
+  backdrop-filter:blur(12px);
+}
+.section-guide-label {
+  display:flex;
+  align-items:center;
+  padding:17px 20px;
+  color:#7dd3fc;
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.18em;
+  border-right:1px solid rgba(125,211,252,.12);
+}
+.section-guide a {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:2px;
+  min-width:0;
+  padding:13px 15px;
+  border-right:1px solid rgba(125,211,252,.1);
+  color:#dbe7f3;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.04em;
+  text-decoration:none;
+  transition:background .2s ease,color .2s ease;
+}
+.section-guide a:last-child { border-right:0; }
+.section-guide a:hover { color:#7dd3fc; background:rgba(56,189,248,.06); }
+.section-guide small {
+  color:#4f7390;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:.12em;
+}
+main > section,
+.business-knowledge-grid > section { position:relative; }
+main > section::before,
+.business-knowledge-grid > section::before {
+  content:attr(data-section);
+  position:absolute;
+  top:3px;
+  right:0;
+  color:rgba(125,211,252,.28);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.16em;
+}
+h2 { letter-spacing:.035em; }
+#newsArea,
+.glass,
+.achievement-card {
+  transition:border-color .25s ease,box-shadow .25s ease,transform .25s ease;
+}
+.glass:hover,
+#newsArea:hover { border-color:rgba(125,211,252,.24); }
+.achievement-card:hover {
+  border-color:rgba(125,211,252,.36);
+  box-shadow:0 18px 48px rgba(0,0,0,.18);
+}
+.achievement-link {
+  background:
+    radial-gradient(circle at 100% 0%,rgba(56,189,248,.11),transparent 38%),
+    linear-gradient(145deg,rgba(13,25,47,.94),rgba(8,15,31,.88));
+}
+.achievement-link h3::after {
+  content:"JOURNAL / ARTICLES";
+  display:block;
+  margin-top:6px;
+  color:#50738d;
+  font-size:9px;
+  letter-spacing:.16em;
+}
+.closing-contact {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:24px;
+  margin-top:92px;
+  padding:28px 0;
+  border-top:1px solid rgba(125,211,252,.15);
+  border-bottom:1px solid rgba(125,211,252,.15);
+}
+.closing-contact p { margin:0; color:#b8c5d4; }
+.closing-contact strong {
+  display:block;
+  margin-bottom:4px;
+  color:#f1f5f9;
+  font-size:17px;
+}
+.closing-contact a {
+  flex:0 0 auto;
+  color:#7dd3fc;
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.15em;
+  text-decoration:none;
+}
+.closing-contact a:hover { color:#e0f2fe; }
+img[loading="lazy"] { content-visibility:auto; }
+
+@media(max-width:850px) {
+  .section-guide { grid-template-columns:repeat(3,1fr); }
+  .section-guide-label { grid-column:1/-1; border-right:0; border-bottom:1px solid rgba(125,211,252,.12); }
+  .section-guide a:nth-last-child(-n+2) { border-top:1px solid rgba(125,211,252,.1); }
+}
+@media(max-width:600px) {
+  .hero-scroll { bottom:20px; }
+  main { padding-top:26px; }
+  .section-guide { grid-template-columns:1fr 1fr; margin-bottom:68px; }
+  .section-guide-label { grid-column:1/-1; }
+  .section-guide a { min-height:48px; }
+  .section-guide a:nth-child(even) { border-right:0; }
+  .section-guide a:nth-last-child(-n+3) { border-top:1px solid rgba(125,211,252,.1); }
+  main > section::before,
+  .business-knowledge-grid > section::before { display:none; }
+  .closing-contact { align-items:flex-start; flex-direction:column; }
+}
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  .hero-scroll::after { animation:none; }
+}
+
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main-content">本文へ移動</a>
 <canvas id="particles"></canvas>
-<div class="hamburger" onclick="toggleMenu()">
+<button class="hamburger" type="button" onclick="toggleMenu()" aria-controls="mobileMenu" aria-expanded="false" aria-label="メニューを開く">
 <span></span><span></span><span></span>
-</div>
-<div id="mobileMenu">
+</button>
+<button class="menu-backdrop" type="button" onclick="toggleMenu(false)" aria-label="メニューを閉じる"></button>
+<nav id="mobileMenu" aria-label="メインナビゲーション" aria-hidden="true">
 <a href="index.html">HOME</a>
 <a href="#news">NEWS</a>
 <a href="#mission">MISSION</a>
@@ -1320,19 +1561,29 @@ footer {
 <a href="#company">COMPANY</a>
 <a href="technical_lab.html">TECHNICAL LAB</a>
 <a href="#security">SECURITY</a>
-<a aria-current="page" href="contact.html">CONTACT</a>
-</div>
+<a href="contact.html">CONTACT</a>
+</nav>
 <div class="hero">
+<h1 class="visually-hidden">Stracto株式会社 — ネットワーク・セキュリティを中心としたITエンジニアリング</h1>
 <picture>
   <source media="(max-width: 768px)" srcset="keyvisual3.png"/>
   <img class="kv" src="keyvisual2.png" alt="Stracto"/>
 </picture>
 <canvas class="hero-wave-canvas" id="heroWave" aria-hidden="true"></canvas>
+<a class="hero-scroll" href="#page-guide">SCROLL</a>
 </div>
-<main>
+<main id="main-content">
+<nav class="section-guide" id="page-guide" aria-label="ページ内の主要セクション">
+<span class="section-guide-label">EXPLORE STRACTO</span>
+<a href="#mission"><small>01</small>MISSION</a>
+<a href="#business"><small>02</small>BUSINESS</a>
+<a href="#achievements"><small>03</small>ACHIEVEMENTS</a>
+<a href="technical_lab.html"><small>04</small>TECHNICAL LAB</a>
+<a href="#company"><small>05</small>COMPANY</a>
+</nav>
 <!-- NEWS -->
-<section id="news">
-<h2>NEWS 📰</h2>
+<section id="news" data-section="UPDATE LOG">
+<h2>NEWS</h2>
 <div id="newsArea">
 <div class="news-year">2026</div>
 <div class="news-content">
@@ -1348,6 +1599,8 @@ footer {
 <span class="date">2026-09-09</span>
 <span class="news-text">Technical Lab：その他の技術記事3件を追加しました。</span>
       </div>
+<details class="news-archive">
+<summary><span class="news-show-label">過去の更新履歴を見る</span><span class="news-hide-label">過去の更新履歴を閉じる</span></summary>
 <div class="news-row" data-date="2026-08-16">
 <span class="date">2026-08-16</span>
 <span class="news-text">SECURITY ACTION　二つ星を宣言しました。</span>
@@ -1356,8 +1609,6 @@ footer {
 <span class="date">2026-08-07</span>
 <span class="news-text">プライバシーポリシーを公開しました。</span>
       </div>
-<details class="news-archive">
-<summary><span class="news-show-label">過去の更新履歴を見る</span><span class="news-hide-label">過去の更新履歴を閉じる</span></summary>
 <div class="news-row" data-date="2026-07-19">
 <span class="date">2026-07-19</span>
 <span class="news-text">Technical Lab：検証環境・実績を公開しました。</span>
@@ -1387,7 +1638,7 @@ footer {
 </div>
 </section>
 <!-- MISSION -->
-<section id="mission">
+<section id="mission" data-section="OUR PRINCIPLE">
 <h2>MISSION</h2>
 <div class="glass mission-panel">
 <div class="mission-intro">
@@ -1415,7 +1666,7 @@ footer {
 </section>
 <!-- BUSINESS / KNOWLEDGE -->
 <div class="business-knowledge-grid">
-<section id="business">
+<section id="business" data-section="WHAT WE DO">
 <h2>BUSINESS</h2>
 <div class="glass business-box business-card">
 <div class="business-card-head">
@@ -1426,7 +1677,7 @@ footer {
 <p class="business-services"><span>・ネットワーク、セキュリティの設計、構築、運用</span><span>・ITインフラ、クラウドに関する技術支援</span><span>・ITコンサルティング</span></p>
 </div>
 </section>
-<section id="knowledge">
+<section id="knowledge" data-section="EXPLORATION">
 <h2>AI / TECHNOLOGY INITIATIVES</h2>
 <div class="glass knowledge-card">
 <div class="knowledge-card-head">
@@ -1442,7 +1693,7 @@ footer {
 </section>
 </div>
 <!-- TECHNICAL ACHIEVEMENTS -->
-<section id="achievements">
+<section id="achievements" data-section="EXPERIENCE &amp; LAB">
 <h2>TECHNICAL ACHIEVEMENTS</h2>
 <div class="achievement-grid">
 <div class="achievement-card" data-label="SECURITY">
@@ -1455,14 +1706,12 @@ footer {
 <h3>Enterprise Network</h3>
 <p>Ciscoを中心とした企業ネットワークの設計・構築・導入支援</p>
 </div>
-<a class="achievement-card achievement-link" data-label="LAB" href="technical_lab.html">
+<a class="achievement-card achievement-link" data-label="LAB" href="technical_lab.html" aria-label="Technical Lab：検証・構築・運用の記録や技術記事を見る">
 <div class="achievement-card-top"><div class="achievement-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M9 3v5l-4.5 8.2A3.2 3.2 0 0 0 7.3 21h9.4a3.2 3.2 0 0 0 2.8-4.8L15 8V3"/><path d="M8 13h8M8 3h8"/></svg></div><span class="achievement-index" aria-hidden="true">03</span></div><span class="achievement-arrow" aria-hidden="true">↗</span>
-<h3>Enterprise Network Lab</h3>
+<h3>Technical Lab</h3>
 <p>
-Cisco / Palo Alto Networks / Fortinet / Juniperによる
-マルチベンダーEnterpriseネットワーク環境を設計・構築・運用。<br/>
-実インターネット回線を利用し、ネットワーク・セキュリティ機能の
-検証および運用を実施。
+ネットワーク・セキュリティを中心に、検証・構築・運用の記録や技術記事を公開。<br/>
+日々の技術検証や実践から得られた知見を、Technical Labとして蓄積しています。
 </p>
 </a>
 </div>
@@ -1472,11 +1721,11 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
 </section>
 
 <!-- SECURITY ACTION -->
-<section id="security">
+<section id="security" data-section="TRUST">
 <h2>SECURITY</h2>
 <div class="glass security-action-card">
   <div class="security-action-logo-wrap">
-    <img class="security-action-logo" src="security_action_futatsuboshi-small_color.jpg" alt="SECURITY ACTION 二つ星 セキュリティ対策自己宣言"/>
+    <img class="security-action-logo" src="security_action_futatsuboshi-small_color.jpg" alt="SECURITY ACTION 二つ星 セキュリティ対策自己宣言" loading="lazy" decoding="async"/>
   </div>
   <div class="security-action-copy">
     <h3>情報セキュリティへの取り組み</h3>
@@ -1487,7 +1736,7 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
 </section>
 
 <!-- COMPANY -->
-<section id="company">
+<section id="company" data-section="PROFILE">
 <h2>COMPANY</h2>
 
 
@@ -1509,12 +1758,12 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
       Prisma Accessをはじめとするクラウドセキュリティ環境の導入・運用支援など、多数のプロジェクトを経験。<br/><br/>
       Stracto株式会社を設立し、ネットワーク・セキュリティ分野を中心に、
       企業のITインフラを支える技術支援を提供しています。
-    </br></p>
+    </p>
 <hr style="margin:30px 0;border:none;border-top:1px solid rgba(255,255,255,0.1);"/>
 <h3>資格取得実績</h3>
 <div class="cert-badge-row">
-<img alt="PCNSA Certification Badge" src="pan_pcnsa_logo.png"/>
-<img alt="PCNSE Certification Badge" src="pan_pcnse_logo.png"/>
+<img alt="PCNSA Certification Badge" src="pan_pcnsa_logo.png" loading="lazy" decoding="async"/>
+<img alt="PCNSE Certification Badge" src="pan_pcnse_logo.png" loading="lazy" decoding="async"/>
 </div>
 <div class="cert-text">
 <p>Cisco Certified Network Associate (CCNA)</p>
@@ -1525,6 +1774,10 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
       ※各認定資格・デジタルバッジは各社の商標です。
     </p>
 </div></div></section>
+<aside class="closing-contact" aria-label="ビジネスパートナー募集のご案内">
+<p><strong>ビジネスパートナー募集</strong>ネットワーク・セキュリティ、ITインフラ領域で、案件連携や技術協力をご一緒いただけるパートナーを募集しています。</p>
+<a href="contact.html">PARTNERSHIP <span aria-hidden="true">→</span></a>
+</aside>
 </main>
 <footer>
 <div class="footer-links">
@@ -1551,10 +1804,27 @@ Cisco / Palo Alto Networks / Fortinet / Juniperによる
   </p>
 </footer>
 <script>
-function toggleMenu(){
-  document.getElementById("mobileMenu").classList.toggle("show");
-  document.querySelector(".hamburger").classList.toggle("active");
+function toggleMenu(forceOpen){
+  const menu = document.getElementById("mobileMenu");
+  const button = document.querySelector(".hamburger");
+  const backdrop = document.querySelector(".menu-backdrop");
+  const shouldOpen = typeof forceOpen === "boolean" ? forceOpen : !menu.classList.contains("show");
+
+  menu.classList.toggle("show", shouldOpen);
+  button.classList.toggle("active", shouldOpen);
+  backdrop.classList.toggle("show", shouldOpen);
+  document.body.classList.toggle("menu-open", shouldOpen);
+  menu.setAttribute("aria-hidden", String(!shouldOpen));
+  button.setAttribute("aria-expanded", String(shouldOpen));
+  button.setAttribute("aria-label", shouldOpen ? "メニューを閉じる" : "メニューを開く");
 }
+
+document.querySelectorAll("#mobileMenu a").forEach(link => {
+  link.addEventListener("click", () => toggleMenu(false));
+});
+document.addEventListener("keydown", event => {
+  if(event.key === "Escape") toggleMenu(false);
+});
 
 /* NEW BADGE */
 const today = new Date();
@@ -1723,7 +1993,7 @@ document.addEventListener("DOMContentLoaded", () => {
     technology: {
       userLabel: "技術・実績について",
       message:
-        "Palo Alto Networks製品を活用したPrisma Access・NGFWの設計・構築・導入支援や、Ciscoを中心とした企業ネットワークの設計・構築・導入支援などの実績があります。Enterprise Network Labでは、複数ベンダー製品を用いたネットワーク・セキュリティ環境の検証・運用も行っています。",
+        "Palo Alto Networks製品を活用したPrisma Access・NGFWの設計・構築・導入支援や、Ciscoを中心とした企業ネットワークの設計・構築・導入支援などの実績があります。Technical Labでは、ネットワーク・セキュリティを中心に、検証・構築・運用の記録や技術記事を公開しています。",
       options: [
         {
           label: "技術実績を見る",
