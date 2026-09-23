@@ -434,14 +434,15 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
     </section>
 
     <section class="article-section" id="handling">
-      <h2>Tech Support Fileを扱う際の注意点</h2>
-      <p>Tech Support Fileは障害解析に有効な一方、公開・共有時には注意が必要です。今回の記事では、検証機の実データをそのまま掲載せず、内容を一般化しています。</p>
+      <h2>障害解析で押さえる実務ポイント</h2>
+      <p>Tech Support Fileを読む前に、事象と取得時点をそろえておくと、関係のないログや過去のカウンタ値に引きずられずに調査できます。</p>
       <ul class="check-list">
-        <li>シリアル番号や機器固有IDは公開しない</li>
-        <li>実IPアドレス、MACアドレス、ホスト名はサンプル値へ置き換える</li>
-        <li>ユーザー名、認証情報、鍵、証明書などは掲載しない</li>
-        <li>実際のSecurity Policyや構成から環境が特定できないよう一般化する</li>
-        <li>ログの一部を掲載する場合も、時刻や識別情報を必要に応じて加工する</li>
+        <li><strong>発生時刻とタイムゾーンを記録する。</strong>開始・復旧時刻、継続時間を控え、機器時刻とのずれも確認してからログを突き合わせる。</li>
+        <li><strong>対象通信を具体化する。</strong>送信元・宛先、ポート、プロトコル、通過するZone、再現手順をそろえ、正常な通信との差を明確にする。</li>
+        <li><strong>事象に近い時点でファイルを取得する。</strong>一時的な負荷や状態変化を調べる場合は、発生中または発生直後の情報を残す。復旧後に取得した内容だけで発生時の状態を断定しない。</li>
+        <li><strong>カウンタは値だけでなく増分を見る。</strong>過去からの累積値が高いだけでは今回の障害と結び付けられない。再現前後の変化を、対象通信や発生時刻と照合する。</li>
+        <li><strong>設定と動作状態を分けて確認する。</strong>PolicyやRouteの設定が存在しても、実際に選択された経路やSession、NAT結果が想定通りとは限らない。</li>
+        <li><strong>不足する証拠は別途取得する。</strong>ファイル内の情報で通信の通過・Drop箇所を特定できない場合は、該当時間帯のTraffic LogやPacket Capture、対向機器のログを合わせて確認する。</li>
       </ul>
     </section>
 
@@ -460,7 +461,7 @@ footer { padding:58px 24px; text-align:center; color:var(--soft); border-top:1px
 
   </article>
   <aside class="toc" aria-label="記事の目次"><p class="toc-title">この記事の内容</p><ol>
-    <li><a href="#overview">Tech Support Fileとは</a></li><li><a href="#contents">含まれる情報</a></li><li><a href="#planes">Management / Data Plane</a></li><li><a href="#workflow">通信障害の切り分け</a></li><li><a href="#commands">代表的な情報</a></li><li><a href="#counters">Global Counter</a></li><li><a href="#logs">daemon log</a></li><li><a href="#example">障害解析のイメージ</a></li><li><a href="#handling">取り扱いの注意</a></li><li><a href="#summary">まとめ</a></li>
+    <li><a href="#overview">Tech Support Fileとは</a></li><li><a href="#contents">含まれる情報</a></li><li><a href="#planes">Management / Data Plane</a></li><li><a href="#workflow">通信障害の切り分け</a></li><li><a href="#commands">代表的な情報</a></li><li><a href="#counters">Global Counter</a></li><li><a href="#logs">daemon log</a></li><li><a href="#example">障害解析のイメージ</a></li><li><a href="#handling">解析時の実務ポイント</a></li><li><a href="#summary">まとめ</a></li>
   </ol></aside></div>
 </main>
 <footer><div class="footer-links"><a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a><a href="index.html#business">Business</a><a href="index.html#company">Company</a><a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
