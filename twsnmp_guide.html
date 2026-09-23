@@ -81,10 +81,9 @@ h1{max-width:870px;margin:0;color:#f8fafc;font-size:clamp(30px,5vw,48px);line-he
 .check-list li{position:relative;padding:14px 16px 14px 46px;border:1px solid rgba(255,255,255,.08);border-radius:14px;background:rgba(255,255,255,.028);line-height:1.8;color:#dbe6ef}
 .check-list li::before{content:"✓";position:absolute;left:16px;top:15px;width:18px;height:18px;border-radius:50%;display:grid;place-items:center;background:rgba(52,211,153,.18);color:#a7f3d0;font-size:12px;font-weight:700}
 .callout{margin-top:20px;padding:18px 20px;border-left:4px solid var(--accent);border-radius:12px;background:rgba(56,189,248,.07);line-height:1.9;color:#d7e4ef}
-.callout.warn{border-left-color:var(--warn);background:rgba(245,158,11,.065)}
 .inline-note{margin-top:16px;padding:14px 16px;border:1px dashed rgba(255,255,255,.14);border-radius:12px;color:#d3dfea;background:rgba(255,255,255,.02);font-size:14px;line-height:1.85}
 .diagram-panel{margin-top:26px;padding:18px;border:1px solid rgba(125,211,252,.14);border-radius:16px;background:linear-gradient(180deg,rgba(14,23,45,.92),rgba(8,13,28,.9));overflow:hidden}
-.figure-title{margin:0 0 12px;color:#f1f7fd;font-size:15px;font-weight:700}.figure-note{margin:12px 0 0;color:var(--soft);font-size:13px;line-height:1.7}.diagram-panel svg{display:block;width:100%;height:auto}
+.figure-title{margin:0 0 12px;color:#f1f7fd;font-size:15px;font-weight:700}.diagram-panel svg{display:block;width:100%;height:auto}
 .legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px;color:var(--soft);font-size:12px}.legend span{display:inline-flex;align-items:center;gap:7px}.legend i{display:inline-block;width:9px;height:9px;border-radius:50%}
 .table-wrap{overflow:auto;margin-top:24px}.compare-table{width:100%;border-collapse:collapse;min-width:640px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);border-radius:14px;overflow:hidden}.compare-table th,.compare-table td{padding:14px 16px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;vertical-align:top;line-height:1.8}.compare-table th{background:rgba(255,255,255,.04);font-size:14px;color:#f5fbff}.compare-table td{font-size:14px;color:#d5e2ee}.compare-table tr:last-child td{border-bottom:none}
 .toc{position:sticky;top:92px;padding:24px;border:1px solid rgba(125,211,252,.14);border-radius:18px;background:rgba(8,14,30,.82);box-shadow:0 18px 40px rgba(0,0,0,.16)}.toc-title{margin:0 0 14px;color:#f8fbff;font-size:16px;font-weight:800}.toc ol{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}.toc a{color:#d1def0;text-decoration:none;line-height:1.65}.toc a:hover{color:#fff}
@@ -143,7 +142,6 @@ h1{max-width:870px;margin:0;color:#f8fafc;font-size:clamp(30px,5vw,48px);line-he
       <section class="article-section" id="data">
         <h2>実際の監視データから見えた構成</h2>
         <p>この監視環境では、監視対象として6ノードを登録し、合計83個のポーリングを設定しています。構成は、監視端末、ルータ、コアスイッチ、アクセススイッチ、ファイアウォールといった小規模な検証ネットワークです。</p>
-        <p>公開用の記事では、実際のIPアドレス、ホスト名、MACアドレス、SNMP認証情報などは使用せず、以下のように一般化しています。</p>
 
         <div class="stat-grid">
           <div class="stat-card"><span class="value">6</span><span class="unit"> nodes</span><p>監視対象として登録しているノード</p></div>
@@ -178,12 +176,11 @@ h1{max-width:870px;margin:0;color:#f8fafc;font-size:clamp(30px,5vw,48px);line-he
             </g>
             <g fill="#7dd3fc" font-size="12" text-anchor="middle"><text x="255" y="154">polling</text><text x="460" y="151">polling</text><text x="665" y="154">polling</text><text x="305" y="352">polling</text><text x="615" y="352">polling</text></g>
           </svg>
-          <p class="figure-note">※実際の監視データに含まれる識別情報は公開用に置き換えています。図は監視対象の役割を分かりやすく整理したものです。</p>
         </div>
 
         <div class="diagram-panel">
           <p class="figure-title">83個のポーリング設定の内訳</p>
-          <svg role="img" aria-label="Ping 6項目、SNMP 77項目の監視内訳を示す図" viewBox="0 0 900 360">
+          <svg role="img" aria-label="Ping 6項目、SNMP 77項目の監視内訳を示す図" viewBox="0 0 900 270">
             <text x="40" y="52" fill="#f4f8fc" font-size="18" font-weight="700">PING</text>
             <rect x="160" y="30" width="74" height="34" rx="9" fill="#38bdf8"/>
             <text x="197" y="53" fill="#04131e" font-size="15" font-weight="800" text-anchor="middle">6</text>
@@ -206,9 +203,6 @@ h1{max-width:870px;margin:0;color:#f8fafc;font-size:clamp(30px,5vw,48px);line-he
             <text x="780" y="228" fill="#d8ccff" font-size="12" text-anchor="middle">再起動の兆候を</text>
             <text x="780" y="244" fill="#d8ccff" font-size="12" text-anchor="middle">確認</text>
 
-            <line x1="160" y1="292" x2="840" y2="292" stroke="#29425d"/>
-            <text x="160" y="317" fill="#8193a7" font-size="12">実データから監視設定を集計し、公開用に識別情報を除外しています。</text>
-            <text x="160" y="334" fill="#8193a7" font-size="12">機器名・IPアドレス・認証情報などは記事用に一般化しています。</text>
           </svg>
         </div>
       </section>
@@ -339,7 +333,6 @@ h1{max-width:870px;margin:0;color:#f8fafc;font-size:clamp(30px,5vw,48px);line-he
           <li><strong>SNMPの認証方式を確認する：</strong>対応機器ではSNMPv3など、認証・暗号化を利用できる方式を検討します。</li>
           <li><strong>監視用アカウントの権限を絞る：</strong>監視に必要な範囲だけを許可し、設定変更権限を安易に持たせないようにします。</li>
         </ul>
-        <div class="callout warn"><strong>監視データを公開用ページへそのまま掲載していない理由：</strong>監視DBにはネットワークを特定できる情報や監視用の認証情報が含まれることがあります。公開ページでは、構成と監視方式だけを取り上げ、識別情報はすべて一般化しています。</div>
       </section>
 
       <section class="article-section" id="summary">
@@ -357,7 +350,7 @@ h1{max-width:870px;margin:0;color:#f8fafc;font-size:clamp(30px,5vw,48px);line-he
           <li><a href="https://github.com/twsnmp/twsnmpfc" target="_blank" rel="noopener noreferrer">TWSNMP For Container - GitHub</a><span>マップ表示、Ping／SNMPを含むポーリング、Syslog、SNMP Trap、NetFlow/IPFIXなど、TWSNMP FCの機能一覧と公開情報。</span></li>
           <li><a href="https://github.com/twsnmp/twsnmpfk" target="_blank" rel="noopener noreferrer">TWSNMP FK - GitHub</a><span>デスクトップ向けTWSNMP FKの機能、動作環境、更新情報。</span></li>
         </ul>
-        <div class="data-note"><span class="badge">DATA</span><div>記事中の「6ノード」「83ポーリング」「Ping 6／SNMP 77」「60秒間隔」は、提供された監視DBを解析して確認した当時の検証環境の値です。公開ページではIPアドレス、ホスト名、MACアドレス、認証情報などを掲載していません。</div></div>
+        <div class="data-note"><span class="badge">DATA</span><div>記事中の「6ノード」「83ポーリング」「Ping 6／SNMP 77」「60秒間隔」は、提供された監視DBを解析して確認した当時の検証環境の値です。</div></div>
       </section>
     </article>
 
