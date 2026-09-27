@@ -1170,6 +1170,26 @@ h2::after {
   color:#cbd5e1;
   line-height:1.9;
 }
+.founder-story-link {
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  margin-top:8px;
+  padding:11px 16px;
+  border:1px solid rgba(56,189,248,.35);
+  border-radius:8px;
+  background:rgba(56,189,248,.08);
+  color:#7dd3fc;
+  font-weight:700;
+  text-decoration:none;
+  transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.founder-story-link:hover {
+  background:rgba(56,189,248,.16);
+  border-color:#7dd3fc;
+  transform:translateY(-2px);
+}
+.founder-story-link:focus-visible { outline:2px solid #7dd3fc;outline-offset:4px; }
 .company-table td {
   padding:15px 10px;
   border-bottom-color:rgba(148,163,184,.13);
@@ -1753,6 +1773,10 @@ img[loading="lazy"] { content-visibility:auto; }
 <div id="newsArea">
 <div class="news-year">2026</div>
 <div class="news-content">
+<div class="news-row" data-date="2026-09-28">
+<span class="date">2026-09-28</span>
+<span class="news-text">Stracto創業ストーリー（前編・後編）を公開しました。</span>
+      </div>
 <div class="news-row" data-date="2026-09-24">
 <span class="date">2026-09-24</span>
 <span class="news-text">Technical Labを刷新しました。</span>
@@ -1954,6 +1978,7 @@ img[loading="lazy"] { content-visibility:auto; }
       Stracto株式会社を設立し、ネットワーク・セキュリティ分野を中心に、
       企業のITインフラを支える技術支援を提供しています。
     </p>
+<a class="founder-story-link" href="stracto-founding-story-part1.html">Stracto創業ストーリーを読む <span aria-hidden="true">→</span></a>
 <hr style="margin:30px 0;border:none;border-top:1px solid rgba(255,255,255,0.1);"/>
 <h3>資格取得実績</h3>
 <div class="cert-badge-row">
