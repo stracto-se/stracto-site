@@ -22,23 +22,498 @@
 <meta name="theme-color" content="#050816">
 
 <style>
-:root{--bg-dark:#050816;--text-main:#e5edf5;--text-soft:#a4b3c6;--accent:#7dd3fc;--danger:#fecaca;--success:#bbf7d0;color-scheme:dark}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:radial-gradient(ellipse at 15% 0,rgba(28,88,148,.16),transparent 45%),var(--bg-dark);color:var(--text-main);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}body.menu-open{overflow:hidden}
-button,input,select,textarea{font:inherit}a{color:var(--accent);text-underline-offset:4px}button,a,input,select,textarea,summary{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}
-#particles{position:fixed;inset:0;z-index:-1;opacity:.25;pointer-events:none}.skip-link{position:fixed;top:12px;left:12px;z-index:100000;padding:10px 16px;background:var(--accent);color:#051323;border-radius:6px;transform:translateY(-160%)}.skip-link:focus{transform:translateY(0)}
-.hamburger{position:fixed;top:22px;right:24px;width:44px;height:44px;z-index:99999;background:rgba(5,8,22,.9);border:1px solid #263448;border-radius:10px;padding:11px}.hamburger span{display:block;height:2px;background:var(--accent);margin:4px 0;transition:transform .2s,opacity .2s}.hamburger.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-.menu-backdrop{position:fixed;inset:0;z-index:9998;border:0;opacity:0;visibility:hidden;background:rgba(1,5,15,.64)}.menu-backdrop.show{opacity:1;visibility:visible}#mobileMenu{position:fixed;right:0;top:0;width:min(300px,85vw);height:100dvh;padding:100px 32px;display:flex;flex-direction:column;gap:24px;background:#0b1325;border-left:1px solid #263448;z-index:9999;transform:translateX(100%);visibility:hidden;transition:transform .25s,visibility .25s}#mobileMenu.show{transform:translateX(0);visibility:visible}#mobileMenu a{text-decoration:none;color:#b5c3d4}#mobileMenu a[aria-current=page]{color:var(--accent)}
-main{max-width:1168px;margin:auto;padding:76px 32px 100px}.page-header{padding-bottom:38px;margin-bottom:38px;border-bottom:1px solid #243248}.breadcrumb{display:flex;gap:10px;font-size:11px;letter-spacing:.1em;color:#a4b3c6;margin-bottom:30px}.breadcrumb a{text-decoration:none;color:#a4b3c6}.page-kicker{display:block;font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--accent);margin-bottom:12px}.page-header h1{font-size:clamp(30px,4vw,42px);line-height:1.4;letter-spacing:.03em;margin:0;font-weight:650}.page-lead{font-size:15px;color:#aebed0;max-width:670px;margin:18px 0 0;line-height:1.9}
-.contact-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;align-items:start}.contact-guide{padding-top:6px}.contact-guide h2{font-size:17px;font-weight:650;margin:0 0 15px}.contact-guide p{font-size:14px;color:#aebed0;margin:0 0 20px}.reply-estimate{padding:22px 0;margin-bottom:26px;border-top:1px solid #243248;border-bottom:1px solid #243248}.reply-estimate span{display:block;font-size:12px;color:#aebed0}.reply-estimate strong{display:block;font-size:22px;font-weight:600;margin:4px 0}.contact-guide .guide-note{font-size:12px;line-height:1.9}.guide-link{display:inline-block;font-size:13px;text-decoration:none;border-bottom:1px solid #44657f;padding-bottom:3px}.safe-contact{margin-top:30px;display:flex;gap:10px;align-items:flex-start}.safe-contact svg{flex:none;margin-top:3px;color:var(--accent)}.safe-contact p{font-size:12px;margin:0;color:#aebed0}
-.contact-card{min-width:0;background:linear-gradient(145deg,rgba(18,30,49,.95),rgba(9,17,32,.95));border:1px solid #293a50;border-radius:18px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.12)}.contact-card-header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:24px}.contact-card-header h2{font-size:20px;font-weight:650;margin:0}.contact-card-header p{margin:0;font-size:12px;color:#aebed0}
-.assist-card{margin-bottom:28px;padding:0 0 20px;border-bottom:1px solid #293a50}.assist-toggle{font-size:13px;color:var(--accent);cursor:pointer;min-height:32px;line-height:32px}.assist-content{padding-top:16px}.assist-header p{font-size:12px;color:#aebed0;margin:0 0 18px}.assist-step{border:0;padding:0;margin:0 0 16px;min-width:0}.assist-step legend,.assist-input-label{display:block;font-size:12px;font-weight:600;margin-bottom:10px}.assist-options{display:flex;flex-wrap:wrap;gap:8px}.assist-option{border:1px solid #3b5068;border-radius:7px;padding:9px 12px;min-height:44px;background:#0b1728;color:#c3d1e0;font-size:12px}.assist-option.active{color:#dff4ff;background:#14354b;border-color:var(--accent)}#assistSummary{min-height:100px}.assist-actions{display:flex;gap:10px;flex-wrap:wrap}.assist-generate,.assist-clear{border:1px solid #44657f;padding:9px 14px;min-height:44px;border-radius:7px;background:#123047;color:#e0f2fe;font-size:12px}.assist-clear{background:transparent;color:#b5c3d4}.assist-status{font-size:12px;color:var(--success);margin-top:10px}.assist-note{font-size:12px;color:#aebed0;margin:12px 0 0}
-.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 18px}.form-section-label{grid-column:1/-1;display:flex;align-items:center;gap:12px;color:#9eb3c9;font-size:11px;letter-spacing:.08em;margin-top:4px}.form-section-label::after{content:"";height:1px;background:#293a50;flex:1}.form-group{display:flex;flex-direction:column;gap:8px;min-width:0}.form-group.full{grid-column:1/-1}label{font-size:13px;font-weight:600}.required,.optional{font-size:10px;margin-left:8px;font-weight:400}.required{color:#9cddfb}.optional{color:#aebed0}
-input,select,textarea{width:100%;min-width:0;border:1px solid #41516a;border-radius:8px;padding:12px 13px;background:#091322;color:#edf4fb;font-size:16px;transition:border-color .15s,box-shadow .15s}input::placeholder,textarea::placeholder{color:#8799af;font-size:14px}input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(125,211,252,.09)}select{padding-right:30px}select option{background:#0b1728;color:#edf4fb}textarea{min-height:180px;resize:vertical;line-height:1.8}.helper-text{font-size:12px;color:#aebed0;line-height:1.8}.message-meta{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.character-count{white-space:nowrap;font-size:11px;color:#aebed0;font-variant-numeric:tabular-nums}
-.consent{display:flex;gap:12px;align-items:flex-start}.consent input{flex:none;width:19px;height:19px;margin:3px 0 0;accent-color:#38bdf8}.consent label{font-size:12px;font-weight:400;line-height:1.9}.consent a{white-space:normal}.verification-note{font-size:11px;color:#aebed0;margin:0}.cf-turnstile{min-height:65px;max-width:100%}.submit-row{margin-top:26px}.submit-button{width:100%;min-height:52px;padding:13px 22px;border:1px solid #71c6ef;border-radius:8px;color:#031625;background:#7dd3fc;font-weight:750;transition:background .15s}.submit-button:hover{background:#b5e7ff}.submit-note{text-align:center;font-size:11px;color:#aebed0;margin:10px 0 0}.form-message{display:none;margin:20px 0 0;padding:15px;border-radius:8px;font-size:14px;line-height:1.8}.form-message.show{display:block}.form-message.success{color:var(--success);background:#0d302c;border:1px solid #33665a}.form-message.error{color:var(--danger);background:#341b28;border:1px solid #78505b}.note{font-size:12px;color:#aebed0;margin:22px 0 0}
-footer{padding:36px 24px;border-top:1px solid #243248;text-align:center}.footer-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}.footer-links a{color:#a4b3c6;font-size:12px;text-decoration:none}.footer-bottom{font-size:11px;color:#8fa1b6;margin-top:18px}
-@media(max-width:960px){.contact-layout{grid-template-columns:220px minmax(0,1fr);gap:28px}.contact-card{padding:26px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.contact-card-header{display:block}.contact-card-header p{margin-top:6px}}
-@media(max-width:720px){main{padding:70px 20px 64px}.page-header{padding-bottom:28px;margin-bottom:26px}.breadcrumb{margin-bottom:24px}.page-header h1{font-size:30px}.page-lead{font-size:14px}.contact-layout{grid-template-columns:1fr;gap:24px}.contact-guide h2,.guide-link,.guide-note{display:none}.contact-guide{padding:0}.reply-estimate{margin:0;padding:0;border:0;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}.reply-estimate strong{font-size:16px;margin:0}.reply-estimate .reply-detail{font-size:11px}.safe-contact{margin-top:12px}.safe-contact p{font-size:11px}.contact-card{padding:24px 20px;border-radius:14px}.contact-card-header h2{font-size:19px}.hamburger{top:16px;right:16px}.form-grid{gap:20px}.message-meta{display:block}.character-count{display:block;text-align:right}.assist-options{gap:6px}.assist-option{padding:9px 10px}.submit-button{min-width:0}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}#particles{display:none}}
+:root {
+  --bg-dark:#050816;
+  --text-main:#e5edf5;
+  --text-soft:#a4b3c6;
+  --accent:#7dd3fc;
+  --danger:#fecaca;
+  --success:#bbf7d0;
+  color-scheme:dark}
+  * {
+    box-sizing:border-box}
+    html {
+      scroll-behavior:smooth;
+      scroll-padding-top:28px}
+      body {
+        margin:0;
+        background:radial-gradient(ellipse at 15% 0,rgba(28,88,148,.16),transparent 45%),var(--bg-dark);
+        color:var(--text-main);
+        font-family:system-ui,-apple-system,sans-serif;
+        line-height:1.7}
+        body.menu-open {
+          overflow:hidden}
+          button,input,select,textarea {
+            font:inherit}
+            a {
+              color:var(--accent);
+              text-underline-offset:4px}
+              button,a,input,select,textarea,summary {
+                -webkit-tap-highlight-color:transparent}
+                button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible {
+                  outline:2px solid var(--accent);
+                  outline-offset:4px}
+                  button {
+                    cursor:pointer}
+                    button:disabled {
+                      cursor:not-allowed;
+                      opacity:.55}
+                      #particles {
+                        position:fixed;
+                        inset:0;
+                        z-index:-1;
+                        opacity:.25;
+                        pointer-events:none}
+                        .skip-link {
+                          position:fixed;
+                          top:12px;
+                          left:12px;
+                          z-index:100000;
+                          padding:10px 16px;
+                          background:var(--accent);
+                          color:#051323;
+                          border-radius:6px;
+                          transform:translateY(-160%)}
+                          .skip-link:focus {
+                            transform:translateY(0)}
+                            .hamburger {
+                              position:fixed;
+                              top:22px;
+                              right:24px;
+                              width:44px;
+                              height:44px;
+                              z-index:99999;
+                              background:rgba(5,8,22,.9);
+                              border:1px solid #263448;
+                              border-radius:10px;
+                              padding:11px}
+                              .hamburger span {
+                                display:block;
+                                height:2px;
+                                background:var(--accent);
+                                margin:4px 0;
+                                transition:transform .2s,opacity .2s}
+                                .hamburger.active span:nth-child(1) {
+                                  transform:translateY(6px) rotate(45deg)}
+                                  .hamburger.active span:nth-child(2) {
+                                    opacity:0}
+                                    .hamburger.active span:nth-child(3) {
+                                      transform:translateY(-6px) rotate(-45deg)}
+                                      .menu-backdrop {
+                                        position:fixed;
+                                        inset:0;
+                                        z-index:9998;
+                                        border:0;
+                                        opacity:0;
+                                        visibility:hidden;
+                                        background:rgba(1,5,15,.64)}
+                                        .menu-backdrop.show {
+                                          opacity:1;
+                                          visibility:visible}
+                                          #mobileMenu {
+                                            position:fixed;
+                                            right:0;
+                                            top:0;
+                                            width:min(300px,85vw);
+                                            height:100dvh;
+                                            padding:100px 32px;
+                                            display:flex;
+                                            flex-direction:column;
+                                            gap:24px;
+                                            background:#0b1325;
+                                            border-left:1px solid #263448;
+                                            z-index:9999;
+                                            transform:translateX(100%);
+                                            visibility:hidden;
+                                            transition:transform .25s,visibility .25s}
+                                            #mobileMenu.show {
+                                              transform:translateX(0);
+                                              visibility:visible}
+                                              #mobileMenu a {
+                                                text-decoration:none;
+                                                color:#b5c3d4}
+                                                #mobileMenu a[aria-current=page] {
+                                                  color:var(--accent)}
+                                                  main {
+                                                    max-width:1168px;
+                                                    margin:auto;
+                                                    padding:76px 32px 100px}
+                                                    .page-header {
+                                                      padding-bottom:38px;
+                                                      margin-bottom:38px;
+                                                      border-bottom:1px solid #243248}
+                                                      .breadcrumb {
+                                                        display:flex;
+                                                        gap:10px;
+                                                        font-size:11px;
+                                                        letter-spacing:.1em;
+                                                        color:#a4b3c6;
+                                                        margin-bottom:30px}
+                                                        .breadcrumb a {
+                                                          text-decoration:none;
+                                                          color:#a4b3c6}
+                                                          .page-kicker {
+                                                            display:block;
+                                                            font-size:12px;
+                                                            letter-spacing:.18em;
+                                                            font-weight:700;
+                                                            color:var(--accent);
+                                                            margin-bottom:12px}
+                                                            .page-header h1 {
+                                                              font-size:clamp(30px,4vw,42px);
+                                                              line-height:1.4;
+                                                              letter-spacing:.03em;
+                                                              margin:0;
+                                                              font-weight:650}
+                                                              .page-lead {
+                                                                font-size:15px;
+                                                                color:#aebed0;
+                                                                max-width:670px;
+                                                                margin:18px 0 0;
+                                                                line-height:1.9}
+                                                                .contact-layout {
+                                                                  display:grid;
+                                                                  grid-template-columns:260px minmax(0,1fr);
+                                                                  gap:48px;
+                                                                  align-items:start}
+                                                                  .contact-guide {
+                                                                    padding-top:6px}
+                                                                    .contact-guide h2 {
+                                                                      font-size:17px;
+                                                                      font-weight:650;
+                                                                      margin:0 0 15px}
+                                                                      .contact-guide p {
+                                                                        font-size:14px;
+                                                                        color:#aebed0;
+                                                                        margin:0 0 20px}
+                                                                        .reply-estimate {
+                                                                          padding:22px 0;
+                                                                          margin-bottom:26px;
+                                                                          border-top:1px solid #243248;
+                                                                          border-bottom:1px solid #243248}
+                                                                          .reply-estimate span {
+                                                                            display:block;
+                                                                            font-size:12px;
+                                                                            color:#aebed0}
+                                                                            .reply-estimate strong {
+                                                                              display:block;
+                                                                              font-size:22px;
+                                                                              font-weight:600;
+                                                                              margin:4px 0}
+                                                                              .contact-guide .guide-note {
+                                                                                font-size:12px;
+                                                                                line-height:1.9}
+                                                                                .guide-link {
+                                                                                  display:inline-block;
+                                                                                  font-size:13px;
+                                                                                  text-decoration:none;
+                                                                                  border-bottom:1px solid #44657f;
+                                                                                  padding-bottom:3px}
+                                                                                  .safe-contact {
+                                                                                    margin-top:30px;
+                                                                                    display:flex;
+                                                                                    gap:10px;
+                                                                                    align-items:flex-start}
+                                                                                    .safe-contact svg {
+                                                                                      flex:none;
+                                                                                      margin-top:3px;
+                                                                                      color:var(--accent)}
+                                                                                      .safe-contact p {
+                                                                                        font-size:12px;
+                                                                                        margin:0;
+                                                                                        color:#aebed0}
+                                                                                        .contact-card {
+                                                                                          min-width:0;
+                                                                                          background:linear-gradient(145deg,rgba(18,30,49,.95),rgba(9,17,32,.95));
+                                                                                          border:1px solid #293a50;
+                                                                                          border-radius:18px;
+                                                                                          padding:32px;
+                                                                                          box-shadow:0 20px 60px rgba(0,0,0,.12)}
+                                                                                          .contact-card-header {
+                                                                                            display:flex;
+                                                                                            justify-content:space-between;
+                                                                                            align-items:baseline;
+                                                                                            gap:12px;
+                                                                                            margin-bottom:24px}
+                                                                                            .contact-card-header h2 {
+                                                                                              font-size:20px;
+                                                                                              font-weight:650;
+                                                                                              margin:0}
+                                                                                              .contact-card-header p {
+                                                                                                margin:0;
+                                                                                                font-size:12px;
+                                                                                                color:#aebed0}
+                                                                                                .assist-card {
+                                                                                                  margin-bottom:28px;
+                                                                                                  padding:0 0 20px;
+                                                                                                  border-bottom:1px solid #293a50}
+                                                                                                  .assist-toggle {
+                                                                                                    font-size:13px;
+                                                                                                    color:var(--accent);
+                                                                                                    cursor:pointer;
+                                                                                                    min-height:32px;
+                                                                                                    line-height:32px}
+                                                                                                    .assist-content {
+                                                                                                      padding-top:16px}
+                                                                                                      .assist-header p {
+                                                                                                        font-size:12px;
+                                                                                                        color:#aebed0;
+                                                                                                        margin:0 0 18px}
+                                                                                                        .assist-step {
+                                                                                                          border:0;
+                                                                                                          padding:0;
+                                                                                                          margin:0 0 16px;
+                                                                                                          min-width:0}
+                                                                                                          .assist-step legend,.assist-input-label {
+                                                                                                            display:block;
+                                                                                                            font-size:12px;
+                                                                                                            font-weight:600;
+                                                                                                            margin-bottom:10px}
+                                                                                                            .assist-options {
+                                                                                                              display:flex;
+                                                                                                              flex-wrap:wrap;
+                                                                                                              gap:8px}
+                                                                                                              .assist-option {
+                                                                                                                border:1px solid #3b5068;
+                                                                                                                border-radius:7px;
+                                                                                                                padding:9px 12px;
+                                                                                                                min-height:44px;
+                                                                                                                background:#0b1728;
+                                                                                                                color:#c3d1e0;
+                                                                                                                font-size:12px}
+                                                                                                                .assist-option.active {
+                                                                                                                  color:#dff4ff;
+                                                                                                                  background:#14354b;
+                                                                                                                  border-color:var(--accent)}
+                                                                                                                  #assistSummary {
+                                                                                                                    min-height:100px}
+                                                                                                                    .assist-actions {
+                                                                                                                      display:flex;
+                                                                                                                      gap:10px;
+                                                                                                                      flex-wrap:wrap}
+                                                                                                                      .assist-generate,.assist-clear {
+                                                                                                                        border:1px solid #44657f;
+                                                                                                                        padding:9px 14px;
+                                                                                                                        min-height:44px;
+                                                                                                                        border-radius:7px;
+                                                                                                                        background:#123047;
+                                                                                                                        color:#e0f2fe;
+                                                                                                                        font-size:12px}
+                                                                                                                        .assist-clear {
+                                                                                                                          background:transparent;
+                                                                                                                          color:#b5c3d4}
+                                                                                                                          .assist-status {
+                                                                                                                            font-size:12px;
+                                                                                                                            color:var(--success);
+                                                                                                                            margin-top:10px}
+                                                                                                                            .assist-note {
+                                                                                                                              font-size:12px;
+                                                                                                                              color:#aebed0;
+                                                                                                                              margin:12px 0 0}
+                                                                                                                              .form-grid {
+                                                                                                                                display:grid;
+                                                                                                                                grid-template-columns:repeat(2,minmax(0,1fr));
+                                                                                                                                gap:22px 18px}
+                                                                                                                                .form-section-label {
+                                                                                                                                  grid-column:1/-1;
+                                                                                                                                  display:flex;
+                                                                                                                                  align-items:center;
+                                                                                                                                  gap:12px;
+                                                                                                                                  color:#9eb3c9;
+                                                                                                                                  font-size:11px;
+                                                                                                                                  letter-spacing:.08em;
+                                                                                                                                  margin-top:4px}
+                                                                                                                                  .form-section-label::after {
+                                                                                                                                    content:"";
+                                                                                                                                    height:1px;
+                                                                                                                                    background:#293a50;
+                                                                                                                                    flex:1}
+                                                                                                                                    .form-group {
+                                                                                                                                      display:flex;
+                                                                                                                                      flex-direction:column;
+                                                                                                                                      gap:8px;
+                                                                                                                                      min-width:0}
+                                                                                                                                      .form-group.full {
+                                                                                                                                        grid-column:1/-1}
+                                                                                                                                        label {
+                                                                                                                                          font-size:13px;
+                                                                                                                                          font-weight:600}
+                                                                                                                                          .required,.optional {
+                                                                                                                                            font-size:10px;
+                                                                                                                                            margin-left:8px;
+                                                                                                                                            font-weight:400}
+                                                                                                                                            .required {
+                                                                                                                                              color:#9cddfb}
+                                                                                                                                              .optional {
+                                                                                                                                                color:#aebed0}
+                                                                                                                                                input,select,textarea {
+                                                                                                                                                  width:100%;
+                                                                                                                                                  min-width:0;
+                                                                                                                                                  border:1px solid #41516a;
+                                                                                                                                                  border-radius:8px;
+                                                                                                                                                  padding:12px 13px;
+                                                                                                                                                  background:#091322;
+                                                                                                                                                  color:#edf4fb;
+                                                                                                                                                  font-size:16px;
+                                                                                                                                                  transition:border-color .15s,box-shadow .15s}
+                                                                                                                                                  input::placeholder,textarea::placeholder {
+                                                                                                                                                    color:#8799af;
+                                                                                                                                                    font-size:14px}
+                                                                                                                                                    input:focus,select:focus,textarea:focus {
+                                                                                                                                                      border-color:var(--accent);
+                                                                                                                                                      box-shadow:0 0 0 3px rgba(125,211,252,.09)}
+                                                                                                                                                      select {
+                                                                                                                                                        padding-right:30px}
+                                                                                                                                                        select option {
+                                                                                                                                                          background:#0b1728;
+                                                                                                                                                          color:#edf4fb}
+                                                                                                                                                          textarea {
+                                                                                                                                                            min-height:180px;
+                                                                                                                                                            resize:vertical;
+                                                                                                                                                            line-height:1.8}
+                                                                                                                                                            .helper-text {
+                                                                                                                                                              font-size:12px;
+                                                                                                                                                              color:#aebed0;
+                                                                                                                                                              line-height:1.8}
+                                                                                                                                                              .message-meta {
+                                                                                                                                                                display:flex;
+                                                                                                                                                                justify-content:space-between;
+                                                                                                                                                                gap:12px;
+                                                                                                                                                                align-items:baseline}
+                                                                                                                                                                .character-count {
+                                                                                                                                                                  white-space:nowrap;
+                                                                                                                                                                  font-size:11px;
+                                                                                                                                                                  color:#aebed0;
+                                                                                                                                                                  font-variant-numeric:tabular-nums}
+                                                                                                                                                                  .consent {
+                                                                                                                                                                    display:flex;
+                                                                                                                                                                    gap:12px;
+                                                                                                                                                                    align-items:flex-start}
+                                                                                                                                                                    .consent input {
+                                                                                                                                                                      flex:none;
+                                                                                                                                                                      width:19px;
+                                                                                                                                                                      height:19px;
+                                                                                                                                                                      margin:3px 0 0;
+                                                                                                                                                                      accent-color:#38bdf8}
+                                                                                                                                                                      .consent label {
+                                                                                                                                                                        font-size:12px;
+                                                                                                                                                                        font-weight:400;
+                                                                                                                                                                        line-height:1.9}
+                                                                                                                                                                        .consent a {
+                                                                                                                                                                          white-space:normal}
+                                                                                                                                                                          .verification-note {
+                                                                                                                                                                            font-size:11px;
+                                                                                                                                                                            color:#aebed0;
+                                                                                                                                                                            margin:0}
+                                                                                                                                                                            .cf-turnstile {
+                                                                                                                                                                              min-height:140px;
+                                                                                                                                                                              max-width:100%}
+                                                                                                                                                                              .submit-row {
+                                                                                                                                                                                margin-top:26px}
+                                                                                                                                                                                .submit-button {
+                                                                                                                                                                                  width:100%;
+                                                                                                                                                                                  min-height:52px;
+                                                                                                                                                                                  padding:13px 22px;
+                             …1659 tokens truncated…           color:#aebed0;
+                                                                                                                                                                                                margin:22px 0 0}
+                                                                                                                                                                                                footer {
+                                                                                                                                                                                                  padding:36px 24px;
+                                                                                                                                                                                                  border-top:1px solid #243248;
+                                                                                                                                                                                                  text-align:center}
+                                                                                                                                                                                                  .footer-links {
+                                                                                                                                                                                                    display:flex;
+                                                                                                                                                                                                    gap:18px;
+                                                                                                                                                                                                    flex-wrap:wrap;
+                                                                                                                                                                                                    justify-content:center}
+                                                                                                                                                                                                    .footer-links a {
+                                                                                                                                                                                                      color:#a4b3c6;
+                                                                                                                                                                                                      font-size:12px;
+                                                                                                                                                                                                      text-decoration:none}
+                                                                                                                                                                                                      .footer-bottom {
+                                                                                                                                                                                                        font-size:11px;
+                                                                                                                                                                                                        color:#8fa1b6;
+                                                                                                                                                                                                        margin-top:18px}
+                                                                                                                                                                                                        @media(max-width:960px) {
+                                                                                                                                                                                                          .contact-layout {
+                                                                                                                                                                                                            grid-template-columns:220px minmax(0,1fr);
+                                                                                                                                                                                                            gap:28px}
+                                                                                                                                                                                                            .contact-card {
+                                                                                                                                                                                                              padding:26px}
+                                                                                                                                                                                                              .form-grid {
+                                                                                                                                                                                                                grid-template-columns:1fr}
+                                                                                                                                                                                                                .form-group.full {
+                                                                                                                                                                                                                  grid-column:auto}
+                                                                                                                                                                                                                  .contact-card-header {
+                                                                                                                                                                                                                    display:block}
+                                                                                                                                                                                                                    .contact-card-header p {
+                                                                                                                                                                                                                      margin-top:6px}
+                                                                                                                                                                                                                    }
+                                                                                                                                                                                                                    @media(max-width:720px) {
+                                                                                                                                                                                                                      main {
+                                                                                                                                                                                                                        padding:70px 20px 64px}
+                                                                                                                                                                                                                        .page-header {
+                                                                                                                                                                                                                          padding-bottom:28px;
+                                                                                                                                                                                                                          margin-bottom:26px}
+                                                                                                                                                                                                                          .breadcrumb {
+                                                                                                                                                                                                                            margin-bottom:24px}
+                                                                                                                                                                                                                            .page-header h1 {
+                                                                                                                                                                                                                              font-size:30px}
+                                                                                                                                                                                                                              .page-lead {
+                                                                                                                                                                                                                                font-size:14px}
+                                                                                                                                                                                                                                .contact-layout {
+                                                                                                                                                                                                                                  grid-template-columns:1fr;
+                                                                                                                                                                                                                                  gap:24px}
+                                                                                                                                                                                                                                  .contact-guide h2,.guide-link,.guide-note {
+                                                                                                                                                                                                                                    display:none}
+                                                                                                                                                                                                                                    .contact-guide {
+                                                                                                                                                                                                                                      padding:0}
+                                                                                                                                                                                                                                      .reply-estimate {
+                                                                                                                                                                                                                                        margin:0;
+                                                                                                                                                                                                                                        padding:0;
+                                                                                                                                                                                                                                        border:0;
+                                                                                                                                                                                                                                        display:flex;
+                                                                                                                                                                                                                                        gap:12px;
+                                                                                                                                                                                                                                        align-items:baseline;
+                                                                                                                                                                                                                                        flex-wrap:wrap}
+                                                                                                                                                                                                                                        .reply-estimate strong {
+                                                                                                                                                                                                                                          font-size:16px;
+                                                                                                                                                                                                                                          margin:0}
+                                                                                                                                                                                                                                          .reply-estimate .reply-detail {
+                                                                                                                                                                                                                                            font-size:11px}
+                                                                                                                                                                                                                                            .safe-contact {
+                                                                                                                                                                                                                                              margin-top:12px}
+                                                                                                                                                                                                                                              .safe-contact p {
+                                                                                                                                                                                                                                                font-size:11px}
+                                                                                                                                                                                                                                                .contact-card {
+                                                                                                                                                                                                                                                  padding:24px 20px;
+                                                                                                                                                                                                                                                  border-radius:14px}
+                                                                                                                                                                                                                                                  .contact-card-header h2 {
+                                                                                                                                                                                                                                                    font-size:19px}
+                                                                                                                                                                                                                                                    .hamburger {
+                                                                                                                                                                                                                                                      top:16px;
+                                                                                                                                                                                                                                                      right:16px}
+                                                                                                                                                                                                                                                      .form-grid {
+                                                                                                                                                                                                                                                        gap:20px}
+                                                                                                                                                                                                                                                        .message-meta {
+                                                                                                                                                                                                                                                          display:block}
+                                                                                                                                                                                                                                                          .character-count {
+                                                                                                                                                                                                                                                            display:block;
+                                                                                                                                                                                                                                                            text-align:right}
+                                                                                                                                                                                                                                                            .assist-options {
+                                                                                                                                                                                                                                                              gap:6px}
+                                                                                                                                                                                                                                                              .assist-option {
+                                                                                                                                                                                                                                                                padding:9px 10px}
+                                                                                                                                                                                                                                                                .submit-button {
+                                                                                                                                                                                                                                                                  min-width:0}
+                                                                                                                                                                                                                                                                }
+                                                                                                                                                                                                                                                                @media(prefers-reduced-motion:reduce) {
+                                                                                                                                                                                                                                                                  html {
+                                                                                                                                                                                                                                                                    scroll-behavior:auto}
+                                                                                                                                                                                                                                                                    *,*::before,*::after {
+                                                                                                                                                                                                                                                                      transition:none!important}
+                                                                                                                                                                                                                                                                      #particles {
+                                                                                                                                                                                                                                                                        display:none}
+                                                                                                                                                                                                                                                                      }
 </style>
 </head>
 
@@ -160,7 +635,7 @@ footer{padding:36px 24px;border-top:1px solid #243248;text-align:center}.footer-
 
         <div class="form-group full">
           <p class="verification-note">迷惑投稿を防ぐため、安全性を確認しています。</p>
-          <div class="cf-turnstile" data-size="flexible" data-sitekey="0x4AAAAAAD1dpflmR9gaTNjp">
+          <div class="cf-turnstile" data-size="compact" data-sitekey="0x4AAAAAAD1dpflmR9gaTNjp">
         </div>
        </div>
         <div class="form-group full">
