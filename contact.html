@@ -905,7 +905,7 @@ main { padding-top:112px; }
       <div class="contact-meta-item">
         <div class="contact-meta-label">お問い合わせ窓口</div>
         <div class="contact-meta-value">
-          <a href="mailto:contact@stracto.co.jp">contact@stracto.co.jp</a>
+          <a href="#contactForm">お問い合わせフォーム</a>
         </div>
       </div>
       <div class="contact-meta-item">
@@ -1029,7 +1029,7 @@ main { padding-top:112px; }
     </form>
 
     <div class="note">
-      ※ お急ぎの場合は、contact@stracto.co.jp まで直接ご連絡ください。
+      ※ お問い合わせは、上記フォームよりご連絡ください。
     </div>
   </section>
 </main>
@@ -1221,6 +1221,9 @@ const payload = {
   } finally{
     submitButton.disabled = false;
     submitButton.textContent = "送信する";
+    if (window.turnstile) {
+      window.turnstile.reset();
+    }
   }
 });
 
