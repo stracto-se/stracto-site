@@ -1221,6 +1221,9 @@ const payload = {
   } finally{
     submitButton.disabled = false;
     submitButton.textContent = "送信する";
+    if (window.turnstile) {
+      window.turnstile.reset();
+    }
   }
 });
 
