@@ -22,845 +22,23 @@
 <meta name="theme-color" content="#050816">
 
 <style>
-:root {
-  --bg-dark:#050816;
-  --text-main:#e5e7eb;
-  --text-soft:#9ca3af;
-  --accent:#38bdf8;
-  --glass-bg:rgba(255,255,255,0.06);
-  --glass-border:rgba(255,255,255,0.16);
-  --input-bg:rgba(255,255,255,0.055);
-  --input-border:rgba(255,255,255,0.16);
-  --danger:#fca5a5;
-  --success:#86efac;
-}
-
-/* ============ BASE ============ */
-* {
-  box-sizing:border-box;
-}
-
-html {
-  scroll-behavior:smooth;
-}
-
-body {
-  margin:0;
-  font-family:system-ui, sans-serif;
-  background:var(--bg-dark);
-  color:var(--text-main);
-  overflow-x:hidden;
-}
-
-button,
-input,
-select,
-textarea {
-  font:inherit;
-}
-
-#particles {
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  opacity:0.78;
-}
-
-/* ============ HAMBURGER ============ */
-.hamburger {
-  position:fixed;
-  top:22px;
-  right:24px;
-  width:36px;
-  height:26px;
-  cursor:pointer;
-  z-index:99999;
-  background:none;
-  border:0;
-  padding:0;
-}
-.hamburger span {
-  position:absolute;
-  left:0;
-  width:100%;
-  height:4px;
-  background:var(--accent);
-  border-radius:6px;
-  transition:.36s;
-}
-.hamburger span:nth-child(1){ top:0; }
-.hamburger span:nth-child(2){ top:11px; }
-.hamburger span:nth-child(3){ top:22px; }
-.hamburger.active span:nth-child(1){
-  transform:translateY(11px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2){ opacity:0; }
-.hamburger.active span:nth-child(3){
-  transform:translateY(-11px) rotate(-45deg);
-}
-
-/* ============ MOBILE MENU ============ */
-#mobileMenu {
-  position:fixed;
-  right:-100%;
-  top:0;
-  width:240px;
-  height:100vh;
-  padding:90px 28px;
-  background:rgba(0,0,0,0.65);
-  backdrop-filter:blur(16px);
-  display:flex;
-  flex-direction:column;
-  gap:28px;
-  transition:right .45s ease;
-  z-index:9999;
-}
-#mobileMenu.show { right:0; }
-
-#mobileMenu a {
-  color:white;
-  font-size:18px;
-  text-decoration:none;
-}
-
-/* ============ MAIN ============ */
-main {
-  max-width:960px;
-  margin:0 auto;
-  padding:140px 24px 120px;
-}
-
-h2 {
-  border-left:4px solid var(--accent);
-  padding-left:14px;
-  margin:0 0 38px;
-  font-size:26px;
-}
-
-.glass-card {
-  background:var(--glass-bg);
-  border:1px solid var(--glass-border);
-  border-radius:14px;
-  backdrop-filter:blur(12px);
-}
-
-.intro-card {
-  padding:32px;
-  line-height:1.9;
-  margin-bottom:36px;
-}
-
-.intro-card p {
-  margin:0;
-}
-
-.contact-meta {
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:18px;
-  margin-top:26px;
-}
-
-.contact-meta-item {
-  padding:18px;
-  border-radius:12px;
-  background:rgba(255,255,255,0.045);
-  border:1px solid rgba(255,255,255,0.10);
-}
-
-.contact-meta-label {
-  color:var(--text-soft);
-  font-size:13px;
-  margin-bottom:8px;
-}
-
-.contact-meta-value {
-  color:var(--text-main);
-  font-size:16px;
-  font-weight:600;
-  word-break:break-word;
-}
-
-.contact-meta-value a {
-  color:var(--accent);
-  text-decoration:none;
-}
-
-.contact-card {
-  padding:32px;
-}
-
-.form-grid {
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0, 1fr));
-  gap:22px;
-}
-
-.form-group {
-  display:flex;
-  flex-direction:column;
-  gap:9px;
-}
-
-.form-group.full {
-  grid-column:1 / -1;
-}
-
-label {
-  font-size:14px;
-  font-weight:600;
-}
-
-.required {
-  color:var(--accent);
-  margin-left:6px;
-  font-size:12px;
-}
-
-.optional {
-  color:var(--text-soft);
-  margin-left:6px;
-  font-size:12px;
-  font-weight:400;
-}
-
-input,
-select,
-textarea {
-  width:100%;
-  color:var(--text-main);
-  background:var(--input-bg);
-  border:1px solid var(--input-border);
-  border-radius:10px;
-  outline:none;
-  padding:13px 14px;
-  transition:border-color .2s ease, background .2s ease, box-shadow .2s ease;
-}
-
-input::placeholder,
-textarea::placeholder {
-  color:#6b7280;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color:var(--accent);
-  background:rgba(255,255,255,0.075);
-  box-shadow:0 0 0 3px rgba(56,189,248,0.12);
-}
-
-select {
-  appearance:none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--accent) 50%),
-    linear-gradient(135deg, var(--accent) 50%, transparent 50%);
-  background-position:
-    calc(100% - 18px) 54%,
-    calc(100% - 12px) 54%;
-  background-size:6px 6px, 6px 6px;
-  background-repeat:no-repeat;
-}
-
-select option {
-  color:#111827;
-}
-
-textarea {
-  min-height:190px;
-  resize:vertical;
-  line-height:1.7;
-}
-
-.helper-text {
-  color:var(--text-soft);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.consent {
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  padding:18px;
-  border-radius:10px;
-  background:rgba(255,255,255,0.035);
-  border:1px solid rgba(255,255,255,0.09);
-}
-
-.consent input {
-  width:18px;
-  height:18px;
-  margin:2px 0 0;
-  accent-color:var(--accent);
-  flex:0 0 auto;
-}
-
-.consent label {
-  color:var(--text-soft);
-  font-weight:400;
-  line-height:1.7;
-}
-
-.consent a {
-  color:var(--accent);
-  text-decoration:none;
-}
-
-.submit-row {
-  display:flex;
-  justify-content:center;
-  margin-top:30px;
-}
-
-.submit-button {
-  min-width:220px;
-  border:1px solid var(--accent);
-  border-radius:10px;
-  padding:14px 28px;
-  color:#06111c;
-  background:var(--accent);
-  font-weight:700;
-  cursor:pointer;
-  transition:transform .2s ease, opacity .2s ease, box-shadow .2s ease;
-}
-
-.submit-button:hover {
-  transform:translateY(-1px);
-  box-shadow:0 10px 28px rgba(56,189,248,0.20);
-}
-
-.submit-button:disabled {
-  cursor:not-allowed;
-  opacity:.55;
-  transform:none;
-  box-shadow:none;
-}
-
-.form-message {
-  display:none;
-  margin-top:22px;
-  padding:14px 16px;
-  border-radius:10px;
-  line-height:1.7;
-  font-size:14px;
-}
-
-.form-message.show {
-  display:block;
-}
-
-.form-message.error {
-  color:var(--danger);
-  border:1px solid rgba(252,165,165,0.28);
-  background:rgba(252,165,165,0.07);
-}
-
-.form-message.success {
-  color:var(--success);
-  border:1px solid rgba(134,239,172,0.28);
-  background:rgba(134,239,172,0.07);
-}
-
-.note {
-  color:var(--text-soft);
-  font-size:13px;
-  line-height:1.8;
-  margin-top:26px;
-}
-
-/* ============ FOOTER ============ */
-footer {
-  padding:60px 24px;
-  text-align:center;
-  color:var(--text-soft);
-  border-top:1px solid rgba(255,255,255,0.08);
-}
-.footer-links {
-  display:flex;
-  justify-content:center;
-  gap:18px;
-  margin-bottom:16px;
-  flex-wrap:wrap;
-}
-.footer-links a {
-  color:var(--text-soft);
-  text-decoration:none;
-}
-.footer-bottom {
-  margin-top:20px;
-  font-size:13px;
-  opacity:0.8;
-}
-
-@media(max-width:760px){
-  .form-grid,
-  .contact-meta {
-    grid-template-columns:1fr;
-  }
-}
-
-@media(max-width:600px){
-  main {
-    padding:120px 18px 90px;
-  }
-
-  .intro-card,
-  .contact-card {
-    padding:24px;
-  }
-
-  .submit-button {
-    width:100%;
-  }
-}
-
-/* ==============================
-   REFINED CONTACT
-   Unified with the top page
-============================== */
-body {
-  background:
-    radial-gradient(circle at 50% -12%, rgba(37,99,235,.11), transparent 32%),
-    var(--bg-dark);
-}
-main {
-  position:relative;
-}
-main::before {
-  content:"";
-  position:absolute;
-  top:92px;
-  right:24px;
-  width:150px;
-  height:150px;
-  border:1px solid rgba(56,189,248,.055);
-  border-radius:50%;
-  box-shadow:0 0 0 38px rgba(56,189,248,.015), 0 0 0 76px rgba(56,189,248,.01);
-  pointer-events:none;
-}
-h2 {
-  position:relative;
-  width:fit-content;
-  padding-left:17px;
-  color:#f8fafc;
-  font-weight:760;
-  letter-spacing:.065em;
-  text-shadow:0 0 24px rgba(56,189,248,.13);
-}
-h2::after {
-  content:"";
-  position:absolute;
-  left:-4px;
-  bottom:-11px;
-  width:120px;
-  height:1px;
-  background:linear-gradient(90deg,var(--accent),rgba(56,189,248,.2),transparent);
-}
-.glass-card {
-  position:relative;
-  overflow:hidden;
-  border-color:rgba(125,211,252,.2);
-  background:
-    radial-gradient(circle at 0 0,rgba(56,189,248,.09),transparent 32%),
-    linear-gradient(145deg,rgba(16,24,44,.87),rgba(8,13,28,.77));
-  box-shadow:0 23px 62px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.045);
-}
-.glass-card::before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:25px;
-  width:94px;
-  height:1px;
-  background:linear-gradient(90deg,rgba(125,211,252,.9),transparent);
-}
-.intro-card {
-  padding:36px 38px;
-  color:#dbe7f3;
-  background:
-    radial-gradient(circle at 92% 15%,rgba(56,189,248,.14),transparent 29%),
-    radial-gradient(circle at 5% 100%,rgba(37,99,235,.1),transparent 34%),
-    linear-gradient(145deg,rgba(16,24,44,.9),rgba(8,13,28,.79));
-}
-.contact-meta {
-  gap:14px;
-}
-.contact-meta-item {
-  position:relative;
-  overflow:hidden;
-  padding:20px;
-  border-color:rgba(125,211,252,.14);
-  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
-}
-.contact-meta-item::after {
-  content:"";
-  position:absolute;
-  right:-15px;
-  bottom:-15px;
-  width:48px;
-  height:48px;
-  border:1px solid rgba(56,189,248,.08);
-  border-radius:50%;
-}
-.contact-meta-label {
-  color:#7dd3fc;
-  font-size:12px;
-  font-weight:650;
-  letter-spacing:.045em;
-}
-.contact-meta-value {
-  position:relative;
-  z-index:1;
-  color:#edf5fb;
-}
-.contact-card {
-  padding:38px;
-}
-.form-grid {
-  gap:24px 20px;
-}
-label {
-  color:#e8f0f8;
-  letter-spacing:.015em;
-}
-input,
-select,
-textarea {
-  border-color:rgba(125,211,252,.16);
-  background:rgba(4,11,26,.55);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.025);
-}
-input:hover,
-select:hover,
-textarea:hover {
-  border-color:rgba(125,211,252,.28);
-}
-input:focus,
-select:focus,
-textarea:focus {
-  border-color:#38bdf8;
-  background:rgba(7,18,37,.72);
-  box-shadow:0 0 0 3px rgba(56,189,248,.1),0 0 22px rgba(56,189,248,.06);
-}
-.consent {
-  padding:20px;
-  border-color:rgba(125,211,252,.13);
-  background:rgba(4,11,26,.42);
-}
-.submit-button {
-  position:relative;
-  overflow:hidden;
-  border-color:rgba(125,211,252,.8);
-  border-radius:11px;
-  color:#f8fafc;
-  background:linear-gradient(135deg,#0284c7,#2563eb);
-  box-shadow:0 12px 30px rgba(14,165,233,.18),inset 0 1px 0 rgba(255,255,255,.2);
-}
-.submit-button::after {
-  content:"";
-  position:absolute;
-  inset:0;
-  background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.18) 48%,transparent 70%);
-  transform:translateX(-120%);
-  transition:transform .5s ease;
-}
-.submit-button:hover {
-  transform:translateY(-2px);
-  box-shadow:0 15px 36px rgba(14,165,233,.28);
-}
-.submit-button:hover::after {
-  transform:translateX(120%);
-}
-.note {
-  padding-top:18px;
-  border-top:1px solid rgba(148,163,184,.1);
-}
-footer {
-  background:linear-gradient(180deg,transparent,rgba(8,13,28,.72));
-  border-top-color:rgba(125,211,252,.12);
-}
-.footer-links a {
-  transition:color .2s ease;
-}
-.footer-links a:hover {
-  color:#7dd3fc;
-}
-@media(max-width:600px) {
-  main::before { display:none; }
-  h2 { font-size:23px; }
-  .intro-card,
-  .contact-card { padding:25px 21px; }
-  .contact-meta-item { padding:18px; }
-}
-
-/* ==============================
-   ORGANIZED / REFINED CONTACT + FORM ASSIST
-============================== */
-body.menu-open { overflow:hidden; }
-button, a, input, select, textarea, summary { -webkit-tap-highlight-color:transparent; }
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible,
-summary:focus-visible {
-  outline:2px solid #7dd3fc;
-  outline-offset:4px;
-}
-.skip-link {
-  position:fixed;
-  top:14px;
-  left:14px;
-  z-index:100000;
-  padding:9px 14px;
-  border-radius:8px;
-  color:#03111f;
-  background:#7dd3fc;
-  font-weight:800;
-  text-decoration:none;
-  transform:translateY(-160%);
-  transition:transform .2s ease;
-}
-.skip-link:focus { transform:translateY(0); }
-.menu-backdrop {
-  position:fixed;
-  inset:0;
-  z-index:9998;
-  border:0;
-  opacity:0;
-  visibility:hidden;
-  background:rgba(1,5,15,.56);
-  backdrop-filter:blur(2px);
-  transition:opacity .3s ease,visibility .3s ease;
-}
-.menu-backdrop.show { opacity:1; visibility:visible; }
-#mobileMenu {
-  box-sizing:border-box;
-  border-left:1px solid rgba(125,211,252,.14);
-  background:rgba(4,8,21,.92);
-  box-shadow:-24px 0 64px rgba(0,0,0,.36);
-}
-#mobileMenu a[aria-current="page"] { color:#7dd3fc; }
-main { padding-top:112px; }
-.page-header {
-  position:relative;
-  margin-bottom:34px;
-  padding-bottom:34px;
-  border-bottom:1px solid rgba(125,211,252,.13);
-}
-.page-header::after {
-  content:"";
-  position:absolute;
-  left:0;
-  bottom:-1px;
-  width:120px;
-  height:1px;
-  background:linear-gradient(90deg,#38bdf8,transparent);
-}
-.breadcrumb {
-  display:flex;
-  align-items:center;
-  gap:9px;
-  margin:0 0 28px;
-  color:#53758e;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.14em;
-}
-.breadcrumb a { color:#7891a5; text-decoration:none; }
-.breadcrumb a:hover { color:#7dd3fc; }
-.page-kicker {
-  display:block;
-  margin-bottom:9px;
-  color:#7dd3fc;
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:.18em;
-}
-.page-header h1 {
-  margin:0;
-  padding-left:17px;
-  border-left:4px solid var(--accent);
-  color:#f8fafc;
-  font-size:clamp(30px,4vw,43px);
-  line-height:1.25;
-  letter-spacing:.06em;
-}
-.page-lead {
-  max-width:720px;
-  margin:21px 0 0;
-  color:#b8c5d3;
-  font-size:16px;
-  line-height:1.9;
-}
-.intro-card { margin-bottom:26px; }
-.assist-card {
-  margin-bottom:26px;
-  padding:34px 38px;
-  background:
-    radial-gradient(circle at 96% 5%,rgba(56,189,248,.13),transparent 31%),
-    linear-gradient(145deg,rgba(13,25,47,.94),rgba(8,15,31,.86));
-}
-.assist-header {
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:24px;
-  margin-bottom:26px;
-}
-.assist-eyebrow {
-  display:block;
-  margin-bottom:6px;
-  color:#7dd3fc;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.17em;
-}
-.assist-header h2 {
-  margin:0 0 8px;
-  padding:0;
-  border:0;
-  color:#f8fafc;
-  font-size:22px;
-  letter-spacing:.02em;
-  text-shadow:none;
-}
-.assist-header h2::after { display:none; }
-.assist-header p {
-  max-width:620px;
-  margin:0;
-  color:#aebdca;
-  font-size:14px;
-  line-height:1.75;
-}
-.assist-badge {
-  flex:0 0 auto;
-  padding:6px 10px;
-  border:1px solid rgba(125,211,252,.2);
-  border-radius:999px;
-  color:#8fbfd5;
-  background:rgba(56,189,248,.06);
-  font-size:9px;
-  font-weight:800;
-  letter-spacing:.14em;
-}
-.assist-step { margin:0; padding:0; border:0; }
-.assist-step + .assist-step { margin-top:22px; }
-.assist-step legend,
-.assist-input-label {
-  display:block;
-  margin-bottom:11px;
-  color:#dce8f2;
-  font-size:13px;
-  font-weight:700;
-}
-.assist-options { display:flex; flex-wrap:wrap; gap:9px; }
-.assist-option {
-  padding:9px 13px;
-  border:1px solid rgba(125,211,252,.17);
-  border-radius:999px;
-  color:#b8c7d5;
-  background:rgba(4,11,26,.46);
-  font-size:12px;
-  font-weight:650;
-  cursor:pointer;
-  transition:border-color .2s ease,color .2s ease,background .2s ease;
-}
-.assist-option:hover { color:#e0f2fe; border-color:rgba(125,211,252,.4); }
-.assist-option.active {
-  color:#7dd3fc;
-  border-color:rgba(56,189,248,.62);
-  background:rgba(56,189,248,.1);
-  box-shadow:0 0 20px rgba(56,189,248,.06);
-}
-#assistSummary { min-height:112px; }
-.assist-actions {
-  display:flex;
-  align-items:center;
-  flex-wrap:wrap;
-  gap:12px;
-  margin-top:16px;
-}
-.assist-generate,
-.assist-clear {
-  min-height:42px;
-  padding:0 16px;
-  border-radius:9px;
-  font-size:13px;
-  font-weight:750;
-  cursor:pointer;
-}
-.assist-generate {
-  border:1px solid rgba(125,211,252,.55);
-  color:#e0f2fe;
-  background:linear-gradient(135deg,rgba(2,132,199,.62),rgba(37,99,235,.56));
-}
-.assist-generate:disabled { cursor:not-allowed; opacity:.42; }
-.assist-clear {
-  border:1px solid rgba(148,163,184,.18);
-  color:#94a3b8;
-  background:transparent;
-}
-.assist-status {
-  min-height:1.5em;
-  margin-top:12px;
-  color:#86efac;
-  font-size:12px;
-}
-.assist-note {
-  margin-top:18px;
-  padding-top:15px;
-  border-top:1px solid rgba(148,163,184,.1);
-  color:#8293a5;
-  font-size:12px;
-}
-.assist-note summary { width:fit-content; cursor:pointer; color:#8fbfd5; }
-.assist-note p { margin:10px 0 0; line-height:1.7; }
-.contact-card-header { margin-bottom:26px; }
-.contact-card-header h2 {
-  margin:0 0 7px;
-  padding:0;
-  border:0;
-  color:#f8fafc;
-  font-size:20px;
-  letter-spacing:.025em;
-  text-shadow:none;
-}
-.contact-card-header h2::after { display:none; }
-.contact-card-header p { margin:0; color:#91a1b3; font-size:13px; }
-.form-section-label {
-  grid-column:1/-1;
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin-top:4px;
-  color:#7dd3fc;
-  font-size:10px;
-  font-weight:800;
-  letter-spacing:.15em;
-}
-.form-section-label::after {
-  content:"";
-  flex:1;
-  height:1px;
-  background:linear-gradient(90deg,rgba(125,211,252,.18),transparent);
-}
-
-@media(max-width:600px) {
-  main { padding-top:96px; }
-  .page-header { margin-bottom:26px; padding-bottom:28px; }
-  .breadcrumb { margin-bottom:22px; }
-  .page-header h1 { font-size:30px; }
-  .page-lead { font-size:15px; }
-  .assist-card { padding:26px 21px; }
-  .assist-header { flex-direction:column; gap:12px; }
-  .assist-options { display:grid; grid-template-columns:1fr 1fr; }
-  .assist-option:last-child { grid-column:1/-1; }
-}
-@media(prefers-reduced-motion:reduce) {
-  html { scroll-behavior:auto; }
-}
+:root{--bg-dark:#050816;--text-main:#e5edf5;--text-soft:#a4b3c6;--accent:#7dd3fc;--danger:#fecaca;--success:#bbf7d0;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:28px}body{margin:0;background:radial-gradient(ellipse at 15% 0,rgba(28,88,148,.16),transparent 45%),var(--bg-dark);color:var(--text-main);font-family:system-ui,-apple-system,sans-serif;line-height:1.7}body.menu-open{overflow:hidden}
+button,input,select,textarea{font:inherit}a{color:var(--accent);text-underline-offset:4px}button,a,input,select,textarea,summary{-webkit-tap-highlight-color:transparent}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.55}
+#particles{position:fixed;inset:0;z-index:-1;opacity:.25;pointer-events:none}.skip-link{position:fixed;top:12px;left:12px;z-index:100000;padding:10px 16px;background:var(--accent);color:#051323;border-radius:6px;transform:translateY(-160%)}.skip-link:focus{transform:translateY(0)}
+.hamburger{position:fixed;top:22px;right:24px;width:44px;height:44px;z-index:99999;background:rgba(5,8,22,.9);border:1px solid #263448;border-radius:10px;padding:11px}.hamburger span{display:block;height:2px;background:var(--accent);margin:4px 0;transition:transform .2s,opacity .2s}.hamburger.active span:nth-child(1){transform:translateY(6px) rotate(45deg)}.hamburger.active span:nth-child(2){opacity:0}.hamburger.active span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.menu-backdrop{position:fixed;inset:0;z-index:9998;border:0;opacity:0;visibility:hidden;background:rgba(1,5,15,.64)}.menu-backdrop.show{opacity:1;visibility:visible}#mobileMenu{position:fixed;right:0;top:0;width:min(300px,85vw);height:100dvh;padding:100px 32px;display:flex;flex-direction:column;gap:24px;background:#0b1325;border-left:1px solid #263448;z-index:9999;transform:translateX(100%);visibility:hidden;transition:transform .25s,visibility .25s}#mobileMenu.show{transform:translateX(0);visibility:visible}#mobileMenu a{text-decoration:none;color:#b5c3d4}#mobileMenu a[aria-current=page]{color:var(--accent)}
+main{max-width:1168px;margin:auto;padding:76px 32px 100px}.page-header{padding-bottom:38px;margin-bottom:38px;border-bottom:1px solid #243248}.breadcrumb{display:flex;gap:10px;font-size:11px;letter-spacing:.1em;color:#a4b3c6;margin-bottom:30px}.breadcrumb a{text-decoration:none;color:#a4b3c6}.page-kicker{display:block;font-size:12px;letter-spacing:.18em;font-weight:700;color:var(--accent);margin-bottom:12px}.page-header h1{font-size:clamp(30px,4vw,42px);line-height:1.4;letter-spacing:.03em;margin:0;font-weight:650}.page-lead{font-size:15px;color:#aebed0;max-width:670px;margin:18px 0 0;line-height:1.9}
+.contact-layout{display:grid;grid-template-columns:260px minmax(0,1fr);gap:48px;align-items:start}.contact-guide{padding-top:6px}.contact-guide h2{font-size:17px;font-weight:650;margin:0 0 15px}.contact-guide p{font-size:14px;color:#aebed0;margin:0 0 20px}.reply-estimate{padding:22px 0;margin-bottom:26px;border-top:1px solid #243248;border-bottom:1px solid #243248}.reply-estimate span{display:block;font-size:12px;color:#aebed0}.reply-estimate strong{display:block;font-size:22px;font-weight:600;margin:4px 0}.contact-guide .guide-note{font-size:12px;line-height:1.9}.guide-link{display:inline-block;font-size:13px;text-decoration:none;border-bottom:1px solid #44657f;padding-bottom:3px}.safe-contact{margin-top:30px;display:flex;gap:10px;align-items:flex-start}.safe-contact svg{flex:none;margin-top:3px;color:var(--accent)}.safe-contact p{font-size:12px;margin:0;color:#aebed0}
+.contact-card{min-width:0;background:linear-gradient(145deg,rgba(18,30,49,.95),rgba(9,17,32,.95));border:1px solid #293a50;border-radius:18px;padding:32px;box-shadow:0 20px 60px rgba(0,0,0,.12)}.contact-card-header{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:24px}.contact-card-header h2{font-size:20px;font-weight:650;margin:0}.contact-card-header p{margin:0;font-size:12px;color:#aebed0}
+.assist-card{margin-bottom:28px;padding:0 0 20px;border-bottom:1px solid #293a50}.assist-toggle{font-size:13px;color:var(--accent);cursor:pointer;min-height:32px;line-height:32px}.assist-content{padding-top:16px}.assist-header p{font-size:12px;color:#aebed0;margin:0 0 18px}.assist-step{border:0;padding:0;margin:0 0 16px;min-width:0}.assist-step legend,.assist-input-label{display:block;font-size:12px;font-weight:600;margin-bottom:10px}.assist-options{display:flex;flex-wrap:wrap;gap:8px}.assist-option{border:1px solid #3b5068;border-radius:7px;padding:9px 12px;min-height:44px;background:#0b1728;color:#c3d1e0;font-size:12px}.assist-option.active{color:#dff4ff;background:#14354b;border-color:var(--accent)}#assistSummary{min-height:100px}.assist-actions{display:flex;gap:10px;flex-wrap:wrap}.assist-generate,.assist-clear{border:1px solid #44657f;padding:9px 14px;min-height:44px;border-radius:7px;background:#123047;color:#e0f2fe;font-size:12px}.assist-clear{background:transparent;color:#b5c3d4}.assist-status{font-size:12px;color:var(--success);margin-top:10px}.assist-note{font-size:12px;color:#aebed0;margin:12px 0 0}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 18px}.form-section-label{grid-column:1/-1;display:flex;align-items:center;gap:12px;color:#9eb3c9;font-size:11px;letter-spacing:.08em;margin-top:4px}.form-section-label::after{content:"";height:1px;background:#293a50;flex:1}.form-group{display:flex;flex-direction:column;gap:8px;min-width:0}.form-group.full{grid-column:1/-1}label{font-size:13px;font-weight:600}.required,.optional{font-size:10px;margin-left:8px;font-weight:400}.required{color:#9cddfb}.optional{color:#aebed0}
+input,select,textarea{width:100%;min-width:0;border:1px solid #41516a;border-radius:8px;padding:12px 13px;background:#091322;color:#edf4fb;font-size:16px;transition:border-color .15s,box-shadow .15s}input::placeholder,textarea::placeholder{color:#8799af;font-size:14px}input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(125,211,252,.09)}select{padding-right:30px}select option{background:#0b1728;color:#edf4fb}textarea{min-height:180px;resize:vertical;line-height:1.8}.helper-text{font-size:12px;color:#aebed0;line-height:1.8}.message-meta{display:flex;justify-content:space-between;gap:12px;align-items:baseline}.character-count{white-space:nowrap;font-size:11px;color:#aebed0;font-variant-numeric:tabular-nums}
+.consent{display:flex;gap:12px;align-items:flex-start}.consent input{flex:none;width:19px;height:19px;margin:3px 0 0;accent-color:#38bdf8}.consent label{font-size:12px;font-weight:400;line-height:1.9}.consent a{white-space:normal}.verification-note{font-size:11px;color:#aebed0;margin:0}.cf-turnstile{min-height:65px;max-width:100%}.submit-row{margin-top:26px}.submit-button{width:100%;min-height:52px;padding:13px 22px;border:1px solid #71c6ef;border-radius:8px;color:#031625;background:#7dd3fc;font-weight:750;transition:background .15s}.submit-button:hover{background:#b5e7ff}.submit-note{text-align:center;font-size:11px;color:#aebed0;margin:10px 0 0}.form-message{display:none;margin:20px 0 0;padding:15px;border-radius:8px;font-size:14px;line-height:1.8}.form-message.show{display:block}.form-message.success{color:var(--success);background:#0d302c;border:1px solid #33665a}.form-message.error{color:var(--danger);background:#341b28;border:1px solid #78505b}.note{font-size:12px;color:#aebed0;margin:22px 0 0}
+footer{padding:36px 24px;border-top:1px solid #243248;text-align:center}.footer-links{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}.footer-links a{color:#a4b3c6;font-size:12px;text-decoration:none}.footer-bottom{font-size:11px;color:#8fa1b6;margin-top:18px}
+@media(max-width:960px){.contact-layout{grid-template-columns:220px minmax(0,1fr);gap:28px}.contact-card{padding:26px}.form-grid{grid-template-columns:1fr}.form-group.full{grid-column:auto}.contact-card-header{display:block}.contact-card-header p{margin-top:6px}}
+@media(max-width:720px){main{padding:70px 20px 64px}.page-header{padding-bottom:28px;margin-bottom:26px}.breadcrumb{margin-bottom:24px}.page-header h1{font-size:30px}.page-lead{font-size:14px}.contact-layout{grid-template-columns:1fr;gap:24px}.contact-guide h2,.guide-link,.guide-note{display:none}.contact-guide{padding:0}.reply-estimate{margin:0;padding:0;border:0;display:flex;gap:12px;align-items:baseline;flex-wrap:wrap}.reply-estimate strong{font-size:16px;margin:0}.reply-estimate .reply-detail{font-size:11px}.safe-contact{margin-top:12px}.safe-contact p{font-size:11px}.contact-card{padding:24px 20px;border-radius:14px}.contact-card-header h2{font-size:19px}.hamburger{top:16px;right:16px}.form-grid{gap:20px}.message-meta{display:block}.character-count{display:block;text-align:right}.assist-options{gap:6px}.assist-option{padding:9px 10px}.submit-button{min-width:0}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important}#particles{display:none}}
 </style>
 </head>
 
@@ -868,7 +46,7 @@ main { padding-top:112px; }
 
 <a class="skip-link" href="#main-content">本文へ移動</a>
 
-<canvas id="particles"></canvas>
+<canvas id="particles" aria-hidden="true"></canvas>
 
 <button class="hamburger" type="button" aria-label="メニューを開閉" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu()">
   <span></span><span></span><span></span>
@@ -876,7 +54,7 @@ main { padding-top:112px; }
 
 <button class="menu-backdrop" type="button" onclick="toggleMenu(false)" aria-label="メニューを閉じる"></button>
 
-<nav id="mobileMenu" aria-label="サイトメニュー" aria-hidden="true">
+<nav id="mobileMenu" aria-label="サイトメニュー" aria-hidden="true" inert>
   <a href="index.html">HOME</a>
   <a href="index.html#news">NEWS</a>
   <a href="index.html#mission">MISSION</a>
@@ -889,47 +67,31 @@ main { padding-top:112px; }
 <main id="main-content">
   <header class="page-header">
     <nav class="breadcrumb" aria-label="パンくずリスト"><a href="index.html">HOME</a><span aria-hidden="true">/</span><span>CONTACT</span></nav>
-    <span class="page-kicker">CONTACT / PARTNERSHIP</span>
-    <h1>CONTACT</h1>
-    <p class="page-lead">技術支援、ビジネスパートナー、取材・掲載など、ご用件に合わせてお問い合わせください。</p>
+    <span class="page-kicker">CONTACT</span>
+    <h1>お問い合わせ</h1>
+    <p class="page-lead">技術支援のご相談から、協業・取材・採用のご連絡まで。<br>ご用件をお聞かせください。</p>
   </header>
 
-  <section class="intro-card glass-card">
-    <p>
-      Stractoへのお問い合わせは、以下のフォームよりご連絡ください。<br>
-      技術支援のご相談、ビジネスパートナー、取材・掲載、採用、その他のお問い合わせを受け付けています。<br>
-      内容を確認のうえ、通常3営業日以内を目安にご返信いたします。
-    </p>
-
-    <div class="contact-meta">
-      <div class="contact-meta-item">
-        <div class="contact-meta-label">お問い合わせ窓口</div>
-        <div class="contact-meta-value">
-          <a href="#contactForm">お問い合わせフォーム</a>
-        </div>
-      </div>
-      <div class="contact-meta-item">
-        <div class="contact-meta-label">返信目安</div>
-        <div class="contact-meta-value">通常3営業日以内</div>
-      </div>
-    </div>
-  </section>
-
-  <section class="assist-card glass-card" aria-labelledby="assistHeading">
-    <div class="assist-header">
-      <div>
-        <span class="assist-eyebrow">SMART FORM ASSIST / BETA</span>
-        <h2 id="assistHeading">お問い合わせ内容を整理する</h2>
-        <p>ご用件と簡単なメモから、件名とお問い合わせ文のひな形を作成してフォームへ反映します。</p>
-      </div>
-      <span class="assist-badge">IN-BROWSER</span>
-    </div>
-
+  <div class="contact-layout">
+  <aside class="contact-guide" aria-label="お問い合わせのご案内">
+    <h2>ご相談をお待ちしています</h2>
+    <p class="guide-note">ご相談内容がまだ具体的でない段階でも、お気軽にお問い合わせください。</p>
+    <div class="reply-estimate"><span>返信の目安</span><strong>通常3営業日以内</strong><span class="reply-detail">内容を確認のうえ、担当者よりご連絡します。</span></div>
+    <p class="guide-note">返信が見当たらない場合は、迷惑メールフォルダもご確認ください。</p>
+    <a class="guide-link" href="privacy.html">個人情報の取り扱いについて ↗</a>
+    <div class="safe-contact"><svg width="18" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z"/><path d="m8 12 3 3 5-6"/></svg><p>迷惑メール対策のため、メールアドレスの公開を控えています。ご連絡はこのフォームからお願いします。</p></div>
+  </aside>
+  <section class="contact-card" aria-labelledby="formHeading">
+    <div class="contact-card-header"><h2 id="formHeading">お問い合わせフォーム</h2><p><span class="required">必須</span>の項目をご入力ください</p></div>
+  <details class="assist-card" id="formAssist">
+    <summary class="assist-toggle">書き方に迷ったら：文面作成をサポート</summary>
+    <div class="assist-content">
+    <div class="assist-header"><p>ご用件とメモから、編集できるひな形を作成します。ご利用は任意です。</p></div>
     <fieldset class="assist-step">
       <legend>1. ご用件を選択してください</legend>
       <div class="assist-options" id="assistOptions">
         <button class="assist-option" type="button" data-assist-category="business">技術支援の相談</button>
-        <button class="assist-option" type="button" data-assist-category="partner">パートナー募集</button>
+        <button class="assist-option" type="button" data-assist-category="partner">協業・パートナー</button>
         <button class="assist-option" type="button" data-assist-category="media">取材・掲載</button>
         <button class="assist-option" type="button" data-assist-category="recruit">採用</button>
         <button class="assist-option" type="button" data-assist-category="other">その他</button>
@@ -938,7 +100,7 @@ main { padding-top:112px; }
 
     <div class="assist-step">
       <label class="assist-input-label" for="assistSummary">2. 伝えたいことを簡単に入力してください</label>
-      <textarea id="assistSummary" placeholder="例：ネットワーク更改の設計・構築について相談したい。実施時期は来年1月頃を予定。"></textarea>
+      <textarea id="assistSummary" maxlength="4500" placeholder="例：ネットワーク更改の設計・構築について相談したい。実施時期は来年1月頃を予定。"></textarea>
     </div>
 
     <div class="assist-actions">
@@ -947,41 +109,34 @@ main { padding-top:112px; }
     </div>
     <div class="assist-status" id="assistStatus" role="status" aria-live="polite"></div>
 
-    <details class="assist-note">
-      <summary>この機能について</summary>
-      <p>この参考版では、入力内容を外部サービスへ送信せず、ブラウザ内で文面のひな形を作成します。生成AIと接続する場合は、APIキーを公開しないサーバー側の実装が別途必要です。</p>
-    </details>
-  </section>
-
-  <section class="contact-card glass-card">
-    <div class="contact-card-header">
-      <h2>お問い合わせフォーム</h2>
-      <p>アシストを使わず、直接入力することもできます。</p>
+    <p class="assist-note">ひな形はブラウザ内で作成します。「お問い合わせを送信」を押すまで、入力内容は送信されません。</p>
     </div>
-    <!--
-      現在はフロント側の入力チェックのみです。
-      Formspree / Cloudflare Workers / Microsoft Forms などを利用する場合は、
-      form の action と method、または JavaScript の送信処理を差し替えてください。
-    -->
+  </details>
+
+
     <form id="contactForm" novalidate>
       <div class="form-grid">
-        <div class="form-section-label">CONTACT DETAILS</div>
+        <div class="form-section-label">01　ご連絡先</div>
         <div class="form-group">
           <label for="company">会社名・団体名<span class="optional">任意</span></label>
-          <input id="company" name="company" type="text" autocomplete="organization" placeholder="例：Stracto株式会社">
+          <input id="company" maxlength="150" name="company" type="text" autocomplete="organization" placeholder="例：Stracto株式会社">
         </div>
 
         <div class="form-group">
           <label for="name">氏名<span class="required">必須</span></label>
-          <input id="name" name="name" type="text" autocomplete="name" placeholder="例：山田 太郎" required>
+          <input id="name" maxlength="100" name="name" type="text" autocomplete="name" placeholder="例：山田 太郎" required>
         </div>
 
-        <div class="form-group">
+        <div class="form-group full">
           <label for="email">メールアドレス<span class="required">必須</span></label>
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="example@example.com" required>
+          <input id="email" maxlength="254" name="email" type="email" autocomplete="email" inputmode="email" autocapitalize="none" spellcheck="false" placeholder="返信先のメールアドレス" aria-describedby="emailHelp" required>
+          <div id="emailHelp" class="helper-text">返信を受け取れるアドレスをご入力ください。</div>
         </div>
 
-        <div class="form-group">
+
+
+        <div class="form-section-label">02　ご用件</div>
+        <div class="form-group full">
           <label for="category">お問い合わせ種別<span class="required">必須</span></label>
           <select id="category" name="category" required>
             <option value="">選択してください</option>
@@ -992,22 +147,20 @@ main { padding-top:112px; }
             <option value="other">その他</option>
           </select>
         </div>
-
-        <div class="form-section-label">MESSAGE</div>
         <div class="form-group full">
           <label for="subject">件名<span class="required">必須</span></label>
-          <input id="subject" name="subject" type="text" placeholder="お問い合わせの件名をご入力ください" required>
+          <input id="subject" maxlength="200" name="subject" type="text" placeholder="お問い合わせの件名をご入力ください" required>
         </div>
 
         <div class="form-group full">
           <label for="message">お問い合わせ内容<span class="required">必須</span></label>
-          <textarea id="message" name="message" placeholder="お問い合わせ内容をご入力ください" aria-describedby="messageHelp" required></textarea>
-          <div class="helper-text" id="messageHelp">営業・勧誘のみを目的としたお問い合わせには、返信いたしかねる場合があります。</div>
+          <textarea id="message" maxlength="5000" name="message" placeholder="ご相談の背景や確認したいこと、ご希望の時期などをお聞かせください。" aria-describedby="messageHelp" required></textarea>
+          <div class="message-meta"><span class="helper-text" id="messageHelp">5,000文字以内でご入力ください。</span><span id="messageCount" class="character-count">0 / 5,000</span></div>
         </div>
 
         <div class="form-group full">
-          <div class="cf-turnstile" 
-          data-sitekey="0x4AAAAAAD1dpflmR9gaTNjp">
+          <p class="verification-note">迷惑投稿を防ぐため、安全性を確認しています。</p>
+          <div class="cf-turnstile" data-size="flexible" data-sitekey="0x4AAAAAAD1dpflmR9gaTNjp">
         </div>
        </div>
         <div class="form-group full">
@@ -1022,16 +175,19 @@ main { padding-top:112px; }
       </div>
 
       <div class="submit-row">
-        <button class="submit-button" type="submit">送信する</button>
+        <button class="submit-button" type="submit">お問い合わせを送信</button>
       </div>
 
-      <div id="formMessage" class="form-message" role="status" aria-live="polite"></div>
+      <p class="submit-note">送信前に、返信先とお問い合わせ内容をご確認ください。</p>
+
+      <div id="formMessage" class="form-message" role="status" aria-live="polite" tabindex="-1"></div>
     </form>
 
     <div class="note">
-      ※ お問い合わせは、上記フォームよりご連絡ください。
+      営業・勧誘のみを目的としたお問い合わせには、返信いたしかねる場合があります。
     </div>
   </section>
+  </div>
 </main>
 
 <footer>
@@ -1065,6 +221,8 @@ function toggleMenu(forceOpen){
   button.setAttribute("aria-expanded", String(isOpen));
   button.setAttribute("aria-label", isOpen ? "メニューを閉じる" : "メニューを開く");
   menu.setAttribute("aria-hidden", String(!isOpen));
+  menu.inert = !isOpen;
+  if (!isOpen && menu.contains(document.activeElement)) button.focus();
 }
 
 document.querySelectorAll("#mobileMenu a").forEach(link => {
@@ -1119,7 +277,7 @@ const assistTemplates = {
 };
 
 function selectAssistCategory(category){
-  if(!assistTemplates[category]) return;
+  if(!Object.hasOwn(assistTemplates, category)) return;
   selectedAssistCategory = category;
   assistOptions.forEach(option => {
     const active = option.dataset.assistCategory === category;
@@ -1141,6 +299,10 @@ assistGenerate.addEventListener("click", () => {
   const template = assistTemplates[selectedAssistCategory];
   if(!template) return;
   const memo = assistSummary.value.trim();
+  if(subjectField.value.trim() || messageField.value.trim()){
+    assistStatus.textContent = "入力済みの件名・本文は保持しました。ひな形を使う場合は、先にその2項目を空にしてください。";
+    return;
+  }
   const sections = template.sections.map((label, index) => {
     const value = index === 0 && memo ? memo : "（ご記入ください）";
     return `【${label}】\n${value}`;
@@ -1149,7 +311,8 @@ assistGenerate.addEventListener("click", () => {
   categoryField.value = selectedAssistCategory;
   subjectField.value = template.subject;
   messageField.value = sections.join("\n\n");
-  assistStatus.textContent = "件名とお問い合わせ内容のひな形をフォームへ反映しました。内容を確認・編集してください。";
+  updateMessageCount();
+  assistStatus.textContent = "ひな形を反映しました。内容を確認・編集してから送信してください。";
   subjectField.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block:"center"});
   setTimeout(() => subjectField.focus({preventScroll:true}), 350);
 });
@@ -1167,11 +330,21 @@ assistClear.addEventListener("click", () => {
 });
 
 const requestedCategory = new URLSearchParams(location.search).get("category");
-if(requestedCategory && assistTemplates[requestedCategory]) selectAssistCategory(requestedCategory);
+if(requestedCategory && Object.hasOwn(assistTemplates, requestedCategory)) selectAssistCategory(requestedCategory);
+
+function updateMessageCount(){
+  document.getElementById("messageCount").textContent = messageField.value.length.toLocaleString("ja-JP") + " / 5,000";
+}
+messageField.addEventListener("input", updateMessageCount);
+contactForm.addEventListener("reset", () => {
+  assistClear.click();
+  setTimeout(updateMessageCount, 0);
+});
 
 function showFormMessage(type, message){
   formMessage.className = "form-message show " + type;
   formMessage.textContent = message;
+  formMessage.focus();
 }
 
 contactForm.addEventListener("submit", async (event) => {
@@ -1183,6 +356,12 @@ contactForm.addEventListener("submit", async (event) => {
     return;
   }
 
+  if (submitButton.disabled) return;
+  const token = new FormData(contactForm).get("cf-turnstile-response");
+  if (!token) {
+    showFormMessage("error", "安全性の確認が完了していません。確認が終わってから、もう一度送信してください。改善しない場合はページを再読み込みしてください。入力内容は再読み込み前にお控えください。");
+    return;
+  }
   submitButton.disabled = true;
   submitButton.textContent = "送信中...";
 
@@ -1206,10 +385,10 @@ const payload = {
       body:JSON.stringify(payload)
     });
 
-    const result = await response.json();
+    const result = await response.json().catch(() => { throw new Error("送信結果を確認できませんでした。時間をおいてからお試しください。"); });
 
-    if(!response.ok || !result.success){
-      throw new Error(result.message || "送信に失敗しました。");
+    if(!response.ok || !result || result.success !== true){
+      throw new Error(result?.message || "送信に失敗しました。");
     }
 
     showFormMessage("success","お問い合わせを受け付けました。内容を確認のうえご返信いたします。");
@@ -1217,10 +396,10 @@ const payload = {
 
   } catch(error){
     console.error(error);
-    showFormMessage("error", error.message || "送信に失敗しました。");
+    showFormMessage("error", error instanceof TypeError ? "通信できませんでした。接続をご確認のうえ、もう一度送信してください。入力内容は保持されています。" : error.message || "送信に失敗しました。入力内容は保持されています。");
   } finally{
     submitButton.disabled = false;
-    submitButton.textContent = "送信する";
+    submitButton.textContent = "お問い合わせを送信";
     if (window.turnstile) {
       window.turnstile.reset();
     }
@@ -1229,6 +408,7 @@ const payload = {
 
 /* ============ PARTICLES ============ */
 document.addEventListener("DOMContentLoaded",()=>{
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const canvas=document.getElementById("particles");
   const ctx=canvas.getContext("2d");
 
