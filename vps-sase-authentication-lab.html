@@ -21,9 +21,9 @@
 <body>
 <canvas id="particles" aria-hidden="true"></canvas>
 <button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
-<nav id="mobileMenu" aria-label="メインメニュー"><a href="index.html">HOME</a><a href="index.html#news">NEWS</a><a href="index.html#mission">MISSION</a><a href="index.html#business">BUSINESS</a><a href="index.html#company">COMPANY</a><a href="technical_lab.html">TECHNICAL LAB</a><a href="contact.html">CONTACT</a></nav>
+<nav id="mobileMenu" aria-label="メインメニュー"><a href="/">HOME</a><a href="/#news">NEWS</a><a href="/#mission">MISSION</a><a href="/#business">BUSINESS</a><a href="/#company">COMPANY</a><a href="/technical_lab">TECHNICAL LAB</a><a href="/contact">CONTACT</a></nav>
 <main>
-  <nav class="breadcrumb" aria-label="パンくず"><a href="index.html">HOME</a><span>›</span><a href="technical_lab.html">TECHNICAL LAB</a><span>›</span><span>VPSとSASE認証基盤</span></nav>
+  <nav class="breadcrumb" aria-label="パンくず"><a href="/">HOME</a><span>›</span><a href="/technical_lab">TECHNICAL LAB</a><span>›</span><span>VPSとSASE認証基盤</span></nav>
   <div class="layout">
     <article class="article">
 <header class="hero"><span class="eyebrow">SASE / IDENTITY / VPS</span><h1>VPSでSASEの認証基盤を構築する考え方</h1><p class="lead">SASEでは「どこから接続したか」だけでなく、「誰が、どの端末でアクセスしたか」がポリシーの中心になります。VPS上に検証用IdPを構築し、認証フローを自分で確かめる方法を整理します。</p><div class="meta"><time datetime="2026-09-24">公開日：2026.09.24</time><span>読了目安：約10分</span><span>Stracto Technical Lab</span></div><p class="promotion-note">本記事にはプロモーションリンクが含まれます。</p></header>
@@ -52,16 +52,16 @@ Application</pre><p>SAMLではSASE側がService Provider、認証基盤側がIdP
 <a href="#radius">RADIUS検証</a>
 <a href="#production">本番利用の注意点</a>
 <a href="#summary">まとめ</a></nav></section>
-      <section class="side-card"><h2 class="side-title">CATEGORY</h2><div class="category-list"><a href="technical_lab.html">SASE</a>
-<a href="technical_lab.html">IDENTITY</a>
-<a href="technical_lab.html">VPS</a></div></section>
+      <section class="side-card"><h2 class="side-title">CATEGORY</h2><div class="category-list"><a href="/technical_lab">SASE</a>
+<a href="/technical_lab">IDENTITY</a>
+<a href="/technical_lab">VPS</a></div></section>
       <section class="side-card"><h2 class="side-title">RELATED ARTICLES</h2><nav class="side-links"><a href="prisma-access-guide.html">Prisma Accessとは？基本構成と主な機能</a>
 <a href="cloudflare-zero-trust-design.html">Cloudflare Zero Trustとは？一般的な構成と基本設計</a>
 <a href="vps-network-server-lab.html">VPSでネットワーク・サーバ検証環境を作る</a></nav></section>
     </aside>
   </div>
 </main>
-<footer><div class="footer-links"><a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a><a href="index.html#business">Business</a><a href="index.html#company">Company</a><a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
+<footer><div class="footer-links"><a href="/">Home</a><a href="/#news">News</a><a href="/#mission">Mission</a><a href="/#business">Business</a><a href="/#company">Company</a><a href="/technical_lab">Technical Lab</a><a href="/contact">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
 <script>function initPage(){
   const button=document.querySelector('.hamburger'),menu=document.getElementById('mobileMenu');
   button.addEventListener('click',()=>{const open=menu.classList.toggle('show');button.classList.toggle('active',open);button.setAttribute('aria-expanded',String(open));});

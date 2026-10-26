@@ -31,9 +31,9 @@ footer{padding:58px 24px;text-align:center;color:var(--soft);border-top:1px soli
 <body>
 <canvas id="particles" aria-hidden="true"></canvas>
 <button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false" onclick="toggleMenu(this)"><span></span><span></span><span></span></button>
-<nav id="mobileMenu" aria-label="メインメニュー"><a href="index.html">HOME</a><a href="index.html#news">NEWS</a><a href="index.html#mission">MISSION</a><a href="index.html#business">BUSINESS</a><a href="index.html#company">COMPANY</a><a href="technical_lab.html">TECHNICAL LAB</a><a href="contact.html">CONTACT</a></nav>
+<nav id="mobileMenu" aria-label="メインメニュー"><a href="/">HOME</a><a href="/#news">NEWS</a><a href="/#mission">MISSION</a><a href="/#business">BUSINESS</a><a href="/#company">COMPANY</a><a href="/technical_lab">TECHNICAL LAB</a><a href="/contact">CONTACT</a></nav>
 <main>
-  <nav class="breadcrumb" aria-label="パンくずリスト"><a href="index.html">HOME</a><span>/</span><a href="technical_lab.html">TECHNICAL LAB</a><span>/</span><span>WEB INFRASTRUCTURE</span></nav>
+  <nav class="breadcrumb" aria-label="パンくずリスト"><a href="/">HOME</a><span>/</span><a href="/technical_lab">TECHNICAL LAB</a><span>/</span><span>WEB INFRASTRUCTURE</span></nav>
   <header class="article-hero">
     <p class="eyebrow">CLOUD / WEB INFRASTRUCTURE</p>
     <h1>VPS・レンタルサーバー・サーバーレスの違い｜企業のWeb基盤をどう選ぶか</h1>
@@ -84,7 +84,7 @@ footer{padding:58px 24px;text-align:center;color:var(--soft);border-top:1px soli
     <aside class="toc" aria-label="記事の目次"><p class="toc-title">この記事の内容</p><ol><li><a href="#overview">3つの違い</a></li><li><a href="#rental">レンタルサーバー</a></li><li><a href="#vps">VPS</a></li><li><a href="#serverless">サーバーレス</a></li><li><a href="#selection">選定項目</a></li><li><a href="#service">サービス情報</a></li><li><a href="#summary">まとめ</a></li></ol></aside>
   </div>
 </main>
-<footer><div class="footer-links"><a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a><a href="index.html#business">Business</a><a href="index.html#company">Company</a><a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
+<footer><div class="footer-links"><a href="/">Home</a><a href="/#news">News</a><a href="/#mission">Mission</a><a href="/#business">Business</a><a href="/#company">Company</a><a href="/technical_lab">Technical Lab</a><a href="/contact">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
 <script>
 function toggleMenu(button){const menu=document.getElementById("mobileMenu");const open=menu.classList.toggle("show");button.classList.toggle("active",open);button.setAttribute("aria-expanded",String(open));button.setAttribute("aria-label",open?"メニューを閉じる":"メニューを開く")}
 document.addEventListener("DOMContentLoaded",()=>{const canvas=document.getElementById("particles"),ctx=canvas.getContext("2d");function resize(){canvas.width=innerWidth;canvas.height=innerHeight}resize();addEventListener("resize",resize);const ps=Array.from({length:40},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+1,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22}));function draw(){ctx.clearRect(0,0,canvas.width,canvas.height);ps.forEach(p=>{const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*2.2);g.addColorStop(0,"rgba(255,255,255,.42)");g.addColorStop(1,"rgba(255,255,255,0)");ctx.fillStyle=g;ctx.beginPath();ctx.arc(p.x,p.y,p.r*1.8,0,Math.PI*2);ctx.fill();p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>canvas.width)p.vx*=-1;if(p.y<0||p.y>canvas.height)p.vy*=-1});requestAnimationFrame(draw)}if(!matchMedia("(prefers-reduced-motion: reduce)").matches)draw()})

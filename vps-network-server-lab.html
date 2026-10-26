@@ -21,9 +21,9 @@
 <body>
 <canvas id="particles" aria-hidden="true"></canvas>
 <button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
-<nav id="mobileMenu" aria-label="メインメニュー"><a href="index.html">HOME</a><a href="index.html#news">NEWS</a><a href="index.html#mission">MISSION</a><a href="index.html#business">BUSINESS</a><a href="index.html#company">COMPANY</a><a href="technical_lab.html">TECHNICAL LAB</a><a href="contact.html">CONTACT</a></nav>
+<nav id="mobileMenu" aria-label="メインメニュー"><a href="/">HOME</a><a href="/#news">NEWS</a><a href="/#mission">MISSION</a><a href="/#business">BUSINESS</a><a href="/#company">COMPANY</a><a href="/technical_lab">TECHNICAL LAB</a><a href="/contact">CONTACT</a></nav>
 <main>
-  <nav class="breadcrumb" aria-label="パンくず"><a href="index.html">HOME</a><span>›</span><a href="technical_lab.html">TECHNICAL LAB</a><span>›</span><span>VPSで検証環境を作る</span></nav>
+  <nav class="breadcrumb" aria-label="パンくず"><a href="/">HOME</a><span>›</span><a href="/technical_lab">TECHNICAL LAB</a><span>›</span><span>VPSで検証環境を作る</span></nav>
   <div class="layout">
     <article class="article">
 <header class="hero"><span class="eyebrow">CLOUD / VPS / NETWORK</span><h1>VPSでネットワーク・サーバ検証環境を作る</h1><p class="lead">ローカルPCだけでは試しにくい「インターネット側のサーバ」を、いつでも使える検証基盤として用意する。VPSをWeb公開だけでなく、ネットワーク・サーバ技術の学習に活用する考え方を整理します。</p><div class="meta"><time datetime="2026-09-24">公開日：2026.09.24</time><span>読了目安：約8分</span><span>Stracto Technical Lab</span></div><p class="promotion-note">本記事にはプロモーションリンクが含まれます。</p></header>
@@ -55,16 +55,16 @@
 <a href="#security">セキュリティ設定</a>
 <a href="#build-up">検証基盤として育てる</a>
 <a href="#summary">まとめ</a></nav></section>
-      <section class="side-card"><h2 class="side-title">CATEGORY</h2><div class="category-list"><a href="technical_lab.html">VPS</a>
-<a href="technical_lab.html">NETWORK</a>
-<a href="technical_lab.html">SERVER</a></div></section>
+      <section class="side-card"><h2 class="side-title">CATEGORY</h2><div class="category-list"><a href="/technical_lab">VPS</a>
+<a href="/technical_lab">NETWORK</a>
+<a href="/technical_lab">SERVER</a></div></section>
       <section class="side-card"><h2 class="side-title">RELATED ARTICLES</h2><nav class="side-links"><a href="vps-sase-authentication-lab.html">VPSでSASEの認証基盤を構築する考え方</a>
 <a href="vps-network-monitoring-log.html">VPSでネットワーク監視・ログ収集環境を構築する</a>
 <a href="vps-guide.html">VPS・レンタルサーバー・サーバーレスの違い</a></nav></section>
     </aside>
   </div>
 </main>
-<footer><div class="footer-links"><a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a><a href="index.html#business">Business</a><a href="index.html#company">Company</a><a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
+<footer><div class="footer-links"><a href="/">Home</a><a href="/#news">News</a><a href="/#mission">Mission</a><a href="/#business">Business</a><a href="/#company">Company</a><a href="/technical_lab">Technical Lab</a><a href="/contact">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
 <script>function initPage(){
   const button=document.querySelector('.hamburger'),menu=document.getElementById('mobileMenu');
   button.addEventListener('click',()=>{const open=menu.classList.toggle('show');button.classList.toggle('active',open);button.setAttribute('aria-expanded',String(open));});

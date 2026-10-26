@@ -21,9 +21,9 @@
 <body>
 <canvas id="particles" aria-hidden="true"></canvas>
 <button class="hamburger" type="button" aria-label="メニューを開く" aria-controls="mobileMenu" aria-expanded="false"><span></span><span></span><span></span></button>
-<nav id="mobileMenu" aria-label="メインメニュー"><a href="index.html">HOME</a><a href="index.html#news">NEWS</a><a href="index.html#mission">MISSION</a><a href="index.html#business">BUSINESS</a><a href="index.html#company">COMPANY</a><a href="technical_lab.html">TECHNICAL LAB</a><a href="contact.html">CONTACT</a></nav>
+<nav id="mobileMenu" aria-label="メインメニュー"><a href="/">HOME</a><a href="/#news">NEWS</a><a href="/#mission">MISSION</a><a href="/#business">BUSINESS</a><a href="/#company">COMPANY</a><a href="/technical_lab">TECHNICAL LAB</a><a href="/contact">CONTACT</a></nav>
 <main>
-  <nav class="breadcrumb" aria-label="パンくず"><a href="index.html">HOME</a><span>›</span><a href="technical_lab.html">TECHNICAL LAB</a><span>›</span><span>VPSで監視・ログ収集</span></nav>
+  <nav class="breadcrumb" aria-label="パンくず"><a href="/">HOME</a><span>›</span><a href="/technical_lab">TECHNICAL LAB</a><span>›</span><span>VPSで監視・ログ収集</span></nav>
   <div class="layout">
     <article class="article">
 <header class="hero"><span class="eyebrow">OPERATIONS / MONITORING / VPS</span><h1>VPSでネットワーク監視・ログ収集環境を構築する</h1><p class="lead">障害の瞬間だけを見るのではなく、正常時から変化を記録する。VPSを外部監視ポイントやログ収集基盤として使い、ネットワーク障害を時系列で切り分ける考え方を解説します。</p><div class="meta"><time datetime="2026-09-24">公開日：2026.09.24</time><span>読了目安：約9分</span><span>Stracto Technical Lab</span></div><p class="promotion-note">本記事にはプロモーションリンクが含まれます。</p></header>
@@ -56,16 +56,16 @@ Linux ────┘                         │
 <a href="#timeline">時系列で分析する</a>
 <a href="#security">安全な収集設計</a>
 <a href="#summary">まとめ</a></nav></section>
-      <section class="side-card"><h2 class="side-title">CATEGORY</h2><div class="category-list"><a href="technical_lab.html">MONITORING</a>
-<a href="technical_lab.html">LOG</a>
-<a href="technical_lab.html">VPS</a></div></section>
+      <section class="side-card"><h2 class="side-title">CATEGORY</h2><div class="category-list"><a href="/technical_lab">MONITORING</a>
+<a href="/technical_lab">LOG</a>
+<a href="/technical_lab">VPS</a></div></section>
       <section class="side-card"><h2 class="side-title">RELATED ARTICLES</h2><nav class="side-links"><a href="twsnmp_guide.html">監視サーバとは？TWSNMPで学ぶネットワーク監視の基本</a>
 <a href="pa_techsupport_guide_final.html">Palo Alto NetworksのTech Support Fileとは？</a>
 <a href="vps-sase-authentication-lab.html">VPSでSASEの認証基盤を構築する考え方</a></nav></section>
     </aside>
   </div>
 </main>
-<footer><div class="footer-links"><a href="index.html">Home</a><a href="index.html#news">News</a><a href="index.html#mission">Mission</a><a href="index.html#business">Business</a><a href="index.html#company">Company</a><a href="technical_lab.html">Technical Lab</a><a href="contact.html">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
+<footer><div class="footer-links"><a href="/">Home</a><a href="/#news">News</a><a href="/#mission">Mission</a><a href="/#business">Business</a><a href="/#company">Company</a><a href="/technical_lab">Technical Lab</a><a href="/contact">Contact</a></div><div class="footer-bottom">© 2026 Stracto株式会社. All Rights Reserved.</div></footer>
 <script>function initPage(){
   const button=document.querySelector('.hamburger'),menu=document.getElementById('mobileMenu');
   button.addEventListener('click',()=>{const open=menu.classList.toggle('show');button.classList.toggle('active',open);button.setAttribute('aria-expanded',String(open));});
